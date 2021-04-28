@@ -2,6 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\ResponseHelper;
+use Exception;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -34,8 +38,37 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (Exception $exception, $request) {
+            if ($request->is('api/*')) {
+                $previousException = $exception->getPrevious();
+                if ($previousException instanceof ModelNotFoundException) {
+                    $modelName = ucfirst(
+                        strtolower(
+                            trim(
+                                implode(
+                                    ' ',
+                                    preg_split(
+                                        '/(?=[A-Z])/',
+                                        str_replace(
+                                            'App\\Models\\',
+                                            '',
+                                            $previousException->getModel()
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    );
+                    return ResponseHelper::findFail($modelName);
+                }
+                if ($exception instanceof AuthenticationException) {
+                    return ResponseHelper::unauthorized();
+                }
+                return ResponseHelper::error(
+                    $exception->getMessage(),
+                    []
+                );
+            }
         });
     }
 }
