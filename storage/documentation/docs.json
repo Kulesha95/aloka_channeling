@@ -16,6 +16,17 @@
         }
     ],
     "components": {
+        "schemas": {
+            "UserType": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": ["name"]
+            }
+        },
         "responses": {
             "errorResponse": {
                 "description": "Return error message",
@@ -167,6 +178,141 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/userTypes": {
+            "get": {
+                "tags": ["User Types"],
+                "summary": "Get user types list",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/listFoundResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorizedResponse"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["User Types"],
+                "summary": "Create user type",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/createdResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorizedResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/invalidatedResponse"
+                    }
+                }
+            }
+        },
+        "/userTypes/{id}": {
+            "get": {
+                "tags": ["User Types"],
+                "summary": "Find user type",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/itemFoundResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorizedResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/notFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/invalidatedResponse"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["User Types"],
+                "summary": "Update user type",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserType"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/updatedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorizedResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/notFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/invalidatedResponse"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["User Types"],
+                "summary": "Delete user type",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/deletedResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/unauthorizedResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/notFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/invalidatedResponse"
                     }
                 }
             }

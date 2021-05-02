@@ -101,7 +101,7 @@ window.onload = function() {
   window.ui = ui
   var topbar = document.getElementsByClassName('download-url-wrapper');
   topbar[0].innerHTML="";
-  console.log(topbar[0].innerHTML);
+  
 }
 </script>
 </body>
