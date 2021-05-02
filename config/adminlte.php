@@ -238,11 +238,11 @@ return [
             'icon' => 'fas fa-fw fa-user-shield',
         ],
         [
-            'text'    => '',
-            'icon'    => 'fas fa-fw fa-fw fa-bell',
-            'topnav_right' => true,
-            'url'  => '#',
+            'text' => 'users',
+            'url'  => 'users',
+            'icon' => 'fas fa-fw fa-user',
         ],
+        
     ],
 
     /*
