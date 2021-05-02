@@ -19,11 +19,11 @@ class UserTypeController extends Controller
     public function index()
     {
         return ResponseHelper::findSuccess(
-            'User Type',
+            'User Types',
             UserTypeResource::collection(UserType::all())
         );
     }
-    
+
 
     /**
      * Store a newly created resource in storage.

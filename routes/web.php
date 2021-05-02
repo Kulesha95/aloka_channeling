@@ -17,4 +17,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('users/', 'users.index');
 Route::view('userTypes/', 'userTypes.index');

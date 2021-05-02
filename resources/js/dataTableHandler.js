@@ -11,14 +11,29 @@ exports.initializeTable = (
     indexUrl = undefined,
     actionContent = undefined
 ) => {
-    const tableColumns = columns.map((column) => ({
-        data: column,
-        visible: column !== "id",
-    }));
+    const tableColumns = columns.map((column) => {
+        if (column === "image") {
+            return {
+                data: column,
+                render: function (data) {
+                    return (
+                        '<img class="img-circle img-size-50 mr-2" src="' +
+                        data +
+                        '" />'
+                    );
+                },
+            };
+        }
+        return {
+            data: column,
+            visible: column !== "id",
+        };
+    });
     if (actionContent) {
         tableColumns.push({ data: null, defaultContent: actionContent });
     }
     const dataTable = $(`#${tableId}`).DataTable({
+        responsive: true,
         columns: tableColumns,
     });
     if (indexUrl) {
@@ -55,9 +70,13 @@ exports.handleDelete = (
                         if (refreshUrl) {
                             dataTableHandler.loadData(table, refreshUrl);
                         }
-                        sweetAlert.fire({
+                        $(document).Toasts("create", {
                             title: response.message,
-                            icon: "success",
+                            position: "bottomRight",
+                            autohide: true,
+                            icon: "fas fa-check-circle",
+                            class: "bg-success",
+                            delay:2000
                         });
                     });
                 }

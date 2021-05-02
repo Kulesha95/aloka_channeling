@@ -224,6 +224,12 @@ return [
     */
 
     'menu' => [
+        [
+            'text'    => '',
+            'icon'    => 'fas fa-fw fa-fw fa-bell',
+            'topnav_right' => true,
+            'url'  => '#',
+        ],
         ['header' => ''],
         ['header' => 'general'],
         [
@@ -231,7 +237,12 @@ return [
             'url'  => 'userTypes',
             'icon' => 'fas fa-fw fa-user-shield',
         ],
-
+        [
+            'text'    => '',
+            'icon'    => 'fas fa-fw fa-fw fa-bell',
+            'topnav_right' => true,
+            'url'  => '#',
+        ],
     ],
 
     /*

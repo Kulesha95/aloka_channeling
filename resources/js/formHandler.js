@@ -9,45 +9,57 @@ exports.handleSave = (
         inputs.forEach((input) => {
             const inputElement = $(`#${formId} #${input}_create`);
             inputElement.removeClass("is-invalid");
-            inputElement.parent().children(".invalid-feedback").html("");
+            inputElement.next(".invalid-feedback").html("");
         });
         const formData = new FormData(e.target);
         httpService
             .post($(`#${formId}`).attr("action"), formData)
             .then((response) => {
                 $(`#${formId}`).trigger("reset");
+                if (inputs.includes("image")) {
+                    $(`#${formId} #image_create`)
+                        .next(".custom-file-label")
+                        .html("Image");
+                }
                 if (modal) {
                     $(`#${modal}`).modal("hide");
                 }
                 if (callback) {
                     callback();
                 }
-                sweetAlert.fire({
+                $(document).Toasts("create", {
                     title: response.message,
                     icon: "success",
+                    position: "bottomRight",
+                    autohide: true,
+                    icon: "fas fa-check-circle",
+                    class: "bg-success",
+                    delay: 2000,
                 });
             })
             .catch((error) => {
                 if (error.status == 422) {
                     let errorMessage = "";
                     const errors = error.data.data;
+                    const inputElement = $(`#${formId} #${input}_create`);
                     Object.keys(errors).forEach((input) => {
+                        const inputElement = $(`#${formId} #${input}_create`);
                         errors[input].forEach((inputError) => {
-                            const inputElement = $(
-                                `#${formId} #${input}_create`
-                            );
-                            inputElement.addClass("is-invalid");
                             inputElement
                                 .parent()
                                 .children(".invalid-feedback")
                                 .html(inputError);
-                            errorMessage = inputError + " ";
+                                errorMessage += inputError + " ";
                         });
                     });
-                    sweetAlert.fire({
+                    $(document).Toasts("create", {
                         title: error.data.message,
-                        text: errorMessage,
-                        icon: "error",
+                        body: errorMessage,
+                        position: "bottomRight",
+                        autohide: true,
+                        icon: "fas fa-times-circle",
+                        class: "bg-danger",
+                        delay: 2000,
                     });
                 }
             });
@@ -64,8 +76,12 @@ exports.handleShow = (
     inputs.forEach((input) => {
         const inputElement = $(`#${formId} #${input}_edit`);
         inputElement.removeClass("is-invalid");
-        inputElement.parent().children(".invalid-feedback").html("");
-        inputElement.val(data[input]);
+        inputElement.next(".invalid-feedback").html("");
+        if (input === "image") {
+            $(`#${formId} #image_preview`).attr("src", data[input]);
+        } else {
+            inputElement.val(data[input]);
+        }
     });
     $updateUrl = $(`#${formId}`).data("action");
     Object.keys(parameterIndexes).forEach((urlParameter) => {
@@ -89,22 +105,31 @@ exports.handleEdit = (
         inputs.forEach((input) => {
             const inputElement = $(`#${formId} #${input}_edit`);
             inputElement.removeClass("is-invalid");
-            inputElement.parent().children(".invalid-feedback").html("");
+            inputElement.next(".invalid-feedback").html("");
         });
         const formData = new FormData(e.target);
         httpService
             .put($(`#${formId}`).attr("action"), formData)
             .then((response) => {
                 $(`#${formId}`).trigger("reset");
+                if (inputs.includes("image")) {
+                    $(`#${formId} #image_edit`)
+                        .next(".custom-file-label")
+                        .html("Image");
+                }
                 if (modal) {
                     $(`#${modal}`).modal("hide");
                 }
                 if (callback) {
                     callback();
                 }
-                sweetAlert.fire({
+                $(document).Toasts("create", {
                     title: response.message,
-                    icon: "success",
+                    position: "bottomRight",
+                    autohide: true,
+                    icon: "fas fa-check-circle",
+                    class: "bg-success",
+                    delay: 2000,
                 });
             })
             .catch((error) => {
@@ -117,16 +142,20 @@ exports.handleEdit = (
                             const inputElement = $(`#${formId} #${input}_edit`);
                             inputElement.addClass("is-invalid");
                             inputElement
-                                .parent()
-                                .children(".invalid-feedback")
+                                .next(".invalid-feedback")
                                 .html(inputError);
-                            errorMessage = inputError + " ";
+                                errorMessage += inputError + " ";v
                         });
                     });
-                    sweetAlert.fire({
+                    $(document).Toasts("create", {
                         title: error.data.message,
                         text: errorMessage,
-                        icon: "error",
+                        body: errorMessage,
+                        position: "bottomRight",
+                        autohide: true,
+                        icon: "fas fa-times-circle",
+                        class: "bg-danger",
+                        delay: 2000,
                     });
                 }
             });
