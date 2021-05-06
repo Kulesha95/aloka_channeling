@@ -230,8 +230,19 @@ return [
             'topnav_right' => true,
             'url'  => '#',
         ],
+        [
+            'text'    => 'logout',
+            'icon'    => 'fas fa-fw fa-fw fa-power-off',
+            'topnav_right' => true,
+            'url'  => 'logout',
+        ],
         ['header' => ''],
         ['header' => 'general'],
+        [
+            'text' => 'dashboard',
+            'url'  => 'dashboard',
+            'icon' => 'fas fa-fw fa-tachometer-alt',
+        ],
         [
             'text' => 'userTypes',
             'url'  => 'userTypes',

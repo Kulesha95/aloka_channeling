@@ -41,9 +41,9 @@ exports.handleSave = (
                 if (error.status == 422) {
                     let errorMessage = "";
                     const errors = error.data.data;
-                    const inputElement = $(`#${formId} #${input}_create`);
                     Object.keys(errors).forEach((input) => {
                         const inputElement = $(`#${formId} #${input}_create`);
+                        inputElement.addClass("is-invalid");
                         errors[input].forEach((inputError) => {
                             inputElement
                                 .parent()

@@ -2,7 +2,7 @@
 
 @section('content_header')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#">{{ __('app.headers.home') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('app.headers.home') }}</a></li>
         <li class="breadcrumb-item active">{{ __('app.headers.usersManagement') }}</li>
     </ol>
 @stop

@@ -3,7 +3,8 @@ return [
 	"buttons" => [
 		"createNew" => "Create New",
 		"edit" => "Edit",
-		"save" => "Save"
+		"save" => "Save",
+		"login" => "Login"
 	],
 
 	"fields" => [
@@ -12,12 +13,15 @@ return [
 		"id" => "Id",
 		"image" => "Image",
 		"mobile" => "Mobile",
+		"password" => "Password",
 		"username" => "Username",
-		"userType" => "User Type"
+		"userType" => "User Type",
 	],
 
 	"headers" => [
 		"home" => "Home",
+		"login" => "Login",
+		"welcomeTo" => "Welcome To",
 
 		"usersManagement" => "Users Management",
 		"createUser" => "Create User",
@@ -29,7 +33,8 @@ return [
 	],
 
 	"texts" => [
-		"selectUserType" => "Select User Type"
+		"selectUserType" => "Select User Type",
+		"forgotPassword" => "Forgot Password ?"
 	]
 
 ];
