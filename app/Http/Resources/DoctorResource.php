@@ -24,7 +24,7 @@ class DoctorResource extends JsonResource
             "username" => $this->user->username,
             "email" => $this->user->email,
             "mobile" => $this->user->mobile,
-            "user_type" => $this->user->userType ? $this->user->userType->user_type : "<span class='badge badge-pill badge-danger'>Deleted</span>",
+            "user_type" =>  $this->user->userType->user_type,
             "user_type_id" => $this->user->user_type_id,
             "image" => $this->user->image ?? asset('img/defaults/doctor.jpg'),
             "name" => $this->name,
@@ -34,7 +34,7 @@ class DoctorResource extends JsonResource
             "commission_amount" => $this->commission_amount,
             "commission" => $commission,
             "channel_type_id" => $this->channel_type_id,
-            "channel_type" => $this->channelType ? $this->channelType->channel_type : "<span class='badge badge-pill badge-danger'>Deleted</span>",
+            "channel_type" =>  $this->channelType->channel_type,
         ];
     }
 }

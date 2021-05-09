@@ -180,7 +180,6 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        $doctor->user->delete();
         $doctor->delete();
         return ResponseHelper::deleteSuccess('Doctor');
     }

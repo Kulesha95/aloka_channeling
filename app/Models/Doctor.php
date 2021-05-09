@@ -19,6 +19,18 @@ class Doctor extends Model
         'user_id',
         'channel_type_id'
     ];
+    
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($doctor) {
+            foreach ($doctor->schedules as $schedule) {
+                $schedule->delete();
+            }
+            $doctor->user()->delete();
+        });
+    }
 
     public function user()
     {

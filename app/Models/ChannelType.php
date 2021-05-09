@@ -11,6 +11,18 @@ class ChannelType extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['channel_type', 'description', 'colour'];
+    
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($channelType) {
+            foreach ($channelType->doctors as $doctor) {
+                $doctor->delete();
+            }
+        });
+    }
+
 
     public function doctors()
     {

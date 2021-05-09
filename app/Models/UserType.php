@@ -9,6 +9,17 @@ class UserType extends Model
 
     protected $fillable = ['user_type'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($userType) {
+            foreach ($userType->users as $user) {
+                $user->delete();
+            }
+        });
+    }
+
 
     public function user()
     {
