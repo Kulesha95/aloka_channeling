@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserTypeSeeder::class,
             ChannelTypeSeeder::class,
             UserSeeder::class,
+            DoctorSeeder::class,
         ]);
     }
 }

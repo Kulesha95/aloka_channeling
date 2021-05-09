@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         return ResponseHelper::findSuccess(
             'Users',
-            UserResource::collection(User::all())
+            UserResource::collection(User::where("user_type_id", ">", "3")->get())
         );
     }
 
@@ -40,9 +40,9 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->only(['email', 'password', 'image', 'username', 'user_type_id', 'mobile']),
             [
-                'email' => "nullable|email",
+                'email' => "required|email",
                 'username' => "required|unique:App\Models\User,username,null,id,deleted_at,NULL",
-                'mobile' => ["nullable", new PhoneNumber()],
+                'mobile' => ["required", new PhoneNumber()],
                 'image' => 'mimes:jpeg,jpg,png,gif',
                 'user_type_id' => 'required'
             ]
@@ -63,8 +63,8 @@ class UserController extends Controller
         $password = Str::random(8);
         $apiToken = Str::random(80);
         $user = User::create(
-            $request->only(['email', 'password',  'username', 'user_type_id', 'mobile']) +
-            ["password" => Hash::make($password), "image" => $image, "api_token" => "$apiToken"]
+            $request->only(['email', 'username', 'user_type_id', 'mobile']) +
+                ["password" => Hash::make($password), "image" => $image, "api_token" => "$apiToken"]
         );
         $user->notify(new UserAccountCreated($password));
         return ResponseHelper::createSuccess(
@@ -99,9 +99,9 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->only(['email', 'password', 'image', 'username', 'user_type_id', 'mobile']),
             [
-                'email' => "nullable|email",
+                'email' => "required|email",
                 'username' => "required|unique:App\Models\User,username," . $user->id . ",id,deleted_at,NULL",
-                'mobile' => ["nullable", new PhoneNumber()],
+                'mobile' => ["required", new PhoneNumber()],
                 'image' => 'mimes:jpeg,jpg,png,gif',
                 'user_type_id' => 'required'
             ]

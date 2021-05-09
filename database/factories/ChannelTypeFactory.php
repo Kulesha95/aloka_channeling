@@ -26,4 +26,13 @@ class ChannelTypeFactory extends Factory
             'description' => $this->faker->sentence(20, true),
         ];
     }
+
+    public function customChannelType($channelType)
+    {
+        return $this->state(function (array $attributes) use ($channelType) {
+            return [
+                'channel_type' => $channelType,
+            ];
+        });
+    }
 }

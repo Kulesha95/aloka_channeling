@@ -11,4 +11,9 @@ class ChannelType extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['channel_type', 'description'];
+
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }

@@ -14,10 +14,10 @@ class UserTypeSeeder extends Seeder
      */
     public function run()
     {
-        $defaultUserTypes = ["Super Admin", "Admin", "Doctor", "Patient", "Receptionist", "Pharmacist", "Storekeeper"];
+        $defaultUserTypes = ["Super Admin",  "Doctor", "Patient", "Admin", "Receptionist", "Pharmacist", "Storekeeper"];
         foreach ($defaultUserTypes as $userType) {
             UserType::factory(1)->customUserType($userType)->create();
         }
-        UserType::factory(5)->create();
+        
     }
 }

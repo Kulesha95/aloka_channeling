@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->group(function () {
 	Route::apiResource('channelTypes', ChannelTypeController::class);
+	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('users', UserController::class);
 	Route::apiResource('userTypes', UserTypeController::class);
 });

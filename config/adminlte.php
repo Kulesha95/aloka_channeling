@@ -249,6 +249,11 @@ return [
             'icon' => 'fas fa-fw fa-heartbeat',
         ],
         [
+            'text' => 'doctors',
+            'url'  => 'doctors',
+            'icon' => 'fas fa-fw fa-user-md',
+        ],
+        [
             'text' => 'userTypes',
             'url'  => 'userTypes',
             'icon' => 'fas fa-fw fa-user-shield',
@@ -258,7 +263,7 @@ return [
             'url'  => 'users',
             'icon' => 'fas fa-fw fa-user',
         ],
-        
+
     ],
 
     /*

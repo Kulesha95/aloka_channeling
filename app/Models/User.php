@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -9,7 +10,6 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
     use HasFactory, Notifiable, SoftDeletes;
 
     /**
@@ -37,6 +37,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -48,6 +49,11 @@ class User extends Authenticatable
 
     public function userType()
     {
-        return $this->belongsTo(UserType::class);
+        return $this->belongsTo(userType::class);
+    }
+
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
     }
 }

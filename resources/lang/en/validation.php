@@ -152,7 +152,8 @@ return [
     */
 
     'attributes' => [
-        "user_type_id"=>"User Type"
+        "user_type_id"=>"User Type",
+        "channel_type_id"=>"Channel Type",
     ],
 
 ];
