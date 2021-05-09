@@ -13,6 +13,7 @@ return [
 		"actions" => "Actions",
 		"channelingFee" => "Channeling Fee",
 		"channelType" => "Channel Type",
+		"colour" => "Colour",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
 		"commissionType" => "Commission Type",

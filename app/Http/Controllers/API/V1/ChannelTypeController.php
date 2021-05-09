@@ -33,7 +33,7 @@ class ChannelTypeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(
-            $request->only(['channel_type','description']),
+            $request->only(['channel_type', 'description', 'colour']),
             [
                 'channel_type' => "required"
             ]
@@ -44,7 +44,7 @@ class ChannelTypeController extends Controller
                 $validator->errors()
             );
         }
-        $channelType = ChannelType::create($request->only(['channel_type','description']));
+        $channelType = ChannelType::create($request->only(['channel_type', 'description', 'colour']));
         return ResponseHelper::createSuccess(
             'Channel Type',
             new ChannelTypeResource($channelType)
@@ -75,7 +75,7 @@ class ChannelTypeController extends Controller
     public function update(Request $request, ChannelType $channelType)
     {
         $validator = Validator::make(
-            $request->only(['channel_type','description']),
+            $request->only(['channel_type', 'description', 'colour']),
             [
                 'channel_type' => "required"
             ]
@@ -86,7 +86,7 @@ class ChannelTypeController extends Controller
                 $validator->errors()
             );
         }
-        $channelType->update($request->only(['channel_type','description']));
+        $channelType->update($request->only(['channel_type', 'description', 'colour']));
         return ResponseHelper::updateSuccess(
             'Channel Type',
             new ChannelTypeResource($channelType)

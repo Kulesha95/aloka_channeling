@@ -18,6 +18,7 @@ class ChannelTypeResource extends JsonResource
             "id" => $this->id,
             "channel_type" => $this->channel_type,
             "description" => $this->description,
+            "colour" => $this->colour,
         ];
     }
 }

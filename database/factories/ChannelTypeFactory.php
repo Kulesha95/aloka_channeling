@@ -24,6 +24,7 @@ class ChannelTypeFactory extends Factory
         return [
             'channel_type' => $this->faker->words(2, true),
             'description' => $this->faker->sentence(20, true),
+            'colour' => $this->faker->hexColor(),
         ];
     }
 

@@ -40,7 +40,7 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['channel_type', 'description'];
+        const inputs = ['channel_type', 'description', 'colour'];
         // Load Data URL
         const indexUrl = "{{ route('channelTypes.index') }}";
         // View Selected Data URL

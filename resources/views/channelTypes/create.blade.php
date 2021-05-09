@@ -23,6 +23,12 @@
                             placeholder="{{ __('app.fields.description') }}"></textarea>
                         <div class="invalid-feedback"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="colour">{{ __('app.fields.colour') }}</label>
+                        <input id="colour_create" class="form-control" name="colour"
+                            placeholder="{{ __('app.fields.colour') }}" type="color" value="#0069D9">
+                        <div class="invalid-feedback"></div>
+                    </div>
                     <div class="row m-1">
                         <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-save mr-1"
                                 aria-hidden="true"></i>{{ __('app.buttons.save') }}</button>

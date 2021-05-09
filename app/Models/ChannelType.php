@@ -10,7 +10,7 @@ class ChannelType extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['channel_type', 'description'];
+    protected $fillable = ['channel_type', 'description', 'colour'];
 
     public function doctors()
     {

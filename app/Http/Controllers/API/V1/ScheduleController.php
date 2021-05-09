@@ -148,8 +148,8 @@ class ScheduleController extends Controller
                 ];
             }
             $event["title"] =  $schedule->doctor->name . " - " . $schedule->doctor->channelType->channel_type;
-            $event["backgroundColor"] =  '#378006';
-            $event["borderColor"] =  '#378006';
+            $event["backgroundColor"] =  $schedule->doctor->channelType->colour;
+            $event["borderColor"] =  $schedule->doctor->channelType->colour;
             $event["extendedProps"] =  [
                 "time" => Carbon::createFromFormat("H:i:s", $schedule->time_from)->format('h:iA') .
                     " - " . Carbon::createFromFormat("H:i:s", $schedule->time_to)->format('h:iA'),
