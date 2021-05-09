@@ -22,7 +22,7 @@ class ChannelTypeFactory extends Factory
     public function definition()
     {
         return [
-            'channel_type' => $this->faker->words(2, true),
+            'description' => $this->faker->sentence(20, true),
         ];
     }
 }

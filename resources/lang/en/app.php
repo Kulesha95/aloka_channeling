@@ -10,6 +10,7 @@ return [
 	"fields" => [
 		"actions" => "Actions",
 		"channelType" => "Channel Type",
+		"description" => "Description",
 		"email" => "E-mail",
 		"id" => "Id",
 		"image" => "Image",

@@ -25,6 +25,7 @@
                     <tr>
                         <th>{{ __('app.fields.id') }}</th>
                         <th>{{ __('app.fields.channelType') }}</th>
+                        <th>{{ __('app.fields.description') }}</th>
                         <th>{{ __('app.fields.actions') }}</th>
                     </tr>
                 </thead>
@@ -38,13 +39,14 @@
 @section('js')
     @parent
     <script>
-        const inputs = ['channel_type'];
+        const inputs = ['channel_type','description'];
         const parameterIndexes = {
             "id": 0
         };
         const table = dataTableHandler.initializeTable(
             'items_list_table',
             ["id", "channel_type"],
+            ["id", "channel_type",'description'],
             '/api/v1/channelTypes',
             defaultActionContent
         );

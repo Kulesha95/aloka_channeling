@@ -16,7 +16,8 @@ class ChannelTypeResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "channel_type" => $this->channel_type
+            "channel_type" => $this->channel_type,
+            "description" => $this->description,
         ];
     }
 }

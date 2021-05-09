@@ -18,6 +18,12 @@
                             placeholder="{{ __('app.fields.channelType') }}">
                         <div class="invalid-feedback"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="description">{{ __('app.fields.description') }}</label>
+                        <textarea id="description_edit" class="form-control" name="description"
+                            placeholder="{{ __('app.fields.description') }}"></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
                     <div class="row m-1">
                         <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-edit mr-1"
                             aria-hidden="true"></i>{{ __('app.buttons.edit') }}</button>

@@ -16,6 +16,7 @@ class CreateChannelTypesTable extends Migration
         Schema::create('channel_types', function (Blueprint $table) {
             $table->id();
             $table->string('channel_type');
+            $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
