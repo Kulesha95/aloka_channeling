@@ -38,7 +38,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(
-            $request->only(['email', 'password', 'image', 'username', 'user_type_id', 'mobile']),
+            $request->only(['email', 'password', 'image', 'username', 'user_type_id', 'mobile', 'name']),
             [
                 'email' => "required|email",
                 'username' => "required|unique:App\Models\User,username,null,id,deleted_at,NULL",
@@ -63,7 +63,7 @@ class UserController extends Controller
         $password = Str::random(8);
         $apiToken = Str::random(80);
         $user = User::create(
-            $request->only(['email', 'username', 'user_type_id', 'mobile']) +
+            $request->only(['email', 'username', 'user_type_id', 'mobile', 'name']) +
                 ["password" => Hash::make($password), "image" => $image, "api_token" => "$apiToken"]
         );
         $user->notify(new UserAccountCreated($password));
@@ -97,8 +97,9 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $validator = Validator::make(
-            $request->only(['email', 'password', 'image', 'username', 'user_type_id', 'mobile']),
+            $request->only(['email', 'password', 'image', 'username', 'user_type_id', 'mobile', 'name']),
             [
+                'name' => "required",
                 'email' => "required|email",
                 'username' => "required|unique:App\Models\User,username," . $user->id . ",id,deleted_at,NULL",
                 'mobile' => ["required", new PhoneNumber()],
@@ -120,7 +121,7 @@ class UserController extends Controller
             )
             : $user->image;
         $user->update(
-            $request->only(['email', 'password', 'username', 'user_type_id', 'mobile']) +
+            $request->only(['email', 'password', 'username', 'user_type_id', 'mobile', 'name']) +
                 ["image" => $image]
         );
         return ResponseHelper::updateSuccess(

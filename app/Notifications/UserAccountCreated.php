@@ -44,8 +44,9 @@ class UserAccountCreated extends Notification implements ShouldQueue
     {
         return (new MailMessage)
             ->subject('User Account Created')
-            ->greeting('Hello ' . $notifiable->username . '...!')
+            ->greeting('Hello ' . $notifiable->name . '...!')
             ->line('You have been assigned as a ' . $notifiable->userType->user_type . ' of ' . env('APP_NAME') . '. Please log in to the system and update your profile.')
+            ->line('Username - ' . $notifiable->username)
             ->line('Password - ' . $this->password)
             ->line('Thank you for using our application!');
     }

@@ -74,7 +74,7 @@ class DoctorController extends Controller
             $password = Str::random(8);
             $apiToken = Str::random(80);
             $user = User::create(
-                $request->only(['email',  'username', 'user_type_id', 'mobile']) +
+                $request->only(['email',  'username', 'user_type_id', 'mobile', 'name']) +
                     ["password" => Hash::make($password), "image" => $image, "api_token" => "$apiToken"]
             );
             $user->notify(new UserAccountCreated($password));
@@ -152,12 +152,12 @@ class DoctorController extends Controller
                 )
                 : $user->image;
             $user->update(
-                $request->only(['email', 'password', 'username', 'user_type_id', 'mobile']) +
+                $request->only(['email', 'password', 'username', 'user_type_id', 'mobile', 'name']) +
                     ["image" => $image]
             );
             $doctor->update(
                 $request->only(["name", "qualification", "works_at", "commission_amount", "commission_type", "channel_type_id"])
-            );            
+            );           
             DB::commit();
             return ResponseHelper::updateSuccess(
                 'Doctor',

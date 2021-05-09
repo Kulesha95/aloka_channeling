@@ -26,6 +26,7 @@
                         <tr>
                             <th>{{ __('app.fields.id') }}</th>
                             <th>{{ __('app.fields.image') }}</th>
+                            <th>{{ __('app.fields.name') }}</th>
                             <th>{{ __('app.fields.username') }}</th>
                             <th>{{ __('app.fields.email') }}</th>
                             <th>{{ __('app.fields.mobile') }}</th>
@@ -45,7 +46,7 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ["id", "username", "email", "mobile", "user_type_id", "image"];
+        const inputs = ["id", "username", "email", "mobile", "user_type_id", "image", "name"];
         // Load Data URL
         const indexUrl = "{{ route('users.index') }}";
         // View Selected Data URL
@@ -57,7 +58,7 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns =  ["id", "image", "username", "email", "mobile", "user_type"];
+        const dataTableColumns = ["id", "image", "name", "username", "email", "mobile", "user_type"];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
