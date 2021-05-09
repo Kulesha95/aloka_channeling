@@ -3,7 +3,7 @@
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('app.headers.home') }}</a></li>
-        <li class="breadcrumb-item active">{{ __('app.headers.channelTypesManagement') }}</li>
+        <li class="breadcrumb-item active">{{ __('app.headers.userTypesManagement') }}</li>
     </ol>
 @stop
 
@@ -11,9 +11,9 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <h4><i class="fas fa-fw fa-heartbeat mr-2"></i>{{ __('app.headers.channelTypesManagement') }}</h4>
+                <h4><i class="fas fa-fw fa-user-shield mr-2"></i>{{ __('app.headers.userTypesManagement') }}</h4>
                 <button type="button" class="btn btn-primary ml-auto" data-toggle="modal"
-                    data-target="#createChannelTypeModal">
+                    data-target="#createUserTypeModal">
                     <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.createNew') }}
                 </button>
             </div>
@@ -24,14 +24,13 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>{{ __('app.fields.id') }}</th>
-                        <th>{{ __('app.fields.channelType') }}</th>
-                        <th>{{ __('app.fields.description') }}</th>
+                        <th>{{ __('app.fields.userType') }}</th>
                         <th>{{ __('app.fields.actions') }}</th>
                     </tr>
                 </thead>
             </table>
-            @include('channelTypes.create')
-            @include('channelTypes.edit')
+            @include('userTypes.create')
+            @include('userTypes.edit')
         </div>
     </div>
 @stop
@@ -39,31 +38,56 @@
 @section('js')
     @parent
     <script>
-        const inputs = ['channel_type','description'];
+        // Create And Edit Forms Inputs
+        const inputs = ['user_type'];
+        // Load Data URL
+        const indexUrl = "{{ route('userTypes.index') }}";
+        // View Selected Data URL
+        const viewUrl = "{{ route('userTypes.show', ':id') }}";
+        // Delete Data URL
+        const deleteUrl = "{{ route('userTypes.destroy', ':id') }}";
+        // Entity Name To Define Form And Model IDs
+        const model = "UserType";
+        // Datatable ID
+        const dataTableName = 'items_list_table';
+        // Table Columns List
+        const dataTableColumns = ["id", "user_type"];
+        // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
         };
+        // Initialize Data Table
         const table = dataTableHandler.initializeTable(
-            'items_list_table',
-            ["id", "channel_type"],
-            ["id", "channel_type",'description'],
-            '/api/v1/channelTypes',
+            dataTableName,
+            dataTableColumns,
+            indexUrl,
             defaultActionContent
         );
-        dataTableHandler.handleDelete(table, "{{ route('channelTypes.destroy', ':id') }}", parameterIndexes,
-            '/api/v1/channelTypes'
+        // Delete Item
+        dataTableHandler.handleDelete(
+            table,
+            deleteUrl,
+            parameterIndexes,
+            indexUrl
         );
+        // Load Data To The Table
         const loadData = () => {
-            dataTableHandler.loadData(table, '/api/v1/channelTypes');
+            dataTableHandler.loadData(table, indexUrl);
         };
+        // Load Selected Data To The Edit Form
         const loadEditForm = (data) => {
-            formHandler.handleShow("editChannelTypeForm", inputs, "editChannelTypeModal", data,
+            formHandler.handleShow(
+                `edit${model}Form`,
+                inputs,
+                `edit${model}Modal`,
+                data,
                 parameterIndexes);
         }
-        dataTableHandler.handleShow(table, "{{ route('channelTypes.show', ':id') }}", parameterIndexes,
-            loadEditForm
-        );
-        formHandler.handleSave("createChannelTypeForm", inputs, loadData, "createChannelTypeModal");
-        formHandler.handleEdit("editChannelTypeForm", inputs, loadData, "editChannelTypeModal");
+        // Handle Edit Button Click Event In Data Table
+        dataTableHandler.handleShow(table, viewUrl, parameterIndexes, loadEditForm);
+        // Handle Create Form Submit
+        formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
+        // Handle Edit Form Submit
+        formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
     </script>
 @endsection

@@ -19,9 +19,9 @@
             </div>
         </div>
 
-        <table id="items_list_table" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
-            <thead class="thead-dark">
-                <thead>
+        <div class="card-body">
+            <table id="items_list_table" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+                <thead class="thead-dark">
                     <tr>
                         <th>{{ __('app.fields.id') }}</th>
                         <th>{{ __('app.fields.userType') }}</th>
