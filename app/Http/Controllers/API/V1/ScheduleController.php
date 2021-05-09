@@ -6,6 +6,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ScheduleResource;
 use App\Models\Schedule;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -116,5 +117,46 @@ class ScheduleController extends Controller
     {
         $schedule->delete();
         return ResponseHelper::deleteSuccess('Schedule');
+    }
+
+    /**
+     * Find all the events in the specified date range .
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $schedules = Schedule::whereDate('date_to', '>=', $request->get('start'))->whereDate('date_from', '<=', $request->get('end'))->get();
+
+        $events = [];
+        foreach ($schedules as $schedule) {
+            $event = [];
+            if ($schedule->repeat == 7) {
+                $event = [
+                    "rrule" => [
+                        "freq" => 'weekly',
+                        "dtstart" => $schedule->date_from,
+                        "until" => $schedule->date_to
+                    ],
+                    // "exdate" => ['2021-05-03']
+                ];
+            } else {
+                $event = [
+                    'start' => $schedule->date_to . "T" . $schedule->time_from,
+                    'allDay' => true
+                ];
+            }
+            $event["title"] =  $schedule->doctor->name . " - " . $schedule->doctor->channelType->channel_type;
+            $event["backgroundColor"] =  '#378006';
+            $event["borderColor"] =  '#378006';
+            $event["extendedProps"] =  [
+                "time" => Carbon::createFromFormat("H:i:s", $schedule->time_from)->format('h:iA') .
+                    " - " . Carbon::createFromFormat("H:i:s", $schedule->time_to)->format('h:iA'),
+                "channelType" => $schedule->doctor->channelType->channel_type
+            ];
+            array_push($events, $event);
+        }
+        return response()->json($events);
     }
 }

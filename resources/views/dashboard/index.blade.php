@@ -5,3 +5,7 @@
         <li class="breadcrumb-item active"><a href="{{ route('dashboard') }}">{{ __('app.headers.home') }}</a></li>
     </ol>
 @stop
+
+@section('content')
+    @include('components.schedule')
+@endsection
