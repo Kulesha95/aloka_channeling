@@ -22,6 +22,6 @@ Route::middleware('auth')->group(function () {
     route::view('dashboard', 'dashboard.index')->name('dashboard');
     route::view('doctors', 'doctors.index');
     Route::view('users/', 'users.index');
-    Route::view('userTypes/', 'userTypes.index');
+    Route::view('userTypes/', 'userTypes.index')->name('userTypes.index.view');
     Route::get('logout', '\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');
 });

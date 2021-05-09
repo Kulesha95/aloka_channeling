@@ -18,9 +18,11 @@ class UserTypeController extends Controller
      */
     public function index()
     {
+            $userTypes = UserType::all();
+        
         return ResponseHelper::findSuccess(
             'User Types',
-            UserTypeResource::collection(UserType::all())
+            UserTypeResource::collection($userTypes)
         );
     }
 
@@ -36,7 +38,7 @@ class UserTypeController extends Controller
         $validator = Validator::make(
             $request->only('user_type'),
             [
-                'user_type' => "required"
+                'user_type' => "required|unique:App\Models\UserType,user_type,null,id,deleted_at,NULL"
             ]
         );
         if ($validator->fails()) {
@@ -78,7 +80,7 @@ class UserTypeController extends Controller
         $validator = Validator::make(
             $request->only('user_type'),
             [
-                'user_type' => "required"
+                'user_type' => "required|unique:App\Models\UserType,user_type," . $userType->id . ",id,deleted_at,NULL"
             ]
         );
         if ($validator->fails()) {
