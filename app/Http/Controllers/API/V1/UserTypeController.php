@@ -20,7 +20,7 @@ class UserTypeController extends Controller
     {
         return ResponseHelper::findSuccess(
             'User Types',
-            UserTypeResource::collection(UserType::where("id", ">", "7")->get())
+            UserTypeResource::collection(UserType::all())
         );
     }
 

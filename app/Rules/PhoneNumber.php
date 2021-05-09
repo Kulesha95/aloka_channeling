@@ -25,7 +25,7 @@ class PhoneNumber implements Rule
      */
     public function passes($attribute, $value)
     {
-        return preg_match('/\+94\d{9}/', $value);
+        return preg_match('/^\d{9}$/', $value);
     }
 
     /**

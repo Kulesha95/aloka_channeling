@@ -75,9 +75,14 @@
                     <div class="row">
                         <div class="form-group col-6">
                             <label for="mobile">{{ __('app.fields.mobile') }}</label>
-                            <input id="mobile_create" class="form-control" type="text" name="mobile"
-                                placeholder="{{ __('app.fields.mobile') }}">
-                            <div class="invalid-feedback"></div>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">+94</div>
+                                </div>
+                                <input id="mobile_create" class="form-control" type="text" name="mobile"
+                                    placeholder="{{ __('app.fields.mobile') }}">
+                                <div class="invalid-feedback"></div>
+                            </div>
                         </div>
                         <div class="form-group col-6">
                             <label for="image">{{ __('app.fields.image') }}</label>

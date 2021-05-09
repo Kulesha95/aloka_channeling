@@ -44,7 +44,7 @@ class DoctorController extends Controller
             [
                 'email' => "required|email",
                 'username' => "required|unique:App\Models\User,username,null,id,deleted_at,NULL",
-                'mobile' => ["nullable", new PhoneNumber()],
+                'mobile' => ["required", new PhoneNumber()],
                 'image' => 'mimes:jpeg,jpg,png,gif',
                 'user_type_id' => 'required',
                 'mobile' => 'required',
@@ -124,11 +124,10 @@ class DoctorController extends Controller
             [
                 'email' => "required|email",
                 'username' => "required|unique:App\Models\User,username," . $doctor->user->id . ",id,deleted_at,NULL",
-                'mobile' => ["nullable", new PhoneNumber()],
+                'mobile' => ["required", new PhoneNumber()],
                 'image' => 'mimes:jpeg,jpg,png,gif',
                 'user_type_id' => 'required',
                 'name' => 'required',
-                'mobile' => 'required',
                 'qualification' => 'required',
                 'works_at' => 'required',
                 'commission_amount' => 'required',
