@@ -44,31 +44,57 @@
 @section('js')
     @parent
     <script>
+        // Create And Edit Forms Inputs
         const inputs = ["id", "username", "email", "mobile", "user_type_id", "image"];
+        // Load Data URL
+        const indexUrl = "{{ route('users.index') }}";
+        // View Selected Data URL
+        const viewUrl = "{{ route('users.show', ':id') }}";
+        // Delete Data URL
+        const deleteUrl = "{{ route('users.destroy', ':id') }}";
+        // Entity Name To Define Form And Model IDs
+        const model = "User";
+        // Datatable ID
+        const dataTableName = 'items_list_table';
+        // Table Columns List
+        const dataTableColumns =  ["id", "image", "username", "email", "mobile", "user_type"];
+        // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
         };
+        // Initialize Data Table
         const table = dataTableHandler.initializeTable(
-            'items_list_table',
-            ["id", "image", "username", "email", "mobile", "user_type"],
-            '/api/v1/users',
+            dataTableName,
+            dataTableColumns,
+            indexUrl,
             defaultActionContent
         );
-        dataTableHandler.handleDelete(table, "{{ route('users.destroy', ':id') }}", parameterIndexes,
-            '/api/v1/users'
+        // Delete Item
+        dataTableHandler.handleDelete(
+            table,
+            deleteUrl,
+            parameterIndexes,
+            indexUrl
         );
+        // Load Data To The Table
         const loadData = () => {
-            dataTableHandler.loadData(table, '/api/v1/users');
+            dataTableHandler.loadData(table, indexUrl);
         };
+        // Load Selected Data To The Edit Form
         const loadEditForm = (data) => {
-            formHandler.handleShow("editUserForm", inputs, "editUserModal", data,
+            formHandler.handleShow(
+                `edit${model}Form`,
+                inputs,
+                `edit${model}Modal`,
+                data,
                 parameterIndexes);
         }
-        dataTableHandler.handleShow(table, "{{ route('users.show', ':id') }}", parameterIndexes,
-            loadEditForm
-        );
-        formHandler.handleSave("createUserForm", inputs, loadData, "createUserModal");
-        formHandler.handleEdit("editUserForm", inputs, loadData, "editUserModal");
+        // Handle Edit Button Click Event In Data Table
+        dataTableHandler.handleShow(table, viewUrl, parameterIndexes, loadEditForm);
+        // Handle Create Form Submit
+        formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
+        // Handle Edit Form Submit
+        formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
         // Load User Types List
         httpService.get("{{ route('userTypes.index') }}").then(response => {
             $('#user_type_id_create').prepend(

@@ -3,7 +3,7 @@
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('app.headers.home') }}</a></li>
-        <li class="breadcrumb-item active">{{ __('app.headers.userTypesManagement') }}</li>
+        <li class="breadcrumb-item active">{{ __('app.headers.channelTypesManagement') }}</li>
     </ol>
 @stop
 
@@ -11,9 +11,9 @@
     <div class="card">
         <div class="card-header">
             <div class="row">
-                <h4><i class="fas fa-fw fa-user-shield mr-2"></i>{{ __('app.headers.userTypesManagement') }}</h4>
+                <h4><i class="fas fa-fw fa-heartbeat mr-2"></i>{{ __('app.headers.channelTypesManagement') }}</h4>
                 <button type="button" class="btn btn-primary ml-auto" data-toggle="modal"
-                    data-target="#createUserTypeModal">
+                    data-target="#createChannelTypeModal">
                     <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.createNew') }}
                 </button>
             </div>
@@ -24,13 +24,14 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>{{ __('app.fields.id') }}</th>
-                        <th>{{ __('app.fields.userType') }}</th>
+                        <th>{{ __('app.fields.channelType') }}</th>
+                        <th>{{ __('app.fields.description') }}</th>
                         <th>{{ __('app.fields.actions') }}</th>
                     </tr>
                 </thead>
             </table>
-            @include('userTypes.create')
-            @include('userTypes.edit')
+            @include('channelTypes.create')
+            @include('channelTypes.edit')
         </div>
     </div>
 @stop
@@ -39,19 +40,19 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['user_type'];
+        const inputs = ['channel_type', 'description'];
         // Load Data URL
-        const indexUrl = "{{ route('userTypes.index') }}";
+        const indexUrl = "{{ route('channelTypes.index') }}";
         // View Selected Data URL
-        const viewUrl = "{{ route('userTypes.show', ':id') }}";
+        const viewUrl = "{{ route('channelTypes.show', ':id') }}";
         // Delete Data URL
-        const deleteUrl = "{{ route('userTypes.destroy', ':id') }}";
+        const deleteUrl = "{{ route('channelTypes.destroy', ':id') }}";
         // Entity Name To Define Form And Model IDs
-        const model = "UserType";
+        const model = "ChannelType";
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ["id", "user_type"];
+        const dataTableColumns = ["id", "channel_type", "description"];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
