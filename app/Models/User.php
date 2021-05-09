@@ -47,6 +47,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function adminlte_image()
+    {
+        return $this->image ?? asset('img/defaults/user.jpg');
+    }
+
+    public function adminlte_desc()
+    {
+        return $this->userType->user_type;
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'profile';
+    }
+
     public function userType()
     {
         return $this->belongsTo(userType::class);
