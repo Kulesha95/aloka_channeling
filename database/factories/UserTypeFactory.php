@@ -26,11 +26,11 @@ class UserTypeFactory extends Factory
         ];
     }
 
-    public function superAdmin()
+    public function customUserType($userType)
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function (array $attributes) use ($userType){
             return [
-                'user_type' => "Super Admin",
+                'user_type' => $userType,
             ];
         });
     }

@@ -14,7 +14,10 @@ class UserTypeSeeder extends Seeder
      */
     public function run()
     {
-        UserType::factory(1)->superAdmin()->create();
+        $defaultUserTypes = ["Super Admin", "Admin", "Doctor", "Patient", "Receptionist", "Pharmacist", "Storekeeper"];
+        foreach ($defaultUserTypes as $userType) {
+            UserType::factory(1)->customUserType($userType)->create();
+        }
         UserType::factory(5)->create();
     }
 }
