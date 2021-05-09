@@ -1,10 +1,30 @@
 .image-preview {
   width: 100px;
-  height: auto;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 
-.bg-theme {
-  background: -webkit-gradient(linear, left top, right top, from(#3498db), to(#2c3e50));
-  background: linear-gradient(to right, #3498db, #2c3e50);
+.image-preview-table {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.toasts-bottom-right {
+  z-index: 10000;
+}
+
+.toast {
+  font-size: 1rem;
 }
 /*# sourceMappingURL=app.css.map */

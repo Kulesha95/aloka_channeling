@@ -27,15 +27,7 @@ exports.handleSave = (
                 if (callback) {
                     callback();
                 }
-                $(document).Toasts("create", {
-                    title: response.message,
-                    icon: "success",
-                    position: "bottomRight",
-                    autohide: true,
-                    icon: "fas fa-check-circle",
-                    class: "bg-success",
-                    delay: 2000,
-                });
+                messageHandler.successMessage(response.message);
             })
             .catch((error) => {
                 if (error.status == 422) {
@@ -43,24 +35,18 @@ exports.handleSave = (
                     const errors = error.data.data;
                     Object.keys(errors).forEach((input) => {
                         const inputElement = $(`#${formId} #${input}_create`);
-                        inputElement.addClass("is-invalid");
                         errors[input].forEach((inputError) => {
+                            inputElement.addClass("is-invalid");
                             inputElement
-                                .parent()
-                                .children(".invalid-feedback")
+                                .next(".invalid-feedback")
                                 .html(inputError);
-                                errorMessage += inputError + " ";
+                            errorMessage += inputError + " ";
                         });
                     });
-                    $(document).Toasts("create", {
-                        title: error.data.message,
-                        body: errorMessage,
-                        position: "bottomRight",
-                        autohide: true,
-                        icon: "fas fa-times-circle",
-                        class: "bg-danger",
-                        delay: 2000,
-                    });
+                    messageHandler.warningMessage(
+                        error.data.message,
+                        errorMessage
+                    );
                 }
             });
     });
@@ -85,7 +71,6 @@ exports.handleShow = (
     });
     $updateUrl = $(`#${formId}`).data("action");
     Object.keys(parameterIndexes).forEach((urlParameter) => {
-        
         $updateUrl = $updateUrl.replace(`:${urlParameter}`, data[urlParameter]);
     });
     $(`#${formId}`).attr("action", $updateUrl);
@@ -123,17 +108,9 @@ exports.handleEdit = (
                 if (callback) {
                     callback();
                 }
-                $(document).Toasts("create", {
-                    title: response.message,
-                    position: "bottomRight",
-                    autohide: true,
-                    icon: "fas fa-check-circle",
-                    class: "bg-success",
-                    delay: 2000,
-                });
+                messageHandler.successMessage(response.message);
             })
             .catch((error) => {
-               
                 if (error.status == 422) {
                     let errorMessage = "";
                     const errors = error.data.data;
@@ -144,19 +121,13 @@ exports.handleEdit = (
                             inputElement
                                 .next(".invalid-feedback")
                                 .html(inputError);
-                                errorMessage += inputError + " ";v
+                            errorMessage += inputError + " ";
                         });
                     });
-                    $(document).Toasts("create", {
-                        title: error.data.message,
-                        text: errorMessage,
-                        body: errorMessage,
-                        position: "bottomRight",
-                        autohide: true,
-                        icon: "fas fa-times-circle",
-                        class: "bg-danger",
-                        delay: 2000,
-                    });
+                    messageHandler.warningMessage(
+                        error.data.message,
+                        errorMessage
+                    );
                 }
             });
     });

@@ -244,6 +244,11 @@ return [
             'icon' => 'fas fa-fw fa-tachometer-alt',
         ],
         [
+            'text' => 'channelTypes',
+            'url'  => 'channelTypes',
+            'icon' => 'fas fa-fw fa-heartbeat',
+        ],
+        [
             'text' => 'userTypes',
             'url'  => 'userTypes',
             'icon' => 'fas fa-fw fa-user-shield',

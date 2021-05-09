@@ -17,7 +17,7 @@ exports.initializeTable = (
                 data: column,
                 render: function (data) {
                     return (
-                        '<img class="img-circle img-size-50 mr-2" src="' +
+                        '<img class="img-circle image-preview-table" src="' +
                         data +
                         '" />'
                     );
@@ -70,14 +70,7 @@ exports.handleDelete = (
                         if (refreshUrl) {
                             dataTableHandler.loadData(table, refreshUrl);
                         }
-                        $(document).Toasts("create", {
-                            title: response.message,
-                            position: "bottomRight",
-                            autohide: true,
-                            icon: "fas fa-check-circle",
-                            class: "bg-success",
-                            delay:2000
-                        });
+                        messageHandler.successMessage(response.message);
                     });
                 }
             });

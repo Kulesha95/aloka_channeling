@@ -19,8 +19,8 @@
             </div>
         </div>
 
-        <div class="card-body">
-            <table id="items_list_table" class="table table-striped table-bordered" style="width:100%">
+        <table id="items_list_table" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+            <thead class="thead-dark">
                 <thead>
                     <tr>
                         <th>{{ __('app.fields.id') }}</th>

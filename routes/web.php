@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::view('channelTypes/', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');
     Route::view('users/', 'users.index');
     Route::view('userTypes/', 'userTypes.index');

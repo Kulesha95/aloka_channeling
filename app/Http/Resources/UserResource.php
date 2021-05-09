@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             "username" => $this->username,
             "email" => $this->email,
             "mobile" => $this->mobile,
-            "user_type" => $this->userType?$this->userType->user_type:"Deleted",
+            "user_type" => $this->userType ? $this->userType->user_type : "<span class='badge badge-pill badge-danger'>Deleted</span>",
             "user_type_id" => $this->user_type_id,
             "image" => $this->image ?? asset('img/defaults/user.jpg')
         ];

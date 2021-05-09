@@ -61,9 +61,10 @@ class UserController extends Controller
             )
             : null;
         $password = Str::random(8);
+        $apiToken = Str::random(80);
         $user = User::create(
             $request->only(['email', 'password',  'username', 'user_type_id', 'mobile']) +
-                ["password" => Hash::make($password), "image" => $image]
+            ["password" => Hash::make($password), "image" => $image, "api_token" => "$apiToken"]
         );
         $user->notify(new UserAccountCreated($password));
         return ResponseHelper::createSuccess(

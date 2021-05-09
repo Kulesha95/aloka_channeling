@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('user_type_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('api_token');
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

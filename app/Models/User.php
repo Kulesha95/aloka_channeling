@@ -24,7 +24,8 @@ class User extends Authenticatable
         'mobile',
         'password',
         'image',
-        'user_type_id'
+        'user_type_id',
+        "api_token"
     ];
 
     /**

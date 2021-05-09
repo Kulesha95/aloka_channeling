@@ -9,6 +9,7 @@ return [
 
 	"fields" => [
 		"actions" => "Actions",
+		"channelType" => "Channel Type",
 		"email" => "E-mail",
 		"id" => "Id",
 		"image" => "Image",
@@ -23,13 +24,17 @@ return [
 		"login" => "Login",
 		"welcomeTo" => "Welcome To",
 
-		"usersManagement" => "Users Management",
+		"usersManagement" => "User Management",
 		"createUser" => "Create User",
 		"editUser" => "Edit User",
 
-		"userTypesManagement" => "User Types Management",
+		"userTypesManagement" => "User Type Management",
 		"createUserType" => "Create User Type",
-		"editUserType" => "Edit User Type"
+		"editUserType" => "Edit User Type",
+
+		"channelTypesManagement" => "Channel Type Management",
+		"createChannelType" => "Create Channel Type",
+		"editChannelType" => "Edit Channel Type"
 	],
 
 	"texts" => [

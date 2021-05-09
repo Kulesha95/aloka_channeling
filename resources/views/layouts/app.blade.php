@@ -14,6 +14,6 @@
 @endsection
 
 @section('css')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="api-token" content="{{ Auth::user()->api_token }}"> 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 @endsection
