@@ -6,6 +6,7 @@ return [
     "doctors" => "Doctors",
     "general" => "GENERAL",
     "logout" => "Logout",
+    "schedules" => "Schedules",
     "users" => "Users",
     "userTypes" => "User Types",
 ];

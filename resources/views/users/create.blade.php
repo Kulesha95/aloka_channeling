@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createModalLabel"><i
-                        class="fas fa-fw fa-user-shield mr-2"></i>{{ __('app.headers.createUser') }}</h5>
+                        class="fas fa-fw fa-user mr-2"></i>{{ __('app.headers.createUser') }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

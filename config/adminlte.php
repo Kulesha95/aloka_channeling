@@ -248,6 +248,11 @@ return [
             'icon' => 'fas fa-fw fa-user-md',
         ],
         [
+            'text' => 'schedules',
+            'url'  => 'schedules',
+            'icon' => 'fas fa-fw fa-calendar-alt',
+        ],
+        [
             'text' => 'userTypes',
             'url'  => 'userTypes',
             'icon' => 'fas fa-fw fa-user-shield',
@@ -316,7 +321,7 @@ return [
             ],
         ],
         'Select2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
