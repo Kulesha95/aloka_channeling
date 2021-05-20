@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants\UserTypes;
 use App\Models\ChannelType;
 use App\Models\Doctor;
 use App\Models\Patient;
@@ -20,13 +21,14 @@ class DefaultUsersSeeder extends Seeder
     {
         User::factory(1)->defaultSuperAdmin()->create();
         User::factory(1)->defaultAdmin()->create();
+        User::factory(1)->defaultReceptionist()->create();
 
         $userData = [
             'name' => "John Doe",
             'username' => "doctor",
             'email' => "john.doe@example.com",
             'mobile' => 757895868,
-            'user_type_id' => 2,
+            'user_type_id' => UserTypes::DOCTOR,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -50,7 +52,7 @@ class DefaultUsersSeeder extends Seeder
             'username' => "patient",
             'email' => "philip.jane@example.com",
             'mobile' => 757895868,
-            'user_type_id' => 3,
+            'user_type_id' => UserTypes::PATIENT,
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),

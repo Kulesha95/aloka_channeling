@@ -12,10 +12,10 @@
             <div class="modal-body">
                 <form method="POST" id="editPatientForm" data-action="{{ route('patients.update', ':id') }}">
                     @method('PUT')
+                    <input type="hidden" name="user_type_id" value="{{$userType}}">
                     <div class="row">
                         <img src="" alt="" id="image_preview" class="img-circle mx-auto image-preview">
                     </div>
-                    <input type="hidden" name="user_type_id" value="3">
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="name">{{ __('app.fields.name') }}</label>

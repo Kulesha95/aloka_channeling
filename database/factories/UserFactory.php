@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Constants\UserTypes;
 use App\Models\User;
 use App\Models\UserType;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -55,7 +56,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'username' => "superadmin",
-                'user_type_id' => '1'
+                'user_type_id' => UserTypes::SUPER_ADMIN
             ];
         });
     }
@@ -65,7 +66,17 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'username' => "admin",
-                'user_type_id' => '4'
+                'user_type_id' => UserTypes::ADMIN
+            ];
+        });
+    }
+
+    public function defaultReceptionist()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'username' => "receptionist",
+                'user_type_id' => UserTypes::RECEPTIONIST
             ];
         });
     }

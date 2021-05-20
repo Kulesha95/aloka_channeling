@@ -11,7 +11,7 @@
             </div>
             <div class="modal-body">
                 <form action="{{ route('patients.store') }}" method="POST" id="createPatientForm">
-                    <input type="hidden" name="user_type_id" value="3">
+                    <input type="hidden" name="user_type_id" value="{{$userType}}">
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="name">{{ __('app.fields.name') }}</label>

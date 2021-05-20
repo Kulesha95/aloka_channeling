@@ -241,31 +241,37 @@ return [
             'text' => 'channelTypes',
             'url'  => 'channelTypes',
             'icon' => 'fas fa-fw fa-heartbeat',
+            'can' => 'manage-channel-types'
         ],
         [
             'text' => 'doctors',
             'url'  => 'doctors',
             'icon' => 'fas fa-fw fa-user-md',
+            'can' => 'manage-doctors'
         ],
         [
             'text' => 'schedules',
             'url'  => 'schedules',
             'icon' => 'fas fa-fw fa-calendar-alt',
+            'can' => 'manage-schedules'
         ],
         [
             'text' => 'userTypes',
             'url'  => 'userTypes',
             'icon' => 'fas fa-fw fa-user-shield',
+            'can' => 'manage-user-types'
         ],
         [
             'text' => 'users',
             'url'  => 'users',
             'icon' => 'fas fa-fw fa-user',
+            'can' => 'manage-users'
         ],
         [
             'text' => 'patients',
             'url'  => 'patients',
             'icon' => 'fas fa-fw fa-user-injured',
+            'can' => 'manage-patients'
         ],
 
     ],

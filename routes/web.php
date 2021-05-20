@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\UserTypes;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,8 +21,8 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::view('channelTypes/', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');
-    route::view('doctors', 'doctors.index');
-    Route::view('patients/', 'patients.index');
+    route::view('doctors', 'doctors.index', ['userType' => UserTypes::DOCTOR]);
+    Route::view('patients/', 'patients.index', ['userType' => UserTypes::PATIENT]);
     route::view('schedules', 'schedules.index');
     Route::view('users/', 'users.index');
     Route::view('userTypes/', 'userTypes.index')->name('userTypes.index.view');
