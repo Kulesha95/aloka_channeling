@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\ChannelType;
 use App\Models\Doctor;
 use App\Models\User;
-use App\Models\UserType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 

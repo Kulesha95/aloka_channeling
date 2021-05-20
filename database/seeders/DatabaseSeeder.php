@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserTypeSeeder::class,
             ChannelTypeSeeder::class,
+            DefaultUsersSeeder::class,
             UserSeeder::class,
             DoctorSeeder::class,
             ScheduleSeeder::class,
