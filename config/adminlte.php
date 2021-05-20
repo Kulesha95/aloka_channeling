@@ -262,6 +262,11 @@ return [
             'url'  => 'users',
             'icon' => 'fas fa-fw fa-user',
         ],
+        [
+            'text' => 'patients',
+            'url'  => 'patients',
+            'icon' => 'fas fa-fw fa-user-injured',
+        ],
 
     ],
 

@@ -11,6 +11,8 @@ return [
 
 	"fields" => [
 		"actions" => "Actions",
+		"address" => "Address",
+		"birthDate" => "Birth Date",
 		"channelingFee" => "Channeling Fee",
 		"channelType" => "Channel Type",
 		"colour" => "Colour",
@@ -22,7 +24,10 @@ return [
 		"description" => "Description",
 		"doctor" => "Doctor",
 		"email" => "E-mail",
+		"gender" => "Gender",
 		"id" => "Id",
+		"idNumber" => "Id Number",
+		"idType" => "Id Type",
 		"image" => "Image",
 		"mobile" => "Mobile",
 		"name" => "Name",
@@ -60,7 +65,11 @@ return [
 
 		"schedulesManagement" => "Schedule Management",
 		"createSchedule" => "Create Schedule",
-		"editSchedule" => "Edit Schedule"
+		"editSchedule" => "Edit Schedule",
+
+		"patientsManagement" => "Patient Management",
+		"createPatient" => "Create Patient",
+		"editPatient" => "Edit Patient"
 	],
 
 	"texts" => [

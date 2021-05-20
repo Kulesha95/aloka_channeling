@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::view('channelTypes/', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');
     route::view('doctors', 'doctors.index');
+    Route::view('patients/', 'patients.index');
     route::view('schedules', 'schedules.index');
     Route::view('users/', 'users.index');
     Route::view('userTypes/', 'userTypes.index')->name('userTypes.index.view');

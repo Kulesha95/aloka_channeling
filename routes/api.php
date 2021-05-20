@@ -17,6 +17,7 @@ Route::get('schedules/search',"ScheduleController@search")->name('schedules.sear
 Route::middleware('auth:api')->group(function () {
 	Route::apiResource('channelTypes', ChannelTypeController::class);
 	Route::apiResource('doctors', DoctorController::class);
+	Route::apiResource('patients', PatientController::class);
 	Route::apiResource('schedules', ScheduleController::class);
 	Route::apiResource('users', UserController::class);
 	Route::apiResource('userTypes', UserTypeController::class);
