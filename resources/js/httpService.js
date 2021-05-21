@@ -69,3 +69,6 @@ exports.delete = (url, body = null) => {
             });
     });
 };
+
+// Base Url Of The API
+exports.baseUrl = "/api/v1";

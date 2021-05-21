@@ -2086,8 +2086,12 @@ exports.handleShow = function (formId) {
       $("#".concat(formId, " #image_preview")).attr("src", data[input]);
     } else {
       // Load Data To The Inputs
-      inputElement.val(data[input]);
-      inputElement.trigger("change");
+      if (inputElement.next(".note-editor").length > 0) {
+        inputElement.summernote("code", data[input]);
+      } else {
+        inputElement.val(data[input]);
+        inputElement.trigger("change");
+      }
     }
   }); // Prepare Data Edit API Call URL Using Provided Parameter Indexes
 
@@ -2247,7 +2251,10 @@ exports.delete = function (url) {
       messageHandler.errorMessage(error.response.data.message);
     });
   });
-};
+}; // Base Url Of The API
+
+
+exports.baseUrl = "/api/v1";
 
 /***/ }),
 

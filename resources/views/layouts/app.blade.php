@@ -15,6 +15,9 @@
                 this.find("select").trigger("change");
             }).bind(targetJQForm), 0);
         });
+        $(document).on('mouseenter', '.select2-selection__rendered', function() {
+            $(this).removeAttr('title');
+        });
 
     </script>
     <script src="{{ asset('js/app.js') }}"></script>

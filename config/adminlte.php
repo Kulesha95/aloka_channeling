@@ -273,6 +273,12 @@ return [
             'icon' => 'fas fa-fw fa-user-injured',
             'can' => 'manage-patients'
         ],
+        [
+            'text' => 'appointments',
+            'url'  => 'appointments',
+            'icon' => 'fas fa-fw fa-calendar-plus',
+            'can' => 'manage-appointments'
+        ],
 
     ],
 
@@ -399,6 +405,31 @@ return [
                     'asset' => false,
                     'location' => '//unpkg.com/tooltip.js/dist/umd/tooltip.min.js',
                 ],
+            ],
+        ],
+        'moment' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js',
+                ],
+            ],
+        ],
+        'summernote' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js',
+                ]
             ],
         ],
         'tippy' => [

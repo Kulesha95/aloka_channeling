@@ -22,7 +22,8 @@
  </div>`,
                     allowHTML: true,
                 });
-            }
+            },
+            eventClick: handleScheduleClick
         });
         calendar.render();
     });

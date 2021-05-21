@@ -10,4 +10,5 @@ return [
     "schedules" => "Schedules",
     "users" => "Users",
     "userTypes" => "User Types",
+    "appointments" => "Appointments",
 ];

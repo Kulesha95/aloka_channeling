@@ -18,11 +18,19 @@ class Patient extends Model
 
         static::deleting(function ($patient) {
             $patient->user->delete();
+            foreach ($patient->appointments as $appointment) {
+                $appointment->delete();
+            }
         });
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }    
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

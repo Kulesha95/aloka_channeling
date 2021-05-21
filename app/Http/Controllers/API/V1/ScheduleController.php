@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Constants\Appointments;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ScheduleResource;
+use App\Models\Appointment;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -153,10 +155,45 @@ class ScheduleController extends Controller
             $event["extendedProps"] =  [
                 "time" => Carbon::createFromFormat("H:i:s", $schedule->time_from)->format('h:iA') .
                     " - " . Carbon::createFromFormat("H:i:s", $schedule->time_to)->format('h:iA'),
-                "channelType" => $schedule->doctor->channelType->channel_type
+                "channelType" => $schedule->doctor->channelType->channel_type,
+                "id" => $schedule->id
             ];
             array_push($events, $event);
         }
         return response()->json($events);
+    }
+
+
+    /**
+     * Find all the events in the specified date range .
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function scheduleSummary(Request $request, Schedule $schedule, $date)
+    {
+        if ($date != "null") {
+            if ($schedule->repeat) {
+                $selectedDate = Carbon::createFromDate($date);
+                $appointmentStartDate = Carbon::createFromDate($schedule->date_from);
+                if ($selectedDate->dayOfWeek == $appointmentStartDate->dayOfWeek) {
+                    $searchDate = $date;
+                } else {
+                    $searchDate = $selectedDate->next($appointmentStartDate->dayName)->format("Y-m-d");
+                }
+            } else {
+                $searchDate = $schedule->date_to;
+            }
+        } else {
+            if ($schedule->repeat) {
+                $appointmentStartDate = Carbon::createFromDate($schedule->date_from);
+                $searchDate = Carbon::now()->next($appointmentStartDate->dayName)->format("Y-m-d");
+            } else {
+                $searchDate = $schedule->date_to;
+            }
+        }
+        $number = Appointment::whereDate('date', $searchDate)->where('schedule_id', $schedule->id)->count() + 1;
+        $time = Carbon::createFromFormat("H:i:s", $schedule->time_from)->addMinutes(($number - 1) * Appointments::AVERAGE_APPOINTMENT_TIME)->format("H:i:s");
+        return ResponseHelper::findSuccess("Approximation Details", ["number" => $number, "time" => $time, "date" => $searchDate]);
     }
 }

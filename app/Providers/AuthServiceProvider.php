@@ -34,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
             "manage-user-types" => [UserTypes::SUPER_ADMIN],
             "manage-users" => [UserTypes::SUPER_ADMIN],
             "manage-patients" => [UserTypes::RECEPTIONIST],
+            "manage-appointments" => [UserTypes::RECEPTIONIST],
         ];
 
         foreach ($userAccess as $gate => $userTypes) {

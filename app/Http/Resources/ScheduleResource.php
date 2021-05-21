@@ -15,6 +15,11 @@ class ScheduleResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($this->repeat === 7) {
+            $repeat_text = Carbon::createFromDate($this->date_from)->dayName;
+        } else {
+            $repeat_text = $this->date_to;
+        }
         return [
             "id" => $this->id,
             "doctor_id" => $this->doctor_id,
@@ -27,7 +32,7 @@ class ScheduleResource extends JsonResource
             "time_to" => $this->time_to,
             "channeling_fee" => $this->channeling_fee,
             "repeat" => $this->repeat,
-            "repeat_text" => $this->repeat === 7 ? __('app.texts.everyWeek') : __('app.texts.noRepeat'),
+            "repeat_text" => $repeat_text,
             "channeling_fee_text" => "Rs." . $this->channeling_fee,
         ];
     }

@@ -6,24 +6,32 @@ return [
 		"createNew" => "Create New",
 		"edit" => "Edit",
 		"save" => "Save",
-		"login" => "Login"
+		"login" => "Login",
+		"signUp" => "Sign Up"
 	],
 
 	"fields" => [
 		"actions" => "Actions",
+		"appointmentNumber" => "Appointment Number",
 		"address" => "Address",
 		"birthDate" => "Birth Date",
 		"channelingFee" => "Channeling Fee",
 		"channelType" => "Channel Type",
 		"colour" => "Colour",
+		"comment" => "Comment",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
 		"commissionType" => "Commission Type",
+		'confirmPassword' => "Confirm Password",
+		"currentNumber" => "Current Number",
+		"date" => "Date",
 		"dateFrom" => "Date From",
 		"dateTo" => "Date To",
 		"description" => "Description",
 		"doctor" => "Doctor",
 		"email" => "E-mail",
+		"estimatedTime" => "Estimated Time",
+		"fee" => "Fee",
 		"gender" => "Gender",
 		"id" => "Id",
 		"idNumber" => "Id Number",
@@ -31,9 +39,15 @@ return [
 		"image" => "Image",
 		"mobile" => "Mobile",
 		"name" => "Name",
+		"paid" => "Paid",
 		"password" => "Password",
+		"patient" => "Patient",
+		"pending" => "Pending",
 		"qualification" => "Qualification",
+		"reason" => "Reason",
 		"repeat" => "Repeat",
+		"schedule" => "Schedule",
+		"status" => "Status",
 		"time" => "Time",
 		"timeFrom" => "Time From",
 		"timeTo" => "Time To",
@@ -69,7 +83,11 @@ return [
 
 		"patientsManagement" => "Patient Management",
 		"createPatient" => "Create Patient",
-		"editPatient" => "Edit Patient"
+		"editPatient" => "Edit Patient",
+
+		"appointmentsManagement" => "Appointment Management",
+		"createAppointment" => "Create Appointment",
+		"editAppointment" => "Edit Appointment"
 	],
 
 	"texts" => [
@@ -77,8 +95,11 @@ return [
 		"forgotPassword" => "Forgot Password ?",
 		"noRepeat" => "No Repeat",
 		"selectDoctor" => "Select Doctor",
+		"selectPatient" => "Select Patient",
 		"selectRepeat" => "Select Repeat",
+		"selectSchedule" => "Select Schedule",
 		"selectUserType" => "Select User Type",
+		"thisCanBeSlightlyChanged" => "* This can be slightly changed"
 	]
 
 ];

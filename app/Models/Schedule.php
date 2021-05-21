@@ -24,8 +24,24 @@ class Schedule extends Model
         'email_verified_at' => 'datetime',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($schedule) {
+            foreach ($schedule->appointments as $appointment) {
+                $appointment->delete();
+            }
+        });
+    }
+
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
 }
