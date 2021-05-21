@@ -87,6 +87,7 @@ exports.handleShow = (
         } else {
             // Load Data To The Inputs
             inputElement.val(data[input]);
+            inputElement.trigger("change");
         }
     });
     // Prepare Data Edit API Call URL Using Provided Parameter Indexes

@@ -1,6 +1,6 @@
 <div class="modal fade" id="editScheduleModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editModalLabel"><i
@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="doctor_id">{{ __('app.fields.doctor') }}</label>
-                            <select name="doctor_id" id="doctor_id_edit" class="form-control col-12"
-                                placeholder="{{ __('app.fields.doctor') }}">
+                            <select name="doctor_id" id="doctor_id_edit" class="form-control col-12">
+                                <option></option>
 
                             </select>
                             <div class="invalid-feedback"></div>

@@ -97,21 +97,36 @@
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit
         formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
-        $('#doctor_id_create').select2();
+        // Render Select2 Selected Option
+        const templateSelection = (item) => {
+            if (!item.id) {
+                return item.text;
+            }
+            element = JSON.parse(item.text);
+            return `${element.name} - ${element.channel_type} - ${element.commission} Per Appointment`;
+        };
+        // Render Select2 Options
+        const templateResult = (item) => {
+            if (!item.id) {
+                return item.text;
+            }
+            element = JSON.parse(item.text);
+            return $(
+                `<div class="row"><h6 class="font-weight-bold">${element.name}</h6></div><div class="row">${element.channel_type}</div><div class="row font-weight-light">${element.commission} Per Appointment</div>`
+            );
+        };
+        const select2Options = {
+            templateResult,
+            templateSelection,
+            placeholder: "{{ __('app.texts.selectDoctor') }}",
+        };
+        $('#doctor_id_create').select2(select2Options);
+        $('#doctor_id_edit').select2(select2Options);
         // Load Doctors List
         httpService.get("{{ route('doctors.index') }}").then(response => {
-            $('#doctor_id_create').prepend(
-                '<option disabled selected>{{ __('app.texts.selectDoctor') }}</option>');
-            $('#doctor_id_edit').prepend(
-                '<option disabled selected>{{ __('app.texts.selectDoctor') }}</option>');
             response.data.forEach(element => {
-                $('#doctor_id_create').append(new Option(
-                    `${element.name} - ${element.channel_type} - ${element.commission} Per Appointment`,
-                    element.id))
-                $('#doctor_id_edit').append(new Option(
-                    `${element.name} - ${element.channel_type} - ${element.commission} Per Appointment`,
-                    element
-                    .id))
+                $('#doctor_id_create').append(new Option(JSON.stringify(element), element.id), false, false)
+                $('#doctor_id_edit').append(new Option(JSON.stringify(element), element.id), false, false)
             });
         })
     </script>

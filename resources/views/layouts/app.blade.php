@@ -9,6 +9,13 @@
                 $(this).next('.custom-file-label').html(e.target.files[0].name);
             }
         });
+        $("select").closest("form").on("reset", function(ev) {
+            var targetJQForm = $(ev.target);
+            setTimeout((function() {
+                this.find("select").trigger("change");
+            }).bind(targetJQForm), 0);
+        });
+
     </script>
     <script src="{{ asset('js/app.js') }}"></script>
 @endsection

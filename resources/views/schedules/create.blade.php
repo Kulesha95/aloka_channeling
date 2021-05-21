@@ -14,8 +14,8 @@
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="doctor_id">{{ __('app.fields.doctor') }}</label>
-                            <select name="doctor_id" id="doctor_id_create" class="form-control col-12"
-                                placeholder="{{ __('app.fields.doctor') }}">
+                            <select name="doctor_id" id="doctor_id_create" class="form-control col-12">
+                                <option></option>
 
                             </select>
                             <div class="invalid-feedback"></div>

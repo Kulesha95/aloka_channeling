@@ -8,8 +8,8 @@
 }
 
 .image-preview-table {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: center;
@@ -26,12 +26,4 @@
 
 .toast {
   font-size: 1rem;
-}
-
-.select2-container {
-  display: block !important;
-}
-
-.fc-event-title {
-  white-space: break-spaces;
 }
