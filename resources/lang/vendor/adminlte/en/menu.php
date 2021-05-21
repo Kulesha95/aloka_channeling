@@ -11,4 +11,5 @@ return [
     "users" => "Users",
     "userTypes" => "User Types",
     "appointments" => "Appointments",
+    "channelingCalendar" => "Channeling Calendar",
 ];

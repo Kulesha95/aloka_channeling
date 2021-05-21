@@ -33,7 +33,8 @@ class AppointmentFactory extends Factory
             );
             $randomDate = $randomDate->format("Y-m-d");
             $randomDate = Carbon::createFromDate($randomDate);
-            $date = $randomDate->next($randomDate->dayName)->format("Y-m-d");
+            $scheduleDate = Carbon::createFromDate($schedule->date_from);
+            $date = $randomDate->next($scheduleDate->dayName)->format("Y-m-d");
         } else {
             $date = $schedule->date_to;
         }

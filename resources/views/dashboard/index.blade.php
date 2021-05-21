@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    @include('components.schedule')
+    
 @endsection
 
 @section('js')

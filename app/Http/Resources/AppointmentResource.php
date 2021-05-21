@@ -37,7 +37,7 @@ class AppointmentResource extends JsonResource
             "doctor" => $this->schedule->doctor->name . " - " . $this->schedule->doctor->channelType->channel_type,
             "comment" => $this->comment,
             "status" => $status[$this->status],
-            "fee" => "Rs." . $this->schedule->channeling_fee,
+            "fee" => "Rs. " . number_format($this->schedule->channeling_fee, 2),
             "paid" => $this->status,
             "pending" => $this->status,
         ];

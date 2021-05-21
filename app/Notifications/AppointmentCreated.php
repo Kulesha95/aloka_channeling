@@ -56,7 +56,7 @@ class AppointmentCreated extends Notification implements ShouldQueue
             ->line('Reference Number - ' . $this->appointment->date .
                 "/SCH" . str_pad($this->appointment->schedule_id, 5, '0', STR_PAD_LEFT)  .
                 "/" . str_pad($this->appointment->number, 2, '0', STR_PAD_LEFT))
-            ->line('Channeling Fee - ' . "Rs. " . number_format($this->appointment->schedule->channeling_fee, 2))
+            ->line('Channeling Fee - ' . "Rs.  " . number_format($this->appointment->schedule->channeling_fee, 2))
             ->line('Thank you for contacting  ' . env('APP_NAME') . '.');
     }
 

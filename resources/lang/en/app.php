@@ -87,7 +87,8 @@ return [
 
 		"appointmentsManagement" => "Appointment Management",
 		"createAppointment" => "Create Appointment",
-		"editAppointment" => "Edit Appointment"
+		"editAppointment" => "Edit Appointment",
+		"channelingCalendar" => "Channeling Calendar"
 	],
 
 	"texts" => [

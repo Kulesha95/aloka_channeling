@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::view('appointments/', 'appointments.index');
+    Route::view('calendar/', 'pages.calendar');
     Route::view('channelTypes/', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');
     route::view('doctors', 'doctors.index', ['userType' => UserTypes::DOCTOR]);

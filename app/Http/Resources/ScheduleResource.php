@@ -33,7 +33,7 @@ class ScheduleResource extends JsonResource
             "channeling_fee" => $this->channeling_fee,
             "repeat" => $this->repeat,
             "repeat_text" => $repeat_text,
-            "channeling_fee_text" => "Rs." . $this->channeling_fee,
+            "channeling_fee_text" => "Rs. " . number_format($this->channeling_fee, 2),
         ];
     }
 }

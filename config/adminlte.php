@@ -127,7 +127,7 @@ return [
     'classes_content_header' => '',
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
-    'classes_sidebar_nav' => 'nav-child-indent nav-legacy',
+    'classes_sidebar_nav' => 'nav-child-indent nav-flat',
     'classes_topnav' => 'navbar-dark navbar-dark',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
@@ -145,7 +145,7 @@ return [
     */
 
     'sidebar_mini' => true,
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -272,6 +272,12 @@ return [
             'url'  => 'patients',
             'icon' => 'fas fa-fw fa-user-injured',
             'can' => 'manage-patients'
+        ],
+        [
+            'text' => 'channelingCalendar',
+            'url'  => 'calendar',
+            'icon' => 'fas fa-fw fa-calendar-alt',
+            'can' => 'view-channeling-calendar'
         ],
         [
             'text' => 'appointments',

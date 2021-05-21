@@ -176,10 +176,19 @@ class ScheduleController extends Controller
             if ($schedule->repeat) {
                 $selectedDate = Carbon::createFromDate($date);
                 $appointmentStartDate = Carbon::createFromDate($schedule->date_from);
-                if ($selectedDate->dayOfWeek == $appointmentStartDate->dayOfWeek) {
-                    $searchDate = $date;
+                if ($selectedDate >= now()->format("Y-m-d")) {
+                    if ($selectedDate->dayOfWeek == $appointmentStartDate->dayOfWeek) {
+                        $searchDate = $date;
+                    } else {
+                        $searchDate = $selectedDate->next($appointmentStartDate->dayName)->format("Y-m-d");
+                    }
                 } else {
-                    $searchDate = $selectedDate->next($appointmentStartDate->dayName)->format("Y-m-d");
+                    if ($schedule->repeat) {
+                        $appointmentStartDate = Carbon::createFromDate($schedule->date_from);
+                        $searchDate = Carbon::now()->next($appointmentStartDate->dayName)->format("Y-m-d");
+                    } else {
+                        $searchDate = $schedule->date_to;
+                    }
                 }
             } else {
                 $searchDate = $schedule->date_to;

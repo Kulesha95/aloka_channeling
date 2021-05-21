@@ -11,6 +11,9 @@
             </div>
             <div class="modal-body">
                 <form action="{{ route('appointments.store') }}" method="POST" id="createAppointmentForm">
+                    @if (Auth::user()->patient)
+                        <input type="hidden" name="patient_id" value="{{ Auth::user()->patient->id }}">
+                    @endif
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="schedule_id">{{ __('app.fields.schedule') }}</label>
@@ -25,22 +28,26 @@
                             <label for="current_number">{{ __('app.fields.currentNumber') }}</label>
                             <input id="current_number_create" class="form-control" type="text"
                                 placeholder="{{ __('app.fields.currentNumber') }}" readonly>
-                            <small class="text-danger">{{__('app.texts.thisCanBeSlightlyChanged')}}</small>
+                            <small class="text-danger">{{ __('app.texts.thisCanBeSlightlyChanged') }}</small>
                         </div>
                         <div class="form-group col-6">
                             <label for="estimated_time">{{ __('app.fields.estimatedTime') }}</label>
                             <input id="estimated_time_create" class="form-control" type="time"
                                 placeholder="{{ __('app.fields.estimatedTime') }}" readonly>
-                                <small class="text-danger">{{__('app.texts.thisCanBeSlightlyChanged')}}</small>
+                            <small class="text-danger">{{ __('app.texts.thisCanBeSlightlyChanged') }}</small>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="patient_id">{{ __('app.fields.patient') }}</label>
-                            <select name="patient_id" id="patient_id_create" class="form-control col-12">
-                                <option></option>
-                            </select>
-                            <div class="invalid-feedback"></div>
+                            @if (Auth::user()->patient)
+                                <input class="form-control" type="text" value="{{ Auth::user()->name }}" readonly>
+                            @else
+                                <select name="patient_id" id="patient_id_create" class="form-control col-12">
+                                    <option></option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            @endif
                         </div>
                     </div>
                     <div class="row">

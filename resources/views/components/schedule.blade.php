@@ -10,6 +10,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             firstDay: 1,
+            height: "auto",
             themeSystem: 'bootstrap',
             events: "{{ route('schedules.search') }}",
             eventDidMount: function(info) {

@@ -11,6 +11,7 @@ use App\Models\Schedule;
 use App\Notifications\AppointmentCreated;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
@@ -22,9 +23,13 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        $appointmentsQuery = Appointment::whereDate('date', '>=', now());
+        if (Auth::user()->patient) {
+            $appointmentsQuery = $appointmentsQuery->where('patient_id', Auth::user()->patient->id);
+        }
         return ResponseHelper::findSuccess(
             'Appointments',
-            AppointmentResource::collection(Appointment::whereDate('date', '>=', now())->get())
+            AppointmentResource::collection($appointmentsQuery->get())
         );
     }
 
@@ -104,7 +109,7 @@ class AppointmentController extends Controller
             );
         }
         $appointment->update($request->only(['reason', 'comment']));
-        return ResponseHelper::updateSuccess(
+        return ResponseHelper::createSuccess(
             'Appointment',
             new AppointmentResource($appointment)
         );
