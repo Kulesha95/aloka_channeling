@@ -23,9 +23,9 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-6">
-                            <label for="current_number">{{ __('app.fields.currentNumber') }}</label>
+                            <label for="current_number">{{ __('app.fields.number') }}</label>
                             <input id="number_edit" class="form-control" type="text"
-                                placeholder="{{ __('app.fields.currentNumber') }}" readonly>
+                                placeholder="{{ __('app.fields.number') }}" readonly>
                         </div>
                         <div class="form-group col-6">
                             <label for="estimated_time">{{ __('app.fields.estimatedTime') }}</label>

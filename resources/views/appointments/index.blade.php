@@ -39,6 +39,7 @@
             </table>
             @include('appointments.create')
             @include('appointments.edit')
+            @include('appointments.info')
         </div>
     </div>
 @stop
@@ -66,12 +67,15 @@
         const parameterIndexes = {
             "id": 0
         };
+        const actionContents =
+            "<button class='btn btn-sm btn-outline-info mr-1 view-button'><i class='fas fa-eye fa-fw' ></i></button>" +
+            defaultActionContent;
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            defaultActionContent
+            actionContents
         );
         // Delete Item
         dataTableHandler.handleDelete(
@@ -95,6 +99,9 @@
         }
         // Handle Edit Button Click Event In Data Table
         dataTableHandler.handleShow(table, viewUrl, parameterIndexes, loadEditForm);
+        // Handle View Button Click Event In Data Table
+        dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`, parameterIndexes,
+            loadChannelingInfo, 'view-button');
         // Handle Create Form Submit
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit

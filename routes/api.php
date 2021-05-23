@@ -23,5 +23,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('users', UserController::class);
 	Route::apiResource('userTypes', UserTypeController::class);
 
-	Route::get('scheduleSummary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
+	Route::get('scheduleSummary/{schedule}/{date}', 'ScheduleController@scheduleSummary');
+	Route::get('appointmentDetails/{appointment}', 'AppointmentController@appointmentDetails');
+	Route::put('appointment/{appointment}/updateStatus', 'AppointmentController@updateStatus');
 });

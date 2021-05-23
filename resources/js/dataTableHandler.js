@@ -5,7 +5,9 @@ exports.loadData = (table, url) => {
         // Clear Existing Table Data
         table.clear();
         // Insert New Data To The Table
-        table.rows.add(response.data).draw();
+        table.rows.add(response.data);
+        // Readjust Columns Width
+        table.columns.adjust().draw();
     });
 };
 
@@ -29,6 +31,16 @@ exports.initializeTable = (
                         data +
                         '" />'
                     );
+                },
+            };
+        }
+        // If Column Contains Time Field Return Formatted Time For 12 Hours
+        if (["time", "time_from", "time_to"].includes(column)) {
+            return {
+                data: column,
+                // Convert Raw Data To Image Preview
+                render: function (data) {
+                    return moment(data, "HH:mm:ss").format("hh:mm A");
                 },
             };
         }
@@ -99,7 +111,7 @@ exports.handleDelete = (
     });
 };
 
-// Handle Display Data 
+// Handle Display Data
 exports.handleShow = (
     table,
     url,
@@ -119,6 +131,31 @@ exports.handleShow = (
         httpService.get(editUrl).then((response) => {
             // Pass Data To The Call Back Function For Display
             handleShowCallback(response.data);
+        });
+    });
+};
+
+// Handle Custom Action
+exports.handleCustom = (
+    table,
+    url,
+    parameters = undefined,
+    handleCallback,
+    activator
+) => {
+    // Add Listener To The Edit Button
+    table.on("click", `.${activator}`, function () {
+        // Get Selected Row Data
+        const data = table.row($(this).parents("tr")).data();
+        // Prepare Data Retrieve API Call URL Using Provided Parameter Indexes
+        let dataUrl = url;
+        Object.keys(parameters).forEach((urlParameter) => {
+            dataUrl = dataUrl.replace(`:${urlParameter}`, data[urlParameter]);
+        });
+        // Get Data From The API
+        httpService.get(dataUrl).then((response) => {
+            // Pass Data To The Call Back Function For Display
+            handleCallback(response.data);
         });
     });
 };

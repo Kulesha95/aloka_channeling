@@ -1894,7 +1894,9 @@ exports.loadData = function (table, url) {
     // Clear Existing Table Data
     table.clear(); // Insert New Data To The Table
 
-    table.rows.add(response.data).draw();
+    table.rows.add(response.data); // Readjust Columns Width
+
+    table.columns.adjust().draw();
   });
 }; // Handle Datatable Initialization
 
@@ -1911,6 +1913,17 @@ exports.initializeTable = function (tableId, columns) {
         // Convert Raw Data To Image Preview
         render: function render(data) {
           return '<img class="img-circle image-preview-table" src="' + data + '" />';
+        }
+      };
+    } // If Column Contains Time Field Return Formatted Time For 12 Hours
+
+
+    if (["time", "time_from", "time_to"].includes(column)) {
+      return {
+        data: column,
+        // Convert Raw Data To Image Preview
+        render: function render(data) {
+          return moment(data, "HH:mm:ss").format("hh:mm A");
         }
       };
     } // Return Column Definition As Raw Data And Hide ID Column
@@ -1978,7 +1991,7 @@ exports.handleDelete = function (table, url) {
       }
     });
   });
-}; // Handle Display Data 
+}; // Handle Display Data
 
 
 exports.handleShow = function (table, url) {
@@ -1997,6 +2010,28 @@ exports.handleShow = function (table, url) {
     httpService.get(editUrl).then(function (response) {
       // Pass Data To The Call Back Function For Display
       handleShowCallback(response.data);
+    });
+  });
+}; // Handle Custom Action
+
+
+exports.handleCustom = function (table, url) {
+  var parameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+  var handleCallback = arguments.length > 3 ? arguments[3] : undefined;
+  var activator = arguments.length > 4 ? arguments[4] : undefined;
+  // Add Listener To The Edit Button
+  table.on("click", ".".concat(activator), function () {
+    // Get Selected Row Data
+    var data = table.row($(this).parents("tr")).data(); // Prepare Data Retrieve API Call URL Using Provided Parameter Indexes
+
+    var dataUrl = url;
+    Object.keys(parameters).forEach(function (urlParameter) {
+      dataUrl = dataUrl.replace(":".concat(urlParameter), data[urlParameter]);
+    }); // Get Data From The API
+
+    httpService.get(dataUrl).then(function (response) {
+      // Pass Data To The Call Back Function For Display
+      handleCallback(response.data);
     });
   });
 };
