@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use App\Models\User;
+use App\Notifications\PatientAccountCreated;
 use App\Notifications\UserAccountCreated;
 use App\Rules\IdNumber;
 use App\Rules\PhoneNumber;
@@ -103,7 +104,7 @@ class PatientController extends Controller
                         "username" => $request->get('username') ?? $request->get('id_number')
                     ]
             );
-            $user->notify(new UserAccountCreated($password));
+            $user->notify(new PatientAccountCreated($password));
             $patient = Patient::create(
                 $request->only(["name", "birth_date", "gender", "address", "id_type", "id_number"]) +
                     ["user_id" => $user->id]
