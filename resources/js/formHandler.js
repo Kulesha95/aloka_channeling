@@ -3,7 +3,8 @@ exports.handleSave = (
     formId,
     inputs = undefined,
     callback = undefined,
-    modal = undefined
+    modal = undefined,
+    suffix = "_create"
 ) => {
     // Attach Submit Listener To The Form
     $(`#${formId}`).on("submit", (e) => {
@@ -11,7 +12,7 @@ exports.handleSave = (
         e.preventDefault();
         // Remove Any Validation Errors If Exist
         inputs.forEach((input) => {
-            const inputElement = $(`#${formId} #${input}_create`);
+            const inputElement = $(`#${formId} #${input}${suffix}`);
             inputElement.removeClass("is-invalid");
             inputElement.next(".invalid-feedback").html("");
         });
@@ -25,7 +26,7 @@ exports.handleSave = (
                 $(`#${formId}`).trigger("reset");
                 // If File Input Exists Clear The Selected File Name And Add Default Place Holder
                 if (inputs.includes("image")) {
-                    $(`#${formId} #image_create`)
+                    $(`#${formId} #image${suffix}`)
                         .next(".custom-file-label")
                         .html("Image");
                 }
@@ -49,7 +50,7 @@ exports.handleSave = (
                     const errors = error.data.data;
                     // Display Validation Errors On The Form And Append The Message To Alert Message Body
                     Object.keys(errors).forEach((input) => {
-                        const inputElement = $(`#${formId} #${input}_create`);
+                        const inputElement = $(`#${formId} #${input}${suffix}`);
                         errors[input].forEach((inputError) => {
                             inputElement.addClass("is-invalid");
                             inputElement
@@ -74,11 +75,12 @@ exports.handleShow = (
     inputs = undefined,
     modal = undefined,
     data,
-    parameterIndexes
+    parameterIndexes,
+    suffix = "_edit"
 ) => {
     inputs.forEach((input) => {
         // Clear Validation Errors If Exist
-        const inputElement = $(`#${formId} #${input}_edit`);
+        const inputElement = $(`#${formId} #${input}${suffix}`);
         inputElement.removeClass("is-invalid");
         inputElement.next(".invalid-feedback").html("");
         // if Data Is An Image Preview It
@@ -112,7 +114,8 @@ exports.handleEdit = (
     formId,
     inputs = undefined,
     callback = undefined,
-    modal = undefined
+    modal = undefined,
+    suffix = "_edit"
 ) => {
     // Attach Submit Listener To The Form
     $(`#${formId}`).on("submit", (e) => {
@@ -120,7 +123,7 @@ exports.handleEdit = (
         e.preventDefault();
         // Remove Any Validation Errors If Exist
         inputs.forEach((input) => {
-            const inputElement = $(`#${formId} #${input}_edit`);
+            const inputElement = $(`#${formId} #${input}${suffix}`);
             inputElement.removeClass("is-invalid");
             inputElement.next(".invalid-feedback").html("");
         });
@@ -134,7 +137,7 @@ exports.handleEdit = (
                 $(`#${formId}`).trigger("reset");
                 // If File Input Exists Clear The Selected File Name And Add Default Place Holder
                 if (inputs.includes("image")) {
-                    $(`#${formId} #image_edit`)
+                    $(`#${formId} #image${suffix}`)
                         .next(".custom-file-label")
                         .html("Image");
                 }
@@ -159,7 +162,7 @@ exports.handleEdit = (
                     // Display Validation Errors On The Form And Append The Message To Alert Message Body
                     Object.keys(errors).forEach((input) => {
                         errors[input].forEach((inputError) => {
-                            const inputElement = $(`#${formId} #${input}_edit`);
+                            const inputElement = $(`#${formId} #${input}${suffix}`);
                             inputElement.addClass("is-invalid");
                             inputElement
                                 .next(".invalid-feedback")

@@ -9,14 +9,17 @@ return [
 		"reject" => "Reject",
 		"save" => "Save",
 		"login" => "Login",
-		"signUp" => "Sign Up"
+		"signUp" => "Sign Up",
+		"pay" => "Pay"
 	],
 
 	"fields" => [
 		"actions" => "Actions",
+		"amount" => "Amount",
 		"age" => "Age",
 		"appointmentNumber" => "Appointment Number",
 		"address" => "Address",
+		"balance" => "Balance",
 		"birthDate" => "Birth Date",
 		"channelingFee" => "Channeling Fee",
 		"channelType" => "Channel Type",
@@ -93,6 +96,7 @@ return [
 		"createAppointment" => "Create Appointment",
 		"editAppointment" => "Edit Appointment",
 		"viewAppointment" => "View Appointment",
+		"appointmentPayments" => "Appointment Payments",
 
 		"channelingCalendar" => "Channeling Calendar"
 	],

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\PaymentIncomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,10 +13,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::get('schedules/search', "ScheduleController@search")->name('schedules.search');
 
 Route::middleware('auth:api')->group(function () {
 	Route::apiResource('appointments', AppointmentController::class);
+	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('channelTypes', ChannelTypeController::class);
 	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('patients', PatientController::class);

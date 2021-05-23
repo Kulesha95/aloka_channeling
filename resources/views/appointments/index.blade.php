@@ -32,7 +32,7 @@
                         <th>{{ __('app.fields.status') }}</th>
                         <th>{{ __('app.fields.fee') }}</th>
                         <th>{{ __('app.fields.paid') }}</th>
-                        <th>{{ __('app.fields.pending') }}</th>
+                        <th>{{ __('app.fields.balance') }}</th>
                         <th>{{ __('app.fields.actions') }}</th>
                     </tr>
                 </thead>
@@ -40,6 +40,7 @@
             @include('appointments.create')
             @include('appointments.edit')
             @include('appointments.info')
+            @include('appointments.payments')
         </div>
     </div>
 @stop
@@ -61,7 +62,7 @@
         const dataTableName = 'items_list_table';
         // Table Columns List
         const dataTableColumns = ['id', 'appointment_number', 'patient', 'doctor', 'date', 'time', 'status_text',
-            'fee', 'paid', 'pending'
+            'fee_text', 'paid_text', 'balance_text'
         ];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
@@ -69,6 +70,7 @@
         };
         const actionContents =
             "<button class='btn btn-sm btn-outline-info mr-1 view-button'><i class='fas fa-eye fa-fw' ></i></button>" +
+            "<button class='btn btn-sm btn-outline-primary mr-1 payment-button'><i class='fas fa-dollar-sign fa-fw' ></i></button>" +
             defaultActionContent;
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
@@ -102,6 +104,9 @@
         // Handle View Button Click Event In Data Table
         dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`, parameterIndexes,
             loadChannelingInfo, 'view-button');
+        // Handle Payment Button Click Event In Data Table
+        dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`, parameterIndexes,
+            loadPaymentInfo, 'payment-button');
         // Handle Create Form Submit
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit

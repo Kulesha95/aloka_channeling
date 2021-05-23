@@ -25,9 +25,7 @@ class AppointmentResource extends JsonResource
         ];
         return [
             "id" => $this->id,
-            "appointment_number" => $this->date .
-                "/SCH" . str_pad($this->schedule_id, 5, '0', STR_PAD_LEFT)  .
-                "/" . str_pad($this->number, 2, '0', STR_PAD_LEFT),
+            "appointment_number" => $this->appointment_number,
             "number" => $this->number,
             "date" => $this->date,
             "time" => $this->time,
@@ -39,9 +37,12 @@ class AppointmentResource extends JsonResource
             "comment" => $this->comment,
             "status" => $this->status,
             "status_text" => $status[$this->status],
-            "fee" => "Rs. " . number_format($this->schedule->channeling_fee, 2),
-            "paid" => $this->status,
-            "pending" => $this->status,
+            "fee" => $this->fee,
+            "paid" => $this->paid,
+            "balance" => $this->balance,
+            "fee_text" => $this->fee_text,
+            "paid_text" => $this->paid_text,
+            "balance_text" => $this->balance_text,
         ];
     }
 }

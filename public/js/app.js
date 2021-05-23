@@ -2049,13 +2049,14 @@ exports.handleSave = function (formId) {
   var inputs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
   var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
   var modal = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+  var suffix = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "_create";
   // Attach Submit Listener To The Form
   $("#".concat(formId)).on("submit", function (e) {
     // Avoid Form Submit Over HTTP Request
     e.preventDefault(); // Remove Any Validation Errors If Exist
 
     inputs.forEach(function (input) {
-      var inputElement = $("#".concat(formId, " #").concat(input, "_create"));
+      var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
       inputElement.removeClass("is-invalid");
       inputElement.next(".invalid-feedback").html("");
     }); // Get Data From The Form
@@ -2067,7 +2068,7 @@ exports.handleSave = function (formId) {
       $("#".concat(formId)).trigger("reset"); // If File Input Exists Clear The Selected File Name And Add Default Place Holder
 
       if (inputs.includes("image")) {
-        $("#".concat(formId, " #image_create")).next(".custom-file-label").html("Image");
+        $("#".concat(formId, " #image").concat(suffix)).next(".custom-file-label").html("Image");
       } // Close The Model Window
 
 
@@ -2091,7 +2092,7 @@ exports.handleSave = function (formId) {
         var errors = error.data.data; // Display Validation Errors On The Form And Append The Message To Alert Message Body
 
         Object.keys(errors).forEach(function (input) {
-          var inputElement = $("#".concat(formId, " #").concat(input, "_create"));
+          var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
           errors[input].forEach(function (inputError) {
             inputElement.addClass("is-invalid");
             inputElement.next(".invalid-feedback").html(inputError);
@@ -2111,9 +2112,10 @@ exports.handleShow = function (formId) {
   var modal = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
   var data = arguments.length > 3 ? arguments[3] : undefined;
   var parameterIndexes = arguments.length > 4 ? arguments[4] : undefined;
+  var suffix = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "_edit";
   inputs.forEach(function (input) {
     // Clear Validation Errors If Exist
-    var inputElement = $("#".concat(formId, " #").concat(input, "_edit"));
+    var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
     inputElement.removeClass("is-invalid");
     inputElement.next(".invalid-feedback").html(""); // if Data Is An Image Preview It
 
@@ -2147,13 +2149,14 @@ exports.handleEdit = function (formId) {
   var inputs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
   var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
   var modal = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+  var suffix = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : "_edit";
   // Attach Submit Listener To The Form
   $("#".concat(formId)).on("submit", function (e) {
     // Avoid Form Submit Over HTTP Request
     e.preventDefault(); // Remove Any Validation Errors If Exist
 
     inputs.forEach(function (input) {
-      var inputElement = $("#".concat(formId, " #").concat(input, "_edit"));
+      var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
       inputElement.removeClass("is-invalid");
       inputElement.next(".invalid-feedback").html("");
     }); // Get Data From The Form
@@ -2165,7 +2168,7 @@ exports.handleEdit = function (formId) {
       $("#".concat(formId)).trigger("reset"); // If File Input Exists Clear The Selected File Name And Add Default Place Holder
 
       if (inputs.includes("image")) {
-        $("#".concat(formId, " #image_edit")).next(".custom-file-label").html("Image");
+        $("#".concat(formId, " #image").concat(suffix)).next(".custom-file-label").html("Image");
       } // Close The Model Window
 
 
@@ -2190,7 +2193,7 @@ exports.handleEdit = function (formId) {
 
         Object.keys(errors).forEach(function (input) {
           errors[input].forEach(function (inputError) {
-            var inputElement = $("#".concat(formId, " #").concat(input, "_edit"));
+            var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
             inputElement.addClass("is-invalid");
             inputElement.next(".invalid-feedback").html(inputError);
             errorMessage += inputError + " ";
