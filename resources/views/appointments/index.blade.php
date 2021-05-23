@@ -60,7 +60,7 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ['id', 'appointment_number', 'patient', 'doctor', 'date', 'time', 'status',
+        const dataTableColumns = ['id', 'appointment_number', 'patient', 'doctor', 'date', 'time', 'status_text',
             'fee', 'paid', 'pending'
         ];
         // Column Indexes For URL Parameters

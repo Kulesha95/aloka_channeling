@@ -6,6 +6,10 @@ use App\Constants\Appointments;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AppointmentResource;
+use App\Http\Resources\ChannelTypeResource;
+use App\Http\Resources\DoctorResource;
+use App\Http\Resources\PatientResource;
+use App\Http\Resources\ScheduleResource;
 use App\Models\Appointment;
 use App\Models\Schedule;
 use App\Notifications\AppointmentCreated;
@@ -125,5 +129,35 @@ class AppointmentController extends Controller
     {
         $appointment->delete();
         return ResponseHelper::deleteSuccess('Appointment');
+    }
+
+    /**
+     * Get all appointment details
+     *
+     * @param  \App\Models\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function appointmentDetails(Appointment $appointment)
+    {
+        $data = [
+            'appointment' => new AppointmentResource($appointment),
+            'schedule' => new ScheduleResource($appointment->schedule),
+            'patient' => new PatientResource($appointment->patient),
+            'doctor' => new DoctorResource($appointment->schedule->doctor),
+            'channelType' => new ChannelTypeResource($appointment->schedule->doctor->channelType)
+        ];
+        return ResponseHelper::findSuccess('Appointment', $data);
+    }
+
+    /**
+     * Get all appointment details
+     *
+     * @param  \App\Models\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function updateStatus(Request $request, Appointment $appointment)
+    {
+        $appointment->update(["status" => $request->get('status')]);
+        return ResponseHelper::updateSuccess('Appointment', $appointment);
     }
 }

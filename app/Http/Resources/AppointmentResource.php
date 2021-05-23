@@ -19,6 +19,7 @@ class AppointmentResource extends JsonResource
             Appointments::NEW => "New Appointment",
             Appointments::COMPLETED => "Completed Appointment",
             Appointments::CONFIRMED => "Confirmed Appointment",
+            Appointments::REJECTED => "Rejected Appointment",
             Appointments::PAID => "Paid Appointment",
             Appointments::PENDING => "Reports Pending Appointment",
         ];
@@ -36,7 +37,8 @@ class AppointmentResource extends JsonResource
             "schedule_id" => $this->schedule_id,
             "doctor" => $this->schedule->doctor->name . " - " . $this->schedule->doctor->channelType->channel_type,
             "comment" => $this->comment,
-            "status" => $status[$this->status],
+            "status" => $this->status,
+            "status_text" => $status[$this->status],
             "fee" => "Rs. " . number_format($this->schedule->channeling_fee, 2),
             "paid" => $this->status,
             "pending" => $this->status,

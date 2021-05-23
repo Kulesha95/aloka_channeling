@@ -3,8 +3,10 @@
 return [
 
 	"buttons" => [
+		"confirm" => "Confirm",
 		"createNew" => "Create New",
 		"edit" => "Edit",
+		"reject" => "Reject",
 		"save" => "Save",
 		"login" => "Login",
 		"signUp" => "Sign Up"
@@ -12,6 +14,7 @@ return [
 
 	"fields" => [
 		"actions" => "Actions",
+		"age" => "Age",
 		"appointmentNumber" => "Appointment Number",
 		"address" => "Address",
 		"birthDate" => "Birth Date",
@@ -39,6 +42,7 @@ return [
 		"image" => "Image",
 		"mobile" => "Mobile",
 		"name" => "Name",
+		"number" => "Number",
 		"paid" => "Paid",
 		"password" => "Password",
 		"patient" => "Patient",
@@ -88,20 +92,23 @@ return [
 		"appointmentsManagement" => "Appointment Management",
 		"createAppointment" => "Create Appointment",
 		"editAppointment" => "Edit Appointment",
+		"viewAppointment" => "View Appointment",
 
 		"channelingCalendar" => "Channeling Calendar"
 	],
 
 	"texts" => [
+		"channelDetails" => "Channel Details",
 		"everyWeek" => "Every Week",
 		"forgotPassword" => "Forgot Password ?",
 		"noRepeat" => "No Repeat",
+		"patientDetails" => "Patient Details",
 		"selectDoctor" => "Select Doctor",
 		"selectPatient" => "Select Patient",
 		"selectRepeat" => "Select Repeat",
 		"selectSchedule" => "Select Schedule",
 		"selectUserType" => "Select User Type",
-		"thisCanBeSlightlyChanged" => "* This can be slightly changed"
+		"thisCanBeSlightlyChanged" => "* This can be slightly changed",
 	]
 
 ];
