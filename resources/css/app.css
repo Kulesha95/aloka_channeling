@@ -35,4 +35,12 @@
 .fc-event-title {
   white-space: break-spaces;
 }
+
+.nowrap {
+  white-space: nowrap;
+}
+
+table {
+  font-size: 0.9rem !important;
+}
 /*# sourceMappingURL=app.css.map */

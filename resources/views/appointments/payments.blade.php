@@ -56,14 +56,18 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>{{ __('app.fields.id') }}</th>
+                            <th>{{ __('app.fields.invoiceNumber') }}</th>
                             <th>{{ __('app.fields.reason') }}</th>
                             <th>{{ __('app.fields.date') }}</th>
                             <th>{{ __('app.fields.time') }}</th>
                             <th>{{ __('app.fields.amount') }}</th>
-                            <th>{{ __('app.fields.actions') }}</th>
                         </tr>
                     </thead>
                 </table>
+                <div class="row m-1">
+                    <button type="button" class="btn btn-success ml-auto" id="print-button"><i class="fas fa-print mr-1"
+                            aria-hidden="true"></i>{{ __('app.buttons.print') }}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -72,15 +76,21 @@
 <script>
     let paymentsTable;
     let appointmentNumber;
+    let appointmentId;
+    const documentUrl =
+        "{{ route('documents.getPdf', ['type' => 'channelingPayments', 'id' => ':id', 'action' => 'view']) }}";
     document.addEventListener('DOMContentLoaded', () => {
         paymentsTable = dataTableHandler.initializeTable(
             "payments_list_table",
-            ["id", "reason", "date", "time", "amount_text"],
+            ["id", "invoice_number", "reason", "date", "time", "amount_text"],
             null,
-            []
+            null
         );
         formHandler.handleSave(`paymentAppointmentForm`, ["reason", "amount"], loadPaymentTableData, null,
             "_payment");
+        $('#print-button').click(() => {
+            window.open(documentUrl.replace(':id', appointmentId));
+        });
     });
     const loadPaymentInfo = (data) => {
         paymentUrl = $(`#paymentAppointmentForm`).data("action");
@@ -92,6 +102,7 @@
         $(`#balance_payment`).val(data.appointment.balance_text);
         $(`#paymentAppointmentModal`).modal("show");
         appointmentNumber = data.appointment.appointment_number + " - Payment";
+        appointmentId = data.appointment.id;
         loadPaymentTableData();
     }
     const loadPaymentTableData = () => {

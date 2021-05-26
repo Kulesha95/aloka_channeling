@@ -35,6 +35,28 @@ class Schedule extends Model
         });
     }
 
+    public function getDoctorFeeAttribute()
+    {
+        $doctor = $this->doctor;
+        if ($doctor->commission_type == "Fixed") {
+            $fee = $doctor->commission_amount;
+        } else {
+            $fee = $this->channeling_fee * $doctor->commission_amount / 100;
+        }
+        return  "Rs. " . number_format($fee, 2);
+    }
+
+    public function getChannelingCenterFeeAttribute()
+    {
+        $doctor = $this->doctor;
+        if ($doctor->commission_type == "Fixed") {
+            $fee =  $this->channeling_fee - $doctor->commission_amount;
+        } else {
+            $fee = $this->channeling_fee * (100 - $doctor->commission_amount) / 100;
+        }
+        return  "Rs. " . number_format($fee, 2);
+    }
+
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);

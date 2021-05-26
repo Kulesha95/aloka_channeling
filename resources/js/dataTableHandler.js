@@ -7,6 +7,7 @@ exports.loadData = (table, url) => {
         // Insert New Data To The Table
         table.rows.add(response.data);
         // Readjust Columns Width
+        table.draw();
         table.columns.adjust().draw();
     });
 };
@@ -19,7 +20,7 @@ exports.initializeTable = (
     actionContent = undefined
 ) => {
     // Generate Columns List
-    const tableColumns = columns.map((column) => {
+    const tableColumns = columns.map((column, index) => {
         // If Column Contains Image Field Return Image Preview Instead Of Raw Data
         if (column === "image") {
             return {
@@ -47,12 +48,18 @@ exports.initializeTable = (
         // Return Column Definition As Raw Data And Hide ID Column
         return {
             data: column,
+            responsivePriority: index == 1 ? 1 : 2,
             visible: column !== "id",
         };
     });
     // If Table Needs Action Column Add It To The Columns List
     if (actionContent) {
-        tableColumns.push({ data: null, defaultContent: actionContent });
+        tableColumns.push({
+            data: null,
+            defaultContent: actionContent,
+            responsivePriority: 1,
+            class:"nowrap"
+        });
     }
     // Initialize Datatable
     const dataTable = $(`#${tableId}`).DataTable({

@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('documents/{type}/{id}/{action}', 'DocumentController@getDocument')->name('documents.getPdf');
+
 Route::middleware('auth')->group(function () {
     Route::view('appointments/', 'appointments.index', ["receptionist" => UserTypes::RECEPTIONIST]);
     Route::view('calendar/', 'pages.calendar');

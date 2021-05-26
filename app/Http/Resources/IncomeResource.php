@@ -21,6 +21,7 @@ class IncomeResource extends JsonResource
             "reason" => $this->reason,
             "amount" => $this->amount,
             "amount_text" => $this->amount_text,
+            "invoice_number" => $this->invoice_number,
         ];
     }
 }

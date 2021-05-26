@@ -1896,6 +1896,7 @@ exports.loadData = function (table, url) {
 
     table.rows.add(response.data); // Readjust Columns Width
 
+    table.draw();
     table.columns.adjust().draw();
   });
 }; // Handle Datatable Initialization
@@ -1905,7 +1906,7 @@ exports.initializeTable = function (tableId, columns) {
   var indexUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
   var actionContent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
   // Generate Columns List
-  var tableColumns = columns.map(function (column) {
+  var tableColumns = columns.map(function (column, index) {
     // If Column Contains Image Field Return Image Preview Instead Of Raw Data
     if (column === "image") {
       return {
@@ -1931,6 +1932,7 @@ exports.initializeTable = function (tableId, columns) {
 
     return {
       data: column,
+      responsivePriority: index == 1 ? 1 : 2,
       visible: column !== "id"
     };
   }); // If Table Needs Action Column Add It To The Columns List
@@ -1938,7 +1940,9 @@ exports.initializeTable = function (tableId, columns) {
   if (actionContent) {
     tableColumns.push({
       data: null,
-      defaultContent: actionContent
+      defaultContent: actionContent,
+      responsivePriority: 1,
+      "class": "nowrap"
     });
   } // Initialize Datatable
 

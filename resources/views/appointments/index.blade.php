@@ -71,6 +71,7 @@
         const actionContents =
             "<button class='btn btn-sm btn-outline-info mr-1 view-button'><i class='fas fa-eye fa-fw' ></i></button>" +
             "<button class='btn btn-sm btn-outline-primary mr-1 payment-button'><i class='fas fa-dollar-sign fa-fw' ></i></button>" +
+            "<button class='btn btn-sm btn-outline-dark mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>" +
             defaultActionContent;
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
@@ -111,6 +112,18 @@
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit
         formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
+        $(document).ready(() => {
+            // Handle Print Button Click Event In Data Table
+            dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`, parameterIndexes,
+                openPaymentInvoice, 'print-button');
+        });
+        // Open Print Document
+        const openPaymentInvoice = (data) => {
+            console.log(data);
+            const documentUrl =
+                "{{ route('documents.getPdf', ['type' => 'channelingPaymentInvoice', 'id' => ':id', 'action' => 'view']) }}";
+            window.open(documentUrl.replace(':id', data.appointment.id));
+        }
         // Render Select2 Selected Option
         const templateSelectionDoctor = (item) => {
             if (!item.id) {
