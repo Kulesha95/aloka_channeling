@@ -10,26 +10,26 @@
                 </button>
             </div>
             <div class="modal-body">
-                @if (Auth::user()->user_type_id == $receptionist)
-                    <form data-action="{{ route('appointment.incomes.store', ':id') }}" method="POST"
-                        id="paymentAppointmentForm">
-                        <div class="row">
-                            <div class="form-group col-4">
-                                <label for="fee">{{ __('app.fields.fee') }}</label>
-                                <input id="fee_payment" class="form-control" type="text"
-                                    placeholder="{{ __('app.fields.fee') }}" readonly>
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="paid">{{ __('app.fields.paid') }}</label>
-                                <input id="paid_payment" class="form-control" type="text"
-                                    placeholder="{{ __('app.fields.paid') }}" readonly>
-                            </div>
-                            <div class="form-group col-4">
-                                <label for="balance">{{ __('app.fields.balance') }}</label>
-                                <input id="balance_payment" class="form-control" type="text"
-                                    placeholder="{{ __('app.fields.balance') }}" readonly>
-                            </div>
+                <form data-action="{{ route('appointment.incomes.store', ':id') }}" method="POST"
+                    id="paymentAppointmentForm">
+                    <div class="row">
+                        <div class="form-group col-4">
+                            <label for="fee">{{ __('app.fields.fee') }}</label>
+                            <input id="fee_payment" class="form-control" type="text"
+                                placeholder="{{ __('app.fields.fee') }}" readonly>
                         </div>
+                        <div class="form-group col-4">
+                            <label for="paid">{{ __('app.fields.paid') }}</label>
+                            <input id="paid_payment" class="form-control" type="text"
+                                placeholder="{{ __('app.fields.paid') }}" readonly>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="balance">{{ __('app.fields.balance') }}</label>
+                            <input id="balance_payment" class="form-control" type="text"
+                                placeholder="{{ __('app.fields.balance') }}" readonly>
+                        </div>
+                    </div>
+                    @if (Auth::user()->user_type_id == $receptionist)
                         <div class="row">
                             <div class="form-group col-6">
                                 <label for="reason">{{ __('app.fields.reason') }}</label>
@@ -48,9 +48,9 @@
                             <button type="submit" class="btn btn-primary ml-auto"><i class="fas fa-dollar-sign mr-1"
                                     aria-hidden="true"></i>{{ __('app.buttons.pay') }}</button>
                         </div>
-                    </form>
-                    <hr>
-                @endif
+                    @endif
+                </form>
+                <hr>
                 <table id="payments_list_table" class="table table-sm table-striped table-bordered table-hover"
                     style="width:100%">
                     <thead class="thead-dark">
