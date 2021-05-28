@@ -9,6 +9,7 @@ use App\Http\Resources\AppointmentResource;
 use App\Http\Resources\ChannelTypeResource;
 use App\Http\Resources\DoctorResource;
 use App\Http\Resources\PatientResource;
+use App\Http\Resources\PrescriptionResource;
 use App\Http\Resources\ScheduleResource;
 use App\Models\Appointment;
 use App\Models\Schedule;
@@ -214,5 +215,17 @@ class AppointmentController extends Controller
         return $appointment
             ? ResponseHelper::findSuccess('Appointment', new AppointmentResource($appointment))
             : ResponseHelper::findFail('Appointment');
+    }
+
+    /**
+     * Get Prescriptions List Of The Appointment
+     *
+     * @param  \App\Models\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function prescriptions(Appointment $appointment)
+    {
+        $prescriptions = $appointment->prescriptions;
+        return ResponseHelper::findSuccess('Prescriptions', PrescriptionResource::collection($prescriptions));
     }
 }

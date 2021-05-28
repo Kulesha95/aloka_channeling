@@ -54,6 +54,8 @@
         const indexUrl = "{{ route('appointments.index') }}";
         // View Selected Data URL
         const viewUrl = "{{ route('appointments.show', ':id') }}";
+        // Get Selected Item Details URL
+        const detailsUrl = "{{ route('appointments.details', ':id') }}";
         // Delete Data URL
         const deleteUrl = "{{ route('appointments.destroy', ':id') }}";
         // Entity Name To Define Form And Model IDs
@@ -103,10 +105,10 @@
         // Handle Edit Button Click Event In Data Table
         dataTableHandler.handleShow(table, viewUrl, parameterIndexes, loadEditForm);
         // Handle View Button Click Event In Data Table
-        dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`, parameterIndexes,
+        dataTableHandler.handleCustom(table, detailsUrl, parameterIndexes,
             loadChannelingInfo, 'view-button');
         // Handle Payment Button Click Event In Data Table
-        dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`, parameterIndexes,
+        dataTableHandler.handleCustom(table, detailsUrl, parameterIndexes,
             loadPaymentInfo, 'payment-button');
         // Handle Create Form Submit
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
@@ -114,7 +116,7 @@
         formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
         $(document).ready(() => {
             // Handle Print Button Click Event In Data Table
-            dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`, parameterIndexes,
+            dataTableHandler.handleCustom(table, detailsUrl, parameterIndexes,
                 openPaymentInvoice, 'print-button');
         });
         // Open Print Document
@@ -217,7 +219,10 @@
         });
         // Display Estimated Number, Time And Correct Dates If Incorrect
         const displayAppintmentApproximations = (scheduleId, scheduleDate) => {
-            httpService.get(`${httpService.baseUrl}/scheduleSummary/${scheduleId}/${scheduleDate}`).then(
+            httpService.get(
+                "{{ route('schedules.summary', [':id', ':date']) }}"
+                .replace(":id", scheduleId)
+                .replace(":date", scheduleDate)).then(
                 response => {
                     $('#current_number_create').val(response.data.number);
                     $('#estimated_time_create').val(response.data.time);

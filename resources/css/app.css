@@ -49,6 +49,10 @@ table {
   border-color: red !important;
 }
 
+.note-editor.is-invalid {
+  border-color: red !important;
+}
+
 .is-invalid {
   background-image: none !important;
 }

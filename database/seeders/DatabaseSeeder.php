@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             AppointmentSeeder::class,
             IncomeSeeder::class,
             ItemTypeSeeder::class,
+            PrescriptionSeeder::class,
             ItemSeeder::class
         ]);
     }

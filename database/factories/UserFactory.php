@@ -80,4 +80,14 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function defaultPharmacist()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'username' => "pharmacist",
+                'user_type_id' => UserTypes::PHARMACIST
+            ];
+        });
+    }
 }

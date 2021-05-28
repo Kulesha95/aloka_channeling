@@ -303,6 +303,13 @@ return [
             'icon' => 'fas fa-fw fa-pills',
             'can' => 'manage-items'
         ],
+        [
+            'text' => 'prescriptions',
+            'url'  => 'prescriptions',
+            'icon' => 'fas fa-fw fa-file-prescription',
+            'can' => 'manage-prescriptions'
+        ],
+
     ],
 
     /*

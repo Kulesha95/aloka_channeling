@@ -22,6 +22,7 @@ class DefaultUsersSeeder extends Seeder
         User::factory(1)->defaultSuperAdmin()->create();
         User::factory(1)->defaultAdmin()->create();
         User::factory(1)->defaultReceptionist()->create();
+        User::factory(1)->defaultPharmacist()->create();
 
         $userData = [
             'name' => "John Doe",

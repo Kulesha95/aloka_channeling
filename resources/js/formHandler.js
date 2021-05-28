@@ -13,7 +13,8 @@ exports.handleReset = (formId, inputs = undefined, suffix = "_create") => {
         const inputElement = $(`#${formId} #${input}${suffix}`);
         inputElement.removeClass("is-invalid");
         inputElement.next(".select2-container").removeClass("is-invalid");
-        inputElement.next(".invalid-feedback").html("");
+        inputElement.next(".note-editor").removeClass("is-invalid");
+        inputElement.siblings(".invalid-feedback").html("");
         if (inputElement.next(".note-editor").length > 0) {
             inputElement.summernote("code", "");
         }
@@ -37,6 +38,7 @@ exports.handleSave = (
             const inputElement = $(`#${formId} #${input}${suffix}`);
             inputElement.removeClass("is-invalid");
             inputElement.next(".select2-container").removeClass("is-invalid");
+            inputElement.siblings(".note-editor").removeClass("is-invalid");
             inputElement.siblings(".invalid-feedback").html("");
         });
         // Get Data From The Form
@@ -72,6 +74,9 @@ exports.handleSave = (
                             inputElement.addClass("is-invalid");
                             inputElement
                                 .next(".select2-container")
+                                .addClass("is-invalid");
+                            inputElement
+                                .next(".note-editor")
                                 .addClass("is-invalid");
                             inputElement
                                 .siblings(".invalid-feedback")
@@ -149,6 +154,7 @@ exports.handleEdit = (
             const inputElement = $(`#${formId} #${input}${suffix}`);
             inputElement.removeClass("is-invalid");
             inputElement.next(".select2-container").removeClass("is-invalid");
+            inputElement.next(".note-editor").removeClass("is-invalid");
             inputElement.siblings(".invalid-feedback").html("");
         });
         // Get Data From The Form
@@ -186,6 +192,9 @@ exports.handleEdit = (
                             inputElement.addClass("is-invalid");
                             inputElement
                                 .next(".select2-container")
+                                .addClass("is-invalid");
+                            inputElement
+                                .next(".note-editor")
                                 .addClass("is-invalid");
                             inputElement
                                 .siblings(".invalid-feedback")

@@ -13,6 +13,7 @@ return [
 		"search" => "Search",
 		"signUp" => "Sign Up",
 		"pay" => "Pay",
+		"prescriptions" => "Prescriptions",
 		"print" => "Print",
 		"onHold" => "On Hold"
 	],
@@ -65,6 +66,8 @@ return [
 		"password" => "Password",
 		"patient" => "Patient",
 		"pending" => "Pending",
+		"prescriptionNumber" => "Prescription Number",
+		"prescriptionType" => "Prescription Type",
 		"qualification" => "Qualification",
 		"reason" => "Reason",
 		"reorderLevel" => "Reorder Level",
@@ -124,19 +127,31 @@ return [
 		"createAppointment" => "Create Appointment",
 		"editAppointment" => "Edit Appointment",
 		"viewAppointment" => "View Appointment",
+
+		"prescriptionsManagement" => "Prescription Management",
+		"createPrescription" => "Create Prescription",
+		"editPrescription" => "Edit Prescription",
+
 		"channelingPaymentInvoice" => "Channeling Payment Invoice",
 		"channelingPayments" => "Channeling Payments",
 		"appointmentPayments" => "Appointment Payments",
+		"medicalPrescription" => "Medical Prescription",
+		"testPrescription" => "Test Prescription",
 
 		"channelingCalendar" => "Channeling Calendar",
 		"channelingNote" => "Channeling Note",
+
+		"managePrescriptions" => "Manage Prescriptions",
 	],
 
 	"texts" => [
 		"channelDetails" => "Channel Details",
 		"channelingNote" => "Channeling Note",
 		"everyWeek" => "Every Week",
+		"prescriptions" => "Prescriptions",
+		"prescriptionsList" => "Prescriptions List",
 		"forgotPassword" => "Forgot Password ?",
+		"medicalPrescriptions" => "Medical Prescriptions",
 		"noRepeat" => "No Repeat",
 		"patientDetails" => "Patient Details",
 		"parentItemType" => "Parent Item Type",
@@ -145,9 +160,11 @@ return [
 		"selectItemType" => "Select Item Type",
 		"selectParent" => "Select Parent",
 		"selectPatient" => "Select Patient",
+		"selectPrescriptionType" => "Select Prescription Type",
 		"selectRepeat" => "Select Repeat",
 		"selectSchedule" => "Select Schedule",
 		"selectUserType" => "Select User Type",
+		"testPrescriptions" => "Test Prescriptions",
 		"thisCanBeSlightlyChanged" => "* This can be slightly changed",
 	]
 

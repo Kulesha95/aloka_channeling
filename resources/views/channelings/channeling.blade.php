@@ -49,6 +49,9 @@
                     <a class="nav-item nav-link active" id="nav-channelingNote-tab" data-toggle="tab"
                         href="#nav-channelingNote" role="tab" aria-controls="nav-channelingNote" aria-selected="true"><i
                             class="fas fa-heart mr-2"></i>{{ __('app.texts.channelingNote') }}</a>
+                    <a class="nav-item nav-link" id="nav-prescriptions-tab" data-toggle="tab" href="#nav-prescriptions"
+                        role="tab" aria-controls="nav-prescriptions" aria-selected="true"><i
+                            class="fas fa-file-prescription mr-2"></i>{{ __('app.texts.prescriptions') }}</a>
                     <a class="nav-item nav-link" id="nav-patient-history-tab" data-toggle="tab" href="#nav-patient-history"
                         role="tab" aria-controls="nav-patient-history" aria-selected="false"><i
                             class="fas fa-history mr-2"></i>{{ __('app.texts.patientHistory') }}<span
@@ -92,9 +95,30 @@
                         </div>
                     </form>
                 </div>
+                <div class="tab-pane fade" id="nav-prescriptions" role="tabpanel" aria-labelledby="nav-prescriptions-tab">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary ml-auto mb-2" data-toggle="modal"
+                            data-target="#createPrescriptionModal">
+                            <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.createNew') }}
+                        </button>
+                    </div>
+                    <table id="prescriptions_list_table" class="table table-sm table-striped table-bordered table-hover"
+                        style="width:100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>{{ __('app.fields.id') }}</th>
+                                <th>{{ __('app.fields.prescriptionNumber') }}</th>
+                                <th>{{ __('app.fields.date') }}</th>
+                                <th>{{ __('app.fields.time') }}</th>
+                                <th>{{ __('app.fields.prescriptionType') }}</th>
+                                <th>{{ __('app.fields.actions') }}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
                 <div class="tab-pane fade" id="nav-patient-history" role="tabpanel"
                     aria-labelledby="nav-patient-history-tab">
-                    <table id="items_list_table" class="table table-sm table-striped table-bordered table-hover"
+                    <table id="appointmnets_list_table" class="table table-sm table-striped table-bordered table-hover"
                         style="width:100%">
                         <thead class="thead-dark">
                             <tr>
@@ -120,6 +144,8 @@
             </div>
         </div>
         @include('appointments.info')
+        @include('prescriptions.create')
+        @include('prescriptions.edit')
     </div>
 @endsection
 
@@ -146,7 +172,7 @@
         // Entity Name To Define Form And Model IDs
         const model = "Appointment";
         // Data Table Name
-        const dataTableName = 'items_list_table';
+        const dataTableName = 'appointmnets_list_table';
         // Table Columns List
         const dataTableColumns = ['id', 'appointment_number', 'reason', 'doctor', 'date', 'time', 'status_text'];
         // Column Indexes For URL Parameters
@@ -159,6 +185,31 @@
         // Table Actions
         const actionContents =
             "<button class='btn btn-sm btn-outline-info mr-1 view-button'><i class='fas fa-eye fa-fw' ></i></button>"
+        // Prescriptions Create And Edit Forms Inputs
+        const inputsPrescriptions = ['prescription_type', 'comment'];
+        // Prescriptions Load Data URL
+        const indexUrlPrescriptions = "{{ route('appointments.prescriptions', ':id') }}";
+        // Prescriptions View Selected Data URL
+        const viewUrlPrescriptions = "{{ route('prescriptions.show', ':id') }}";
+        // Prescriptions Delete Data URL
+        const deleteUrlPrescriptions = "{{ route('prescriptions.destroy', ':id') }}";
+        // Prescriptions Entity Name To Define Form And Model IDs
+        const modelPrescriptions = "Prescription";
+        // Prescriptions Datatable ID
+        const dataTableNamePrescriptions = 'prescriptions_list_table';
+        // Prescriptions Table Columns List
+        const dataTableColumnsPrescriptions = ["id", "prescription_number", "date", "time", "prescription_type_text"];
+        // Prescriptions Column Indexes For URL Parameters
+        const parameterIndexesPrescriptions = {
+            "id": 0
+        };
+        // Initialize Data Table
+        const tablePrescriptions = dataTableHandler.initializeTable(
+            dataTableNamePrescriptions,
+            dataTableColumnsPrescriptions,
+            undefined,
+            actionContents + defaultActionContent
+        );
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
@@ -166,6 +217,25 @@
             null,
             actionContents
         );
+        // Load Data To The Table
+        const loadDataPrescriptions = () => {
+            dataTableHandler.loadData(tablePrescriptions, indexUrlPrescriptions.replace(':id', currentId));
+        };
+        // Load Selected Data To The Edit Form
+        const loadEditFormPrescriptions = (data) => {
+            formHandler.handleShow(
+                `edit${modelPrescriptions}Form`,
+                inputsPrescriptions,
+                `edit${modelPrescriptions}Modal`,
+                data,
+                parameterIndexesPrescriptions,
+                "_prescription_edit");
+        }
+        const openPrescription = (data) => {
+            const documentUrl =
+                "{{ route('documents.getPdf', ['type' => 'prescription', 'id' => ':id', 'action' => 'view']) }}";
+            window.open(documentUrl.replace(':id', data.id));
+        }
         // Page Loading Process
         $(document).ready(() => {
             // Select Doctor Current Schedule
@@ -176,12 +246,34 @@
             });
             // Initialize Summernote Editor
             $('#comment_edit').summernote();
+            $('#comment_prescription_create').summernote();
+            $('#comment_prescription_edit').summernote();
             // Handle Channeling Note Update
             formHandler.handleEdit(`edit${model}Form`, inputs, searchAppointment);
             // Handle Patient Histoy View Button Click
-            dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`,
+            dataTableHandler.handleCustom(table, "{{ route('appointments.details', ':id') }}",
                 parameterIndexesAppointments,
                 loadChannelingInfo, 'view-button');
+            // Delete Item
+            dataTableHandler.handleDelete(
+                tablePrescriptions,
+                deleteUrlPrescriptions,
+                parameterIndexesPrescriptions,
+                indexUrlPrescriptions.replace(':id', currentId)
+            );
+            // Handle Edit Button Click Event In Data Table
+            dataTableHandler.handleShow(tablePrescriptions, viewUrlPrescriptions, parameterIndexesPrescriptions,
+                loadEditFormPrescriptions);
+            // Handle Create Form Submit
+            formHandler.handleSave(`create${modelPrescriptions}Form`, inputsPrescriptions, loadDataPrescriptions,
+                `create${modelPrescriptions}Modal`, "_prescription_create");
+            // Handle Edit Form Submit
+            formHandler.handleEdit(`edit${modelPrescriptions}Form`, inputsPrescriptions, loadDataPrescriptions,
+                `edit${modelPrescriptions}Modal`, "_prescription_edit");
+            // Handle Prescription View Button Click
+            dataTableHandler.handleCustom(tablePrescriptions, viewUrlPrescriptions,
+                parameterIndexesPrescriptions,
+                openPrescription, 'view-button');
         });
         // Load Patient History
         const handleFormLoadSuccess = (data) => {
@@ -208,12 +300,18 @@
                     handleFormLoadSuccess
                 );
                 $('#channelingNumber').val(data.number_text);
+                $('#appointment_id_prescription_create').val(data.id);
+                $('#appointment_id_prescription_edit').val(data.id);
+                loadDataPrescriptions();
                 // If Not Found Reset The Form And Current Appointment Details
             } else {
                 currentNumber = 0;
                 currentId = 0;
                 $('#channelingNumber').val('');
+                $('#appointment_id_prescription_create').val('');
+                $('#appointment_id_prescription_edit').val('');
                 table.clear().draw();
+                tablePrescriptions.clear().draw();
             }
         }
         // Handle Next Appointment Button Click

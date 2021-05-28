@@ -83,4 +83,9 @@ class Appointment extends Model
     {
         return $this->morphMany(Income::class, 'incomeable');
     }
+    
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
+    }
 }

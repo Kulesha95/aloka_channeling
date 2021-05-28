@@ -153,7 +153,7 @@
         }
     }
     const handleStatusUpdate = (id, status) => {
-        httpService.put(`${httpService.baseUrl}/appointment/${id}/updateStatus`, {
+        httpService.put("{{ route('appointments.updateStatus', ':id') }}".replace(':id', id), {
             status,
             _method: "PUT"
         }).then((response) => {

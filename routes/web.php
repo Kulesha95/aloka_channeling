@@ -1,6 +1,7 @@
 <?php
 
 use App\Constants\Appointments;
+use App\Constants\Prescriptions;
 use App\Constants\UserTypes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -30,11 +31,13 @@ Route::middleware('auth')->group(function () {
         "rejected" => Appointments::REJECTED
     ]);
     Route::view('calendar/', 'pages.calendar');
-    Route::view('channelings/', 'pages.channeling', [
+    Route::view('channelings/', 'channelings.channeling', [
         "confirmed" => Appointments::CONFIRMED,
         "rejected" => Appointments::REJECTED,
         "completed" => Appointments::COMPLETED,
-        "onHold" => Appointments::PENDING
+        "onHold" => Appointments::PENDING,
+        "medicalPrescription" => Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION,
+        "testPrescription" =>  Prescriptions::TEST_PRESCRIPTION
     ]);
     Route::view('channelTypes/', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');
@@ -42,6 +45,10 @@ Route::middleware('auth')->group(function () {
     route::view('items', 'items.index');
     route::view('itemTypes', 'itemTypes.index');
     Route::view('patients/', 'patients.index', ['userType' => UserTypes::PATIENT]);
+    Route::view('prescriptions', 'prescriptions.index', [
+        "medicalPrescription" => Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION,
+        "testPrescription" =>  Prescriptions::TEST_PRESCRIPTION
+    ]);
     route::view('schedules', 'schedules.index');
     Route::view('users/', 'users.index');
     Route::view('userTypes/', 'userTypes.index')->name('userTypes.index.view');

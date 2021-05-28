@@ -17,14 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('schedules/search', "ScheduleController@search")->name('schedules.search');
 
 Route::middleware('auth:api')->group(function () {
-	Route::put('appointment/{appointment}/updateStatus', 'AppointmentController@updateStatus')->name('appointments.updateStatus');
-	Route::get('appointmentDetails/{appointment}', 'AppointmentController@appointmentDetails');
-	Route::get('appointments/{schedule}/{currentNumber}/next', 'AppointmentController@next')->name('appointments.next');
+	Route::get('appointments/{appointment}/details', 'AppointmentController@appointmentDetails')->name('appointments.details');
+	Route::get('appointments/{appointment}/prescriptions', 'AppointmentController@prescriptions')->name('appointments.prescriptions');
+	Route::put('appointments/{appointment}/updateStatus', 'AppointmentController@updateStatus')->name('appointments.updateStatus');
 	Route::get('appointments/{schedule}/{currentNumber}/back', 'AppointmentController@back')->name('appointments.back');
+	Route::get('appointments/{schedule}/{currentNumber}/next', 'AppointmentController@next')->name('appointments.next');
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
 	Route::get('doctors/schedule', 'DoctorController@schedule')->name('doctors.schedule');
 	Route::get('patients/{patient}/history', 'PatientController@history')->name('patients.history');
-	Route::get('scheduleSummary/{schedule}/{date}', 'ScheduleController@scheduleSummary');
+	Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
 
 
 	Route::apiResource('appointments', AppointmentController::class);
@@ -34,6 +35,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('items', ItemController::class);
 	Route::apiResource('itemTypes', ItemTypeController::class);
 	Route::apiResource('patients', PatientController::class);
+	Route::apiResource('prescriptions', PrescriptionController::class);
 	Route::apiResource('schedules', ScheduleController::class);
 	Route::apiResource('users', UserController::class);
 	Route::apiResource('userTypes', UserTypeController::class);
