@@ -177,7 +177,7 @@
             // Initialize Summernote Editor
             $('#comment_edit').summernote();
             // Handle Channeling Note Update
-            formHandler.handleEdit(`edit${model}Form`, inputs);
+            formHandler.handleEdit(`edit${model}Form`, inputs, searchAppointment);
             // Handle Patient Histoy View Button Click
             dataTableHandler.handleCustom(table, `${httpService.baseUrl}/appointmentDetails/:id`,
                 parameterIndexesAppointments,
