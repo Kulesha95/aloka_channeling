@@ -1,4 +1,25 @@
 // Handle Save Form Submit
+exports.handleReset = (formId, inputs = undefined, suffix = "_create") => {
+    $(`#${formId}`).trigger("reset");
+    // If File Input Exists Clear The Selected File Name And Add Default Place Holder
+    if (inputs.includes("image")) {
+        $(`#${formId} #image${suffix}`)
+            .next(".custom-file-label")
+            .html("Image");
+    }
+
+    // Clear Validation Errors
+    inputs.forEach((input) => {
+        const inputElement = $(`#${formId} #${input}${suffix}`);
+        inputElement.removeClass("is-invalid");
+        inputElement.next(".invalid-feedback").html("");
+        if (inputElement.next(".note-editor").length > 0) {
+            inputElement.summernote("code", "");
+        }
+    });
+};
+
+// Handle Save Form Submit
 exports.handleSave = (
     formId,
     inputs = undefined,
@@ -23,13 +44,7 @@ exports.handleSave = (
             .post($(`#${formId}`).attr("action"), formData)
             .then((response) => {
                 // If Data Save Success Reset The Form
-                $(`#${formId}`).trigger("reset");
-                // If File Input Exists Clear The Selected File Name And Add Default Place Holder
-                if (inputs.includes("image")) {
-                    $(`#${formId} #image${suffix}`)
-                        .next(".custom-file-label")
-                        .html("Image");
-                }
+                this.handleReset(formId, inputs, suffix);
                 // Close The Model Window
                 if (modal) {
                     $(`#${modal}`).modal("hide");
@@ -76,13 +91,13 @@ exports.handleShow = (
     modal = undefined,
     data,
     parameterIndexes,
-    suffix = "_edit"
+    suffix = "_edit",
+    callback = undefined
 ) => {
+    // Clear Form
+    this.handleReset(formId, inputs, suffix);
     inputs.forEach((input) => {
-        // Clear Validation Errors If Exist
         const inputElement = $(`#${formId} #${input}${suffix}`);
-        inputElement.removeClass("is-invalid");
-        inputElement.next(".invalid-feedback").html("");
         // if Data Is An Image Preview It
         if (input === "image") {
             $(`#${formId} #image_preview`).attr("src", data[input]);
@@ -106,6 +121,9 @@ exports.handleShow = (
     // Display Edit Modal
     if (modal) {
         $(`#${modal}`).modal("show");
+    }
+    if (callback) {
+        callback(data);
     }
 };
 
@@ -134,13 +152,7 @@ exports.handleEdit = (
             .put($(`#${formId}`).attr("action"), formData)
             .then((response) => {
                 // If Data Edit Success Reset The Form
-                $(`#${formId}`).trigger("reset");
-                // If File Input Exists Clear The Selected File Name And Add Default Place Holder
-                if (inputs.includes("image")) {
-                    $(`#${formId} #image${suffix}`)
-                        .next(".custom-file-label")
-                        .html("Image");
-                }
+                this.handleReset(formId, inputs, suffix);
                 // Close The Model Window
                 if (modal) {
                     $(`#${modal}`).modal("hide");
@@ -162,7 +174,9 @@ exports.handleEdit = (
                     // Display Validation Errors On The Form And Append The Message To Alert Message Body
                     Object.keys(errors).forEach((input) => {
                         errors[input].forEach((inputError) => {
-                            const inputElement = $(`#${formId} #${input}${suffix}`);
+                            const inputElement = $(
+                                `#${formId} #${input}${suffix}`
+                            );
                             inputElement.addClass("is-invalid");
                             inputElement
                                 .next(".invalid-feedback")

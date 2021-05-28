@@ -5,15 +5,21 @@
 @section('content')
     <div class="row">
         <div class="col-2">{{ __('app.fields.patient') }}</div>
-        <div class="col-5">: {{ $appointment->patient->name }}</div>
+        <div class="col-3">: {{ $appointment->patient->name }}</div>
         <div class="col-3">{{ __('app.fields.appointmentNumber') }}</div>
         <div class="col-4">: {{ $appointment->appointment_number }}</div>
     </div>
     <div class="row">
         <div class="col-2">{{ __('app.fields.doctor') }}</div>
-        <div class="col-5">: {{ $appointment->schedule->doctor->name }}</div>
+        <div class="col-3">: {{ $appointment->schedule->doctor->name }}</div>
         <div class="col-3">{{ __('app.fields.appointmentTime') }}</div>
-        <div class="col-4">: {{ $appointment->date }} - {{ $appointment->time_text }}</div>
+        <div class="col-4">: {{ $appointment->date }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">{{ __('app.fields.consultant') }}</div>
+        <div class="col-3">: {{$appointment->schedule->doctor->channelType->channel_type}}</div>
+        <div class="col-3">{{ __('app.fields.time') }}</div>
+        <div class="col-4">: {{ $appointment->time_text }}</div>
     </div>
     <table class="table table-sm mt-5">
         <thead>

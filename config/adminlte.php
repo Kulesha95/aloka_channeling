@@ -285,6 +285,12 @@ return [
             'icon' => 'fas fa-fw fa-calendar-plus',
             'can' => 'manage-appointments'
         ],
+        [
+            'text' => 'channelings',
+            'url'  => 'channelings',
+            'icon' => 'fas fa-fw fa-heart',
+            'can' => 'manage-channelings'
+        ],
 
     ],
 

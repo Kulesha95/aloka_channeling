@@ -6,11 +6,14 @@ use App\Helpers\FileStorageHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\DoctorResource;
+use App\Http\Resources\ScheduleResource;
 use App\Models\Doctor;
 use App\Models\User;
 use App\Notifications\UserAccountCreated;
 use App\Rules\PhoneNumber;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -47,7 +50,6 @@ class DoctorController extends Controller
                 'mobile' => ["required", new PhoneNumber()],
                 'image' => 'mimes:jpeg,jpg,png,gif',
                 'user_type_id' => 'required',
-                'mobile' => 'required',
                 'name' => 'required',
                 'qualification' => 'required',
                 'works_at' => 'required',
@@ -157,7 +159,7 @@ class DoctorController extends Controller
             );
             $doctor->update(
                 $request->only(["name", "qualification", "works_at", "commission_amount", "commission_type", "channel_type_id"])
-            );           
+            );
             DB::commit();
             return ResponseHelper::updateSuccess(
                 'Doctor',
@@ -182,5 +184,29 @@ class DoctorController extends Controller
     {
         $doctor->delete();
         return ResponseHelper::deleteSuccess('Doctor');
+    }
+
+    /**
+     * Get Doctor Current Schedule
+     *
+     * @param  \App\Models\Doctor  $doctor
+     * @return \Illuminate\Http\Response
+     */
+    public function schedule(Request $request)
+    {
+        $schedule = Auth::user()->doctor->schedules
+            ->where('date_from', '<=', now()->toDateString())
+            ->where('date_to', '>=', now()->toDateString())
+            ->where('time_from', '<=', now()->toTimeString())
+            ->where('time_to', '>=',  now()->toTimeString())
+            ->filter(function ($schedule) {
+                if ($schedule->repeat == 7) {
+                    return Carbon::createFromDate($schedule->date_from)->dayOfWeek == Carbon::now()->dayOfWeek;
+                }
+                return true;
+            })->first();
+        return $schedule
+            ? ResponseHelper::findSuccess('Doctor Schedule', new ScheduleResource($schedule))
+            : ResponseHelper::findFail('Schedule', []);
     }
 }

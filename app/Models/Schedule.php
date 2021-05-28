@@ -69,6 +69,11 @@ class Schedule extends Model
             . " - " . Carbon::createFromFormat("H:i:s", $this->time_to)->format('h:i A');
     }
 
+    public function getScheduleNumberAttribute()
+    {
+        return "SCH" . str_pad($this->id, 5, '0', STR_PAD_LEFT);
+    }
+
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);

@@ -127,7 +127,7 @@
         $(`#channelType`).html(data.channelType.channel_type);
         $(`#channelDate`).html(data.appointment.date);
         $(`#channelEstimatedTime`).html(moment(data.appointment.time, "HH:mm:ss").format("hh:mm A"));
-        $(`#channelNumber`).html(data.appointment.number);
+        $(`#channelNumber`).html(data.appointment.number_text);
         $(`#appointmentNumber`).html(data.appointment.appointment_number);
         $(`#fee`).html(data.appointment.fee);
         $(`#patientImage`).attr('src', data.patient.image);
@@ -143,10 +143,10 @@
         $(`#viewAppointmentModal`).modal("show");
         if (data.appointment.status === 1) {
             $('#button-row').html(
-                `<button type="submit" class="btn btn-success ml-auto" onclick="handleStatusUpdate(${data.appointment.id},2)"><i class="fa fa-check-circle mr-1"
-                    aria-hidden="true"></i>{{ __('app.buttons.confirm') }}</button>
-                <button type="submit" class="btn btn-danger ml-1" onclick="handleStatusUpdate(${data.appointment.id},3)"><i class="fa fa-times-circle mr-1"
-                    aria-hidden="true"></i>{{ __('app.buttons.reject') }}</button>`
+                `<button type="submit" class="btn btn-danger ml-auto" onclick="handleStatusUpdate(${data.appointment.id},{{ $rejected }})"><i class="fa fa-times-circle mr-1"
+                    aria-hidden="true"></i>{{ __('app.buttons.reject') }}</button>
+                <button type="submit" class="btn btn-success ml-1" onclick="handleStatusUpdate(${data.appointment.id},{{ $confirmed }})"><i class="fa fa-check-circle mr-1"
+                    aria-hidden="true"></i>{{ __('app.buttons.confirm') }}</button>`
             );
         } else {
             $('#button-row').html("");

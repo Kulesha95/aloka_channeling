@@ -2046,9 +2046,33 @@ exports.handleCustom = function (table, url) {
 /*!*************************************!*\
   !*** ./resources/js/formHandler.js ***!
   \*************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ (function(__unused_webpack_module, exports) {
+
+var _this = this;
 
 // Handle Save Form Submit
+exports.handleReset = function (formId) {
+  var inputs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+  var suffix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "_create";
+  $("#".concat(formId)).trigger("reset"); // If File Input Exists Clear The Selected File Name And Add Default Place Holder
+
+  if (inputs.includes("image")) {
+    $("#".concat(formId, " #image").concat(suffix)).next(".custom-file-label").html("Image");
+  } // Clear Validation Errors
+
+
+  inputs.forEach(function (input) {
+    var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
+    inputElement.removeClass("is-invalid");
+    inputElement.next(".invalid-feedback").html("");
+
+    if (inputElement.next(".note-editor").length > 0) {
+      inputElement.summernote("code", "");
+    }
+  });
+}; // Handle Save Form Submit
+
+
 exports.handleSave = function (formId) {
   var inputs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
   var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
@@ -2069,11 +2093,7 @@ exports.handleSave = function (formId) {
 
     httpService.post($("#".concat(formId)).attr("action"), formData).then(function (response) {
       // If Data Save Success Reset The Form
-      $("#".concat(formId)).trigger("reset"); // If File Input Exists Clear The Selected File Name And Add Default Place Holder
-
-      if (inputs.includes("image")) {
-        $("#".concat(formId, " #image").concat(suffix)).next(".custom-file-label").html("Image");
-      } // Close The Model Window
+      _this.handleReset(formId, inputs, suffix); // Close The Model Window
 
 
       if (modal) {
@@ -2117,11 +2137,13 @@ exports.handleShow = function (formId) {
   var data = arguments.length > 3 ? arguments[3] : undefined;
   var parameterIndexes = arguments.length > 4 ? arguments[4] : undefined;
   var suffix = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : "_edit";
+  var callback = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : undefined;
+
+  // Clear Form
+  _this.handleReset(formId, inputs, suffix);
+
   inputs.forEach(function (input) {
-    // Clear Validation Errors If Exist
-    var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
-    inputElement.removeClass("is-invalid");
-    inputElement.next(".invalid-feedback").html(""); // if Data Is An Image Preview It
+    var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix)); // if Data Is An Image Preview It
 
     if (input === "image") {
       $("#".concat(formId, " #image_preview")).attr("src", data[input]);
@@ -2146,6 +2168,10 @@ exports.handleShow = function (formId) {
   if (modal) {
     $("#".concat(modal)).modal("show");
   }
+
+  if (callback) {
+    callback(data);
+  }
 }; // Handle Data Edit Form Submit
 
 
@@ -2169,11 +2195,7 @@ exports.handleEdit = function (formId) {
 
     httpService.put($("#".concat(formId)).attr("action"), formData).then(function (response) {
       // If Data Edit Success Reset The Form
-      $("#".concat(formId)).trigger("reset"); // If File Input Exists Clear The Selected File Name And Add Default Place Holder
-
-      if (inputs.includes("image")) {
-        $("#".concat(formId, " #image").concat(suffix)).next(".custom-file-label").html("Image");
-      } // Close The Model Window
+      _this.handleReset(formId, inputs, suffix); // Close The Model Window
 
 
       if (modal) {
@@ -2231,15 +2253,13 @@ if (apitoken) {
 
 
 exports.get = function (url) {
-  var body = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   return new Promise(function (resolve, reject) {
-    axios.get(url, {
-      body: body
-    }).then(function (response) {
+    axios.get(url).then(function (response) {
       return resolve(response.data);
     })["catch"](function (error) {
       // Display Error Message If Request Failed
       messageHandler.errorMessage(error.response.data.message);
+      reject(error);
     });
   });
 }; // Handle Post Request
@@ -2257,6 +2277,7 @@ exports.post = function (url) {
       } else {
         // Display Error Message If Request Failed
         messageHandler.errorMessage(error.response.data.message);
+        reject(error);
       }
     });
   });
@@ -2275,6 +2296,7 @@ exports.put = function (url) {
       } else {
         // Display Error Message If Request Failed
         messageHandler.errorMessage(error.response.data.message);
+        reject(error);
       }
     });
   });
@@ -2282,15 +2304,13 @@ exports.put = function (url) {
 
 
 exports.delete = function (url) {
-  var body = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   return new Promise(function (resolve, reject) {
-    axios["delete"](url, {
-      body: body
-    }).then(function (response) {
+    axios["delete"](url).then(function (response) {
       return resolve(response.data);
     })["catch"](function (error) {
       // Display Error Message If Request Failed
       messageHandler.errorMessage(error.response.data.message);
+      reject(error);
     });
   });
 }; // Base Url Of The API

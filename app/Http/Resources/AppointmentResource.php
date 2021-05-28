@@ -43,6 +43,7 @@ class AppointmentResource extends JsonResource
             "fee_text" => $this->fee_text,
             "paid_text" => $this->paid_text,
             "balance_text" => $this->balance_text,
+            "number_text" => $this->number_text,
         ];
     }
 }

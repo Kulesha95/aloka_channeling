@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Helpers\FileStorageHelper;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AppointmentResource;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
 use App\Models\User;
@@ -233,5 +234,17 @@ class PatientController extends Controller
     {
         $patient->delete();
         return ResponseHelper::deleteSuccess('Patient');
+    }
+
+    /**
+     * Get Patient History
+     *
+     * @param  \App\Models\Patient  $patient
+     * @return \Illuminate\Http\Response
+     */
+    public function history(Request $request, Patient $patient)
+    {
+        $appointments = $patient->appointments;
+        return ResponseHelper::findSuccess('Patient History', AppointmentResource::collection($appointments));
     }
 }

@@ -2,6 +2,8 @@
 
 use App\Constants\Appointments;
 use App\Constants\UserTypes;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +24,18 @@ Route::get('/', function () {
 Route::get('documents/{type}/{id}/{action}', 'DocumentController@getDocument')->name('documents.getPdf');
 
 Route::middleware('auth')->group(function () {
-    Route::view('appointments/', 'appointments.index', ["receptionist" => UserTypes::RECEPTIONIST, "rejected" => Appointments::REJECTED]);
+    Route::view('appointments/', 'appointments.index', [
+        "receptionist" => UserTypes::RECEPTIONIST,
+        "confirmed" => Appointments::CONFIRMED,
+        "rejected" => Appointments::REJECTED
+    ]);
     Route::view('calendar/', 'pages.calendar');
+    Route::view('channelings/', 'pages.channeling', [
+        "confirmed" => Appointments::CONFIRMED,
+        "rejected" => Appointments::REJECTED,
+        "completed" => Appointments::COMPLETED,
+        "onHold" => Appointments::PENDING
+    ]);
     Route::view('channelTypes/', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');
     route::view('doctors', 'doctors.index', ['userType' => UserTypes::DOCTOR]);

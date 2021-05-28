@@ -113,7 +113,7 @@ class AppointmentController extends Controller
             );
         }
         $appointment->update($request->only(['reason', 'comment']));
-        return ResponseHelper::createSuccess(
+        return ResponseHelper::updateSuccess(
             'Appointment',
             new AppointmentResource($appointment)
         );
@@ -159,5 +159,60 @@ class AppointmentController extends Controller
     {
         $appointment->update(["status" => $request->get('status')]);
         return ResponseHelper::updateSuccess('Appointment', $appointment);
+    }
+
+    /**
+     * Get next appointment
+     *
+     * @param  \App\Models\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function next(Schedule $schedule, $currentNumber)
+    {
+        $appointment = $schedule->appointments
+            ->where('date', now()->toDateString())
+            ->where('status', Appointments::PAID)
+            ->sortBy('number')
+            ->where('number', '>', $currentNumber)
+            ->first();
+        return $appointment
+            ? ResponseHelper::findSuccess('Next Appointment', new AppointmentResource($appointment))
+            : ResponseHelper::error('No More Next Appointments', []);
+    }
+
+    /**
+     * Get previous appointment
+     *
+     * @param  \App\Models\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function back(Schedule $schedule, $currentNumber)
+    {
+        $appointment = $schedule->appointments
+            ->where('date', now()->toDateString())
+            ->where('status', Appointments::PAID)
+            ->sortByDesc('number')
+            ->where('number', '<', $currentNumber)
+            ->first();
+        return $appointment
+            ? ResponseHelper::findSuccess('Previous Appointment', new AppointmentResource($appointment))
+            : ResponseHelper::error('No More Previous Appointments', []);
+    }
+
+    /**
+     * Search appointment by number
+     *
+     * @param  \App\Models\Appointment  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Schedule $schedule, $number)
+    {
+        $appointment = $schedule->appointments
+            ->where('number', (int)$number)
+            ->where('date', now()->toDateString())
+            ->first();
+        return $appointment
+            ? ResponseHelper::findSuccess('Appointment', new AppointmentResource($appointment))
+            : ResponseHelper::findFail('Appointment');
     }
 }

@@ -3,15 +3,18 @@
 return [
 
 	"buttons" => [
+		"complete" => "Complete",
 		"confirm" => "Confirm",
 		"createNew" => "Create New",
 		"edit" => "Edit",
 		"reject" => "Reject",
 		"save" => "Save",
 		"login" => "Login",
+		"search" => "Search",
 		"signUp" => "Sign Up",
 		"pay" => "Pay",
 		"print" => "Print",
+		"onHold"=>"On Hold"
 	],
 
 	"fields" => [
@@ -28,13 +31,13 @@ return [
 		"channelingNumber" => "Channeling Number",
 		"channelType" => "Channel Type",
 		"colour" => "Colour",
+		"consultant"=>"Consultant",
 		"comment" => "Comment",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
 		"commissionType" => "Commission Type",
 		'confirmPassword' => "Confirm Password",
 		"currentNumber" => "Current Number",
-		"consultant" => "Consultant",
 		"date" => "Date",
 		"dateFrom" => "Date From",
 		"dateTo" => "Date To",
@@ -109,15 +112,18 @@ return [
 		"channelingPayments" => "Channeling Payments",
 		"appointmentPayments" => "Appointment Payments",
 
-		"channelingCalendar" => "Channeling Calendar"
+		"channelingCalendar" => "Channeling Calendar",
+		"channelingNote" => "Channeling Note",
 	],
 
 	"texts" => [
 		"channelDetails" => "Channel Details",
+		"channelingNote" => "Channeling Note",
 		"everyWeek" => "Every Week",
 		"forgotPassword" => "Forgot Password ?",
 		"noRepeat" => "No Repeat",
 		"patientDetails" => "Patient Details",
+		"patientHistory" => "Patient History",
 		"selectDoctor" => "Select Doctor",
 		"selectPatient" => "Select Patient",
 		"selectRepeat" => "Select Repeat",

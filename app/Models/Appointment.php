@@ -25,7 +25,7 @@ class Appointment extends Model
     public function getAppointmentNumberAttribute()
     {
         return $this->date .
-            "/SCH" . str_pad($this->schedule_id, 5, '0', STR_PAD_LEFT)  .
+            "/" . $this->schedule->scheduleNumber .
             "/" . str_pad($this->number, 2, '0', STR_PAD_LEFT);
     }
 
@@ -58,7 +58,7 @@ class Appointment extends Model
     {
         return "Rs. " . number_format($this->paid, 2);
     }
-    
+
     public function getBalanceTextAttribute()
     {
         return "Rs. " . number_format($this->balance, 2);

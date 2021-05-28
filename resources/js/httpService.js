@@ -9,14 +9,15 @@ if (apitoken) {
 }
 
 // Handle Get Request
-exports.get = (url, body = null) => {
+exports.get = (url) => {
     return new Promise((resolve, reject) => {
         axios
-            .get(url, { body })
+            .get(url)
             .then((response) => resolve(response.data))
             .catch((error) => {
                 // Display Error Message If Request Failed
                 messageHandler.errorMessage(error.response.data.message);
+                reject(error);
             });
     });
 };
@@ -34,6 +35,7 @@ exports.post = (url, body = null) => {
                 } else {
                     // Display Error Message If Request Failed
                     messageHandler.errorMessage(error.response.data.message);
+                    reject(error);
                 }
             });
     });
@@ -52,20 +54,22 @@ exports.put = (url, body = null) => {
                 } else {
                     // Display Error Message If Request Failed
                     messageHandler.errorMessage(error.response.data.message);
+                    reject(error);
                 }
             });
     });
 };
 
 // Handle Delete Request
-exports.delete = (url, body = null) => {
+exports.delete = (url) => {
     return new Promise((resolve, reject) => {
         axios
-            .delete(url, { body })
+            .delete(url)
             .then((response) => resolve(response.data))
             .catch((error) => {
                 // Display Error Message If Request Failed
                 messageHandler.errorMessage(error.response.data.message);
+                reject(error);
             });
     });
 };
