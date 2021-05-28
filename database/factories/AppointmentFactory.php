@@ -8,6 +8,7 @@ use App\Models\Patient;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 
 class AppointmentFactory extends Factory
 {
@@ -47,7 +48,7 @@ class AppointmentFactory extends Factory
             'patient_id' => Patient::all()->random()->id,
             'schedule_id' => $schedule->id,
             'comment' => $this->faker->sentence(6, true),
-            'status' => Appointments::NEW,
+            'status' => $this->faker->numberBetween(1, 4),
             'number' => $number
         ];
     }

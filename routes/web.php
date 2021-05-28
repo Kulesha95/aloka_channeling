@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\Appointments;
 use App\Constants\UserTypes;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,7 @@ Route::get('/', function () {
 Route::get('documents/{type}/{id}/{action}', 'DocumentController@getDocument')->name('documents.getPdf');
 
 Route::middleware('auth')->group(function () {
-    Route::view('appointments/', 'appointments.index', ["receptionist" => UserTypes::RECEPTIONIST]);
+    Route::view('appointments/', 'appointments.index', ["receptionist" => UserTypes::RECEPTIONIST, "rejected" => Appointments::REJECTED]);
     Route::view('calendar/', 'pages.calendar');
     Route::view('channelTypes/', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');

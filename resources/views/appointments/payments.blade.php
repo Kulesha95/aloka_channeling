@@ -96,7 +96,9 @@
         paymentUrl = $(`#paymentAppointmentForm`).data("action");
         paymentUrl = paymentUrl.replace(`:id`, data.appointment.id);
         $(`#paymentAppointmentForm`).attr("action", paymentUrl);
-        $(`#amount_payment`).val(data.appointment.balance);
+        $(`#amount_payment`).val(data.appointment.status === parseInt("{{ $rejected }}") ? data.appointment
+            .paid * -1 : data.appointment
+            .balance);
         $(`#fee_payment`).val(data.appointment.fee_text);
         $(`#paid_payment`).val(data.appointment.paid_text);
         $(`#balance_payment`).val(data.appointment.balance_text);
