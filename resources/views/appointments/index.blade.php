@@ -49,7 +49,7 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['schedule_id', 'number', 'time', 'patient_id', 'date', 'reason', 'comment'];
+        const inputs = ['schedule_id', 'number', 'time', 'fee_text', 'patient_id', 'date', 'reason', 'comment'];
         // Load Data URL
         const indexUrl = "{{ route('appointments.index') }}";
         // View Selected Data URL
@@ -146,7 +146,7 @@
             }
             element = JSON.parse(item.text);
             return $(
-                `<div class="row"><h6 class="font-weight-bold">${element.doctor}</h6></div><div class="row">${element.channel_type}</div><div class="row font-weight-light">${element.repeat_text} from ${moment(element.time_from, "HH:mm:ss").format('hh:mm A')} to ${moment(element.time_to, "HH:mm:ss").format('hh:mm A')}</div>`
+                `<div class="row"><h6 class="font-weight-bold">${element.doctor}</h6></div><div class="row">${element.channel_type}</div><div class="row">${element.channeling_fee_text}</div><div class="row font-weight-light">${element.repeat_text} from ${moment(element.time_from, "HH:mm:ss").format('hh:mm A')} to ${moment(element.time_to, "HH:mm:ss").format('hh:mm A')}</div>`
             );
         };
         const templateResultPatient = (item) => {
@@ -221,6 +221,7 @@
                 response => {
                     $('#current_number_create').val(response.data.number);
                     $('#estimated_time_create').val(response.data.time);
+                    $('#channeling_fee_text_create').val(response.data.channeling_fee_text);
                     $('#date_create').val(response.data.date);
                 })
         }

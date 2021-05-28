@@ -57,7 +57,7 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ['id', 'channel_type', 'doctor', 'channeling_fee_text', 'date_from', 'date_to', 'time',
+        const dataTableColumns = ['id', 'channel_type', 'doctor', 'channeling_fee_text', 'date_from', 'date_to', 'time_text',
             'repeat_text'
         ];
         // Column Indexes For URL Parameters

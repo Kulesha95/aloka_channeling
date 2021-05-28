@@ -24,13 +24,18 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-4">
+                            <label for="channeling_fee_text">{{ __('app.fields.channelingFee') }}</label>
+                            <input id="channeling_fee_text_create" class="form-control" type="text"
+                                placeholder="{{ __('app.fields.channelingFee') }}" readonly>
+                        </div>
+                        <div class="form-group col-4">
                             <label for="current_number">{{ __('app.fields.currentNumber') }}</label>
                             <input id="current_number_create" class="form-control" type="text"
                                 placeholder="{{ __('app.fields.currentNumber') }}" readonly>
                             <small class="text-danger">{{ __('app.texts.thisCanBeSlightlyChanged') }}</small>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-4">
                             <label for="estimated_time">{{ __('app.fields.estimatedTime') }}</label>
                             <input id="estimated_time_create" class="form-control" type="time"
                                 placeholder="{{ __('app.fields.estimatedTime') }}" readonly>

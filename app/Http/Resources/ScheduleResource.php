@@ -27,13 +27,13 @@ class ScheduleResource extends JsonResource
             "channel_type" => $this->doctor->channelType->channel_type,
             "date_from" => $this->date_from,
             "date_to" => $this->date_to,
-            'time' => Carbon::createFromFormat("H:i:s", $this->time_from)->format('h:iA') . " - " . Carbon::createFromFormat("H:i:s", $this->time_to)->format('h:iA'),
+            'time_text' => $this->time,
             "time_from" => $this->time_from,
             "time_to" => $this->time_to,
             "channeling_fee" => $this->channeling_fee,
             "repeat" => $this->repeat,
             "repeat_text" => $repeat_text,
-            "channeling_fee_text" => "Rs. " . number_format($this->channeling_fee, 2),
+            "channeling_fee_text" => $this->channeling_fee_text,
         ];
     }
 }

@@ -22,12 +22,17 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-6">
+                        <div class="form-group col-4">
+                            <label for="channeling_fee_text">{{ __('app.fields.channelingFee') }}</label>
+                            <input id="fee_text_edit" class="form-control" type="text"
+                                placeholder="{{ __('app.fields.channelingFee') }}" readonly>
+                        </div>
+                        <div class="form-group col-4">
                             <label for="current_number">{{ __('app.fields.number') }}</label>
                             <input id="number_edit" class="form-control" type="text"
                                 placeholder="{{ __('app.fields.number') }}" readonly>
                         </div>
-                        <div class="form-group col-6">
+                        <div class="form-group col-4">
                             <label for="estimated_time">{{ __('app.fields.estimatedTime') }}</label>
                             <input id="time_edit" class="form-control" type="time"
                                 placeholder="{{ __('app.fields.estimatedTime') }}" readonly>

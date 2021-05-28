@@ -153,8 +153,7 @@ class ScheduleController extends Controller
             $event["backgroundColor"] =  $schedule->doctor->channelType->colour;
             $event["borderColor"] =  $schedule->doctor->channelType->colour;
             $event["extendedProps"] =  [
-                "time" => Carbon::createFromFormat("H:i:s", $schedule->time_from)->format('h:iA') .
-                    " - " . Carbon::createFromFormat("H:i:s", $schedule->time_to)->format('h:iA'),
+                "time" => $schedule->time,
                 "channelType" => $schedule->doctor->channelType->channel_type,
                 "id" => $schedule->id
             ];
@@ -203,6 +202,6 @@ class ScheduleController extends Controller
         }
         $number = Appointment::whereDate('date', $searchDate)->where('schedule_id', $schedule->id)->count() + 1;
         $time = Carbon::createFromFormat("H:i:s", $schedule->time_from)->addMinutes(($number - 1) * Appointments::AVERAGE_APPOINTMENT_TIME)->format("H:i:s");
-        return ResponseHelper::findSuccess("Approximation Details", ["number" => $number, "time" => $time, "date" => $searchDate]);
+        return ResponseHelper::findSuccess("Approximation Details", ["number" => $number, "time" => $time, "date" => $searchDate, "channeling_fee_text" => $schedule->channeling_fee_text]);
     }
 }
