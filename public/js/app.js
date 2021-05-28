@@ -2064,6 +2064,7 @@ exports.handleReset = function (formId) {
   inputs.forEach(function (input) {
     var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
     inputElement.removeClass("is-invalid");
+    inputElement.next(".select2-container").removeClass("is-invalid");
     inputElement.next(".invalid-feedback").html("");
 
     if (inputElement.next(".note-editor").length > 0) {
@@ -2086,7 +2087,8 @@ exports.handleSave = function (formId) {
     inputs.forEach(function (input) {
       var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
       inputElement.removeClass("is-invalid");
-      inputElement.next(".invalid-feedback").html("");
+      inputElement.next(".select2-container").removeClass("is-invalid");
+      inputElement.siblings(".invalid-feedback").html("");
     }); // Get Data From The Form
 
     var formData = new FormData(e.target); // Handle Data Saving
@@ -2119,7 +2121,8 @@ exports.handleSave = function (formId) {
           var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
           errors[input].forEach(function (inputError) {
             inputElement.addClass("is-invalid");
-            inputElement.next(".invalid-feedback").html(inputError);
+            inputElement.next(".select2-container").addClass("is-invalid");
+            inputElement.siblings(".invalid-feedback").html(inputError);
             errorMessage += inputError + " ";
           });
         }); // Show Validation Error Message
@@ -2188,7 +2191,8 @@ exports.handleEdit = function (formId) {
     inputs.forEach(function (input) {
       var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
       inputElement.removeClass("is-invalid");
-      inputElement.next(".invalid-feedback").html("");
+      inputElement.next(".select2-container").removeClass("is-invalid");
+      inputElement.siblings(".invalid-feedback").html("");
     }); // Get Data From The Form
 
     var formData = new FormData(e.target); // Handle Data Editing
@@ -2221,7 +2225,8 @@ exports.handleEdit = function (formId) {
           errors[input].forEach(function (inputError) {
             var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
             inputElement.addClass("is-invalid");
-            inputElement.next(".invalid-feedback").html(inputError);
+            inputElement.next(".select2-container").addClass("is-invalid");
+            inputElement.siblings(".invalid-feedback").html(inputError);
             errorMessage += inputError + " ";
           });
         }); // Show Validation Error Message
