@@ -13,18 +13,6 @@ class Patient extends Model
 
     protected $fillable = ["name", "birth_date", "gender", "address", "id_type", "id_number", "user_id"];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($patient) {
-            $patient->user->delete();
-            foreach ($patient->appointments as $appointment) {
-                $appointment->delete();
-            }
-        });
-    }
-
     public function getAgeAttribute()
     {
         return Carbon::createFromDate($this->birth_date)->age;
@@ -32,7 +20,7 @@ class Patient extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     public function appointments()

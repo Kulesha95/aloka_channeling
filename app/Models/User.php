@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     public function userType()
     {
-        return $this->belongsTo(userType::class);
+        return $this->belongsTo(userType::class)->withTrashed();
     }
 
     public function doctor()

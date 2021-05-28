@@ -25,17 +25,6 @@ class Schedule extends Model
         'email_verified_at' => 'datetime',
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($schedule) {
-            foreach ($schedule->appointments as $appointment) {
-                $appointment->delete();
-            }
-        });
-    }
-
     public function getDoctorFeeAttribute()
     {
         $doctor = $this->doctor;
@@ -76,7 +65,7 @@ class Schedule extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class);
+        return $this->belongsTo(Doctor::class)->withTrashed();
     }
 
     public function appointments()
