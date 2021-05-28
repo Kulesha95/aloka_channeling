@@ -103,6 +103,7 @@ class ScheduleController extends Controller
             );
         }
         $schedule->update($request->only(['doctor_id', 'date_from', 'date_to', 'time_from', 'time_to', 'channeling_fee', 'repeat']));
+        $schedule->refresh();
         return ResponseHelper::updateSuccess(
             'Schedule',
             new ScheduleResource($schedule)
