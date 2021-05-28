@@ -297,7 +297,12 @@ return [
             'icon' => 'fas fa-fw fa-tag',
             'can' => 'manage-item-types'
         ],
-
+        [
+            'text' => 'items',
+            'url'  => 'items',
+            'icon' => 'fas fa-fw fa-pills',
+            'can' => 'manage-items'
+        ],
     ],
 
     /*

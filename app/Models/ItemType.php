@@ -30,4 +30,9 @@ class ItemType extends Model
     {
         return $this->hasMany(ItemType::class, "parent_id");
     }
+    
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

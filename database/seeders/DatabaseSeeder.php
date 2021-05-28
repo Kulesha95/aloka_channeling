@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             ScheduleSeeder::class,
             AppointmentSeeder::class,
             IncomeSeeder::class,
-            ItemTypeSeeder::class
+            ItemTypeSeeder::class,
+            ItemSeeder::class
         ]);
     }
 }
