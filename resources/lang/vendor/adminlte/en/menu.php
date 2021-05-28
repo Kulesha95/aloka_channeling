@@ -13,4 +13,5 @@ return [
     "appointments" => "Appointments",
     "channelingCalendar" => "Channeling Calendar",
     "channelings" => "Channelings",
+    "itemTypes" => "Item Types",
 ];

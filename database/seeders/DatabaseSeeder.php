@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             PatientSeeder::class,
             ScheduleSeeder::class,
             AppointmentSeeder::class,
-            IncomeSeeder::class
+            IncomeSeeder::class,
+            ItemTypeSeeder::class
         ]);
     }
 }

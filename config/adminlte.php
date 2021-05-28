@@ -291,6 +291,12 @@ return [
             'icon' => 'fas fa-fw fa-heart',
             'can' => 'manage-channelings'
         ],
+        [
+            'text' => 'itemTypes',
+            'url'  => 'itemTypes',
+            'icon' => 'fas fa-fw fa-tag',
+            'can' => 'manage-item-types'
+        ],
 
     ],
 

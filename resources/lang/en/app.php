@@ -14,7 +14,7 @@ return [
 		"signUp" => "Sign Up",
 		"pay" => "Pay",
 		"print" => "Print",
-		"onHold"=>"On Hold"
+		"onHold" => "On Hold"
 	],
 
 	"fields" => [
@@ -30,6 +30,7 @@ return [
 		"channelingFee" => "Channeling Fee",
 		"channelingNumber" => "Channeling Number",
 		"channelType" => "Channel Type",
+		"classification" => "Classification",
 		"colour" => "Colour",
 		"consultant"=>"Consultant",
 		"comment" => "Comment",
@@ -53,10 +54,12 @@ return [
 		"idType" => "Id Type",
 		"image" => "Image",
 		"invoiceNumber" => "Invoice Number",
+		"itemType" => "Item Type",
 		"mobile" => "Mobile",
 		"name" => "Name",
 		"number" => "Number",
 		"paid" => "Paid",
+		"parent" => "Parent",
 		"password" => "Password",
 		"patient" => "Patient",
 		"pending" => "Pending",
@@ -104,6 +107,10 @@ return [
 		"createPatient" => "Create Patient",
 		"editPatient" => "Edit Patient",
 
+		"itemTypesManagement" => "Item Type Management",
+		"createItemType" => "Create Item Type",
+		"editItem Type" => "Edit Item Type",
+
 		"appointmentsManagement" => "Appointment Management",
 		"createAppointment" => "Create Appointment",
 		"editAppointment" => "Edit Appointment",
@@ -123,8 +130,10 @@ return [
 		"forgotPassword" => "Forgot Password ?",
 		"noRepeat" => "No Repeat",
 		"patientDetails" => "Patient Details",
+		"parentItemType" => "Parent Item Type",
 		"patientHistory" => "Patient History",
 		"selectDoctor" => "Select Doctor",
+		"selectParent" => "Select Parent",
 		"selectPatient" => "Select Patient",
 		"selectRepeat" => "Select Repeat",
 		"selectSchedule" => "Select Schedule",

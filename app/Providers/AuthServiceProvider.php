@@ -36,7 +36,8 @@ class AuthServiceProvider extends ServiceProvider
             "manage-patients" => [UserTypes::RECEPTIONIST],
             "manage-appointments" => [UserTypes::RECEPTIONIST, UserTypes::PATIENT],
             "view-channeling-calendar" => [UserTypes::RECEPTIONIST, UserTypes::PATIENT],
-            "manage-channelings" => [UserTypes::DOCTOR]
+            "manage-channelings" => [UserTypes::DOCTOR],
+            "manage-item-types" => [UserTypes::SUPER_ADMIN]
         ];
 
         foreach ($userAccess as $gate => $userTypes) {
