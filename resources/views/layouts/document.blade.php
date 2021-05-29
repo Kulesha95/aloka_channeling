@@ -11,7 +11,7 @@
     @yield('css')
     <style>
         :root{
-            font-size: 20px !important;
+            font-size: 15px !important;
         }
     </style>
 </head>

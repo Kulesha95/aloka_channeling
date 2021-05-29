@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\View;
 class DocumentController extends Controller
 {
 
-    private $marginTop = 50;
+    private $marginTop = 60;
     private $marginBottom = 20;
 
     public function getDocument($type, $id, $action)
