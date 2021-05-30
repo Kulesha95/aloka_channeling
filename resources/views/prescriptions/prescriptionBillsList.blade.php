@@ -61,8 +61,13 @@
         };
         const openPrescription = (data) => {
             if (data.status == "{{ $pending }}") {
-                handleAddSuccessExternalPrescription(data)
-                $('#createPrescriptionBillModal').modal('show');
+                if (data.prescription_type == "{{ $medicalPrescription }}") {
+                    handleAddSuccessInternalPrescription(data);
+                    $('#createInternalPrescriptionBillModal').modal('show');
+                } else {
+                    handleAddSuccessExternalPrescription(data);
+                    $('#createExternalPrescriptionBillModal').modal('show');
+                }
             }
         }
         dataTableHandler.handleCustom(tablePrescriptions, viewUrlPrescriptions, parameterIndexesPrescriptions,

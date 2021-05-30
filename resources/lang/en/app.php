@@ -148,7 +148,8 @@ return [
 
 		"managePrescriptions" => "Manage Prescriptions",
 
-		"createPrescriptionBill" => "Create Prescription Bill",
+		"createExternalPrescriptionBill" => "Create External Prescription Bill",
+		"createInternalPrescriptionBill" => "Create Internal Prescription Bill",
 	],
 
 	"texts" => [

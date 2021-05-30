@@ -14,7 +14,7 @@
                 <h4><i class="fas fa-fw fa-file-prescription mr-2"></i>{{ __('app.headers.prescriptionsManagement') }}
                 </h4>
                 <button type="button" class="btn btn-primary ml-auto" data-toggle="modal"
-                    data-target="#createPrescriptionBillModal">
+                    data-target="#createExternalPrescriptionBillModal">
                     <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.createNew') }}
                 </button>
             </div>
@@ -30,7 +30,8 @@
                     <a class="nav-link" id="nav-internal-prescriptions-tab" data-toggle="tab"
                         href="#nav-internal-prescriptions" role="tab" aria-controls="nav-internal-prescriptions"
                         aria-selected="false"><i
-                            class="fas fa-file-prescription mr-1"></i>{{ __('app.texts.internalPrescriptions') }}</a>
+                            class="fas fa-file-prescription mr-1"></i>{{ __('app.texts.internalPrescriptions') }}<span
+                            class="badge badge-success ml-1" id="pendingCountInternal">0</span></a>
                     <a class="nav-link" id="nav-paid-prescriptions-tab" data-toggle="tab" href="#nav-paid-prescriptions"
                         role="tab" aria-controls="nav-paid-prescriptions" aria-selected="false"><i
                             class="fas fa-hand-holding-usd mr-1"></i>{{ __('app.texts.paidPrescriptionBills') }}</a>
@@ -42,11 +43,14 @@
                     @include('prescriptions.prescriptionBillsList')
                 </div>
                 <div class="tab-pane fade" id="nav-internal-prescriptions" role="tabpanel"
-                    aria-labelledby="nav-internal-prescriptions-tab">...</div>
+                    aria-labelledby="nav-internal-prescriptions-tab">
+                    @include('prescriptions.internalPrescriptions')
+                </div>
                 <div class="tab-pane fade" id="nav-paid-prescriptions" role="tabpanel"
                     aria-labelledby="nav-paid-prescriptions-tab">...</div>
             </div>
-            @include('prescriptions.createPrescriptionBill')
+            @include('prescriptions.createExternalPrescriptionBill')
+            @include('prescriptions.createInternalPrescriptionBill')
         </div>
     </div>
 @stop
@@ -78,13 +82,19 @@
             placeholder: "{{ __('app.texts.selectItemBatch') }}",
         };
         $('#batch_id_external').select2(select2Options);
+        $('#batch_id_internal').select2(select2Options);
         // Load Batches List
         const loadBatchesList = () => {
             httpService.get("{{ route('batches.available') }}").then(response => {
                 $('#batch_id_external').empty();
+                $('#batch_id_internal').empty();
                 $('#batch_id_external').append(new Option("", undefined), false, false)
+                $('#batch_id_internal').append(new Option("", undefined), false, false)
                 response.data.forEach(element => {
                     $('#batch_id_external').append(new Option(JSON.stringify(element), element.id),
+                        false,
+                        false)
+                    $('#batch_id_internal').append(new Option(JSON.stringify(element), element.id),
                         false,
                         false)
                 });
@@ -93,6 +103,7 @@
         const refreshData = () => {
             loadBatchesList();
             loadDataPrescriptions();
+            loadDataInternalPrescriptions();
         }
         $(document).ready(() => {
             refreshData();

@@ -121,7 +121,6 @@
         });
         // Open Print Document
         const openPaymentInvoice = (data) => {
-            console.log(data);
             const documentUrl =
                 "{{ route('documents.getPdf', ['type' => 'channelingPaymentInvoice', 'id' => ':id', 'action' => 'view']) }}";
             window.open(documentUrl.replace(':id', data.appointment.id));

@@ -207,4 +207,16 @@ class PrescriptionController extends Controller
         $prescriptions = Prescription::all()->whereIn("status", [Prescriptions::PENDING_PRESCRIPTION, Prescriptions::CONFIRMED_PRESCRIPTION]);
         return ResponseHelper::updateSuccess('Prescription', PrescriptionResource::collection($prescriptions));
     }
+
+    /**
+     * Get Pending Internal Prescriptions
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function internalPrescriptions()
+    {
+        $prescriptions = Prescription::where('prescription_type', Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION)
+            ->get()->whereIn('status', [Prescriptions::NEW_PRESCRIPTION, Prescriptions::PENDING_PRESCRIPTION]);
+        return ResponseHelper::updateSuccess('Prescription', PrescriptionResource::collection($prescriptions));
+    }
 }
