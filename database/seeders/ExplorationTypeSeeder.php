@@ -14,6 +14,14 @@ class ExplorationTypeSeeder extends Seeder
      */
     public function run()
     {
-        ExplorationType::factory(10)->create();
+        $explorationTypes = [
+            ['exploration_type' => 'Weight', 'unit' => 'Kg'],
+            ['exploration_type' => 'Height', 'unit' => 'm'],
+            ['exploration_type' => 'BMI', 'unit' => 'Kg/m2']
+        ];
+        foreach ($explorationTypes as $explorationType) {
+            ExplorationType::create($explorationType);
+        }
+        ExplorationType::factory(2)->create();
     }
 }

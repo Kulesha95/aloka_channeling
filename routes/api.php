@@ -30,6 +30,9 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::get('doctors/schedule', 'DoctorController@schedule')->name('doctors.schedule');
 
+
+	Route::post('patient/{patient}/explorations/storeReceptionist', 'ExplorationController@storeReceptionist')->name('explorations.storeReceptionist');
+	
 	Route::get('patients/{patient}/history', 'PatientController@history')->name('patients.history');
 
 	Route::post('prescriptions/addBatch', 'PrescriptionController@addBatch')->name('prescriptions.addBatch');
@@ -48,6 +51,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('channelTypes', ChannelTypeController::class);
 	Route::apiResource('doctors', DoctorController::class);
+	Route::apiResource('patient.explorations', ExplorationController::class);
 	Route::apiResource('explorationTypes', ExplorationTypeController::class);
 	Route::apiResource('items', ItemController::class);
 	Route::apiResource('itemTypes', ItemTypeController::class);

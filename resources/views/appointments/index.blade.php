@@ -41,6 +41,7 @@
             @include('appointments.edit')
             @include('appointments.info')
             @include('appointments.payments')
+            @include('appointments.explorations')
         </div>
     </div>
 @stop
@@ -73,7 +74,8 @@
         const actionContents =
             viewActionContent +
             "<button class='btn btn-sm btn-outline-primary mr-1 payment-button'><i class='fas fa-dollar-sign fa-fw' ></i></button>" +
-            "<button class='btn btn-sm btn-outline-dark mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>" +
+            "<button class='btn btn-sm btn-outline-warning mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>" +
+            "<button class='btn btn-sm btn-outline-dark mr-1 exploration-button'><i class='fas fa-weight fa-fw' ></i></button>" +
             defaultActionContent;
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
@@ -114,10 +116,14 @@
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit
         formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
+        formHandler.handleSave('createExplorationForm', ['height', 'weight', 'bmi'], undefined, 'createExplorationsModal');
         $(document).ready(() => {
             // Handle Print Button Click Event In Data Table
             dataTableHandler.handleCustom(table, detailsUrl, parameterIndexes,
                 openPaymentInvoice, 'print-button');
+            // Handle Exploration Button Click Event In Data Table
+            dataTableHandler.handleCustom(table, detailsUrl, parameterIndexes,
+                openAddExplorations, 'exploration-button');
         });
         // Open Print Document
         const openPaymentInvoice = (data) => {

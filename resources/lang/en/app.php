@@ -30,6 +30,7 @@ return [
 		"address" => "Address",
 		"balance" => "Balance",
 		"birthDate" => "Birth Date",
+		"bmi" => "BMI",
 		"brandName" => "Brand Name",
 		"channelingCenterFee" => "Channeling Center Fee",
 		"channelingFee" => "Channeling Fee",
@@ -56,6 +57,7 @@ return [
 		"fee" => "Fee",
 		"gender" => "Gender",
 		"genericName" => "Generic Name",
+		"height" => "Height",
 		"id" => "Id",
 		"idNumber" => "Id Number",
 		"idType" => "Id Type",
@@ -90,6 +92,7 @@ return [
 		"unit" => "Unit",
 		"username" => "Username",
 		"userType" => "User Type",
+		"weight" => "Weight",
 		"worksAt" => "Works At",
 	],
 
@@ -161,6 +164,8 @@ return [
 		"issuePrescriptionItems" => "Issue Prescription Items",
 
 		"paymentsManagement" => "Payment Management",
+
+		"addExplorations" => "Add Explorations"
 	],
 
 	"texts" => [
