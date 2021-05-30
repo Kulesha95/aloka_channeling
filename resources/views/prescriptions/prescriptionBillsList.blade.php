@@ -43,6 +43,8 @@
             undefined,
             viewActionContent
         );
+        const pharmacyPaymentDocumentUrl =
+            "{{ route('documents.getPdf', ['type' => 'pharmacyPaymentInvoice', 'id' => ':id', 'action' => 'view']) }}";
         const displayPendingCont = (data) => {
             const pendingCount = data.filter(item => item.status == "{{ $pending }}").length;
             if (pendingCount) {
@@ -68,6 +70,8 @@
                     handleAddSuccessExternalPrescription(data);
                     $('#createExternalPrescriptionBillModal').modal('show');
                 }
+            } else {
+                window.open(pharmacyPaymentDocumentUrl.replace(':id', data.id));
             }
         }
         dataTableHandler.handleCustom(tablePrescriptions, viewUrlPrescriptions, parameterIndexesPrescriptions,

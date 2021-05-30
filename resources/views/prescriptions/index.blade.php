@@ -34,7 +34,8 @@
                             class="badge badge-success ml-1" id="pendingCountInternal">0</span></a>
                     <a class="nav-link" id="nav-paid-prescriptions-tab" data-toggle="tab" href="#nav-paid-prescriptions"
                         role="tab" aria-controls="nav-paid-prescriptions" aria-selected="false"><i
-                            class="fas fa-hand-holding-usd mr-1"></i>{{ __('app.texts.paidPrescriptionBills') }}</a>
+                            class="fas fa-hand-holding-usd mr-1"></i>{{ __('app.texts.paidPrescriptionBills') }}<span
+                            class="badge badge-success ml-1" id="paidCount">0</span></a>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -47,10 +48,13 @@
                     @include('prescriptions.internalPrescriptions')
                 </div>
                 <div class="tab-pane fade" id="nav-paid-prescriptions" role="tabpanel"
-                    aria-labelledby="nav-paid-prescriptions-tab">...</div>
+                    aria-labelledby="nav-paid-prescriptions-tab">
+                    @include('prescriptions.paidPrescriptionsList')
+                </div>
             </div>
             @include('prescriptions.createExternalPrescriptionBill')
             @include('prescriptions.createInternalPrescriptionBill')
+            @include('prescriptions.issuePrescription')
         </div>
     </div>
 @stop
@@ -104,6 +108,7 @@
             loadBatchesList();
             loadDataPrescriptions();
             loadDataInternalPrescriptions();
+            loadDataPaidPrescriptions();
         }
         $(document).ready(() => {
             refreshData();

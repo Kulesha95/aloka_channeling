@@ -8,6 +8,7 @@ return [
 		"confirm" => "Confirm",
 		"createNew" => "Create New",
 		"edit" => "Edit",
+		"issue" => "Issue",
 		"login" => "Login",
 		"onHold" => "On Hold",
 		"pay" => "Pay",
@@ -17,7 +18,7 @@ return [
 		"reset" => "Reset",
 		"save" => "Save",
 		"search" => "Search",
-		"signUp" => "Sign Up"
+		"signUp" => "Sign Up",
 	],
 
 	"fields" => [
@@ -141,6 +142,7 @@ return [
 		"channelingPayments" => "Channeling Payments",
 		"appointmentPayments" => "Appointment Payments",
 		"pharmacyPayments" => "Pharmacy Payments",
+		"pharmacyPaymentInvoice" => "Pharmacy Payment Invoice",
 		"medicalPrescription" => "Medical Prescription",
 		"testPrescription" => "Test Prescription",
 
@@ -151,6 +153,7 @@ return [
 
 		"createExternalPrescriptionBill" => "Create External Prescription Bill",
 		"createInternalPrescriptionBill" => "Create Internal Prescription Bill",
+		"issuePrescriptionItems" => "Issue Prescription Items",
 
 		"paymentsManagement" => "Payment Management",
 	],

@@ -61,7 +61,7 @@ class Prescription extends Model
     public function getTimeTextAttribute()
     {
         return Carbon::createFromFormat("H:i:s", $this->time)->format('h:i A');
-    }    
+    }
 
     public function getFeeAttribute()
     {
@@ -91,6 +91,26 @@ class Prescription extends Model
     public function getBalanceTextAttribute()
     {
         return "Rs. " . number_format($this->balance, 2);
+    }
+
+    public function getInvoiceAttribute()
+    {
+        return $this->incomes->last();
+    }
+
+    public function getInvoiceTimeAttribute()
+    {
+        return $this->invoice ? $this->invoice->time_text : "N/A";
+    }
+
+    public function getInvoiceDateAttribute()
+    {
+        return $this->invoice ? $this->invoice->date : "N/A";
+    }
+
+    public function getInvoiceNumberAttribute()
+    {
+        return $this->invoice ? $this->invoice->invoice_number : "N/A";
     }
 
     public function appointment()

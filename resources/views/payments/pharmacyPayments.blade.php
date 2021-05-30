@@ -65,7 +65,7 @@
                     </thead>
                 </table>
                 <div class="row m-1">
-                    <button type="button" class="btn btn-success ml-auto" id="print-button"><i class="fas fa-print mr-1"
+                    <button type="button" class="btn btn-success ml-auto" id="print-button-pharmacy-payment"><i class="fas fa-print mr-1"
                             aria-hidden="true"></i>{{ __('app.buttons.print') }}</button>
                 </div>
             </div>
@@ -78,7 +78,7 @@
     let prescriptionNumber;
     let prescriptionId;
     const pharmacyPaymentDocumentUrl =
-        "{{ route('documents.getPdf', ['type' => 'channelingPayments', 'id' => ':id', 'action' => 'view']) }}";
+        "{{ route('documents.getPdf', ['type' => 'pharmacyPaymentInvoice', 'id' => ':id', 'action' => 'view']) }}";
     document.addEventListener('DOMContentLoaded', () => {
         pharmacyPaymentsTable = dataTableHandler.initializeTable(
             "pharmacy_payments_list_table",
@@ -88,7 +88,7 @@
         );
         formHandler.handleSave(`paymentPrescriptionForm`, ["reason", "amount"], loadPharmacyPaymentTableData, null,
             "_pharmacy_payment");
-        $('#print-button').click(() => {
+        $('#print-button-pharmacy-payment').click(() => {
             window.open(pharmacyPaymentDocumentUrl.replace(':id', prescriptionId));
         });
     });

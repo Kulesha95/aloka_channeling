@@ -35,6 +35,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::post('prescriptions/addBatch', 'PrescriptionController@addBatch')->name('prescriptions.addBatch');
 	Route::get('prescriptions/{prescription}/details', 'PrescriptionController@prescriptionDetails')->name('prescriptions.details');
 	Route::get('prescriptions/internalPrescriptions', 'PrescriptionController@internalPrescriptions')->name('prescriptions.internalPrescriptions');
+	Route::get('prescriptions/paid', 'PrescriptionController@paid')->name('prescriptions.paid');
 	Route::get('prescriptions/pendingPayments', 'PrescriptionController@pendingPayments')->name('prescriptions.pendingPayments');
 	Route::get('prescriptions/prescriptionBills', 'PrescriptionController@prescriptionBills')->name('prescriptions.prescriptionBills');
 	Route::put('prescriptions/{prescription}/updateStatus', 'PrescriptionController@updateStatus')->name('prescriptions.updateStatus');

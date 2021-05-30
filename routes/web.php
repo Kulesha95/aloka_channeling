@@ -54,7 +54,8 @@ Route::middleware('auth')->group(function () {
         "testPrescription" =>  Prescriptions::TEST_PRESCRIPTION,
         "confirmed" => Prescriptions::CONFIRMED_PRESCRIPTION,
         "rejected" => Prescriptions::CANCELED_PRESCRIPTION,
-        "pending" => Prescriptions::PENDING_PRESCRIPTION
+        "pending" => Prescriptions::PENDING_PRESCRIPTION,
+        "issued" => Prescriptions::ISSUED_PRESCRIPTION
     ]);
     route::view('schedules', 'schedules.index');
     Route::view('users', 'users.index');

@@ -234,6 +234,17 @@ class PrescriptionController extends Controller
     }
 
     /**
+     * Get payment Completed Prescriptions List
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function paid()
+    {
+        $prescriptions = Prescription::where('status', Prescriptions::PAID_PRESCRIPTION)->get();
+        return ResponseHelper::findSuccess('Prescriptions', PrescriptionResource::collection($prescriptions));
+    }
+
+    /**
      * Get all prescription details
      *
      * @param  \App\Models\Prescription  $appointment

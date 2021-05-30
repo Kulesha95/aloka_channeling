@@ -26,6 +26,9 @@ class DocumentController extends Controller
             case 'prescription':
                 $pdf = $this->getPrescription($id);
                 break;
+            case 'pharmacyPaymentInvoice':
+                $pdf = $this->getPharmacyPaymentInvoice($id);
+                break;
             default:
                 return;
                 break;
@@ -65,6 +68,17 @@ class DocumentController extends Controller
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.prescription', ['prescription' => $prescription])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $prescription->prescription_number . "_Prescription.pdf"];
+    }
+
+    public function getPharmacyPaymentInvoice($id)
+    {
+        $prescription = Prescription::find($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.pharmacyPaymentInvoice', ['prescription' => $prescription])
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $prescription->prescription_number . "_Prescription.pdf"];
