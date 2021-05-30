@@ -228,4 +228,17 @@ class AppointmentController extends Controller
         $prescriptions = $appointment->prescriptions;
         return ResponseHelper::findSuccess('Prescriptions', PrescriptionResource::collection($prescriptions));
     }
+
+    /**
+     * Get Payment Pending Appointments List
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pendingPayments()
+    {
+        $appointments = Appointment::all()->filter(function ($appointment) {
+            return $appointment->balance != 0 && ($appointment->status == Appointments::CONFIRMED || $appointment->status == Appointments::NEW);
+        });
+        return ResponseHelper::findSuccess('Appointments', AppointmentResource::collection($appointments));
+    }
 }

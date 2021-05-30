@@ -17,25 +17,35 @@ use Illuminate\Support\Facades\Route;
 Route::get('schedules/search', "ScheduleController@search")->name('schedules.search');
 
 Route::middleware('auth:api')->group(function () {
+
 	Route::get('appointments/{appointment}/details', 'AppointmentController@appointmentDetails')->name('appointments.details');
 	Route::get('appointments/{appointment}/prescriptions', 'AppointmentController@prescriptions')->name('appointments.prescriptions');
 	Route::put('appointments/{appointment}/updateStatus', 'AppointmentController@updateStatus')->name('appointments.updateStatus');
+	Route::get('appointments/pendingPayments', 'AppointmentController@pendingPayments')->name('appointments.pendingPayments');
 	Route::get('appointments/{schedule}/{currentNumber}/back', 'AppointmentController@back')->name('appointments.back');
 	Route::get('appointments/{schedule}/{currentNumber}/next', 'AppointmentController@next')->name('appointments.next');
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
+
 	Route::get('batches/available', 'BatchController@available')->name('batches.available');
+
 	Route::get('doctors/schedule', 'DoctorController@schedule')->name('doctors.schedule');
+
 	Route::get('patients/{patient}/history', 'PatientController@history')->name('patients.history');
+
 	Route::post('prescriptions/addBatch', 'PrescriptionController@addBatch')->name('prescriptions.addBatch');
+	Route::get('prescriptions/{prescription}/details', 'PrescriptionController@prescriptionDetails')->name('prescriptions.details');
 	Route::get('prescriptions/internalPrescriptions', 'PrescriptionController@internalPrescriptions')->name('prescriptions.internalPrescriptions');
+	Route::get('prescriptions/pendingPayments', 'PrescriptionController@pendingPayments')->name('prescriptions.pendingPayments');
 	Route::get('prescriptions/prescriptionBills', 'PrescriptionController@prescriptionBills')->name('prescriptions.prescriptionBills');
 	Route::put('prescriptions/{prescription}/updateStatus', 'PrescriptionController@updateStatus')->name('prescriptions.updateStatus');
 	Route::get('prescriptions/{prescription}/batches', 'PrescriptionController@batches')->name('prescriptions.batches');
+
 	Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
 
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
+	Route::apiResource('prescription.incomes', PrescriptionIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('channelTypes', ChannelTypeController::class);
 	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('items', ItemController::class);

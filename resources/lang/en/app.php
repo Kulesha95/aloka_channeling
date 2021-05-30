@@ -140,6 +140,7 @@ return [
 		"channelingPaymentInvoice" => "Channeling Payment Invoice",
 		"channelingPayments" => "Channeling Payments",
 		"appointmentPayments" => "Appointment Payments",
+		"pharmacyPayments" => "Pharmacy Payments",
 		"medicalPrescription" => "Medical Prescription",
 		"testPrescription" => "Test Prescription",
 
@@ -150,11 +151,14 @@ return [
 
 		"createExternalPrescriptionBill" => "Create External Prescription Bill",
 		"createInternalPrescriptionBill" => "Create Internal Prescription Bill",
+
+		"paymentsManagement" => "Payment Management",
 	],
 
 	"texts" => [
 		"channelDetails" => "Channel Details",
 		"channelingNote" => "Channeling Note",
+		"channelingPayments" => "Channeling Payments",
 		"everyWeek" => "Every Week",
 		"prescriptions" => "Prescriptions",
 		"prescriptionsList" => "Prescriptions List",
@@ -166,6 +170,7 @@ return [
 		"patientDetails" => "Patient Details",
 		"parentItemType" => "Parent Item Type",
 		"patientHistory" => "Patient History",
+		"pharmacyPayments" => "Pharmacy Payments",
 		"prescriptionBills" => "Prescription Bills ",
 		"selectDoctor" => "Select Doctor",
 		"selectItemBatch" => "Select Item Batch",

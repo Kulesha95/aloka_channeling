@@ -219,4 +219,31 @@ class PrescriptionController extends Controller
             ->get()->whereIn('status', [Prescriptions::NEW_PRESCRIPTION, Prescriptions::PENDING_PRESCRIPTION]);
         return ResponseHelper::updateSuccess('Prescription', PrescriptionResource::collection($prescriptions));
     }
+
+    /**
+     * Get Payment Pending Prescriptions List
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pendingPayments()
+    {
+        $prescriptions = Prescription::all()->filter(function ($prescription) {
+            return $prescription->balance != 0 && $prescription->status == Prescriptions::CONFIRMED_PRESCRIPTION;
+        });
+        return ResponseHelper::findSuccess('Prescriptions', PrescriptionResource::collection($prescriptions));
+    }
+
+    /**
+     * Get all prescription details
+     *
+     * @param  \App\Models\Prescription  $appointment
+     * @return \Illuminate\Http\Response
+     */
+    public function prescriptionDetails(Prescription $prescription)
+    {
+        $data = [
+            'prescription' => new PrescriptionResource($prescription),
+        ];
+        return ResponseHelper::findSuccess('Prescription', $data);
+    }
 }

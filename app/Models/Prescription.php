@@ -61,11 +61,46 @@ class Prescription extends Model
     public function getTimeTextAttribute()
     {
         return Carbon::createFromFormat("H:i:s", $this->time)->format('h:i A');
+    }    
+
+    public function getFeeAttribute()
+    {
+        return $this->total;
+    }
+
+    public function getPaidAttribute()
+    {
+        return $this->incomes->sum('amount');
+    }
+
+    public function getBalanceAttribute()
+    {
+        return $this->fee - $this->paid;
+    }
+
+    public function getFeeTextAttribute()
+    {
+        return "Rs. " . number_format($this->total, 2);
+    }
+
+    public function getPaidTextAttribute()
+    {
+        return "Rs. " . number_format($this->paid, 2);
+    }
+
+    public function getBalanceTextAttribute()
+    {
+        return "Rs. " . number_format($this->balance, 2);
     }
 
     public function appointment()
     {
         return $this->belongsTo(Appointment::class)->withTrashed();
+    }
+
+    public function incomes()
+    {
+        return $this->morphMany(Income::class, 'incomeable');
     }
 
     public function batches()

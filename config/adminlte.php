@@ -309,6 +309,12 @@ return [
             'icon' => 'fas fa-fw fa-file-prescription',
             'can' => 'manage-prescriptions'
         ],
+        [
+            'text' => 'payments',
+            'url'  => 'payments',
+            'icon' => 'fas fa-fw fa-hand-holding-usd',
+            'can' => 'manage-payments'
+        ],
 
     ],
 

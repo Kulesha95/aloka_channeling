@@ -26,6 +26,11 @@ class PrescriptionResource extends JsonResource
             "status" => $this->status,
             "status_text" => $this->status_text,
             "total" => $this->total,
+            "paid" => $this->paid,
+            "balance" => $this->balance,
+            "total_text" => $this->fee_text,
+            "paid_text" => $this->paid_text,
+            "balance_text" => $this->balance_text,
             "total_text" => $this->total_text,
         ];
     }
