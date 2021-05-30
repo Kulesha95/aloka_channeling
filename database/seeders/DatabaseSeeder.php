@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             IncomeSeeder::class,
             ItemTypeSeeder::class,
             PrescriptionSeeder::class,
-            ItemSeeder::class
+            ItemSeeder::class,
+            BatchSeeder::class
         ]);
     }
 }

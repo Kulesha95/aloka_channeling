@@ -26,4 +26,9 @@ class Item extends Model
     {
         return $this->belongsTo(ItemType::class)->withTrashed();
     }
+    
+    public function batches()
+    {
+        return $this->hasMany(Batch::class);
+    }
 }
