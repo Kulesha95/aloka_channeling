@@ -19,7 +19,8 @@ class CreatePrescriptionsTable extends Migration
             $table->time('time');
             $table->bigInteger('appointment_id')->nullable();
             $table->tinyInteger('prescription_type');
-            $table->longText('comment');
+            $table->longText('comment')->nullable();
+            $table->tinyInteger('status');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -1,14 +1,22 @@
+// Handle Fill Data To The Datatable
+exports.fillData = (table, data) => {
+    // Clear Existing Table Data
+    table.clear();
+    // Insert New Data To The Table
+    table.rows.add(data);
+    // Readjust Columns Width
+    table.draw();
+    table.columns.adjust().draw();
+};
+
 // Handle Load Data To The Datatable
-exports.loadData = (table, url) => {
+exports.loadData = (table, url, callback = undefined) => {
     // Get data from the API
     httpService.get(url).then((response) => {
-        // Clear Existing Table Data
-        table.clear();
-        // Insert New Data To The Table
-        table.rows.add(response.data);
-        // Readjust Columns Width
-        table.draw();
-        table.columns.adjust().draw();
+        this.fillData(table, response.data);
+        if (callback) {
+            callback(response.data);
+        }
     });
 };
 
@@ -58,7 +66,7 @@ exports.initializeTable = (
             data: null,
             defaultContent: actionContent,
             responsivePriority: 1,
-            class:"nowrap"
+            class: "nowrap",
         });
     }
     // Initialize Datatable

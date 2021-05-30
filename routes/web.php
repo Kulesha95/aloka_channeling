@@ -47,7 +47,10 @@ Route::middleware('auth')->group(function () {
     Route::view('patients/', 'patients.index', ['userType' => UserTypes::PATIENT]);
     Route::view('prescriptions', 'prescriptions.index', [
         "medicalPrescription" => Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION,
-        "testPrescription" =>  Prescriptions::TEST_PRESCRIPTION
+        "testPrescription" =>  Prescriptions::TEST_PRESCRIPTION,
+        "confirmed" => Prescriptions::CONFIRMED_PRESCRIPTION,
+        "rejected" => Prescriptions::CANCELED_PRESCRIPTION,
+        "pending" => Prescriptions::PENDING_PRESCRIPTION
     ]);
     route::view('schedules', 'schedules.index');
     Route::view('users/', 'users.index');

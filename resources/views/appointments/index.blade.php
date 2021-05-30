@@ -71,7 +71,7 @@
             "id": 0
         };
         const actionContents =
-            "<button class='btn btn-sm btn-outline-info mr-1 view-button'><i class='fas fa-eye fa-fw' ></i></button>" +
+            viewActionContent +
             "<button class='btn btn-sm btn-outline-primary mr-1 payment-button'><i class='fas fa-dollar-sign fa-fw' ></i></button>" +
             "<button class='btn btn-sm btn-outline-dark mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>" +
             defaultActionContent;

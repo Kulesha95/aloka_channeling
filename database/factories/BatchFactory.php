@@ -27,13 +27,13 @@ class BatchFactory extends Factory
         return [
             'item_id' => Item::all()->random()->id,
             'grn_id' => 0,
-            'grn_qty' => $grn,
-            'stock_qty' => $stock,
-            'sold_qty' => 0,
-            'damaged_qty' => 0,
-            'returned_qty' => 0,
-            'expired_qty' => 0,
-            'dispose_qty' => 0,
+            'grn_quantity' => $grn,
+            'stock_quantity' => $stock,
+            'sold_quantity' => 0,
+            'damaged_quantity' => 0,
+            'returned_quantity' => 0,
+            'expired_quantity' => 0,
+            'dispose_quantity' => 0,
             'price' => ceil($this->faker->numberBetween(1, 10)),
             'expire_date' => $this->faker->dateTimeBetween(now()->add('-1 month'), now()->add('+1 year'))
         ];

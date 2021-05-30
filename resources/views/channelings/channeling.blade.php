@@ -184,7 +184,7 @@
         }
         // Table Actions
         const actionContents =
-            "<button class='btn btn-sm btn-outline-info mr-1 view-button'><i class='fas fa-eye fa-fw' ></i></button>"
+            viewActionContent
         // Prescriptions Create And Edit Forms Inputs
         const inputsPrescriptions = ['prescription_type', 'comment'];
         // Prescriptions Load Data URL
@@ -316,7 +316,7 @@
         }
         // Handle Next Appointment Button Click
         const getNextAppointment = () => {
-            formHandler.handleReset(`edit${model}Form`, inputs, "_edit");
+            formHandler.resetForm(`edit${model}Form`, inputs, "_edit");
             $('#pendingCount').removeClass('badge-danger');
             $('#pendingCount').addClass('badge-success');
             $('#pendingCount').html(0);
@@ -331,7 +331,7 @@
         }
         // Handle Previous Appointment button Click
         const getPreviousAppointment = () => {
-            formHandler.handleReset(`edit${model}Form`, inputs, "_edit");
+            formHandler.resetForm(`edit${model}Form`, inputs, "_edit");
             $('#pendingCount').removeClass('badge-danger');
             $('#pendingCount').addClass('badge-success');
             $('#pendingCount').html(0);
@@ -349,7 +349,7 @@
             $('#pendingCount').removeClass('badge-danger');
             $('#pendingCount').addClass('badge-success');
             $('#pendingCount').html(0);
-            formHandler.handleReset(`edit${model}Form`, inputs, "_edit");
+            formHandler.resetForm(`edit${model}Form`, inputs, "_edit");
             const search = $('#channelingNumber').val() ? $('#channelingNumber').val() : 0;
             const searchAppointmentUrl = searchUrl
                 .replace(`:number`, search)

@@ -23,6 +23,10 @@ class PrescriptionResource extends JsonResource
             "time" => $this->time,
             "appointment_id" => $this->appointment_id,
             "prescription_number" => $this->prescription_number,
+            "status" => $this->status,
+            "status_text" => $this->status_text,
+            "total" => $this->total,
+            "total_text" => $this->total_text,
         ];
     }
 }

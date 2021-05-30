@@ -14,29 +14,39 @@
                 <h4><i class="fas fa-fw fa-file-prescription mr-2"></i>{{ __('app.headers.prescriptionsManagement') }}
                 </h4>
                 <button type="button" class="btn btn-primary ml-auto" data-toggle="modal"
-                    data-target="#createPrescriptionModal">
+                    data-target="#createPrescriptionBillModal">
                     <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.createNew') }}
                 </button>
             </div>
         </div>
-
         <div class="card-body">
-            <table id="items_list_table" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
-                <thead class="thead-dark">
-                    <tr>
-                    <tr>
-                        <th>{{ __('app.fields.id') }}</th>
-                        <th>{{ __('app.fields.prescriptionNumber') }}</th>
-                        <th>{{ __('app.fields.date') }}</th>
-                        <th>{{ __('app.fields.time') }}</th>
-                        <th>{{ __('app.fields.prescriptionType') }}</th>
-                        <th>{{ __('app.fields.actions') }}</th>
-                    </tr>
-                    </tr>
-                </thead>
-            </table>
-            @include('prescriptions.create')
-            @include('prescriptions.edit')
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-link active" id="nav-prescription-bills-tab" data-toggle="tab"
+                        href="#nav-prescription-bills" role="tab" aria-controls="nav-prescription-bills"
+                        aria-selected="true"><i
+                            class="fas fa-comment-dollar mr-1"></i>{{ __('app.texts.prescriptionBills') }}<span
+                            class="badge badge-success ml-1" id="pendingCount">0</span></a>
+                    <a class="nav-link" id="nav-internal-prescriptions-tab" data-toggle="tab"
+                        href="#nav-internal-prescriptions" role="tab" aria-controls="nav-internal-prescriptions"
+                        aria-selected="false"><i
+                            class="fas fa-file-prescription mr-1"></i>{{ __('app.texts.internalPrescriptions') }}</a>
+                    <a class="nav-link" id="nav-paid-prescriptions-tab" data-toggle="tab" href="#nav-paid-prescriptions"
+                        role="tab" aria-controls="nav-paid-prescriptions" aria-selected="false"><i
+                            class="fas fa-hand-holding-usd mr-1"></i>{{ __('app.texts.paidPrescriptionBills') }}</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-prescription-bills" role="tabpanel"
+                    aria-labelledby="nav-prescription-bills-tab">
+                    @include('prescriptions.prescriptionBillsList')
+                </div>
+                <div class="tab-pane fade" id="nav-internal-prescriptions" role="tabpanel"
+                    aria-labelledby="nav-internal-prescriptions-tab">...</div>
+                <div class="tab-pane fade" id="nav-paid-prescriptions" role="tabpanel"
+                    aria-labelledby="nav-paid-prescriptions-tab">...</div>
+            </div>
+            @include('prescriptions.createPrescriptionBill')
         </div>
     </div>
 @stop
@@ -44,73 +54,49 @@
 @section('js')
     @parent
     <script>
-        // Create And Edit Forms Inputs
-        const inputs = ['prescription_type', 'comment'];
-        // Load Data URL
-        const indexUrl = "{{ route('prescriptions.index') }}";
-        // View Selected Data URL
-        const viewUrl = "{{ route('prescriptions.show', ':id') }}";
-        // Delete Data URL
-        const deleteUrl = "{{ route('prescriptions.destroy', ':id') }}";
-        // Entity Name To Define Form And Model IDs
-        const model = "Prescription";
-        // Datatable ID
-        const dataTableName = 'items_list_table';
-        // Table Columns List
-        const dataTableColumns = ["id", "prescription_number", "date", "time", "prescription_type_text"];
-        // Column Indexes For URL Parameters
-        const parameterIndexes = {
-            "id": 0
+        // Render Select2 Selected Option
+        const templateSelection = (item) => {
+            if (!item.id) {
+                return item.text;
+            }
+            element = JSON.parse(item.text);
+            return element.item_brand_name;
         };
-        // View Button
-        const actionContents =
-            "<button class='btn btn-sm btn-outline-info mr-1 view-button'><i class='fas fa-eye fa-fw' ></i></button>"
-        // Initialize Data Table
-        const table = dataTableHandler.initializeTable(
-            dataTableName,
-            dataTableColumns,
-            indexUrl,
-            actionContents + defaultActionContent
-        );
-        // Delete Item
-        dataTableHandler.handleDelete(
-            table,
-            deleteUrl,
-            parameterIndexes,
-            indexUrl
-        );
-        // Load Data To The Table
-        const loadData = () => {
-            dataTableHandler.loadData(table, indexUrl);
-        };
-        // Load Selected Data To The Edit Form
-        const loadEditForm = (data) => {
-            formHandler.handleShow(
-                `edit${model}Form`,
-                inputs,
-                `edit${model}Modal`,
-                data,
-                parameterIndexes,
-                '_prescription_edit'
+        // Render Select2 Options
+        const templateResult = (item) => {
+            if (!item.id) {
+                return item.text;
+            }
+            element = JSON.parse(item.text);
+            return $(
+                `<div class="row"><h6 class="font-weight-bold">${element.item_brand_name}</h6></div><div class="row">${element.item_generic_name}</div><div class="row font-weight-light">${element.stock_quantity} ${element.item_unit} Available</div><div class="row font-weight-light">Expires on ${element.expire_date}</div>`
             );
+        };
+        const select2Options = {
+            templateResult,
+            templateSelection,
+            placeholder: "{{ __('app.texts.selectItemBatch') }}",
+        };
+        $('#batch_id_external').select2(select2Options);
+        // Load Batches List
+        const loadBatchesList = () => {
+            httpService.get("{{ route('batches.available') }}").then(response => {
+                $('#batch_id_external').empty();
+                $('#batch_id_external').append(new Option("", undefined), false, false)
+                response.data.forEach(element => {
+                    $('#batch_id_external').append(new Option(JSON.stringify(element), element.id),
+                        false,
+                        false)
+                });
+            });
         }
-        $('#comment_prescription_create').summernote();
-        $('#comment_prescription_edit').summernote();
-        // Open Selected Prescription
-        const openPrescription = (data) => {
-            const documentUrl =
-                "{{ route('documents.getPdf', ['type' => 'prescription', 'id' => ':id', 'action' => 'view']) }}";
-            window.open(documentUrl.replace(':id', data.id));
+        const refreshData = () => {
+            loadBatchesList();
+            loadDataPrescriptions();
         }
-        // Handle Edit Button Click Event In Data Table
-        dataTableHandler.handleShow(table, viewUrl, parameterIndexes, loadEditForm);
-        // Handle Create Form Submit
-        formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`,
-            '_prescription_create');
-        // Handle Edit Form Submit
-        formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`,
-            '_prescription_edit');
-        // Handle Prescription View Button Click
-        dataTableHandler.handleCustom(table, viewUrl, parameterIndexes, openPrescription, 'view-button');
+        $(document).ready(() => {
+            refreshData();
+        });
     </script>
+    @stack('js-stack')
 @endsection

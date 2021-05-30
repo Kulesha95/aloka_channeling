@@ -3,19 +3,21 @@
 return [
 
 	"buttons" => [
+		"add" => "Add",
 		"complete" => "Complete",
 		"confirm" => "Confirm",
 		"createNew" => "Create New",
 		"edit" => "Edit",
-		"reject" => "Reject",
-		"save" => "Save",
 		"login" => "Login",
-		"search" => "Search",
-		"signUp" => "Sign Up",
+		"onHold" => "On Hold",
 		"pay" => "Pay",
 		"prescriptions" => "Prescriptions",
 		"print" => "Print",
-		"onHold" => "On Hold"
+		"reject" => "Reject",
+		"reset" => "Reset",
+		"save" => "Save",
+		"search" => "Search",
+		"signUp" => "Sign Up"
 	],
 
 	"fields" => [
@@ -34,7 +36,7 @@ return [
 		"channelType" => "Channel Type",
 		"classification" => "Classification",
 		"colour" => "Colour",
-		"consultant"=>"Consultant",
+		"consultant"=> "Consultant",
 		"comment" => "Comment",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
@@ -57,6 +59,7 @@ return [
 		"idType" => "Id Type",
 		"image" => "Image",
 		"invoiceNumber" => "Invoice Number",
+		"itemBatch" => "Item Batch",
 		"itemType" => "Item Type",
 		"mobile" => "Mobile",
 		"name" => "Name",
@@ -66,9 +69,11 @@ return [
 		"password" => "Password",
 		"patient" => "Patient",
 		"pending" => "Pending",
+		"price" => "Price",
 		"prescriptionNumber" => "Prescription Number",
 		"prescriptionType" => "Prescription Type",
 		"qualification" => "Qualification",
+		"quantity" => "Quantity",
 		"reason" => "Reason",
 		"reorderLevel" => "Reorder Level",
 		"reorderQuantity" => "Reorder Quantity",
@@ -142,6 +147,8 @@ return [
 		"channelingNote" => "Channeling Note",
 
 		"managePrescriptions" => "Manage Prescriptions",
+
+		"createPrescriptionBill" => "Create Prescription Bill",
 	],
 
 	"texts" => [
@@ -151,12 +158,16 @@ return [
 		"prescriptions" => "Prescriptions",
 		"prescriptionsList" => "Prescriptions List",
 		"forgotPassword" => "Forgot Password ?",
-		"medicalPrescriptions" => "Medical Prescriptions",
+		"internalPrescriptions" => "Internal Prescriptions",
+		"medicalPrescriptionBills" => "Medical Prescription Bills",
 		"noRepeat" => "No Repeat",
+		"paidPrescriptionBills" => "Paid Prescription Bills",
 		"patientDetails" => "Patient Details",
 		"parentItemType" => "Parent Item Type",
 		"patientHistory" => "Patient History",
+		"prescriptionBills" => "Prescription Bills ",
 		"selectDoctor" => "Select Doctor",
+		"selectItemBatch" => "Select Item Batch",
 		"selectItemType" => "Select Item Type",
 		"selectParent" => "Select Parent",
 		"selectPatient" => "Select Patient",

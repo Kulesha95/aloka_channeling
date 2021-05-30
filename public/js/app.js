@@ -1887,17 +1887,27 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 var _this = this;
 
-// Handle Load Data To The Datatable
+// Handle Fill Data To The Datatable
+exports.fillData = function (table, data) {
+  // Clear Existing Table Data
+  table.clear(); // Insert New Data To The Table
+
+  table.rows.add(data); // Readjust Columns Width
+
+  table.draw();
+  table.columns.adjust().draw();
+}; // Handle Load Data To The Datatable
+
+
 exports.loadData = function (table, url) {
+  var callback = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
   // Get data from the API
   httpService.get(url).then(function (response) {
-    // Clear Existing Table Data
-    table.clear(); // Insert New Data To The Table
+    _this.fillData(table, response.data);
 
-    table.rows.add(response.data); // Readjust Columns Width
-
-    table.draw();
-    table.columns.adjust().draw();
+    if (callback) {
+      callback(response.data);
+    }
   });
 }; // Handle Datatable Initialization
 
@@ -2050,12 +2060,12 @@ exports.handleCustom = function (table, url) {
 
 var _this = this;
 
-// Handle Save Form Submit
-exports.handleReset = function (formId) {
+// Remove Validation Errors From The Form
+exports.removeValidationErrors = function (formId) {
   var inputs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
   var suffix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "_create";
-  $("#".concat(formId)).trigger("reset"); // If File Input Exists Clear The Selected File Name And Add Default Place Holder
 
+  // If File Input Exists Clear The Selected File Name And Add Default Place Holder
   if (inputs.includes("image")) {
     $("#".concat(formId, " #image").concat(suffix)).next(".custom-file-label").html("Image");
   } // Clear Validation Errors
@@ -2072,6 +2082,38 @@ exports.handleReset = function (formId) {
       inputElement.summernote("code", "");
     }
   });
+}; // Add Validation Errors To The Form
+
+
+exports.addValidationErrors = function (formId) {
+  var suffix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "_create";
+  var error = arguments.length > 2 ? arguments[2] : undefined;
+  // Define Alert Message Body as Empty
+  var errorMessage = ""; // Get Validation Errors List
+
+  var errors = error.data; // Display Validation Errors On The Form And Append The Message To Alert Message Body
+
+  Object.keys(errors).forEach(function (input) {
+    var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
+    errors[input].forEach(function (inputError) {
+      inputElement.addClass("is-invalid");
+      inputElement.next(".select2-container").addClass("is-invalid");
+      inputElement.next(".note-editor").addClass("is-invalid");
+      inputElement.siblings(".invalid-feedback").html(inputError);
+      errorMessage += inputError + " ";
+    });
+  }); // Show Validation Error Message
+
+  messageHandler.warningMessage(error.message, errorMessage);
+}; // Handle Save Form Submit
+
+
+exports.resetForm = function (formId) {
+  var inputs = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+  var suffix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "_create";
+  $("#".concat(formId)).trigger("reset");
+
+  _this.removeValidationErrors(formId, inputs, suffix);
 }; // Handle Save Form Submit
 
 
@@ -2085,19 +2127,14 @@ exports.handleSave = function (formId) {
     // Avoid Form Submit Over HTTP Request
     e.preventDefault(); // Remove Any Validation Errors If Exist
 
-    inputs.forEach(function (input) {
-      var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
-      inputElement.removeClass("is-invalid");
-      inputElement.next(".select2-container").removeClass("is-invalid");
-      inputElement.siblings(".note-editor").removeClass("is-invalid");
-      inputElement.siblings(".invalid-feedback").html("");
-    }); // Get Data From The Form
+    _this.removeValidationErrors(formId, inputs, suffix); // Get Data From The Form
+
 
     var formData = new FormData(e.target); // Handle Data Saving
 
     httpService.post($("#".concat(formId)).attr("action"), formData).then(function (response) {
       // If Data Save Success Reset The Form
-      _this.handleReset(formId, inputs, suffix); // Close The Model Window
+      _this.resetForm(formId, inputs, suffix); // Close The Model Window
 
 
       if (modal) {
@@ -2106,7 +2143,7 @@ exports.handleSave = function (formId) {
 
 
       if (callback) {
-        callback();
+        callback(response.data);
       } // Display Success Message
 
 
@@ -2114,23 +2151,7 @@ exports.handleSave = function (formId) {
     })["catch"](function (error) {
       // Handle Validation Error
       if (error.status == 422) {
-        // Define Alert Message Body as Empty
-        var errorMessage = ""; // Get Validation Errors List
-
-        var errors = error.data.data; // Display Validation Errors On The Form And Append The Message To Alert Message Body
-
-        Object.keys(errors).forEach(function (input) {
-          var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
-          errors[input].forEach(function (inputError) {
-            inputElement.addClass("is-invalid");
-            inputElement.next(".select2-container").addClass("is-invalid");
-            inputElement.next(".note-editor").addClass("is-invalid");
-            inputElement.siblings(".invalid-feedback").html(inputError);
-            errorMessage += inputError + " ";
-          });
-        }); // Show Validation Error Message
-
-        messageHandler.warningMessage(error.data.message, errorMessage);
+        _this.addValidationErrors(formId, suffix, error.data);
       }
     });
   });
@@ -2146,7 +2167,7 @@ exports.handleShow = function (formId) {
   var callback = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : undefined;
 
   // Clear Form
-  _this.handleReset(formId, inputs, suffix);
+  _this.resetForm(formId, inputs, suffix);
 
   inputs.forEach(function (input) {
     var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix)); // if Data Is An Image Preview It
@@ -2191,19 +2212,14 @@ exports.handleEdit = function (formId) {
     // Avoid Form Submit Over HTTP Request
     e.preventDefault(); // Remove Any Validation Errors If Exist
 
-    inputs.forEach(function (input) {
-      var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
-      inputElement.removeClass("is-invalid");
-      inputElement.next(".select2-container").removeClass("is-invalid");
-      inputElement.next(".note-editor").removeClass("is-invalid");
-      inputElement.siblings(".invalid-feedback").html("");
-    }); // Get Data From The Form
+    _this.removeValidationErrors(formId, inputs, suffix); // Get Data From The Form
+
 
     var formData = new FormData(e.target); // Handle Data Editing
 
     httpService.put($("#".concat(formId)).attr("action"), formData).then(function (response) {
       // If Data Edit Success Reset The Form
-      _this.handleReset(formId, inputs, suffix); // Close The Model Window
+      _this.resetForm(formId, inputs, suffix); // Close The Model Window
 
 
       if (modal) {
@@ -2212,7 +2228,7 @@ exports.handleEdit = function (formId) {
 
 
       if (callback) {
-        callback();
+        callback(response.data);
       } // Display Success Message
 
 
@@ -2220,23 +2236,7 @@ exports.handleEdit = function (formId) {
     })["catch"](function (error) {
       // Handle Validation Error
       if (error.status == 422) {
-        // Define Alert Message Body as Empty
-        var errorMessage = ""; // Get Validation Errors List
-
-        var errors = error.data.data; // Display Validation Errors On The Form And Append The Message To Alert Message Body
-
-        Object.keys(errors).forEach(function (input) {
-          errors[input].forEach(function (inputError) {
-            var inputElement = $("#".concat(formId, " #").concat(input).concat(suffix));
-            inputElement.addClass("is-invalid");
-            inputElement.next(".select2-container").addClass("is-invalid");
-            inputElement.next(".note-editor").addClass("is-invalid");
-            inputElement.siblings(".invalid-feedback").html(inputError);
-            errorMessage += inputError + " ";
-          });
-        }); // Show Validation Error Message
-
-        messageHandler.warningMessage(error.data.message, errorMessage);
+        _this.addValidationErrors(formId, suffix, error.data);
       }
     });
   });

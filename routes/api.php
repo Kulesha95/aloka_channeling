@@ -23,8 +23,13 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('appointments/{schedule}/{currentNumber}/back', 'AppointmentController@back')->name('appointments.back');
 	Route::get('appointments/{schedule}/{currentNumber}/next', 'AppointmentController@next')->name('appointments.next');
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
+	Route::get('batches/available', 'BatchController@available')->name('batches.available');
 	Route::get('doctors/schedule', 'DoctorController@schedule')->name('doctors.schedule');
 	Route::get('patients/{patient}/history', 'PatientController@history')->name('patients.history');
+	Route::post('prescriptions/addBatch', 'PrescriptionController@addBatch')->name('prescriptions.addBatch');
+	Route::get('prescriptions/prescriptionBills', 'PrescriptionController@prescriptionBills')->name('prescriptions.prescriptionBills');
+	Route::put('prescriptions/{prescription}/updateStatus', 'PrescriptionController@updateStatus')->name('prescriptions.updateStatus');
+	Route::get('prescriptions/{prescription}/batches', 'PrescriptionController@batches')->name('prescriptions.batches');
 	Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
 
 

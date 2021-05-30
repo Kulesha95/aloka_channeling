@@ -37,6 +37,7 @@ class PrescriptionFactory extends Factory
             "date" => $appointment->date,
             "time" => $appointment->time,
             "appointment_id" => $appointment->id,
+            "status" => Prescriptions::NEW_PRESCRIPTION,
         ];
     }
 }

@@ -13,19 +13,29 @@ class Batch extends Model
     protected $fillable = [
         'item_id',
         'grn_id',
-        'grn_qty',
-        'stock_qty',
-        'sold_qty',
-        'damaged_qty',
-        'returned_qty',
-        'expired_qty',
-        'dispose_qty',
+        'grn_quantity',
+        'stock_quantity',
+        'sold_quantity',
+        'damaged_quantity',
+        'returned_quantity',
+        'expired_quantity',
+        'dispose_quantity',
         'price',
         'expire_date'
     ];
 
+    public function getPriceTextAttribute()
+    {
+        return  "Rs. " . number_format($this->price, 2);
+    }
+
     public function item()
     {
         return $this->belongsTo(Item::class)->withTrashed();
+    }
+
+    public function prescriptions()
+    {
+        return $this->belongsToMany(Prescription::class)->using(BatchPrescription::class)->withPivot(['quantity']);
     }
 }

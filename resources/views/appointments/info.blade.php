@@ -109,10 +109,6 @@
                 </div>
                 @if (!Auth::user()->patient)
                     <div class="row m-1" id="button-row">
-                        <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-save mr-1"
-                                aria-hidden="true"></i>{{ __('app.buttons.save') }}</button>
-                        <button type="submit" class="btn btn-primary ml-1"><i class="fa fa-save mr-1"
-                                aria-hidden="true"></i>{{ __('app.buttons.save') }}</button>
                     </div>
                 @endif
             </div>
