@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::view('channelTypes', 'channelTypes.index');
     route::view('dashboard', 'dashboard.index')->name('dashboard');
     route::view('doctors', 'doctors.index', ['userType' => UserTypes::DOCTOR]);
+    route::view('explorationTypes', 'explorationTypes.index');
     route::view('items', 'items.index');
     route::view('itemTypes', 'itemTypes.index');
     Route::view('patients', 'patients.index', ['userType' => UserTypes::PATIENT]);

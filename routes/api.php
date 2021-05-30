@@ -46,11 +46,12 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
-	Route::apiResource('prescription.incomes', PrescriptionIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('channelTypes', ChannelTypeController::class);
 	Route::apiResource('doctors', DoctorController::class);
+	Route::apiResource('explorationTypes', ExplorationTypeController::class);
 	Route::apiResource('items', ItemController::class);
 	Route::apiResource('itemTypes', ItemTypeController::class);
+	Route::apiResource('prescription.incomes', PrescriptionIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('patients', PatientController::class);
 	Route::apiResource('prescriptions', PrescriptionController::class);
 	Route::apiResource('schedules', ScheduleController::class);

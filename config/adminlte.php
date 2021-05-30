@@ -315,6 +315,12 @@ return [
             'icon' => 'fas fa-fw fa-hand-holding-usd',
             'can' => 'manage-payments'
         ],
+        [
+            'text' => 'explorationTypes',
+            'url'  => 'explorationTypes',
+            'icon' => 'fas fa-fw fa-thermometer',
+            'can' => 'manage-exploration-types'
+        ],
 
     ],
 

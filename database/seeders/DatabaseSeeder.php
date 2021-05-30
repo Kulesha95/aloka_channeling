@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Appointment;
+use App\Models\ExplorationType;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,7 +28,8 @@ class DatabaseSeeder extends Seeder
             ItemTypeSeeder::class,
             PrescriptionSeeder::class,
             ItemSeeder::class,
-            BatchSeeder::class
+            BatchSeeder::class,
+            ExplorationTypeSeeder::class
         ]);
     }
 }

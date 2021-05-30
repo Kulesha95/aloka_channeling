@@ -52,6 +52,7 @@ return [
 		"doctorFee" => "Doctor Fee",
 		"email" => "E-mail",
 		"estimatedTime" => "Estimated Time",
+		"explorationType" => "Exploration Type",
 		"fee" => "Fee",
 		"gender" => "Gender",
 		"genericName" => "Generic Name",
@@ -137,6 +138,10 @@ return [
 		"prescriptionsManagement" => "Prescription Management",
 		"createPrescription" => "Create Prescription",
 		"editPrescription" => "Edit Prescription",
+
+		"explorationTypesManagement" => "Exploration Type Management",
+		"createExplorationType" => "Create Exploration Type",
+		"editExplorationType" => "Edit Exploration Type",
 
 		"channelingPaymentInvoice" => "Channeling Payment Invoice",
 		"channelingPayments" => "Channeling Payments",
