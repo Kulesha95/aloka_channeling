@@ -28,12 +28,15 @@ Route::middleware('auth')->group(function () {
     Route::view('appointments', 'appointments.index', [
         "receptionist" => UserTypes::RECEPTIONIST,
         "confirmed" => Appointments::CONFIRMED,
+        "completed" => Appointments::COMPLETED,
+        "onHold" => Appointments::PENDING,
         "rejected" => Appointments::REJECTED
     ]);
     Route::view('calendar', 'pages.calendar');
     Route::view('channelings', 'channelings.channeling', [
         "confirmed" => Appointments::CONFIRMED,
         "rejected" => Appointments::REJECTED,
+        "pending" => Prescriptions::PENDING_PRESCRIPTION,
         "completed" => Appointments::COMPLETED,
         "onHold" => Appointments::PENDING,
         "medicalPrescription" => Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION,

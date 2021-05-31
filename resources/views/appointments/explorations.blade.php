@@ -34,17 +34,6 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="bmi">{{ __('app.fields.bmi') }}</label>
-                        <div class="input-group">
-                            <input id="bmi_create" class="form-control" type="text" name="bmi"
-                                placeholder="{{ __('app.fields.bmi') }}">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">Kg/m2</div>
-                            </div>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
                     <div class="row m-1">
                         <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-save mr-1"
                                 aria-hidden="true"></i>{{ __('app.buttons.save') }}</button>

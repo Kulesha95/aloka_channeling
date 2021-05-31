@@ -1,14 +1,29 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Resources;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class Exploration extends Model
+class ExplorationResource extends JsonResource
 {
-    use HasFactory, SoftDeletes;
-
-    protected $fillable = ['date', 'time', 'value', 'comment', 'prescription_id', 'patient_id', 'exploration_type_id'];
+    /**
+     * Transform the resource into an array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'date' => $this->date,
+            'time' => $this->time,
+            'value' => $this->value,
+            'value_text' => $this->value_text,
+            'comment' => $this->comment,
+            'patient_id' => $this->patient_id,
+            'exploration_type_id' => $this->exploration_type_id,
+            'exploration_type' => $this->explorationType->exploration_type,
+        ];
+    }
 }

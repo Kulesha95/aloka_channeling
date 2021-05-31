@@ -34,7 +34,7 @@ class AppointmentController extends Controller
         }
         return ResponseHelper::findSuccess(
             'Appointments',
-            AppointmentResource::collection($appointmentsQuery->get())
+            AppointmentResource::collection($appointmentsQuery->orderByDesc('date')->orderBy('number')->get())
         );
     }
 

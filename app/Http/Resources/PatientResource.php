@@ -27,7 +27,8 @@ class PatientResource extends JsonResource
             "birth_date" => $this->birth_date,
             "id_number" => $this->id_number,
             "id_type" => $this->id_type,
-            "age" => $this->age
+            "age" => $this->age,
+            "age_text" => $this->age_text,
         ];
     }
 }

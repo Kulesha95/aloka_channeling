@@ -23,6 +23,7 @@ class CreateExplorationsTable extends Migration
             $table->bigInteger('prescription_id')->nullable();
             $table->bigInteger('exploration_type_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

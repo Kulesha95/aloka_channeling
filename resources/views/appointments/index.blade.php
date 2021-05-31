@@ -116,7 +116,7 @@
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit
         formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
-        formHandler.handleSave('createExplorationForm', ['height', 'weight', 'bmi'], undefined, 'createExplorationsModal');
+        formHandler.handleSave('createExplorationForm', ['height', 'weight'], undefined, 'createExplorationsModal');
         $(document).ready(() => {
             // Handle Print Button Click Event In Data Table
             dataTableHandler.handleCustom(table, detailsUrl, parameterIndexes,

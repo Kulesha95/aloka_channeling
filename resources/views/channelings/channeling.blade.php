@@ -56,6 +56,9 @@
                         role="tab" aria-controls="nav-patient-history" aria-selected="false"><i
                             class="fas fa-history mr-2"></i>{{ __('app.texts.patientHistory') }}<span
                             class="badge badge-success ml-1" id="pendingCount">0</span></a>
+                    <a class="nav-item nav-link" id="nav-explorations-tab" data-toggle="tab" href="#nav-explorations"
+                        role="tab" aria-controls="nav-explorations" aria-selected="false"><i
+                            class="fas fa-weight mr-2"></i>{{ __('app.texts.explorations') }}</a>
                 </div>
             </nav>
             <div class="tab-content mt-3" id="nav-tabContent">
@@ -64,12 +67,44 @@
                     <form method="POST" id="editAppointmentForm" data-action="{{ route('appointments.update', ':id') }}">
                         @method('PUT')
                         <div class="row">
-                            <div class="form-group col-12">
+                            <div class="form-group col-4">
                                 <label for="patient_id">{{ __('app.fields.patient') }}</label>
                                 <input id="patient_id_edit" class="form-control" type="hidden" name="patient_id"
                                     placeholder="{{ __('app.fields.patient') }}" disabled>
                                 <input id="patient_name" class="form-control" type="text" name="patient_name"
                                     placeholder="{{ __('app.fields.patient') }}" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="patient_id">{{ __('app.fields.age') }}</label>
+                                <input id="patient_age" class="form-control" type="text" name="patient_age"
+                                    placeholder="{{ __('app.fields.age') }}" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="patient_id">{{ __('app.fields.gender') }}</label>
+                                <input id="patient_gender" class="form-control" type="text" name="patient_gender"
+                                    placeholder="{{ __('app.fields.gender') }}" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-4">
+                                <label for="patient_id">{{ __('app.fields.height') }}</label>
+                                <input id="patient_height" class="form-control" type="text" name="patient_height"
+                                    placeholder="{{ __('app.fields.height') }}" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="patient_id">{{ __('app.fields.weight') }}</label>
+                                <input id="patient_weight" class="form-control" type="text" name="patient_weight"
+                                    placeholder="{{ __('app.fields.weight') }}" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <div class="form-group col-4">
+                                <label for="patient_id">{{ __('app.fields.bmi') }}</label>
+                                <input id="patient_bmi" class="form-control" type="text" name="patient_bmi"
+                                    placeholder="{{ __('app.fields.bmi') }}" disabled>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -134,6 +169,22 @@
                         </thead>
                     </table>
                 </div>
+                <div class="tab-pane fade" id="nav-explorations" role="tabpanel" aria-labelledby="nav-explorations-tab">
+                    <table id="explorations_list_table" class="table table-sm table-striped table-bordered table-hover"
+                        style="width:100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>{{ __('app.fields.id') }}</th>
+                                <th>{{ __('app.fields.explorationType') }}</th>
+                                <th>{{ __('app.fields.value') }}</th>
+                                <th>{{ __('app.fields.comment') }}</th>
+                                <th>{{ __('app.fields.date') }}</th>
+                                <th>{{ __('app.fields.time') }}</th>
+                                <th>{{ __('app.fields.actions') }}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
             <hr>
             <div class="row">
@@ -167,6 +218,8 @@
         const updateStatusUrl = "{{ route('appointments.updateStatus', ':id') }}";
         // Patient History Data Url
         const patientHistoryUrl = "{{ route('patients.history', ':patient') }}"
+        // Patient Explorations Data Url
+        const patientExplorationsUrl = "{{ route('patient.explorations.index', ':patient') }}"
         // Edit Form Inputs
         const inputs = ['patient_id', 'reason', 'comment'];
         // Entity Name To Define Form And Model IDs
@@ -203,6 +256,10 @@
         const parameterIndexesPrescriptions = {
             "id": 0
         };
+        // Prescriptions Datatable ID
+        const dataTableNameExplorations = 'explorations_list_table';
+        // Prescriptions Table Columns List
+        const dataTableColumnsExplorations = ["id", "exploration_type", "value_text", "comment", "date", "time"];
         // Initialize Data Table
         const tablePrescriptions = dataTableHandler.initializeTable(
             dataTableNamePrescriptions,
@@ -216,6 +273,13 @@
             dataTableColumns,
             null,
             actionContents
+        );
+        // Initialize Data Table
+        const tableExplorations = dataTableHandler.initializeTable(
+            dataTableNameExplorations,
+            dataTableColumnsExplorations,
+            null,
+            defaultActionContent
         );
         // Load Data To The Table
         const loadDataPrescriptions = () => {
@@ -246,8 +310,8 @@
             });
             // Initialize Summernote Editor
             $('#comment_edit').summernote();
-            $('#comment_prescription_create').summernote();
-            $('#comment_prescription_edit').summernote();
+            //$('#comment_prescription_create').summernote();
+            //$('#comment_prescription_edit').summernote();
             // Handle Channeling Note Update
             formHandler.handleEdit(`edit${model}Form`, inputs, searchAppointment);
             // Handle Patient Histoy View Button Click
@@ -278,6 +342,11 @@
         // Load Patient History
         const handleFormLoadSuccess = (data) => {
             $('#patient_name').val(data.patient);
+            $('#patient_age').val(data.patient_age);
+            $('#patient_gender').val(data.patient_gender);
+            $('#patient_height').val(data.patient_height);
+            $('#patient_weight').val(data.patient_weight);
+            $('#patient_bmi').val(data.patient_bmi);
             dataTableHandler.loadData(table, patientHistoryUrl.replace(`:patient`, data.patient_id), (data) => {
                 const pendingCount = data.filter(item => item.status == "{{ $onHold }}").length;
                 if (pendingCount) {
@@ -286,6 +355,7 @@
                     $('#pendingCount').html(pendingCount);
                 }
             });
+            dataTableHandler.loadData(tableExplorations, patientExplorationsUrl.replace(`:patient`, data.patient_id));
         }
         // Fill Channeling Details To The Form
         const loadChannelingData = (data) => {

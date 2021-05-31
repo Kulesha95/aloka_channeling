@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Constants\ExplorationTypes;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ExplorationResource;
 use App\Models\Exploration;
 use App\Models\Patient;
 use Illuminate\Http\Request;
@@ -15,11 +16,12 @@ class ExplorationController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Patient $patient)
     {
-        //
+        return ResponseHelper::findSuccess('Explorations', ExplorationResource::collection($patient->explorations));
     }
 
     /**
@@ -30,7 +32,6 @@ class ExplorationController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     /**
@@ -77,11 +78,10 @@ class ExplorationController extends Controller
     public function storeReceptionist(Request $request, Patient $patient)
     {
         $validator = Validator::make(
-            $request->only(['height', 'weight', 'bmi']),
+            $request->only(['height', 'weight']),
             [
                 'height' => 'required',
                 'weight' => 'required',
-                'bmi' => 'required'
             ]
         );
         if ($validator->fails()) {
@@ -111,7 +111,7 @@ class ExplorationController extends Controller
             'date' => $date,
             'time' => $time,
             'patient_id' => $patient->id,
-            'exploration_type_id' => ExplorationTypes::WEIGHT,
+            'exploration_type_id' => ExplorationTypes::BMI,
         ]);
         return ResponseHelper::createSuccess('Explorations', []);
     }

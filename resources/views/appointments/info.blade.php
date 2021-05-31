@@ -43,21 +43,31 @@
                                         <th>{{ __('app.fields.date') }}</th>
                                         <td>: <span id="channelDate"></span></td>
                                     </tr>
+                                    @if (!Auth::user()->doctor)
+                                        <tr>
+                                            <th>{{ __('app.fields.estimatedTime') }}</th>
+                                            <td>: <span id="channelEstimatedTime"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ __('app.fields.number') }}</th>
+                                            <td>: <span id="channelNumber"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ __('app.fields.appointmentNumber') }}</th>
+                                            <td>: <span id="appointmentNumber"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>{{ __('app.fields.fee') }}</th>
+                                            <td>: <span id="fee"></span></td>
+                                        </tr>
+                                    @endif
                                     <tr>
-                                        <th>{{ __('app.fields.estimatedTime') }}</th>
-                                        <td>: <span id="channelEstimatedTime"></span></td>
+                                        <th>{{ __('app.fields.reason') }}</th>
+                                        <td>: <span id="reason"></span></td>
                                     </tr>
                                     <tr>
-                                        <th>{{ __('app.fields.number') }}</th>
-                                        <td>: <span id="channelNumber"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('app.fields.appointmentNumber') }}</th>
-                                        <td>: <span id="appointmentNumber"></span></td>
-                                    </tr>
-                                    <tr>
-                                        <th>{{ __('app.fields.fee') }}</th>
-                                        <td>: <span id="fee"></span></td>
+                                        <th>{{ __('app.fields.comment') }}</th>
+                                        <td>: <span id="comment"></span></td>
                                     </tr>
                                 </table>
                             </div>
@@ -107,8 +117,12 @@
                         </div>
                     </div>
                 </div>
-                @if (!Auth::user()->patient)
+                @if (!Auth::user()->patient && !Auth::user()->doctor)
                     <div class="row m-1" id="button-row">
+                    </div>
+                @endif
+                @if (Auth::user()->doctor)
+                    <div class="row m-1" id="status-row">
                     </div>
                 @endif
             </div>
@@ -126,11 +140,13 @@
         $(`#channelNumber`).html(data.appointment.number_text);
         $(`#appointmentNumber`).html(data.appointment.appointment_number);
         $(`#fee`).html(data.appointment.fee);
+        $(`#reason`).html(data.appointment.reason);
+        $(`#comment`).html(data.appointment.comment);
         $(`#patientImage`).attr('src', data.patient.image);
         $(`#patientName`).html(data.patient.name);
         $(`#patientGender`).html(data.patient.gender);
         $(`#patientBirthDate`).html(data.patient.birth_date);
-        $(`#patientAge`).html(data.patient.age);
+        $(`#patientAge`).html(data.patient.age_text);
         $(`#patientAddress`).html(data.patient.address);
         $(`#patientEmail`).html(data.patient.email);
         $(`#patientMobile`).html(data.patient.mobile);
@@ -146,6 +162,13 @@
             );
         } else {
             $('#button-row').html("");
+        }
+        if ((data.doctor.id == "{{ Auth::user()->doctor ? Auth::user()->doctor->id : 0 }}") && data.appointment
+            .status === "{{ $onHold }}") {
+            $('#status-row').html(
+                `<button type="submit" class="btn btn-success ml-auto" onclick="handleStatusUpdate(${data.appointment.id},{{ $completed }})"><i class="fa fa-check-circle mr-1"
+                aria-hidden="true"></i>{{ __('app.buttons.complete') }}</button>`
+            );
         }
     }
     const handleStatusUpdate = (id, status) => {
