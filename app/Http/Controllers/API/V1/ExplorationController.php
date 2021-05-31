@@ -30,8 +30,27 @@ class ExplorationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Patient $patient)
     {
+        $validator = Validator::make(
+            $request->only(['value', 'exploration_type_id']),
+            [
+                'value' => 'required',
+                'exploration_type_id' => 'required',
+            ]
+        );
+        if ($validator->fails()) {
+            return ResponseHelper::validationFail(
+                'Exploration',
+                $validator->errors()
+            );
+        }
+
+        $date = now()->toDateString();
+        $time = now()->toTimeString();
+        $exploration = Exploration::create($request->only(['value', 'exploration_type_id', 'comment']) +
+            ['date' => $date, 'time' => $time, 'patient_id' => $patient->id,]);
+        return ResponseHelper::createSuccess('Explorations', new ExplorationResource($exploration));
     }
 
     /**

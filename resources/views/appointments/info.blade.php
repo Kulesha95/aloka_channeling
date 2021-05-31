@@ -164,7 +164,7 @@
             $('#button-row').html("");
         }
         if ((data.doctor.id == "{{ Auth::user()->doctor ? Auth::user()->doctor->id : 0 }}") && data.appointment
-            .status === "{{ $onHold }}") {
+            .status == "{{ $onHold }}") {
             $('#status-row').html(
                 `<button type="submit" class="btn btn-success ml-auto" onclick="handleStatusUpdate(${data.appointment.id},{{ $completed }})"><i class="fa fa-check-circle mr-1"
                 aria-hidden="true"></i>{{ __('app.buttons.complete') }}</button>`
@@ -176,7 +176,9 @@
             status,
             _method: "PUT"
         }).then((response) => {
-            loadData();
+            if (window.loadData) {
+                loadData();                
+            }
             messageHandler.successMessage(response.message);
             $(`#viewAppointmentModal`).modal("hide");
         });

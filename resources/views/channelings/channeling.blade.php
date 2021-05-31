@@ -170,6 +170,12 @@
                     </table>
                 </div>
                 <div class="tab-pane fade" id="nav-explorations" role="tabpanel" aria-labelledby="nav-explorations-tab">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary ml-auto mb-2" data-toggle="modal"
+                            data-target="#createExplorationModal">
+                            <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.createNew') }}
+                        </button>
+                    </div>
                     <table id="explorations_list_table" class="table table-sm table-striped table-bordered table-hover"
                         style="width:100%">
                         <thead class="thead-dark">
@@ -180,7 +186,6 @@
                                 <th>{{ __('app.fields.comment') }}</th>
                                 <th>{{ __('app.fields.date') }}</th>
                                 <th>{{ __('app.fields.time') }}</th>
-                                <th>{{ __('app.fields.actions') }}</th>
                             </tr>
                         </thead>
                     </table>
@@ -197,6 +202,7 @@
         @include('appointments.info')
         @include('prescriptions.create')
         @include('prescriptions.edit')
+        @include('explorations.create')
     </div>
 @endsection
 
@@ -278,8 +284,6 @@
         const tableExplorations = dataTableHandler.initializeTable(
             dataTableNameExplorations,
             dataTableColumnsExplorations,
-            null,
-            defaultActionContent
         );
         // Load Data To The Table
         const loadDataPrescriptions = () => {
@@ -372,6 +376,9 @@
                 $('#channelingNumber').val(data.number_text);
                 $('#appointment_id_prescription_create').val(data.id);
                 $('#appointment_id_prescription_edit').val(data.id);
+                let explorationAddUrl = $(`#createExplorationForm`).data("action");
+                explorationAddUrl = explorationAddUrl.replace(`:id`, data.patient_id);
+                $(`#createExplorationForm`).attr("action", explorationAddUrl);
                 loadDataPrescriptions();
                 // If Not Found Reset The Form And Current Appointment Details
             } else {
@@ -380,6 +387,7 @@
                 $('#channelingNumber').val('');
                 $('#appointment_id_prescription_create').val('');
                 $('#appointment_id_prescription_edit').val('');
+                $(`#createExplorationForm`).attr("action", '');
                 table.clear().draw();
                 tablePrescriptions.clear().draw();
             }
@@ -450,5 +458,8 @@
         const handleComplete = () => {
             handleChannelingNoteStatusUpdate(currentId, "{{ $completed }}");
         }
+        formHandler.handleSave("createExplorationForm", ["exploration_type_id", "value", "comment"], searchAppointment,
+            "createExplorationModal", "_exploration_create");
     </script>
+    @stack('js-stack')
 @endsection
