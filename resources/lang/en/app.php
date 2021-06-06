@@ -180,6 +180,7 @@ return [
 		"forgotPassword" => "Forgot Password ?",
 		"internalPrescriptions" => "Internal Prescriptions",
 		"medicalPrescriptionBills" => "Medical Prescription Bills",
+		"medicalPrescription" => "Medical Prescription",
 		"none" => "None",
 		"noRepeat" => "No Repeat",
 		"paidPrescriptionBills" => "Paid Prescription Bills",
