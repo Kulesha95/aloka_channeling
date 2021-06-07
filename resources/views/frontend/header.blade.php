@@ -12,45 +12,47 @@
 
 
     </div>
-    <!--nav bar start-->
-
+    
 </div>
-<nav class="navbar navbar-expand-lg navbar-light bg-light container">
-    <a class="navbar-brand font-weight-bold" href="#">Aloka Pharmacy and Channelling Center</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<!--nav bar start-->
+<div class="container-fluid bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light container">
+        <a class="navbar-brand font-weight-bold" href="#">Aloka Pharmacy and Channelling Center</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('frontend.index') }}">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('frontend.about') }}">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('frontend.channelings') }}">Channellings</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('frontend.contact') }}">Contact</a>
-            </li>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('frontend.index') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('frontend.about') }}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('frontend.channelings') }}">Channellings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('frontend.contact') }}">Contact</a>
+                </li>
 
-        </ul>
-        @if (Auth::user())
-            <a class="btn btn-outline-success my-2 my-sm-0 mr-1" href="{{ route('dashboard') }}"> My Account </a>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf()
-                <button type="submit" class="btn btn-outline-success my-2 my-sm-0"> Log Out</button>
-            </form>
-        @else
-            <a class="btn btn-outline-success my-2 my-sm-0 mr-2 " href="{{ route('register') }}"> Register</a>
-            <a class="btn btn-outline-success my-2 my-sm-0" href="{{ route('login') }}"> Login </a>
-        @endif
+            </ul>
+            @if (Auth::user())
+                <a class="btn btn-outline-success my-2 my-sm-0 mr-1" href="{{ route('dashboard') }}"> My Account </a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf()
+                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0"> Log Out</button>
+                </form>
+            @else
+                <a class="btn btn-outline-success my-2 my-sm-0 mr-2 " href="{{ route('register') }}"> Register</a>
+                <a class="btn btn-outline-success my-2 my-sm-0" href="{{ route('login') }}"> Login </a>
+            @endif
 
-    </div>
-</nav>
+        </div>
+    </nav>
+</div>
 
 <!--nav bar end-->
 
