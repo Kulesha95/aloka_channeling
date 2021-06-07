@@ -1,4 +1,4 @@
-@extends('layouts.front')
+@extends('layouts.auth')
 
 @section('content')
 <div class="container-fluid bg-dark d-flex full-height">
