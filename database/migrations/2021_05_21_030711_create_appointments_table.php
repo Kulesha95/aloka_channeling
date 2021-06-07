@@ -18,7 +18,7 @@ class CreateAppointmentsTable extends Migration
             $table->string('number')->nullable();
             $table->date('date');
             $table->time('time');
-            $table->string('reason');
+            $table->longText('other')->nullable();
             $table->longText('comment')->nullable();
             $table->tinyInteger('status');
             $table->bigInteger('patient_id');

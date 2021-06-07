@@ -15,5 +15,10 @@ class ChannelReason extends Model
     public function channelType()
     {
         return $this->belongsTo(ChannelType::class)->withTrashed();
+    }   
+
+    public function appointments()
+    {
+        return $this->belongsToMany(Appointment::class);
     }
 }

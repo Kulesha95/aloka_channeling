@@ -5,8 +5,10 @@ namespace App\Http\Controllers\API\V1;
 use App\Constants\Appointments;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ChannelReasonResource;
 use App\Http\Resources\ScheduleResource;
 use App\Models\Appointment;
+use App\Models\ChannelReason;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -201,8 +203,14 @@ class ScheduleController extends Controller
                 $searchDate = $schedule->date_to;
             }
         }
-        $number = str_pad(Appointment::whereDate('date', $searchDate)->where('schedule_id', $schedule->id)->count() + 1,2,"0",STR_PAD_LEFT);
+        $number = str_pad(Appointment::whereDate('date', $searchDate)->where('schedule_id', $schedule->id)->count() + 1, 2, "0", STR_PAD_LEFT);
         $time = Carbon::createFromFormat("H:i:s", $schedule->time_from)->addMinutes(($number - 1) * Appointments::AVERAGE_APPOINTMENT_TIME)->format("h:i A");
-        return ResponseHelper::findSuccess("Approximation Details", ["number" => $number, "time" => $time, "date" => $searchDate, "channeling_fee_text" => $schedule->channeling_fee_text]);
+        return ResponseHelper::findSuccess("Approximation Details", [
+            "number" => $number,
+            "time" => $time,
+            "date" => $searchDate,
+            "channeling_fee_text" => $schedule->channeling_fee_text,
+            "channeling_reasons" => ChannelReasonResource::collection($schedule->doctor->channelType->channelReasons)
+        ]);
     }
 }

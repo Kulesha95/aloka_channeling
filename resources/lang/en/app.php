@@ -81,6 +81,7 @@ return [
 		"mobile" => "Mobile",
 		"name" => "Name",
 		"number" => "Number",
+		"other" => "Other",
 		"paid" => "Paid",
 		"parent" => "Parent",
 		"password" => "Password",
@@ -92,6 +93,7 @@ return [
 		"qualification" => "Qualification",
 		"quantity" => "Quantity",
 		"reason" => "Reason",
+		"reasons" => "Reasons",
 		"reorderLevel" => "Reorder Level",
 		"reorderQuantity" => "Reorder Quantity",
 		"repeat" => "Repeat",
@@ -181,7 +183,7 @@ return [
 
 		"addExplorations" => "Add Explorations",
 
-		"channelReasonsManagement"=>"Channel Reasons Management"
+		"channelReasonsManagement" => "Channel Reasons Management"
 	],
 
 	"texts" => [
@@ -210,6 +212,7 @@ return [
 		"selectParent" => "Select Parent",
 		"selectPatient" => "Select Patient",
 		"selectPrescriptionType" => "Select Prescription Type",
+		"selectReasons" => "Select Reasons",
 		"selectRepeat" => "Select Repeat",
 		"selectSchedule" => "Select Schedule",
 		"selectUserType" => "Select User Type",

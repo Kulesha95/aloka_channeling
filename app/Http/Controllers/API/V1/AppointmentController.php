@@ -47,12 +47,12 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(
-            $request->only(['schedule_id', 'patient_id', 'date', 'reason']),
+            $request->only(['schedule_id', 'patient_id', 'date', 'channel_reason_id']),
             [
                 'schedule_id' => "required",
                 'patient_id' => "required",
                 'date' => "required",
-                'reason' => "required",
+                'channel_reason_id' => "required",
             ]
         );
         if ($validator->fails()) {
@@ -64,9 +64,10 @@ class AppointmentController extends Controller
         $schedule = Schedule::find($request->get('schedule_id'));
         $time = $schedule->time_from;
         $appointment = Appointment::create(
-            $request->only(['schedule_id', 'patient_id', 'date', 'reason', 'comment']) +
+            $request->only(['schedule_id', 'patient_id', 'date',  'other', 'comment']) +
                 ["time" => $time, 'status' => Appointments::NEW]
         );
+        $appointment->channelReasons()->attach($request->get('channel_reason_id'));
         $appointment->refresh();
         $number = Appointment::where('schedule_id', $schedule->id)->where('id', '<=', $appointment->id)->whereDate('date', $appointment->date)->withTrashed()->count();
         $time = Carbon::createFromFormat("H:i:s", $schedule->time_from)->addMinutes(($number - 1) * Appointments::AVERAGE_APPOINTMENT_TIME)->format("H:i:s");
@@ -102,9 +103,9 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointment)
     {
         $validator = Validator::make(
-            $request->only(['reason']),
+            $request->only(['channel_reason_id']),
             [
-                'reason' => "required",
+                'channel_reason_id' => "required",
             ]
         );
         if ($validator->fails()) {
@@ -113,7 +114,8 @@ class AppointmentController extends Controller
                 $validator->errors()
             );
         }
-        $appointment->update($request->only(['reason', 'comment']));
+        $appointment->update($request->only(['other', 'comment']));
+        $appointment->channelReasons()->sync($request->get('channel_reason_id'));
         return ResponseHelper::updateSuccess(
             'Appointment',
             new AppointmentResource($appointment)

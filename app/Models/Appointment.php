@@ -14,7 +14,7 @@ class Appointment extends Model
     protected $fillable = [
         'date',
         'time',
-        'reason',
+        'other',
         'patient_id',
         'schedule_id',
         'comment',
@@ -69,6 +69,11 @@ class Appointment extends Model
         return  Carbon::createFromFormat("H:i:s", $this->time)->format('h:i A');
     }
 
+    public function getReasonAttribute()
+    {
+        return  implode(" | ", $this->channelReasons->pluck('reason')->toArray());
+    }
+
     public function schedule()
     {
         return $this->belongsTo(Schedule::class)->withTrashed();
@@ -83,9 +88,14 @@ class Appointment extends Model
     {
         return $this->morphMany(Income::class, 'incomeable');
     }
-    
+
     public function prescriptions()
     {
         return $this->hasMany(Prescription::class);
+    }
+
+    public function channelReasons()
+    {
+        return $this->belongsToMany(ChannelReason::class);
     }
 }

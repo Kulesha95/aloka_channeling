@@ -44,10 +44,9 @@ class AppointmentFactory extends Factory
         return [
             'date' => $date,
             'time' => $time,
-            'reason' => $this->faker->sentence(6, true),
+            'other' => $this->faker->sentence(6, true),
             'patient_id' => Patient::all()->random()->id,
             'schedule_id' => $schedule->id,
-            'comment' => $this->faker->sentence(6, true),
             'status' => $this->faker->numberBetween(1, 4),
             'number' => $number
         ];
@@ -60,6 +59,8 @@ class AppointmentFactory extends Factory
             $number = Appointment::where('schedule_id', $schedule->id)->where('id', '<=', $appointment->id)->whereDate('date', $appointment->date)->withTrashed()->count();
             $time = Carbon::createFromFormat("H:i:s", $schedule->time_from)->addMinutes(($number - 1) * Appointments::AVERAGE_APPOINTMENT_TIME)->format("H:i:s");
             $appointment->update(["time" => $time, 'number' => $number]);
+            $reasons = $appointment->schedule->doctor->channelType->channelReasons->random(2);
+            $appointment->channelReasons()->sync($reasons);
         });
     }
 }

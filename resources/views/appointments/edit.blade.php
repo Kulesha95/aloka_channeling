@@ -57,17 +57,19 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-12">
-                            <label for="reason">{{ __('app.fields.reason') }}</label>
-                            <input id="reason_edit" class="form-control" type="text" name="reason"
-                                placeholder="{{ __('app.fields.reason') }}">
+                            <label for="channel_reason_id_edit">{{ __('app.fields.reasons') }}</label>
+                            <select name="channel_reason_id[]" id="channel_reason_id_edit" class="form-control col-12"
+                                multiple="multiple">
+                                <option></option>
+                            </select>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-12">
-                            <label for="comment">{{ __('app.fields.comment') }}</label>
-                            <textarea id="comment_edit" class="form-control" type="number" name="comment"
-                                placeholder="{{ __('app.fields.comment') }}"></textarea>
+                            <label for="other">{{ __('app.fields.other') }}</label>
+                            <textarea id="other_edit" class="form-control" name="other"
+                                placeholder="{{ __('app.fields.other') }}"></textarea>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

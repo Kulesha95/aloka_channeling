@@ -30,6 +30,7 @@ class AppointmentResource extends JsonResource
             "date" => $this->date,
             "time" => $this->time,
             "reason" => $this->reason,
+            "other" => $this->other,
             "patient_id" => $this->patient_id,
             "patient" => $this->patient->name . " - " . $this->patient->id_number,
             "patient_age" => $this->patient->age_text,
@@ -49,6 +50,7 @@ class AppointmentResource extends JsonResource
             "paid_text" => $this->paid_text,
             "balance_text" => $this->balance_text,
             "number_text" => $this->number_text,
+            "channel_reason_id" => $this->channelReasons->pluck('id'),
         ];
     }
 }

@@ -62,8 +62,12 @@
                                         </tr>
                                     @endif
                                     <tr>
-                                        <th>{{ __('app.fields.reason') }}</th>
+                                        <th>{{ __('app.fields.reasons') }}</th>
                                         <td>: <span id="reason"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>{{ __('app.fields.other') }}</th>
+                                        <td>: <span id="other"></span></td>
                                     </tr>
                                     <tr>
                                         <th>{{ __('app.fields.comment') }}</th>
@@ -141,6 +145,7 @@
         $(`#appointmentNumber`).html(data.appointment.appointment_number);
         $(`#fee`).html(data.appointment.fee);
         $(`#reason`).html(data.appointment.reason);
+        $(`#other`).html(data.appointment.other);
         $(`#comment`).html(data.appointment.comment);
         $(`#patientImage`).attr('src', data.patient.image);
         $(`#patientName`).html(data.patient.name);

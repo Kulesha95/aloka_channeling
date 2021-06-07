@@ -2077,10 +2077,6 @@ exports.removeValidationErrors = function (formId) {
     inputElement.next(".select2-container").removeClass("is-invalid");
     inputElement.next(".note-editor").removeClass("is-invalid");
     inputElement.siblings(".invalid-feedback").html("");
-
-    if (inputElement.next(".note-editor").length > 0) {
-      inputElement.summernote("code", "");
-    }
   });
 }; // Add Validation Errors To The Form
 

@@ -50,7 +50,9 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['schedule_id', 'number', 'time', 'fee_text', 'patient_id', 'date', 'reason', 'comment'];
+        const inputs = ['schedule_id', 'number', 'time', 'fee_text', 'patient_id', 'date', 'channel_reason_id', 'comment',
+            'other'
+        ];
         // Load Data URL
         const indexUrl = "{{ route('appointments.index') }}";
         // View Selected Data URL
@@ -102,7 +104,9 @@
                 inputs,
                 `edit${model}Modal`,
                 data,
-                parameterIndexes);
+                parameterIndexes,
+                '_edit',
+                displayAppintmentReasons);
         }
         // Handle Edit Button Click Event In Data Table
         dataTableHandler.handleShow(table, viewUrl, parameterIndexes, loadEditForm);
@@ -175,12 +179,17 @@
             templateSelection: templateSelectionPatient,
             placeholder: "{{ __('app.texts.selectPatient') }}"
         };
+        const select2OptionsReasons = {
+            placeholder: "{{ __('app.texts.selectReasons') }}"
+        };
         $('#schedule_id_create').select2(select2OptionsDoctor);
         $('#schedule_id_edit').select2(select2OptionsDoctor);
         $('#patient_id_create').select2(select2OptionsPatient);
         $('#patient_id_edit').select2(select2OptionsPatient);
-        $('#comment_create').summernote();
-        $('#comment_edit').summernote();
+        $('#channel_reason_id_create').select2(select2OptionsReasons);
+        $('#channel_reason_id_edit').select2(select2OptionsReasons);
+        $('#other_create').summernote();
+        $('#other_edit').summernote();
         // Load Doctors List
         httpService.get("{{ route('schedules.index') }}").then(response => {
             response.data.forEach(element => {
@@ -229,11 +238,32 @@
                 .replace(":id", scheduleId)
                 .replace(":date", scheduleDate)).then(
                 response => {
+                    $('#channel_reason_id_create').empty();
+                    $('#channel_reason_id_create').append(new Option("", undefined), false, false)
+                    response.data.channeling_reasons.forEach(element => {
+                        $('#channel_reason_id_create').append(new Option(element.reason, element
+                            .id), false, false)
+                    });
                     $('#current_number_create').val(response.data.number);
                     $('#estimated_time_create').val(response.data.time);
                     $('#channeling_fee_text_create').val(response.data.channeling_fee_text);
                     $('#date_create').val(response.data.date);
                 })
+        }
+        const displayAppintmentReasons = (data) => {
+            httpService.get(
+                "{{ route('schedules.summary', [':id', ':date']) }}"
+                .replace(":id", data.schedule_id)
+                .replace(":date", data.date)).then(
+                response => {
+                    $('#channel_reason_id_edit').empty();
+                    $('#channel_reason_id_edit').append(new Option("", undefined), false, false)
+                    response.data.channeling_reasons.forEach(element => {
+                        $('#channel_reason_id_edit').append(new Option(element.reason, element
+                            .id), false, false)
+                    });
+                    $('#channel_reason_id_edit').val(data.channel_reason_id)
+                });
         }
     </script>
 @endsection
