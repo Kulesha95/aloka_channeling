@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-4 p-5 bg-white">
                     <div class="row mb-5">
-                        <h3 class="text-primary">Search doctor</h3>
+                        <h3 class="text-primary">Search Doctor</h3>
                     </div>
                     <div class="row mb-3">
                         <input type="text" name="name" id="name" class="form-control rounded-input"

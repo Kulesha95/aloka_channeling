@@ -50,7 +50,7 @@
 			</div>
 			<div class="col-md">
 				<div class="ftco-footer-widget mb-4">
-					<h5 class="ftco-heading-2">Have a Questions?</h5>
+					<h5 class="ftco-heading-2">Have a Question?</h5>
 					<ul class="list-unstyled text-primary">
 						<li><i class="fas fa-map-pin mr-2"></i><span class="text">No 46, Hospital Road,
 								Wanduruppa, Ambalantota</span></li>
