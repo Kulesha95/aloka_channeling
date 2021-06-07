@@ -31,8 +31,9 @@ class DatabaseSeeder extends Seeder
                 AppointmentSeeder::class,
                 IncomeSeeder::class,
                 PrescriptionSeeder::class,
+                DefaultAppointmentSeeder::class
             ]);
-        }else{
+        } else {
             $this->call([
                 UserTypeSeeder::class,
                 ChannelTypeSeeder::class,
@@ -42,7 +43,6 @@ class DatabaseSeeder extends Seeder
                 ExplorationTypeSeeder::class,
                 BatchSeeder::class,
             ]);
-
         }
     }
 }
