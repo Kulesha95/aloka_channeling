@@ -127,4 +127,9 @@ class Prescription extends Model
     {
         return $this->belongsToMany(Batch::class)->using(BatchPrescription::class)->withPivot(['quantity']);
     }
+
+    public function explorationTypes()
+    {
+        return $this->belongsToMany(ExplorationType::class);
+    }
 }

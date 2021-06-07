@@ -32,6 +32,7 @@ class PrescriptionResource extends JsonResource
             "paid_text" => $this->paid_text,
             "balance_text" => $this->balance_text,
             "total_text" => $this->total_text,
+            "exploration_types" => $this->explorationTypes->pluck('id'),
         ];
     }
 }

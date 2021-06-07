@@ -1974,6 +1974,7 @@ exports.initializeTable = function (tableId, columns) {
 exports.handleDelete = function (table, url) {
   var parameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
   var refreshUrl = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+  var callback = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : undefined;
   // Add Listenr For The Delete Button
   table.on("click", ".delete-button", function () {
     // Get Selected Row Data
@@ -1997,6 +1998,10 @@ exports.handleDelete = function (table, url) {
           // If Data Loading URL Is Provided Refresh The Table Data
           if (refreshUrl) {
             dataTableHandler.loadData(table, refreshUrl);
+          }
+
+          if (callback) {
+            callback();
           } // Display Success Message
 
 

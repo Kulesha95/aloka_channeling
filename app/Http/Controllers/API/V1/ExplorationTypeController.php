@@ -107,4 +107,17 @@ class ExplorationTypeController extends Controller
         $explorationType->delete();
         return ResponseHelper::deleteSuccess('Exploration Type');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function tests()
+    {
+        return ResponseHelper::findSuccess(
+            'Exploration Types',
+            ExplorationTypeResource::collection(ExplorationType::where('is_test', '1')->get())
+        );
+    }
 }

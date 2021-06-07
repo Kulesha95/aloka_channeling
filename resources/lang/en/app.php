@@ -10,6 +10,8 @@ return [
 		"edit" => "Edit",
 		"issue" => "Issue",
 		"login" => "Login",
+		"newMedicalPrescription" => "New Medical Prescription",
+		"newTestPrescription" => "New Test Prescription",
 		"onHold" => "On Hold",
 		"pay" => "Pay",
 		"prescriptions" => "Prescriptions",
@@ -51,7 +53,7 @@ return [
 		"channelType" => "Channel Type",
 		"classification" => "Classification",
 		"colour" => "Colour",
-		"consultant" => "Consultant",
+		"consultant" => "Consultant", 
 		"comment" => "Comment",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
@@ -157,7 +159,10 @@ return [
 
 		"prescriptionsManagement" => "Prescription Management",
 		"createPrescription" => "Create Prescription",
+		"createTestPrescription" => "Create Test Prescription",
+		"createMedicalPrescription" => "Create Medical Prescription",
 		"editPrescription" => "Edit Prescription",
+		"editTestPrescription" => "Edit Test Prescription",
 
 		"explorationTypesManagement" => "Exploration Type Management",
 		"createExplorationType" => "Create Exploration Type",

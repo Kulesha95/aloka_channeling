@@ -22,6 +22,6 @@ class ExplorationTypeSeeder extends Seeder
         foreach ($explorationTypes as $explorationType) {
             ExplorationType::create($explorationType);
         }
-        ExplorationType::factory(2)->create();
+        ExplorationType::factory(12)->create();
     }
 }

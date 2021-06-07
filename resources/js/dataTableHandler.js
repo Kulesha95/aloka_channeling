@@ -87,7 +87,8 @@ exports.handleDelete = (
     table,
     url,
     parameters = undefined,
-    refreshUrl = undefined
+    refreshUrl = undefined,
+    callback = undefined
 ) => {
     // Add Listenr For The Delete Button
     table.on("click", ".delete-button", function () {
@@ -117,6 +118,9 @@ exports.handleDelete = (
                         // If Data Loading URL Is Provided Refresh The Table Data
                         if (refreshUrl) {
                             dataTableHandler.loadData(table, refreshUrl);
+                        }
+                        if (callback) {
+                            callback();
                         }
                         // Display Success Message
                         messageHandler.successMessage(response.message);

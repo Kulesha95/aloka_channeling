@@ -29,26 +29,38 @@
         <div class="col-3">: {{ $prescription->time_text }}</div>
     </div>
     <hr>
-    <div class="row">
+    <div class="row mb-3">
         <img src="{{ public_path('img/rx.png') }}" class="img-fluid ml-5 mt-2" style="max-width: 50px;">
     </div>
-    <div class="container mt-4">
-        {!! $prescription->comment !!}
+    @if ($prescription->prescription_type == app\constants\Prescriptions::TEST_PRESCRIPTION)
+        <ul>
+            @foreach ($prescription->explorationTypes as $explorationType)
+                <li>{{ $explorationType->exploration_type }}</li>
+            @endforeach
+        </ul>
+    @else
+    @endif
+    @isset($prescription->comment)
+        <hr>
+        <div class="container mt-4">
+            {!! $prescription->comment !!}
+        </div>
+        <hr>
+    @endisset
+    <div class="row mt-3">
+        <div class="col-4 ml-auto">
+            <div class="row">
+                {{ $prescription->appointment->schedule->doctor->name }}
+            </div>
+            <div class="row">
+                {{ $prescription->appointment->schedule->doctor->qualification }}
+            </div>
+            <div class="row">
+                {{ $prescription->appointment->schedule->doctor->channelType->channel_type }}
+            </div>
+            <div class="row">
+                {{ $prescription->appointment->schedule->doctor->works_at }}
+            </div>
+        </div>
     </div>
-	<div class="row mt-3">
-		<div class="col-4 ml-auto">
-			<div class="row">
-				{{ $prescription->appointment->schedule->doctor->name }}
-			</div>
-			<div class="row">
-				{{ $prescription->appointment->schedule->doctor->qualification }}
-			</div>
-			<div class="row">
-				{{ $prescription->appointment->schedule->doctor->channelType->channel_type }}
-			</div>
-			<div class="row">
-				{{ $prescription->appointment->schedule->doctor->works_at }}
-			</div>
-		</div>
-	</div>
 @endsection

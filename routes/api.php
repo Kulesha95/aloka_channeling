@@ -30,6 +30,8 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('dashboard/appointmentsDataSummary', 'DashboardController@appointmentsDataSummary')->name('dashboard.appointmentsDataSummary');
 	Route::get('dashboard/generalDataSummary', 'DashboardController@generalDataSummary')->name('dashboard.generalDataSummary');
 	Route::get('dashboard/incomeGraphData', 'DashboardController@incomeGraphData')->name('dashboard.incomeGraphData');
+	
+	Route::get('explorationTypes/tests', 'ExplorationTypeController@tests')->name('explorationTypes.tests');
 
 	Route::get('batches/available', 'BatchController@available')->name('batches.available');
 

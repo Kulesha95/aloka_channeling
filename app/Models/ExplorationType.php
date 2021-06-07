@@ -16,4 +16,9 @@ class ExplorationType extends Model
     {
         return $this->is_test ? "Yes" : "No";
     }
+
+    public function prescriptions()
+    {
+        return $this->belongsToMany(Prescription::class);
+    }
 }

@@ -37,10 +37,9 @@ class PrescriptionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(
-            $request->only(['prescription_type', 'comment']),
+            $request->only(['prescription_type']),
             [
-                'prescription_type' => "required",
-                'comment' => "required"
+                'prescription_type' => "required"
             ]
         );
         if ($validator->fails()) {
@@ -51,6 +50,9 @@ class PrescriptionController extends Controller
         }
         $prescription = Prescription::create($request->only(['prescription_type', 'comment', 'appointment_id']) +
             ["date" => now()->toDateString(), "time" => now()->toTimeString(), "status" => Prescriptions::NEW_PRESCRIPTION]);
+        if ($prescription->prescription_type == Prescriptions::TEST_PRESCRIPTION) {
+            $prescription->explorationTypes()->sync($request->get('exploration_type_id'));
+        }
         return ResponseHelper::createSuccess(
             'Prescription',
             new PrescriptionResource($prescription)
@@ -81,10 +83,9 @@ class PrescriptionController extends Controller
     public function update(Request $request, Prescription $prescription)
     {
         $validator = Validator::make(
-            $request->only(['prescription_type', 'comment']),
+            $request->only(['prescription_type']),
             [
-                'prescription_type' => "required",
-                'comment' => "required"
+                'prescription_type' => "required"
             ]
         );
         if ($validator->fails()) {
@@ -93,7 +94,10 @@ class PrescriptionController extends Controller
                 $validator->errors()
             );
         }
-        $prescription->update($request->only(['prescription_type', 'comment', 'appointment_id']));
+        if ($prescription->prescription_type == Prescriptions::TEST_PRESCRIPTION) {
+            $prescription->explorationTypes()->sync($request->get('exploration_type_id'));
+        }
+        $prescription->update($request->only(['comment']));
         return ResponseHelper::updateSuccess(
             'Prescription',
             new PrescriptionResource($prescription)

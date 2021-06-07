@@ -110,9 +110,17 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-12">
-                                <label for="reason">{{ __('app.fields.reason') }}</label>
+                                <label for="reason">{{ __('app.fields.reasons') }}</label>
                                 <input id="reason_edit" class="form-control" type="text" name="reason"
-                                    placeholder="{{ __('app.fields.reason') }}">
+                                    placeholder="{{ __('app.fields.reasons') }}" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label for="other">{{ __('app.fields.other') }}</label>
+                                <input id="other_edit" class="form-control" type="text" name="other"
+                                    placeholder="{{ __('app.fields.other') }}" disabled>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -134,7 +142,12 @@
                     <div class="row">
                         <button type="button" class="btn btn-primary ml-auto mb-2" data-toggle="modal"
                             data-target="#createPrescriptionModal">
-                            <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.createNew') }}
+                            <i class="fa fa-plus mr-1"
+                                aria-hidden="true"></i>{{ __('app.buttons.newMedicalPrescription') }}
+                        </button>
+                        <button type="button" class="btn btn-primary ml-1 mb-2" data-toggle="modal"
+                            data-target="#createTestPrescriptionModal">
+                            <i class="fa fa-plus mr-1" aria-hidden="true"></i>{{ __('app.buttons.newTestPrescription') }}
                         </button>
                     </div>
                     <table id="prescriptions_list_table" class="table table-sm table-striped table-bordered table-hover"
@@ -201,6 +214,8 @@
         </div>
         @include('appointments.info')
         @include('prescriptions.create')
+        @include('prescriptions.createTestPrescription')
+        @include('prescriptions.editTestPrescription')
         @include('prescriptions.edit')
         @include('explorations.create')
     </div>
@@ -227,7 +242,7 @@
         // Patient Explorations Data Url
         const patientExplorationsUrl = "{{ route('patient.explorations.index', ':patient') }}"
         // Edit Form Inputs
-        const inputs = ['patient_id', 'reason', 'comment'];
+        const inputs = ['patient_id', 'reason', 'comment', 'other'];
         // Entity Name To Define Form And Model IDs
         const model = "Appointment";
         // Data Table Name
@@ -291,13 +306,24 @@
         };
         // Load Selected Data To The Edit Form
         const loadEditFormPrescriptions = (data) => {
+            const modelPrescriptionName = data.prescription_type == "{{ $testPrescription }}" ? "TestPrescription" :
+                "MedicalPrescription";
+            const prefix = data.prescription_type == "{{ $testPrescription }}" ? "_test_prescription_edit" :
+                "_medical_prescription_edit";
+            console.log(data);
             formHandler.handleShow(
-                `edit${modelPrescriptions}Form`,
+                `edit${modelPrescriptionName}Form`,
                 inputsPrescriptions,
-                `edit${modelPrescriptions}Modal`,
+                `edit${modelPrescriptionName}Modal`,
                 data,
                 parameterIndexesPrescriptions,
-                "_prescription_edit");
+                prefix);
+            if (data.prescription_type == "{{ $testPrescription }}") {
+                $(`#edit${modelPrescriptionName}Form input:checkbox`).attr('checked', false);
+                data.exploration_types.forEach(explorationType => {
+                    $(`#explorationTypeCheckEdit${explorationType}`).attr("checked", true)
+                });
+            }
         }
         const openPrescription = (data) => {
             const documentUrl =
@@ -312,10 +338,21 @@
                 $('#scheduleNumber').html(response.data.schedule_number);
                 getNextAppointment();
             });
+            // Get Tests List
+            httpService.get("{{ route('explorationTypes.tests') }}").then(response => {
+                $('#tests_list_test_prescription_create').html(response.data.map((explorationType =>
+                    `<div class="custom-control custom-checkbox col-3"><input type="checkbox" class="custom-control-input" name="exploration_type_id[]" id="explorationTypeCheckCreate${explorationType.id}" value="${explorationType.id}"><label class="custom-control-label" for="explorationTypeCheckCreate${explorationType.id}">${explorationType.exploration_type}</label></div>`
+                )))
+                $('#tests_list_test_prescription_edit').html(response.data.map((explorationType =>
+                    `<div class="custom-control custom-checkbox col-3"><input type="checkbox" class="custom-control-input" name="exploration_type_id[]" id="explorationTypeCheckEdit${explorationType.id}" value="${explorationType.id}"><label class="custom-control-label" for="explorationTypeCheckEdit${explorationType.id}">${explorationType.exploration_type}</label></div>`
+                )))
+            });
             // Initialize Summernote Editor
             $('#comment_edit').summernote();
-            //$('#comment_prescription_create').summernote();
-            //$('#comment_prescription_edit').summernote();
+            $('#comment_prescription_create').summernote();
+            $('#comment_prescription_edit').summernote();
+            $('#comment_test_prescription_create').summernote();
+            $('#comment_test_prescription_edit').summernote();
             // Handle Channeling Note Update
             formHandler.handleEdit(`edit${model}Form`, inputs, searchAppointment);
             // Handle Patient Histoy View Button Click
@@ -327,7 +364,8 @@
                 tablePrescriptions,
                 deleteUrlPrescriptions,
                 parameterIndexesPrescriptions,
-                indexUrlPrescriptions.replace(':id', currentId)
+                undefined,
+                searchAppointment
             );
             // Handle Edit Button Click Event In Data Table
             dataTableHandler.handleShow(tablePrescriptions, viewUrlPrescriptions, parameterIndexesPrescriptions,
@@ -375,6 +413,7 @@
                 );
                 $('#channelingNumber').val(data.number_text);
                 $('#appointment_id_prescription_create').val(data.id);
+                $('#appointment_id_test_prescription_create').val(data.id);
                 $('#appointment_id_prescription_edit').val(data.id);
                 let explorationAddUrl = $(`#createExplorationForm`).data("action");
                 explorationAddUrl = explorationAddUrl.replace(`:id`, data.patient_id);
