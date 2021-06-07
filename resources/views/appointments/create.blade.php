@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group col-4">
                             <label for="estimated_time">{{ __('app.fields.estimatedTime') }}</label>
-                            <input id="estimated_time_create" class="form-control" type="time"
+                            <input id="estimated_time_create" class="form-control" type="text"
                                 placeholder="{{ __('app.fields.estimatedTime') }}" readonly>
                             <small class="text-danger">{{ __('app.texts.thisCanBeSlightlyChanged') }}</small>
                         </div>

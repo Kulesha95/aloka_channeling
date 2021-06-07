@@ -201,8 +201,8 @@ class ScheduleController extends Controller
                 $searchDate = $schedule->date_to;
             }
         }
-        $number = Appointment::whereDate('date', $searchDate)->where('schedule_id', $schedule->id)->count() + 1;
-        $time = Carbon::createFromFormat("H:i:s", $schedule->time_from)->addMinutes(($number - 1) * Appointments::AVERAGE_APPOINTMENT_TIME)->format("H:i:s");
+        $number = str_pad(Appointment::whereDate('date', $searchDate)->where('schedule_id', $schedule->id)->count() + 1,2,"0",STR_PAD_LEFT);
+        $time = Carbon::createFromFormat("H:i:s", $schedule->time_from)->addMinutes(($number - 1) * Appointments::AVERAGE_APPOINTMENT_TIME)->format("h:i A");
         return ResponseHelper::findSuccess("Approximation Details", ["number" => $number, "time" => $time, "date" => $searchDate, "channeling_fee_text" => $schedule->channeling_fee_text]);
     }
 }

@@ -21,6 +21,7 @@
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"> </script>
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.min.js"></script>
     <script src="//unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
     <script>
