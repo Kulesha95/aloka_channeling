@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('schedules/search', "ScheduleController@search")->name('schedules.search');
+Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
 
 Route::middleware('auth:api')->group(function () {
 
@@ -25,11 +26,14 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('appointments/{schedule}/{currentNumber}/back', 'AppointmentController@back')->name('appointments.back');
 	Route::get('appointments/{schedule}/{currentNumber}/next', 'AppointmentController@next')->name('appointments.next');
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
+	
+	Route::get('dashboard/appointmentsDataSummary', 'DashboardController@appointmentsDataSummary')->name('dashboard.appointmentsDataSummary');
+	Route::get('dashboard/generalDataSummary', 'DashboardController@generalDataSummary')->name('dashboard.generalDataSummary');
+	Route::get('dashboard/incomeGraphData', 'DashboardController@incomeGraphData')->name('dashboard.incomeGraphData');
 
 	Route::get('batches/available', 'BatchController@available')->name('batches.available');
 
 	Route::get('doctors/schedule', 'DoctorController@schedule')->name('doctors.schedule');
-
 
 	Route::post('patient/{patient}/explorations/storeReceptionist', 'ExplorationController@storeReceptionist')->name('explorations.storeReceptionist');
 	
@@ -43,9 +47,6 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('prescriptions/prescriptionBills', 'PrescriptionController@prescriptionBills')->name('prescriptions.prescriptionBills');
 	Route::put('prescriptions/{prescription}/updateStatus', 'PrescriptionController@updateStatus')->name('prescriptions.updateStatus');
 	Route::get('prescriptions/{prescription}/batches', 'PrescriptionController@batches')->name('prescriptions.batches');
-
-	Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
-
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);

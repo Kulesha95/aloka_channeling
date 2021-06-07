@@ -21,6 +21,19 @@ return [
 		"signUp" => "Sign Up",
 	],
 
+	"dashboard" => [
+		"confirmationsPending" => "Confirmations Pending",
+		"dailyChannelingIncome" => "Daily Channeling Income",
+		"dailyPharmacyIncome" => "Daily Pharmacy Income",
+		"monthlyAppointments" => "Monthly Appointments",
+		"monthlyIncome" => "Monthly Income",
+		"paymentsPending" => "Payments Pending",
+		"registeredDoctors" => "Registered Doctors",
+		"registeredPatients" => "Registered Patients",
+		"rejectedAppointments" => "Rejected Appointments",
+		"totalAppointments" => "Total Appointments",
+	],
+
 	"fields" => [
 		"actions" => "Actions",
 		"age" => "Age",
@@ -38,7 +51,7 @@ return [
 		"channelType" => "Channel Type",
 		"classification" => "Classification",
 		"colour" => "Colour",
-		"consultant"=> "Consultant",
+		"consultant" => "Consultant",
 		"comment" => "Comment",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
@@ -180,7 +193,6 @@ return [
 		"forgotPassword" => "Forgot Password ?",
 		"internalPrescriptions" => "Internal Prescriptions",
 		"medicalPrescriptionBills" => "Medical Prescription Bills",
-		"medicalPrescription" => "Medical Prescription",
 		"none" => "None",
 		"noRepeat" => "No Repeat",
 		"paidPrescriptionBills" => "Paid Prescription Bills",

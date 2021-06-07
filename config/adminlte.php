@@ -359,6 +359,16 @@ return [
     */
 
     'plugins' => [
+        'ApexCharts' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '//cdn.jsdelivr.net/npm/apexcharts',
+                ],
+            ]
+        ],
         'Datatables' => [
             'active' => true,
             'files' => [
