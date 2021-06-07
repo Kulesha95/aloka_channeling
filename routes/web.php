@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'frontend.index')->name('frontend.index');
+Route::view('about', 'frontend.about')->name('frontend.about');
+Route::view('channelingSchedule', 'frontend.channelings')->name('frontend.channelings');
+Route::view('contact', 'frontend.contact')->name('frontend.contact');
 
 Route::get('documents/{type}/{id}/{action}', 'DocumentController@getDocument')->name('documents.getPdf');
 

@@ -8,14 +8,16 @@
     <title>@yield('title')</title>
     <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend.css') }}">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.min.css">
     <link rel="stylesheet" href="//unpkg.com/tippy.js@6/themes/light.css">
     @yield('css')
 </head>
 
 <body class="bg-theme">
+    @include('frontend.header')
     @yield('content')
+    @include('frontend.footer')
     <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"> </script>
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>

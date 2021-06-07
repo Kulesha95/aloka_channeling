@@ -1,0 +1,40 @@
+.main-hero-section {
+	background-image: url("/img/frontend/bg_3.jpg");
+	background-size: cover;
+	background-position: 50% 0px;
+	background-repeat: no-repeat;
+	height: 90vh;
+}
+
+.logo-footer {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+}
+
+.rounded-button {
+	border-radius: 40px;
+	padding: 10px 20px;
+}
+
+.main-heading {
+	font-size: 70px;
+	line-height: 80%;
+}
+
+.rounded-input {
+	border-radius: 40px;
+	padding: 10px 20px;
+	height: 50px;
+}
+
+.footer-image {
+	background-image: url("/img/frontend/footer-bg.jpg");
+	background-size: cover;
+	background-position: 50% 0px;
+	background-repeat: no-repeat;
+}
+
+.list-unstyled>li {
+	line-height: 250%;
+} 
