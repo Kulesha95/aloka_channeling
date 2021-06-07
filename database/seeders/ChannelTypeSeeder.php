@@ -16,7 +16,7 @@ class ChannelTypeSeeder extends Seeder
     {
         $defaultChannelTypes = ["Physician",  "Surgeon", "VOG", "Cardiologist", "Psychiatrist", "Radiologist", "Dermatologist"];
         foreach ($defaultChannelTypes as $channelTypes) {
-            ChannelType::factory(1)->customChannelType($channelTypes)->create();
+            ChannelType::factory(1)->customChannelType($channelTypes)->hasChannelReasons(5)->create();
         }
     }
 }

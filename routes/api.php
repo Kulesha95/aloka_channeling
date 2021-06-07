@@ -51,6 +51,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('channelTypes', ChannelTypeController::class);
+	Route::apiResource('channelType.channelReasons', ChannelReasonController::class)->except(['update', 'show']);
 	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('patient.explorations', ExplorationController::class);
 	Route::apiResource('explorationTypes', ExplorationTypeController::class);

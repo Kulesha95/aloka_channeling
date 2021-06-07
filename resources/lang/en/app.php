@@ -179,7 +179,9 @@ return [
 
 		"paymentsManagement" => "Payment Management",
 
-		"addExplorations" => "Add Explorations"
+		"addExplorations" => "Add Explorations",
+
+		"channelReasonsManagement"=>"Channel Reasons Management"
 	],
 
 	"texts" => [

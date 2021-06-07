@@ -16,4 +16,9 @@ class ChannelType extends Model
     {
         return $this->hasMany(Doctor::class);
     }
+
+    public function channelReasons()
+    {
+        return $this->hasMany(ChannelReason::class);
+    }
 }

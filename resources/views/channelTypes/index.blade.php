@@ -32,6 +32,7 @@
             </table>
             @include('channelTypes.create')
             @include('channelTypes.edit')
+            @include('channelTypes.channelReasons')
         </div>
     </div>
 @stop
@@ -57,12 +58,15 @@
         const parameterIndexes = {
             "id": 0
         };
+        // Reasons Button
+        const reasonsActionContent =
+            "<button class='btn btn-sm btn-outline-info mr-1 reasons-button'><i class='fas fa-list-alt fa-fw'></i></button>";
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            defaultActionContent
+            reasonsActionContent + defaultActionContent
         );
         // Delete Item
         dataTableHandler.handleDelete(
@@ -90,5 +94,11 @@
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit
         formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
+        $(document).ready(() => {
+            // Handle Channeling Reasons Management
+            dataTableHandler.handleCustom(table, viewUrl, parameterIndexes, (openChannelingResonsManagement),
+                'reasons-button');
+        });
     </script>
+    @stack('js-stack')
 @endsection
