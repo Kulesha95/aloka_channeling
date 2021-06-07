@@ -10,5 +10,10 @@ class ExplorationType extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['exploration_type', 'unit'];
+    protected $fillable = ['exploration_type', 'unit', 'is_test'];
+
+    public function getIsTestTextAttribute()
+    {
+        return $this->is_test ? "Yes" : "No";
+    }
 }

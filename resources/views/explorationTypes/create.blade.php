@@ -23,6 +23,15 @@
                             placeholder="{{ __('app.fields.unit') }}">
                         <div class="invalid-feedback"></div>
                     </div>
+                    <div class="form-group">
+                        <label for="is_test">{{ __('app.fields.isTest') }}</label>
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" name="is_test" id="is_test_create"
+                                value="1">
+                            <label class="custom-control-label" for="is_test_create"></label>
+                        </div>
+                        <div class="invalid-feedback"></div>
+                    </div>
                     <div class="row m-1">
                         <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-save mr-1"
                                 aria-hidden="true"></i>{{ __('app.buttons.save') }}</button>

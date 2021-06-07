@@ -17,7 +17,9 @@ class ExplorationTypeResource extends JsonResource
         return [
             'id' => $this->id,
             'exploration_type' => $this->exploration_type,
-            'unit' => $this->unit
+            'unit' => $this->unit,
+            'is_test' => $this->is_test,
+            'is_test_text' => $this->is_test_text
         ];
     }
 }

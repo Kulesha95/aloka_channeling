@@ -17,6 +17,7 @@ class CreateExplorationTypesTable extends Migration
             $table->id();
             $table->string('exploration_type');
             $table->string('unit');
+            $table->boolean('is_test')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

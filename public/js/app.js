@@ -2174,6 +2174,8 @@ exports.handleShow = function (formId) {
       // Load Data To The Inputs
       if (inputElement.next(".note-editor").length > 0) {
         inputElement.summernote("code", data[input]);
+      } else if (inputElement.attr("type") === "checkbox") {
+        inputElement.attr("checked", data[input] == "1");
       } else {
         inputElement.val(data[input]);
         inputElement.trigger("change");

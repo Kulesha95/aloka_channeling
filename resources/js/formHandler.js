@@ -22,11 +22,7 @@ exports.removeValidationErrors = (
 };
 
 // Add Validation Errors To The Form
-exports.addValidationErrors = (
-    formId,
-    suffix = "_create",
-    error
-) => {
+exports.addValidationErrors = (formId, suffix = "_create", error) => {
     // Define Alert Message Body as Empty
     let errorMessage = "";
     // Get Validation Errors List
@@ -88,11 +84,7 @@ exports.handleSave = (
             .catch((error) => {
                 // Handle Validation Error
                 if (error.status == 422) {
-                    this.addValidationErrors(
-                        formId,
-                        suffix,
-                        error.data
-                    );
+                    this.addValidationErrors(formId, suffix, error.data);
                 }
             });
     });
@@ -119,6 +111,8 @@ exports.handleShow = (
             // Load Data To The Inputs
             if (inputElement.next(".note-editor").length > 0) {
                 inputElement.summernote("code", data[input]);
+            } else if (inputElement.attr("type") === "checkbox") {
+                inputElement.attr("checked", data[input] == "1");
             } else {
                 inputElement.val(data[input]);
                 inputElement.trigger("change");
@@ -177,11 +171,7 @@ exports.handleEdit = (
             .catch((error) => {
                 // Handle Validation Error
                 if (error.status == 422) {
-                    this.addValidationErrors(
-                        formId,
-                        suffix,
-                        error.data
-                    );
+                    this.addValidationErrors(formId, suffix, error.data);
                 }
             });
     });

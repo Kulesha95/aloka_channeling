@@ -26,6 +26,7 @@
                         <th>{{ __('app.fields.id') }}</th>
                         <th>{{ __('app.fields.explorationType') }}</th>
                         <th>{{ __('app.fields.unit') }}</th>
+                        <th>{{ __('app.fields.isTest') }}</th>
                         <th>{{ __('app.fields.actions') }}</th>
                     </tr>
                 </thead>
@@ -40,7 +41,7 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['exploration_type', 'unit'];
+        const inputs = ['exploration_type', 'unit', 'is_test'];
         // Load Data URL
         const indexUrl = "{{ route('explorationTypes.index') }}";
         // View Selected Data URL
@@ -52,7 +53,7 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ["id", "exploration_type", 'unit'];
+        const dataTableColumns = ["id", "exploration_type", 'unit','is_test_text'];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
@@ -62,7 +63,7 @@
             dataTableName,
             dataTableColumns,
             indexUrl,
-            editActionContent
+            defaultActionContent
         );
         // Delete Item
         dataTableHandler.handleDelete(

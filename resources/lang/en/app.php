@@ -76,6 +76,7 @@ return [
 		"idType" => "Id Type",
 		"image" => "Image",
 		"invoiceNumber" => "Invoice Number",
+		"isTest" => "Is Test",
 		"itemBatch" => "Item Batch",
 		"itemType" => "Item Type",
 		"mobile" => "Mobile",
