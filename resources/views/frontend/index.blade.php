@@ -1,6 +1,6 @@
 @extends('layouts.front')
 
-@section('content')    
+@section('content')
     <!--Our services Begining-->
     <section class="service">
         <div class="container p-0 jumbotron">
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-4 p-5 bg-white">
                     <div class="row mb-5">
-                        <h3 class="text-primary">Search Doctor</h3>
+                        <h3 class="text-primary">Search doctor</h3>
                     </div>
                     <div class="row mb-3">
                         <input type="text" name="name" id="name" class="form-control rounded-input"
@@ -86,12 +86,12 @@
         </div>
     </section>
     <!--today coming doctors begin-->
-    <section class="doctor">
+    <section class="doctor d-none" id="todayDoctorSection">
         <div class="container text-center">
             <h1 class="pt-5">Today Visiting Doctors</h1>
             <p class="pt-2 pb-3 text-secondary">Appointments can be made by online or visiting pharmacy</p>
             <hr>
-            <div class="row">
+            <div class="row" id="todayDoctorContainer">
                 <div class="col-lg-3">
                     <div class="card shadow">
                         <div class="card-head">
@@ -101,40 +101,39 @@
                             <button class="btn btn-sm btn-primary rounded-button mb-3">Book Now</button>
                         </div>
                     </div>
-
-                </div>
-                <div class="col-lg-3">
-                    <div class="card shadow">
-                        <div class="card-head">
-                            <img src="{{ asset('img/Frontend/doc-4.jpg') }}" class="img-fluid" alt="">
-                            <h5 class="font-weight-bold">Dr.Samya Wijethunga<br></h5>
-                            <p class="text-primary font-weight-bold">Cardiologist</p>
-                            <button class="btn btn-sm btn-primary rounded-button mb-3">Book Now</button>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3">
-                    <div class="card shadow">
-                        <div class="card-head">
-                            <img src="{{ asset('img/Frontend/doc-3.jpg') }}" class="img-fluid" alt="">
-                            <h5 class="font-weight-bold">Dr.Pasan Ekanayake <br></h5>
-                            <p class="text-primary font-weight-bold">Endocrinologist</p>
-                            <button class="btn btn-sm btn-primary rounded-button mb-3">Book Now</button>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-3">
-                    <div class="card shadow">
-                        <div class="card-head">
-                            <img src="{{ asset('img/Frontend/doc-2.jpg') }}" class="img-fluid" alt="">
-                            <h5 class="font-weight-bold">Dr.Nishanthi Kumarasinghe <br></h5>
-                            <p class="text-primary font-weight-bold">Dermatologist</p>
-                            <button class="btn btn-sm btn-primary rounded-button mb-3">Book Now</button>
-                        </div>
-                    </div>
                 </div>
             </div>
     </section>
+@endsection
+
+@section('js')
+    <script>
+        httpService.get("{{ route('doctors.todayDoctorsList') }}").then(response => {
+            if (response.data.length) {
+                $('#todayDoctorSection').removeClass('d-none');
+                $('#todayDoctorSection').addClass('d-block');
+                $('#todayDoctorContainer').html("");
+                response.data.forEach(doctorSchedule => {
+                    $('#todayDoctorContainer').append(
+                        `
+                <div class="col-lg-3">
+                    <div class="card shadow">
+                        <div class="card-head">
+                            <img src="${doctorSchedule.doctor.image}" class="img-fluid" alt="">
+                            <h5 class="font-weight-bold">${doctorSchedule.doctor.name}<br></h5>
+                            <p class="text-primary font-weight-bold">${doctorSchedule.doctor.channel_type}</p>
+                            <a href="/appointments?date=${moment().format("YYYY-MM-DD")}&id=${doctorSchedule.schedule.id}" class="btn btn-sm btn-primary rounded-button mb-3 text-light">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+                        `
+                    );
+                });
+            } else {
+                $('#todayDoctorSection').removeClass('d-block');
+                $('#todayDoctorSection').addClass('d-none');
+            }
+        })
+    </script>
+
 @endsection

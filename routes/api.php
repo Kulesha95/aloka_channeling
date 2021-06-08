@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('doctors/todayDoctorsList', "DoctorController@todayDoctorsList")->name('doctors.todayDoctorsList');
 Route::get('schedules/search', "ScheduleController@search")->name('schedules.search');
 Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
 

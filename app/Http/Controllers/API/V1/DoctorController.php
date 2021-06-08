@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\DoctorResource;
 use App\Http\Resources\ScheduleResource;
 use App\Models\Doctor;
+use App\Models\Schedule;
 use App\Models\User;
 use App\Notifications\UserAccountCreated;
 use App\Rules\PhoneNumber;
@@ -208,5 +209,27 @@ class DoctorController extends Controller
         return $schedule
             ? ResponseHelper::findSuccess('Doctor Schedule', new ScheduleResource($schedule))
             : ResponseHelper::findFail('Schedule', []);
+    }
+
+    /**
+     * Get Today visiting Doctors List
+     *
+     * @param  \App\Models\Doctor  $doctor
+     * @return \Illuminate\Http\Response
+     */
+    public function todayDoctorsList(Request $request)
+    {
+        $schedules = Schedule::where('date_from', '<=', now()->toDateString())
+            ->where('date_to', '>=', now()->toDateString())->get()
+            ->filter(function ($schedule) {
+                if ($schedule->repeat == 7) {
+                    return Carbon::createFromDate($schedule->date_from)->dayOfWeek == Carbon::now()->dayOfWeek;
+                }
+                return $schedule->date_to == now()->toDateString();
+            });
+        $doctors = $schedules->map(function ($schedule) {
+            return ["schedule" => new ScheduleResource($schedule), "doctor" => new DoctorResource($schedule->doctor)];
+        })->values();
+        return ResponseHelper::findSuccess('Doctors', $doctors);
     }
 }
