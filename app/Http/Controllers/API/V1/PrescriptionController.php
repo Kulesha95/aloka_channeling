@@ -192,7 +192,7 @@ class PrescriptionController extends Controller
         if ($request->get('dosage') == "0") {
             $prescription->genericNames()->detach($request->get('generic_name_id'));
         } else {
-            $itemPrescription = $prescription->genericNames()->attach([$request->get('generic_name_id') => [
+            $itemPrescription = $prescription->genericNames()->syncWithoutDetaching([$request->get('generic_name_id') => [
                 'dosage' => $request->get('dosage'),
                 'dosage_unit_id' => $request->get('dosage_unit_id'),
                 'duration' => $request->get('duration'),
@@ -269,7 +269,7 @@ class PrescriptionController extends Controller
     public function internalPrescriptions()
     {
         $prescriptions = Prescription::where('prescription_type', Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION)
-            ->get()->where('status', Prescriptions::CONFIRMED_PRESCRIPTION);
+            ->get()->where('status', Prescriptions::NEW_PRESCRIPTION);
         return ResponseHelper::updateSuccess('Prescription', PrescriptionResource::collection($prescriptions));
     }
 

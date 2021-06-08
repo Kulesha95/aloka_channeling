@@ -12,8 +12,17 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-4 border-right d-flex">
-                        <div class="container-fluid my-auto" id="prescription_comment"></div>
+                    <div class="col-4 border-right">
+                        <div class="row">
+                            <div class="container-fluid my-auto">
+                                <ul id="prescription_items">
+                                </ul>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="container-fluid my-auto" id="prescription_comment"></div>
+                        </div>
                     </div>
                     <div class="col-8">
                         <form id="createPrescriptionBillInternalForm" method="POST"
@@ -84,6 +93,7 @@
         const inputsInternalPrescription = ['batch_id', 'quantity'];
         // Load Data URL
         const indexUrlInternalPrescription = "{{ route('prescriptions.batches', ':id') }}";
+        const indexUrlInternalPrescriptionItems = "{{ route('prescriptions.items', ':id') }}";
         // Datatable ID
         const dataTableNameInternalPrescription = 'batch_list_table_internal_prescription';
         // Table Columns List
@@ -99,6 +109,12 @@
             $('#prescription_id_internal').val(data.id);
             $('#prescription_comment').html(data.comment);
             internalPrescriptionId = data.id;
+            httpService.get(indexUrlInternalPrescriptionItems.replace(':id', internalPrescriptionId)).then(response => {
+                const itemsList = response.data.map(item =>
+                    `<li>${item.generic_name} - ${item.dosage} - ${item.duration} - ${item.directions}</li>`
+                );
+                $('#prescription_items').html(itemsList);
+            })
             httpService.get(indexUrlInternalPrescription.replace(':id', internalPrescriptionId)).then(response => {
                 dataTableHandler.fillData(tableInternalPrescription, response.data.items);
                 $('#total_price_internal_prescription').html(response.data.total_text);

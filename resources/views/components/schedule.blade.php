@@ -22,7 +22,6 @@
                         onShow: (instance) => {
                             const scheduleSummaryUrl =
                                 "{{ route('schedules.summary', ['date' => ':date', 'schedule' => ':schedule']) }}";
-                            console.log(scheduleSummaryUrl);
                             httpService.get(
                                 scheduleSummaryUrl
                                 .replace(':date', moment(info.event.start).format(

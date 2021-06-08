@@ -308,7 +308,6 @@
                 "MedicalPrescription";
             const prefix = data.prescription_type == "{{ $testPrescription }}" ? "_test_prescription_edit" :
                 "_medical_prescription_edit";
-            console.log(data);
             formHandler.handleShow(
                 `edit${modelPrescriptionName}Form`,
                 inputsPrescriptions,
@@ -322,7 +321,6 @@
                     $(`#explorationTypeCheckEdit${explorationType}`).attr("checked", true)
                 });
             }else{
-                console.log(data);
                 handleAddSuccessMedicalPrescription(data);
             }
         }

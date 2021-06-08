@@ -39,6 +39,12 @@
             @endforeach
         </ul>
     @else
+        <ul>
+            @foreach ($prescription->genericNames as $item)
+                <li>{{ $item->pivot->generic_name_text }} - {{ $item->pivot->dosage_text }} - {{ $item->pivot->duration_text }} - {{ $item->pivot->directions }}
+                </li>
+            @endforeach
+        </ul>
     @endif
     @isset($prescription->comment)
         <hr>

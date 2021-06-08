@@ -15,9 +15,9 @@ class PrescriptionGenericNameResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'generic_name' => $this->pivot->genericName->name,
-            'dosage' => $this->pivot->dosage . $this->pivot->dosageUnit->unit,
-            'duration' => $this->pivot->duration . "/" . $this->pivot->duration_type,
+            'generic_name' => $this->pivot->generic_name_text,
+            'dosage' => $this->pivot->dosage_text,
+            'duration' => $this->pivot->duration_text,
             'directions' => $this->pivot->directions,
         ];
     }

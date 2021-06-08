@@ -6,9 +6,19 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class GenericNamePrescription extends Pivot
 {
+    public function getGenericNameTextAttribute()
+    {
+        return $this->genericName->name;
+    }
+
     public function getDosageTextAttribute()
     {
-        return number_format($this->dosage, 2) . " " . $this->dosageUnit->unit;
+        return $this->dosage . "" . $this->dosageUnit->unit;
+    }
+
+    public function getDurationTextAttribute()
+    {
+        return  $this->duration . "/" . $this->duration_type;
     }
 
     public function dosageUnit()
@@ -24,10 +34,5 @@ class GenericNamePrescription extends Pivot
     public function genericName()
     {
         return $this->belongsTo(GenericName::class);
-    }
-
-    public function directions()
-    {
-        return $this->belongsToMany(Direction::class);
     }
 }
