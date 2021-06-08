@@ -298,6 +298,12 @@ return [
             'can' => 'manage-item-types'
         ],
         [
+            'text' => 'genericNames',
+            'url'  => 'genericNames',
+            'icon' => 'fas fa-fw fa-bookmark',
+            'can' => 'manage-generic-names'
+        ],
+        [
             'text' => 'items',
             'url'  => 'items',
             'icon' => 'fas fa-fw fa-pills',

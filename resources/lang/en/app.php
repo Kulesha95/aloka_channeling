@@ -53,7 +53,7 @@ return [
 		"channelType" => "Channel Type",
 		"classification" => "Classification",
 		"colour" => "Colour",
-		"consultant" => "Consultant", 
+		"consultant" => "Consultant",
 		"comment" => "Comment",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
@@ -167,6 +167,10 @@ return [
 		"explorationTypesManagement" => "Exploration Type Management",
 		"createExplorationType" => "Create Exploration Type",
 		"editExplorationType" => "Edit Exploration Type",
+
+		"genericNamesManagement" => "Generic Name Management",
+		"createGenericName" => "Create Generic Name",
+		"editGenericName" => "Edit Generic Name",
 
 		"channelingPaymentInvoice" => "Channeling Payment Invoice",
 		"channelingPayments" => "Channeling Payments",

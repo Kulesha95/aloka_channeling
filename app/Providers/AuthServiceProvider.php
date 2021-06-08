@@ -41,6 +41,7 @@ class AuthServiceProvider extends ServiceProvider
             "manage-items" => [UserTypes::SUPER_ADMIN],
             "manage-prescriptions" => [UserTypes::PHARMACIST],
             "manage-payments" => [UserTypes::RECEPTIONIST],
+            "manage-generic-names" => [UserTypes::SUPER_ADMIN],
             "manage-exploration-types" => [UserTypes::SUPER_ADMIN]
         ];
 

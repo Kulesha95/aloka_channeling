@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Appointment;
 use App\Models\ExplorationType;
+use App\Models\GenericName;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
                 ChannelTypeSeeder::class,
                 DefaultUsersSeeder::class,
                 ItemTypeSeeder::class,
+                GenericNameSeeder::class,
                 ItemSeeder::class,
                 ExplorationTypeSeeder::class,
                 BatchSeeder::class,

@@ -9,6 +9,7 @@ return [
     "doctors" => "Doctors",
     "explorationTypes" => "Exploration Types",
     "general" => "GENERAL",
+    "genericNames" => "Generic Names",
     "items" => "Items",
     "itemTypes" => "Item Types",
     "logout" => "Logout",

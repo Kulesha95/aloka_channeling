@@ -57,6 +57,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('patient.explorations', ExplorationController::class);
 	Route::apiResource('explorationTypes', ExplorationTypeController::class);
+	Route::apiResource('genericNames', GenericNameController::class);
 	Route::apiResource('items', ItemController::class);
 	Route::apiResource('itemTypes', ItemTypeController::class);
 	Route::apiResource('prescription.incomes', PrescriptionIncomeController::class)->except(['destroy', 'update']);
