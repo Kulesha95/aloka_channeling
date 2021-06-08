@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
                 DefaultUsersSeeder::class,
                 ItemTypeSeeder::class,
                 GenericNameSeeder::class,
+                DosageUnitSeeder::class,
                 ItemSeeder::class,
                 ExplorationTypeSeeder::class,
                 BatchSeeder::class,

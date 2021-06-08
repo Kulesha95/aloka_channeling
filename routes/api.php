@@ -55,6 +55,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('channelTypes', ChannelTypeController::class);
 	Route::apiResource('channelType.channelReasons', ChannelReasonController::class)->except(['update', 'show']);
 	Route::apiResource('doctors', DoctorController::class);
+	Route::apiResource('dosageUnits', DosageUnitController::class);
 	Route::apiResource('patient.explorations', ExplorationController::class);
 	Route::apiResource('explorationTypes', ExplorationTypeController::class);
 	Route::apiResource('genericNames', GenericNameController::class);

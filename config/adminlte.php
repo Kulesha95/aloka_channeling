@@ -304,6 +304,12 @@ return [
             'can' => 'manage-generic-names'
         ],
         [
+            'text' => 'dosageUnits',
+            'url'  => 'dosageUnits',
+            'icon' => 'fas fa-fw fa-copyright',
+            'can' => 'manage-dosage-units'
+        ],
+        [
             'text' => 'items',
             'url'  => 'items',
             'icon' => 'fas fa-fw fa-pills',

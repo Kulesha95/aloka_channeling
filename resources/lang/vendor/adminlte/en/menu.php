@@ -7,6 +7,7 @@ return [
     "channelTypes" => "Channel Types",
     "dashboard" => "Dashboard",
     "doctors" => "Doctors",
+    "dosageUnits" => "Dosage Units",
     "explorationTypes" => "Exploration Types",
     "general" => "GENERAL",
     "genericNames" => "Generic Names",

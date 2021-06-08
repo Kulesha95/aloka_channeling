@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\GenericNameResource;
-use App\Models\GenericName;
+use App\Http\Resources\DosageUnitResource;
+use App\Models\DosageUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class GenericNameController extends Controller
+class DosageUnitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +19,8 @@ class GenericNameController extends Controller
     public function index()
     {
         return ResponseHelper::findSuccess(
-            'Generic name',
-            GenericNameResource::collection(GenericName::all())
+            'Dosage unit',
+            DosageUnitResource::collection(DosageUnit::all())
         );
     }
 
@@ -33,36 +33,37 @@ class GenericNameController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(
-            $request->only('name'),
+            $request->only(['name', "unit"]),
             [
-                'name' => "required|unique:App\Models\GenericName,name,null,id,deleted_at,NULL"
+                'name' => "required|unique:App\Models\DosageUnit,name,null,id,deleted_at,NULL",
+                'unit' => "required|unique:App\Models\DosageUnit,unit,null,id,deleted_at,NULL"
             ]
         );
         if ($validator->fails()) {
             return ResponseHelper::validationFail(
-                'Generic name',
+                'Dosage unit',
                 $validator->errors()
             );
         }
-        $genericName = GenericName::create($request->only('name'));
+        $dosageUnit = DosageUnit::create($request->only(['name', 'unit']));
         return ResponseHelper::createSuccess(
-            'Generic name',
-            new GenericNameResource($genericName)
+            'Dosage unit',
+            new DosageUnitResource($dosageUnit)
         );
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\GenericName  $genericName
+     * @param  \App\Models\DosageUnit  $dosageUnit
      * @return \Illuminate\Http\Response
      */
-    public function show(GenericName $genericName)
+    public function show(DosageUnit $dosageUnit)
     {
 
         return ResponseHelper::findSuccess(
-            'Generic name',
-            new GenericNameResource($genericName)
+            'Dosage unit',
+            new DosageUnitResource($dosageUnit)
         );
     }
 
@@ -70,39 +71,40 @@ class GenericNameController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\GenericName  $genericName
+     * @param  \App\Models\DosageUnit  $dosageUnit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GenericName $genericName)
+    public function update(Request $request, DosageUnit $dosageUnit)
     {
         $validator = Validator::make(
-            $request->only('name'),
+            $request->only(['name', 'unit']),
             [
-                'name' => "required|unique:App\Models\GenericName,name," . $genericName->id . ",id,deleted_at,NULL"
+                'name' => "required|unique:App\Models\DosageUnit,name," . $dosageUnit->id . ",id,deleted_at,NULL",
+                'unit' => "required|unique:App\Models\DosageUnit,unit," . $dosageUnit->id . ",id,deleted_at,NULL",
             ]
         );
         if ($validator->fails()) {
             return ResponseHelper::validationFail(
-                'Generic name',
+                'Dosage unit',
                 $validator->errors()
             );
         }
-        $genericName->update($request->only('name'));
+        $dosageUnit->update($request->only(['name', 'unit']));
         return ResponseHelper::updateSuccess(
-            'Generic name',
-            new GenericNameResource($genericName)
+            'Dosage unit',
+            new DosageUnitResource($dosageUnit)
         );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\GenericName  $genericName
+     * @param  \App\Models\DosageUnit  $dosageUnit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(GenericName $genericName)
+    public function destroy(DosageUnit $dosageUnit)
     {
-        $genericName->delete();
-        return ResponseHelper::deleteSuccess('Generic name');
+        $dosageUnit->delete();
+        return ResponseHelper::deleteSuccess('Dosage unit');
     }
 }

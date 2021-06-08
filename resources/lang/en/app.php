@@ -172,6 +172,10 @@ return [
 		"createGenericName" => "Create Generic Name",
 		"editGenericName" => "Edit Generic Name",
 
+		"dosageUnitsManagement" => "Dosage unit Management",
+		"createDosageUnit" => "Create Dosage Unit",
+		"editDosageUnit" => "Edit Dosage Unit",
+
 		"channelingPaymentInvoice" => "Channeling Payment Invoice",
 		"channelingPayments" => "Channeling Payments",
 		"appointmentPayments" => "Appointment Payments",
