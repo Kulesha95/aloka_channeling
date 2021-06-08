@@ -31,7 +31,8 @@ class DatabaseSeeder extends Seeder
                 AppointmentSeeder::class,
                 IncomeSeeder::class,
                 PrescriptionSeeder::class,
-                DefaultAppointmentSeeder::class
+                DefaultAppointmentSeeder::class,
+                DirectionSeeder::class
             ]);
         } else {
             $this->call([
@@ -42,6 +43,7 @@ class DatabaseSeeder extends Seeder
                 ItemSeeder::class,
                 ExplorationTypeSeeder::class,
                 BatchSeeder::class,
+                DirectionSeeder::class
             ]);
         }
     }

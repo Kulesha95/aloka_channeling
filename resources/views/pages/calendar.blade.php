@@ -22,10 +22,12 @@
 @endsection
 
 @section('js')
+@parent
     <script>
         const handleScheduleClick = (info) => {
             window.location =
                 `/appointments?date=${moment(info.event.start).format("YYYY-MM-DD")}&id=${info.event.extendedProps.id}`;
         }
     </script>
+@stack('js-stack')
 @endsection

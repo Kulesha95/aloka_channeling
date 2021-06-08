@@ -4,6 +4,7 @@
     </div>
 </div>
 
+@push('js-stack')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -45,3 +46,4 @@
         calendar.render();
     });
 </script>
+@endpush
