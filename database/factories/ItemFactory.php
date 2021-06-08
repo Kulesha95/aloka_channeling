@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\GenericName;
 use App\Models\Item;
 use App\Models\ItemType;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,7 +24,7 @@ class ItemFactory extends Factory
     public function definition()
     {
         return [
-            'generic_name' => $this->faker->sentence(3, true),
+            'generic_name_id' => GenericName::all()->random()->id,
             'brand_name' => $this->faker->sentence(3, true),
             'reorder_level' => ceil($this->faker->numberBetween(100, 1000) / 50) * 50,
             'reorder_quantity' => ceil($this->faker->numberBetween(100, 1000) / 100) * 100,

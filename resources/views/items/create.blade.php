@@ -13,9 +13,10 @@
                 <form action="{{ route('items.store') }}" method="POST" id="createItemForm">
                     <div class="row">
                         <div class="form-group col-6">
-                            <label for="generic_name">{{ __('app.fields.genericName') }}</label>
-                            <input id="generic_name_create" class="form-control" type="text" name="generic_name"
-                                placeholder="{{ __('app.fields.genericName') }}">
+                            <label for="generic_name_id">{{ __('app.fields.genericName') }}</label>
+                            <select name="generic_name_id" id="generic_name_id_create" class="form-control col-12">
+                                <option></option>
+                            </select>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-6">

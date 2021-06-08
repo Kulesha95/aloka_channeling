@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GenericName extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable=['name'];
+    protected $fillable = ['name'];
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

@@ -10,7 +10,7 @@ class Item extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['generic_name', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit'];
+    protected $fillable = ['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit'];
 
     public function getReorderLevelTextAttribute()
     {
@@ -22,11 +22,21 @@ class Item extends Model
         return number_format($this->reorder_quantity) . " " . $this->unit;
     }
 
+    public function getGenericNameTextAttribute()
+    {
+        return $this->genericName->name;
+    }
+
     public function itemType()
     {
         return $this->belongsTo(ItemType::class)->withTrashed();
     }
-    
+
+    public function genericName()
+    {
+        return $this->belongsTo(GenericName::class)->withTrashed();
+    }
+
     public function batches()
     {
         return $this->hasMany(Batch::class);

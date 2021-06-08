@@ -221,6 +221,7 @@ return [
 		"prescriptionBills" => "Prescription Bills ",
 		"selectDoctor" => "Select Doctor",
 		"selectExplorationType" => "Select Exploration Type",
+		"selectGenericName" => "Select Generic Name",
 		"selectItemBatch" => "Select Item Batch",
 		"selectItemType" => "Select Item Type",
 		"selectParent" => "Select Parent",

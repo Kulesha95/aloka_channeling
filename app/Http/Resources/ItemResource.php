@@ -16,7 +16,8 @@ class ItemResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'generic_name' => $this->generic_name,
+            'generic_name_id' => $this->generic_name_id,
+            'generic_name_text' => $this->generic_name_text,
             'brand_name' => $this->brand_name,
             'reorder_level' => $this->reorder_level,
             'reorder_level_text' => $this->reorder_level_text,

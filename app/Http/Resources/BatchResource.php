@@ -17,7 +17,7 @@ class BatchResource extends JsonResource
         return [
             'id' => $this->id,
             'item_id' => $this->item_id,
-            'item_generic_name' => $this->item->generic_name,
+            'item_generic_name' => $this->item->generic_name_text,
             'item_brand_name' => $this->item->brand_name,
             'item_unit' => $this->item->unit,
             'grn_id' => $this->grn_id,

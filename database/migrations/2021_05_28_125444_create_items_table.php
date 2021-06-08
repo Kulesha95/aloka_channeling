@@ -15,7 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('generic_name');
+            $table->bigInteger('generic_name_id');
             $table->string('brand_name');
             $table->float('reorder_level', 10, 2);
             $table->float('reorder_quantity', 10, 2);

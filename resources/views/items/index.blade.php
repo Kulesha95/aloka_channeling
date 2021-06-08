@@ -42,7 +42,7 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['generic_name', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit'];
+        const inputs = ['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit'];
         // Load Data URL
         const indexUrl = "{{ route('items.index') }}";
         // View Selected Data URL
@@ -54,7 +54,7 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ['id', 'brand_name', 'generic_name', 'reorder_level_text', 'reorder_quantity_text',
+        const dataTableColumns = ['id', 'brand_name', 'generic_name_text', 'reorder_level_text', 'reorder_quantity_text',
             'item_type_text'
         ];
         // Column Indexes For URL Parameters
@@ -117,14 +117,28 @@
             templateSelection,
             placeholder: "{{ __('app.texts.selectItemType') }}",
         };
+        const select2OptionsGenericName = {
+            placeholder: "{{ __('app.texts.selectGenericName') }}",
+        };
         $('#item_type_id_create').select2(select2Options);
         $('#item_type_id_edit').select2(select2Options);
-        // Load Doctors List
+        $('#generic_name_id_create').select2(select2OptionsGenericName);
+        $('#generic_name_id_edit').select2(select2OptionsGenericName);
+        // Load Item Types List
         httpService.get("{{ route('itemTypes.index') }}").then(response => {
             response.data.forEach(element => {
                 $('#item_type_id_create').append(new Option(JSON.stringify(element), element.id), false,
                     false)
                 $('#item_type_id_edit').append(new Option(JSON.stringify(element), element.id), false,
+                    false)
+            });
+        })
+        // Load Generic Names List
+        httpService.get("{{ route('genericNames.index') }}").then(response => {
+            response.data.forEach(element => {
+                $('#generic_name_id_create').append(new Option(element.name, element.id), false,
+                    false)
+                $('#generic_name_id_edit').append(new Option(element.name, element.id), false,
                     false)
             });
         })
