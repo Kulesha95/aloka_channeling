@@ -6,7 +6,9 @@ use App\Constants\Prescriptions;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PrescriptionBatchResource;
+use App\Http\Resources\PrescriptionGenericNameResource;
 use App\Http\Resources\PrescriptionResource;
+use App\Models\Appointment;
 use App\Models\Prescription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -82,18 +84,6 @@ class PrescriptionController extends Controller
      */
     public function update(Request $request, Prescription $prescription)
     {
-        $validator = Validator::make(
-            $request->only(['prescription_type']),
-            [
-                'prescription_type' => "required"
-            ]
-        );
-        if ($validator->fails()) {
-            return ResponseHelper::validationFail(
-                'Prescription',
-                $validator->errors()
-            );
-        }
         if ($prescription->prescription_type == Prescriptions::TEST_PRESCRIPTION) {
             $prescription->explorationTypes()->sync($request->get('exploration_type_id'));
         }
@@ -172,7 +162,52 @@ class PrescriptionController extends Controller
     }
 
     /**
-     * Get Items From The Prescriptions
+     * Add Item To The Prescriptions
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addItem(Request $request)
+    {
+        $validator = Validator::make(
+            $request->only(['dosage', 'dosage_unit_id', 'duration', 'duration_type', 'direction_id', 'generic_name_id']),
+            [
+                'generic_name_id' => "required",
+                'dosage' => "required",
+                'dosage_unit_id' => "required",
+                'duration' => "required",
+                'duration_type' => "required",
+                'direction_id' => "required",
+            ]
+        );
+        if ($validator->fails()) {
+            return ResponseHelper::validationFail(
+                'Prescription medicine',
+                $validator->errors()
+            );
+        }
+        // Find related prescription or assign prescription if a new one
+        $prescription = Prescription::find($request->get('prescription_id'));
+        // If quantity is 0 remove the existing items or else add the item
+        if ($request->get('dosage') == "0") {
+            $prescription->genericNames()->detach($request->get('generic_name_id'));
+        } else {
+            $itemPrescription = $prescription->genericNames()->attach([$request->get('generic_name_id') => [
+                'dosage' => $request->get('dosage'),
+                'dosage_unit_id' => $request->get('dosage_unit_id'),
+                'duration' => $request->get('duration'),
+                'duration_type' => $request->get('duration_type'),
+                'directions' => implode("|", $request->get('direction_id'))
+            ]]);
+        }
+        return ResponseHelper::success(
+            'Item has been added successfully',
+            new PrescriptionResource($prescription)
+        );
+    }
+
+    /**
+     * Get Batches From The Prescriptions
      *
      * @param  \App\Models\Prescription  $prescription
      * @return \Illuminate\Http\Response
@@ -186,6 +221,20 @@ class PrescriptionController extends Controller
                 "total" => $prescription->total,
                 "total_text" => $prescription->total_text,
             ]
+        );
+    }
+
+    /**
+     * Get Items From The Prescriptions
+     *
+     * @param  \App\Models\Prescription  $prescription
+     * @return \Illuminate\Http\Response
+     */
+    public function items(Prescription $prescription)
+    {
+        return ResponseHelper::findSuccess(
+            'Items',
+            PrescriptionGenericNameResource::collection($prescription->genericNames)
         );
     }
 
@@ -220,7 +269,7 @@ class PrescriptionController extends Controller
     public function internalPrescriptions()
     {
         $prescriptions = Prescription::where('prescription_type', Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION)
-            ->get()->whereIn('status', [Prescriptions::NEW_PRESCRIPTION, Prescriptions::PENDING_PRESCRIPTION]);
+            ->get()->where('status', Prescriptions::CONFIRMED_PRESCRIPTION);
         return ResponseHelper::updateSuccess('Prescription', PrescriptionResource::collection($prescriptions));
     }
 
@@ -256,6 +305,26 @@ class PrescriptionController extends Controller
      */
     public function prescriptionDetails(Prescription $prescription)
     {
+        $data = [
+            'prescription' => new PrescriptionResource($prescription),
+        ];
+        return ResponseHelper::findSuccess('Prescription', $data);
+    }
+
+    /**
+     * Create new empty prescription
+     *
+     * @param  \App\Models\Prescription  $appointment
+     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function createNew(Request $request, Appointment $appointment)
+    {
+        $prescription = $appointment->prescriptions()->create($request->all() + [
+            "date" => now()->toDateString(),
+            "time" => now()->toTimeString(),
+            "status" => Prescriptions::NEW_PRESCRIPTION
+        ]);
         $data = [
             'prescription' => new PrescriptionResource($prescription),
         ];

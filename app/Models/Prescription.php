@@ -128,6 +128,11 @@ class Prescription extends Model
         return $this->belongsToMany(Batch::class)->using(BatchPrescription::class)->withPivot(['quantity']);
     }
 
+    public function genericNames()
+    {
+        return $this->belongsToMany(GenericName::class)->using(GenericNamePrescription::class)->withPivot(['dosage', 'dosage_unit_id', 'duration', 'duration_type', 'directions']);
+    }
+
     public function explorationTypes()
     {
         return $this->belongsToMany(ExplorationType::class);

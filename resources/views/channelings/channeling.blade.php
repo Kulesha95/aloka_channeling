@@ -140,8 +140,7 @@
                 </div>
                 <div class="tab-pane fade" id="nav-prescriptions" role="tabpanel" aria-labelledby="nav-prescriptions-tab">
                     <div class="row">
-                        <button type="button" class="btn btn-primary ml-auto mb-2" data-toggle="modal"
-                            data-target="#createPrescriptionModal">
+                        <button type="button" class="btn btn-primary ml-auto mb-2" id="createMedicalPrescriptionButton">
                             <i class="fa fa-plus mr-1"
                                 aria-hidden="true"></i>{{ __('app.buttons.newMedicalPrescription') }}
                         </button>
@@ -213,10 +212,9 @@
             </div>
         </div>
         @include('appointments.info')
-        @include('prescriptions.create')
+        @include('prescriptions.medicalPrescription')
         @include('prescriptions.createTestPrescription')
         @include('prescriptions.editTestPrescription')
-        @include('prescriptions.edit')
         @include('explorations.create')
     </div>
 @endsection
@@ -323,6 +321,9 @@
                 data.exploration_types.forEach(explorationType => {
                     $(`#explorationTypeCheckEdit${explorationType}`).attr("checked", true)
                 });
+            }else{
+                console.log(data);
+                handleAddSuccessMedicalPrescription(data);
             }
         }
         const openPrescription = (data) => {
@@ -352,7 +353,7 @@
             $('#comment_prescription_create').summernote();
             $('#comment_prescription_edit').summernote();
             $('#comment_test_prescription_create').summernote();
-            $('#comment_test_prescription_edit').summernote();
+            $('#comment_medical_prescription_edit').summernote();
             // Handle Channeling Note Update
             formHandler.handleEdit(`edit${model}Form`, inputs, searchAppointment);
             // Handle Patient Histoy View Button Click
@@ -499,6 +500,15 @@
         }
         formHandler.handleSave("createExplorationForm", ["exploration_type_id", "value", "comment"], searchAppointment,
             "createExplorationModal", "_exploration_create");
+        $('#createMedicalPrescriptionButton').on('click', () => {
+            httpService.post("{{ route('prescriptions.createNew', ':id') }}".replace(":id", currentId), {
+                "prescription_type": "{{ $medicalPrescription }}"
+            }).then(response => {
+                loadDataPrescriptions();
+                handleAddSuccessMedicalPrescription(response.data.prescription);
+                $('#editMedicalPrescriptionModal').modal('show');
+            });
+        });
     </script>
     @stack('js-stack')
 @endsection
