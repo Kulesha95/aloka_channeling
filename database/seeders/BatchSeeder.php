@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Batch;
+use App\Models\Item;
 use Illuminate\Database\Seeder;
 
 class BatchSeeder extends Seeder
@@ -14,6 +15,13 @@ class BatchSeeder extends Seeder
      */
     public function run()
     {
-        Batch::factory(20)->create();
+        if (env('APP_ENV', "local") == "local") {
+            Batch::factory(20)->create();
+        } else {
+            $items = Item::all();
+            foreach ($items as $item) {
+                Batch::factory(1)->customBatch($item->id)->create();
+            }
+        }
     }
 }

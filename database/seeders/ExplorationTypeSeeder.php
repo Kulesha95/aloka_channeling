@@ -22,6 +22,8 @@ class ExplorationTypeSeeder extends Seeder
         foreach ($explorationTypes as $explorationType) {
             ExplorationType::create($explorationType);
         }
-        ExplorationType::factory(12)->create();
+        if (env('APP_ENV', "local") == "local") {
+            ExplorationType::factory(12)->create();
+        }
     }
 }

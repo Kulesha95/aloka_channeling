@@ -42,10 +42,7 @@ class DatabaseSeeder extends Seeder
                 UserTypeSeeder::class,
                 ChannelTypeSeeder::class,
                 DefaultUsersSeeder::class,
-                ItemTypeSeeder::class,
-                ItemSeeder::class,
                 ExplorationTypeSeeder::class,
-                BatchSeeder::class,
                 DirectionSeeder::class
             ]);
         }

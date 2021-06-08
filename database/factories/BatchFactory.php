@@ -38,4 +38,13 @@ class BatchFactory extends Factory
             'expire_date' => $this->faker->dateTimeBetween(now()->add('-1 month'), now()->add('+1 year'))
         ];
     }
+
+    public function customBatch($itemId)
+    {
+        return $this->state(function (array $attributes) use ($itemId) {
+            return [
+                'item_id' => $itemId,
+            ];
+        });
+    }
 }

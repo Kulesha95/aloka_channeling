@@ -105,7 +105,7 @@ class PatientController extends Controller
                         "username" => $request->get('username') ?? $request->get('id_number')
                     ]
             );
-            $user->notify(new PatientAccountCreated($password));
+            //$user->notify(new PatientAccountCreated($password));
             $patient = Patient::create(
                 $request->only(["name", "birth_date", "gender", "address", "id_type", "id_number"]) +
                     ["user_id" => $user->id]

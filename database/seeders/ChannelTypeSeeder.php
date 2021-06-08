@@ -16,7 +16,11 @@ class ChannelTypeSeeder extends Seeder
     {
         $defaultChannelTypes = ["Physician",  "Surgeon", "VOG", "Cardiologist", "Psychiatrist", "Radiologist", "Dermatologist"];
         foreach ($defaultChannelTypes as $channelTypes) {
-            ChannelType::factory(1)->customChannelType($channelTypes)->hasChannelReasons(5)->create();
+            if (env('APP_ENV', "local") == "local") {
+                ChannelType::factory(1)->customChannelType($channelTypes)->hasChannelReasons(5)->create();
+            } else {
+                ChannelType::factory(1)->customChannelType($channelTypes)->create();
+            }
         }
     }
 }
