@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::apiResource('channelTypes', ChannelTypeController::class)->only(['index']);
+Route::post('doctors/search', "DoctorController@search")->name('doctors.search');
 Route::get('doctors/todayDoctorsList', "DoctorController@todayDoctorsList")->name('doctors.todayDoctorsList');
 Route::get('schedules/search', "ScheduleController@search")->name('schedules.search');
 Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
@@ -56,9 +58,9 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
-	Route::apiResource('channelTypes', ChannelTypeController::class);
+	Route::apiResource('channelTypes', ChannelTypeController::class)->except(['index']);
 	Route::apiResource('channelType.channelReasons', ChannelReasonController::class)->except(['update', 'show']);
-	Route::apiResource('directions', DirectionController::class)->only('index');
+	Route::apiResource('directions', DirectionController::class)->only(['index']);
 	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('dosageUnits', DosageUnitController::class);
 	Route::apiResource('patient.explorations', ExplorationController::class);

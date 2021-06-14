@@ -12,7 +12,7 @@
 
 
     </div>
-    
+
 </div>
 <!--nav bar start-->
 <div class="container-fluid bg-light">
@@ -67,7 +67,8 @@
                     <h1 class="main-heading font-weight-bold">We are here for your care</h1>
                     <p class="pt-4 text-secondary">Professional health care services provider. Now we are at your finger
                         tips...!</p>
-                    <a href="" class="btn btn-primary rounded-button">Make An Appointment</a>
+                    <a href="{{ route('frontend.channelings') }}" class="btn btn-primary rounded-button">Make An
+                        Appointment</a>
                 </div>
             </div>
         </div>

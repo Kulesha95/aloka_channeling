@@ -17,7 +17,7 @@
                     We are a leading provider of patient care and diagnostic services in the Southern Province.
                 </p>
                 <div class="row">
-                    <button class="btn btn-danger mt-5 mx-auto rounded-button">Make an Appointment</button>
+                    <a href="{{ route('frontend.channelings') }}" class="btn btn-danger mt-5 mx-auto rounded-button">Make an Appointment</a>
                 </div>
 
             </div>

@@ -232,4 +232,30 @@ class DoctorController extends Controller
         })->values();
         return ResponseHelper::findSuccess('Doctors', $doctors);
     }
+
+    /**
+     * Search Doctors
+     *
+     * @param  \App\Models\Doctor  $doctor
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $schedules = Schedule::where('date_from', '<=', $request->get('to_date'))
+            ->where('date_to', '>=', $request->get('from_date'))->with('doctor');
+        if ($request->get('name')) {
+            $schedules = $schedules->whereHas('doctor', function ($query) use ($request) {
+                return $query->where('name', 'like', '%' . $request->get('name') . "%");
+            });
+        }
+        if ($request->get('type')) {
+            $schedules = $schedules->whereHas('doctor', function ($query) use ($request) {
+                return $query->where('channel_type_id', $request->get('type'));
+            });
+        }
+        $doctors = $schedules->get()->map(function ($schedule) {
+            return ["schedule" => new ScheduleResource($schedule), "doctor" => new DoctorResource($schedule->doctor)];
+        })->values();
+        return ResponseHelper::findSuccess('Doctors', $doctors);
+    }
 }
