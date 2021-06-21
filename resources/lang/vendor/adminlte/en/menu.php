@@ -18,6 +18,7 @@ return [
     "payments" => "Payments",
     "prescriptions" => "Prescriptions",
     "schedules" => "Schedules",
+    "suppliers" => "Suppliers",
     "users" => "Users",
     "userTypes" => "User Types",
 ];

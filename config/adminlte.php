@@ -333,6 +333,12 @@ return [
             'icon' => 'fas fa-fw fa-thermometer',
             'can' => 'manage-exploration-types'
         ],
+        [
+            'text' => 'suppliers',
+            'url'  => 'suppliers',
+            'icon' => 'fas fa-fw fa-truck',
+            'can' => 'manage-suppliers'
+        ],
 
     ],
 

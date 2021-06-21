@@ -105,6 +105,8 @@ return [
 		"repeat" => "Repeat",
 		"schedule" => "Schedule",
 		"status" => "Status",
+		"telephone" => "Telephone",
+		"registerNumber" => "Register Number",
 		"time" => "Time",
 		"timeFrom" => "Time From",
 		"timeTo" => "Time To",
@@ -178,6 +180,10 @@ return [
 		"dosageUnitsManagement" => "Dosage unit Management",
 		"createDosageUnit" => "Create Dosage Unit",
 		"editDosageUnit" => "Edit Dosage Unit",
+
+		"suppliersManagement" => "Supplier Management",
+		"createSupplier" => "Create Supplier",
+		"editSupplier" => "Edit Supplier",
 
 		"channelingPaymentInvoice" => "Channeling Payment Invoice",
 		"channelingPayments" => "Channeling Payments",

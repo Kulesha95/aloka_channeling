@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
                 DosageUnitSeeder::class,
                 ItemSeeder::class,
                 ExplorationTypeSeeder::class,
+                SupplierSeeder::class,
                 BatchSeeder::class,
                 UserSeeder::class,
                 DoctorSeeder::class,
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
                 IncomeSeeder::class,
                 PrescriptionSeeder::class,
                 DefaultAppointmentSeeder::class,
-                DirectionSeeder::class
+                DirectionSeeder::class,
             ]);
         } else {
             $this->call([

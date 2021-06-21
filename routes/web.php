@@ -3,8 +3,6 @@
 use App\Constants\Appointments;
 use App\Constants\Prescriptions;
 use App\Constants\UserTypes;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,6 +63,7 @@ Route::middleware('auth')->group(function () {
         "issued" => Prescriptions::ISSUED_PRESCRIPTION
     ]);
     route::view('schedules', 'schedules.index');
+    route::view('suppliers', 'suppliers.index');
     Route::view('users', 'users.index');
     Route::view('userTypes', 'userTypes.index')->name('userTypes.index.view');
     Route::get('logout', '\Laravel\Fortify\Http\Controllers\AuthenticatedSessionController@destroy');
