@@ -37,6 +37,7 @@
             </div>
             @include('suppliers.create')
             @include('suppliers.edit')
+            @include('suppliers.items')
         </div>
     </div>
 @stop
@@ -62,12 +63,15 @@
         const parameterIndexes = {
             "id": 0
         };
+        // Items Button
+        const itemsActionContent =
+            "<button class='btn btn-sm btn-outline-info mr-1 items-button'><i class='fas fa-list-alt fa-fw'></i></button>";
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            defaultActionContent
+            itemsActionContent+defaultActionContent
         );
         // Delete Item
         dataTableHandler.handleDelete(
@@ -95,5 +99,11 @@
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit
         formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
+        $(document).ready(() => {
+            // Handle Supplier Itemms Management
+            dataTableHandler.handleCustom(table, viewUrl, parameterIndexes, openItemsManagement,
+                'items-button');
+        });
     </script>
+    @stack('js-stack')
 @endsection

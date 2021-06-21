@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Item;
+use App\Models\Supplier;
 use Illuminate\Database\Seeder;
 
 class ItemSeeder extends Seeder
@@ -15,5 +16,8 @@ class ItemSeeder extends Seeder
     public function run()
     {
         Item::factory(50)->create();
+        foreach (Item::all() as $item) {
+            Supplier::all()->random()->items()->attach($item);
+        }
     }
 }

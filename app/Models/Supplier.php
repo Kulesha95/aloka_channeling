@@ -11,4 +11,9 @@ class Supplier extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['name', 'email', 'telephone', 'address', 'register_number'];
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class);
+    }
 }
