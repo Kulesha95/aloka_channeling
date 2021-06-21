@@ -55,6 +55,26 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
+                    <div class="row">                        
+                        <div class="form-group col-6">
+                            <label for="is_purchase_item">{{ __('app.fields.isPurchaseItem') }}</label>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" name="is_purchase_item" id="is_purchase_item_create"
+                                    value="1">
+                                <label class="custom-control-label" for="is_purchase_item_create"></label>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="is_sales_item">{{ __('app.fields.isSalesItem') }}</label>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" name="is_sales_item" id="is_sales_item_create"
+                                    value="1">
+                                <label class="custom-control-label" for="is_sales_item_create"></label>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
                     <div class="row m-1">
                         <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-save mr-1"
                                 aria-hidden="true"></i>{{ __('app.buttons.save') }}</button>

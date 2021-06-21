@@ -42,7 +42,7 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit'];
+        const inputs = ['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit','is_sales_item','is_purchase_item'];
         // Load Data URL
         const indexUrl = "{{ route('items.index') }}";
         // View Selected Data URL

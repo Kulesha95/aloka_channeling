@@ -10,7 +10,16 @@ class Item extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit'];
+    protected $fillable = [
+        'generic_name_id',
+        'brand_name',
+        'reorder_level',
+        'reorder_quantity',
+        'item_type_id',
+        'unit',
+        'is_sales_item',
+        'is_purchase_item'
+    ];
 
     public function getReorderLevelTextAttribute()
     {

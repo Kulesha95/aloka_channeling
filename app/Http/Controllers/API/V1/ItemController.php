@@ -33,7 +33,14 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make(
-            $request->only(['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit']),
+            $request->only([
+                'generic_name_id',
+                'brand_name',
+                'reorder_level',
+                'reorder_quantity',
+                'item_type_id',
+                'unit'
+            ]),
             [
                 'generic_name_id' => 'required',
                 'brand_name' => 'required',
@@ -49,7 +56,16 @@ class ItemController extends Controller
                 $validator->errors()
             );
         }
-        $item = Item::create($request->only(['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit']));
+        $item = Item::create($request->only([
+            'generic_name_id',
+            'brand_name',
+            'reorder_level',
+            'reorder_quantity',
+            'item_type_id',
+            'unit',
+            'is_sales_item',
+            'is_purchase_item'
+        ]));
         return ResponseHelper::createSuccess(
             'Item',
             new ItemResource($item)
@@ -80,7 +96,14 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $validator = Validator::make(
-            $request->only(['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit']),
+            $request->only([
+                'generic_name_id',
+                'brand_name',
+                'reorder_level',
+                'reorder_quantity',
+                'item_type_id',
+                'unit'
+            ]),
             [
                 'generic_name_id' => 'required',
                 'brand_name' => 'required',
@@ -96,7 +119,17 @@ class ItemController extends Controller
                 $validator->errors()
             );
         }
-        $item->update($request->only(['generic_name_id', 'brand_name', 'reorder_level', 'reorder_quantity', 'item_type_id', 'unit']));
+        $item->update($request->only([
+            'generic_name_id',
+            'brand_name',
+            'reorder_level',
+            'reorder_quantity',
+            'item_type_id',
+            'unit'
+        ]) + [
+            "is_sales_item" => $request->has('is_sales_item'),
+            "is_purchase_item" => $request->has('is_purchase_item'),
+        ]);
         return ResponseHelper::updateSuccess(
             'Item',
             new ItemResource($item)

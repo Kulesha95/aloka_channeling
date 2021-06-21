@@ -29,7 +29,9 @@ class ItemFactory extends Factory
             'reorder_level' => ceil($this->faker->numberBetween(100, 1000) / 50) * 50,
             'reorder_quantity' => ceil($this->faker->numberBetween(100, 1000) / 100) * 100,
             'item_type_id' => ItemType::all()->random()->id,
-            'unit' => $this->faker->word()
+            'unit' => $this->faker->word(),
+            'is_sales_item' => $this->faker->boolean(),
+            'is_purchase_item' => $this->faker->boolean()
         ];
     }
 }

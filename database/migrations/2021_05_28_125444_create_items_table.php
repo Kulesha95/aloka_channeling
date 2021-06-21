@@ -21,6 +21,8 @@ class CreateItemsTable extends Migration
             $table->float('reorder_quantity', 10, 2);
             $table->bigInteger('item_type_id');
             $table->string('unit');
+            $table->tinyInteger('is_sales_item');
+            $table->tinyInteger('is_purchase_item');
             $table->timestamps();
             $table->softDeletes();
         });
