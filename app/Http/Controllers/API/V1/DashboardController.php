@@ -6,9 +6,13 @@ use App\Constants\Appointments;
 use App\Constants\Incomes;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BatchResource;
+use App\Http\Resources\ItemSuppliersResource;
 use App\Models\Appointment;
+use App\Models\Batch;
 use App\Models\Doctor;
 use App\Models\Income;
+use App\Models\Item;
 use App\Models\Patient;
 use Carbon\Carbon;
 use GrahamCampbell\ResultType\Success;
@@ -72,5 +76,37 @@ class DashboardController extends Controller
             'channelingIncomeGraphData' => $channelingIncomes,
             'pharmacyIncomeGraphData' => $pharmacyIncomes,
         ]);
+    }
+
+    /**
+     * Get Items Data Summary
+     */
+    public function itemsSummaryData()
+    {
+        $items = Item::all();
+        $batches = Batch::all();
+        $deficitItems = $items->filter(function ($item) {
+            return $item->stock <= $item->reorder_level;
+        });
+        $deficitItemsCount = $deficitItems->count();
+        $expiredItems = $batches->filter(function ($batch) {
+            return $batch->expire_date <= now()->toDateString();
+        });
+        $expiredItemsCount = $expiredItems->count();
+        return ResponseHelper::findSuccess('Items Summary Data', [
+            'deficitItems' => ItemSuppliersResource::collection($deficitItems),
+            'deficitItemsCount' => $deficitItemsCount,
+            'expiredItems' => BatchResource::collection($expiredItems),
+            'expiredItemsCount' => $expiredItemsCount
+        ]);
+    }
+
+    /**
+     * Get Stock Summary
+     */
+    public function stockSummaryData()
+    {
+        $items = Item::all();
+        return ResponseHelper::findSuccess('Items Summary Data',  ItemSuppliersResource::collection($items));
     }
 }

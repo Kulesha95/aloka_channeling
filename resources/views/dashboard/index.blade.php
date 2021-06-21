@@ -15,6 +15,10 @@
         @include('dashboard.appointmentsSummary')
         @include('dashboard.incomeGraphs')
     @endif
+    @if (Auth::user()->is_store_keeper)
+        @include('dashboard.itemsSummary')
+        @include('dashboard.stockDataSummary')
+    @endif
 @endsection
 
 @section('js')

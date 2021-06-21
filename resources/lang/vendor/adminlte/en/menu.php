@@ -17,6 +17,7 @@ return [
     "patients" => "Patients",
     "payments" => "Payments",
     "prescriptions" => "Prescriptions",
+    "purchaseOrders" => "Purchase Orders",
     "schedules" => "Schedules",
     "suppliers" => "Suppliers",
     "users" => "Users",

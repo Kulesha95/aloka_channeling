@@ -33,6 +33,8 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('dashboard/appointmentsDataSummary', 'DashboardController@appointmentsDataSummary')->name('dashboard.appointmentsDataSummary');
 	Route::get('dashboard/generalDataSummary', 'DashboardController@generalDataSummary')->name('dashboard.generalDataSummary');
 	Route::get('dashboard/incomeGraphData', 'DashboardController@incomeGraphData')->name('dashboard.incomeGraphData');
+	Route::get('dashboard/itemsSummaryData', 'DashboardController@itemsSummaryData')->name('dashboard.itemsSummaryData');
+	Route::get('dashboard/stockSummaryData', 'DashboardController@stockSummaryData')->name('dashboard.stockSummaryData');
 
 	Route::get('explorationTypes/tests', 'ExplorationTypeController@tests')->name('explorationTypes.tests');
 
