@@ -90,4 +90,14 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function defaultStoreKeeper()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'username' => "storeKeeper",
+                'user_type_id' => UserTypes::STORE_KEEPER
+            ];
+        });
+    }
 }

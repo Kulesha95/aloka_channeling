@@ -25,40 +25,49 @@ exports.initializeTable = (
     tableId,
     columns,
     indexUrl = undefined,
-    actionContent = undefined
+    actionContent = undefined,
+    columnOptions = undefined
 ) => {
     // Generate Columns List
     const tableColumns = columns.map((column, index) => {
-        // If Column Contains Image Field Return Image Preview Instead Of Raw Data
-        if (column === "image") {
+        if (columnOptions && Object.keys(columnOptions).includes(column)) {
+            // Handle Custom Column Options
             return {
                 data: column,
-                // Convert Raw Data To Image Preview
-                render: function (data) {
-                    return (
-                        '<img class="img-circle image-preview-table" src="' +
-                        data +
-                        '" />'
-                    );
-                },
+                ...columnOptions[column],
             };
-        }
-        // If Column Contains Time Field Return Formatted Time For 12 Hours
-        if (["time", "time_from", "time_to"].includes(column)) {
+        } else {
+            // If Column Contains Image Field Return Image Preview Instead Of Raw Data
+            if (column === "image") {
+                return {
+                    data: column,
+                    // Convert Raw Data To Image Preview
+                    render: function (data) {
+                        return (
+                            '<img class="img-circle image-preview-table" src="' +
+                            data +
+                            '" />'
+                        );
+                    },
+                };
+            }
+            // If Column Contains Time Field Return Formatted Time For 12 Hours
+            if (["time", "time_from", "time_to"].includes(column)) {
+                return {
+                    data: column,
+                    // Convert Raw Data To Image Preview
+                    render: function (data) {
+                        return moment(data, "HH:mm:ss").format("hh:mm A");
+                    },
+                };
+            }
+            // Return Column Definition As Raw Data And Hide ID Column
             return {
                 data: column,
-                // Convert Raw Data To Image Preview
-                render: function (data) {
-                    return moment(data, "HH:mm:ss").format("hh:mm A");
-                },
+                responsivePriority: index == 1 ? 1 : 2,
+                visible: column !== "id",
             };
         }
-        // Return Column Definition As Raw Data And Hide ID Column
-        return {
-            data: column,
-            responsivePriority: index == 1 ? 1 : 2,
-            visible: column !== "id",
-        };
     });
     // If Table Needs Action Column Add It To The Columns List
     if (actionContent) {

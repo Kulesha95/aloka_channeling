@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
+use App\Http\Resources\ItemSuppliersResource;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -146,5 +147,16 @@ class ItemController extends Controller
     {
         $item->delete();
         return ResponseHelper::deleteSuccess('Item');
+    }
+
+    /**
+     * Get deficit items
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPurchasingItems()
+    {
+        $items = Item::where('is_purchase_item', true)->get();
+        return ResponseHelper::findSuccess('Purchase Items', ItemSuppliersResource::collection($items));
     }
 }

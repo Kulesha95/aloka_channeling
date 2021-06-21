@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
         "pending" => Prescriptions::PENDING_PRESCRIPTION,
         "issued" => Prescriptions::ISSUED_PRESCRIPTION
     ]);
+    route::view('purchaseOrders', 'purchaseOrders.index');
     route::view('schedules', 'schedules.index');
     route::view('suppliers', 'suppliers.index');
     Route::view('users', 'users.index');

@@ -36,6 +36,16 @@ class Item extends Model
         return $this->genericName->name;
     }
 
+    public function getStockAttribute()
+    {
+        return $this->batches->sum('stock_quantity');
+    }
+
+    public function getStockTextAttribute()
+    {
+        return number_format($this->stock) . " " . $this->unit;
+    }
+
     public function itemType()
     {
         return $this->belongsTo(ItemType::class)->withTrashed();
@@ -49,5 +59,15 @@ class Item extends Model
     public function batches()
     {
         return $this->hasMany(Batch::class);
+    }
+
+    public function suppliers()
+    {
+        return $this->belongsToMany(Supplier::class);
+    }
+
+    public function purchaseOrders()
+    {
+        return $this->belongsToMany(PurchaseOrder::class);
     }
 }

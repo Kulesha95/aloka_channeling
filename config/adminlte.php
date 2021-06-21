@@ -339,6 +339,12 @@ return [
             'icon' => 'fas fa-fw fa-truck',
             'can' => 'manage-suppliers'
         ],
+        [
+            'text' => 'purchaseOrders',
+            'url'  => 'purchaseOrders',
+            'icon' => 'fas fa-fw fa-shopping-cart',
+            'can' => 'manage-purchase-orders'
+        ],
 
     ],
 

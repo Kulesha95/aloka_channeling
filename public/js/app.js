@@ -1887,6 +1887,12 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 var _this = this;
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 // Handle Fill Data To The Datatable
 exports.fillData = function (table, data) {
   // Clear Existing Table Data
@@ -1915,36 +1921,44 @@ exports.loadData = function (table, url) {
 exports.initializeTable = function (tableId, columns) {
   var indexUrl = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
   var actionContent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+  var columnOptions = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : undefined;
   // Generate Columns List
   var tableColumns = columns.map(function (column, index) {
-    // If Column Contains Image Field Return Image Preview Instead Of Raw Data
-    if (column === "image") {
+    if (columnOptions && Object.keys(columnOptions).includes(column)) {
+      // Handle Custom Column Options
+      return _objectSpread({
+        data: column
+      }, columnOptions[column]);
+    } else {
+      // If Column Contains Image Field Return Image Preview Instead Of Raw Data
+      if (column === "image") {
+        return {
+          data: column,
+          // Convert Raw Data To Image Preview
+          render: function render(data) {
+            return '<img class="img-circle image-preview-table" src="' + data + '" />';
+          }
+        };
+      } // If Column Contains Time Field Return Formatted Time For 12 Hours
+
+
+      if (["time", "time_from", "time_to"].includes(column)) {
+        return {
+          data: column,
+          // Convert Raw Data To Image Preview
+          render: function render(data) {
+            return moment(data, "HH:mm:ss").format("hh:mm A");
+          }
+        };
+      } // Return Column Definition As Raw Data And Hide ID Column
+
+
       return {
         data: column,
-        // Convert Raw Data To Image Preview
-        render: function render(data) {
-          return '<img class="img-circle image-preview-table" src="' + data + '" />';
-        }
+        responsivePriority: index == 1 ? 1 : 2,
+        visible: column !== "id"
       };
-    } // If Column Contains Time Field Return Formatted Time For 12 Hours
-
-
-    if (["time", "time_from", "time_to"].includes(column)) {
-      return {
-        data: column,
-        // Convert Raw Data To Image Preview
-        render: function render(data) {
-          return moment(data, "HH:mm:ss").format("hh:mm A");
-        }
-      };
-    } // Return Column Definition As Raw Data And Hide ID Column
-
-
-    return {
-      data: column,
-      responsivePriority: index == 1 ? 1 : 2,
-      visible: column !== "id"
-    };
+    }
   }); // If Table Needs Action Column Add It To The Columns List
 
   if (actionContent) {

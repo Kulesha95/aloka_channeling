@@ -40,6 +40,8 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::get('doctors/schedule', 'DoctorController@schedule')->name('doctors.schedule');
 
+	Route::get('items/getPurchasingItems', 'ItemController@getPurchasingItems')->name('items.getPurchasingItems');
+
 	Route::post('patient/{patient}/explorations/storeReceptionist', 'ExplorationController@storeReceptionist')->name('explorations.storeReceptionist');
 
 	Route::get('patients/{patient}/history', 'PatientController@history')->name('patients.history');
@@ -56,6 +58,9 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('prescriptions/{prescription}/batches', 'PrescriptionController@batches')->name('prescriptions.batches');
 	Route::get('prescriptions/{prescription}/items', 'PrescriptionController@items')->name('prescriptions.items');
 
+
+	Route::get('suppliers/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
+
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('channelTypes', ChannelTypeController::class)->except(['index']);
@@ -71,7 +76,9 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('prescription.incomes', PrescriptionIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('patients', PatientController::class);
 	Route::apiResource('prescriptions', PrescriptionController::class);
+	Route::apiResource('purchaseOrders', PurchaseOrderController::class);
 	Route::apiResource('suppliers', SupplierController::class);
+	Route::apiResource('supplier.items', SupplierItemController::class)->except(['update', 'show']);
 	Route::apiResource('schedules', ScheduleController::class);
 	Route::apiResource('users', UserController::class);
 	Route::apiResource('userTypes', UserTypeController::class);
