@@ -11,6 +11,7 @@ return [
     "explorationTypes" => "Exploration Types",
     "general" => "GENERAL",
     "genericNames" => "Generic Names",
+    "goodReceives" => "Good Receives",
     "items" => "Items",
     "itemTypes" => "Item Types",
     "logout" => "Logout",

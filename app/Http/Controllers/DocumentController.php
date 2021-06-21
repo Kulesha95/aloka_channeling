@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\GoodReceive;
 use App\Models\Prescription;
 use App\Models\PurchaseOrder;
 use Barryvdh\Snappy\Facades\SnappyPdf;
@@ -32,6 +33,9 @@ class DocumentController extends Controller
                 break;
             case 'purchaseOrder':
                 $pdf = $this->getPurchaseOrder($id);
+                break;
+            case 'goodReceive':
+                $pdf = $this->getGoodReceive($id);
                 break;
             default:
                 return;
@@ -97,5 +101,16 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $purchaseOrder->purchase_order_number . "_Purchase_Order.pdf"];
+    }
+
+    public function getGoodReceive($id)
+    {
+        $goodReceive = GoodReceive::find($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.goodReceive', ['goodReceive' => $goodReceive])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $goodReceive->purchase_order_number . "_Good_Receive.pdf"];
     }
 }

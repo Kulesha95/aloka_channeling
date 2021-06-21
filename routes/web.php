@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     route::view('dosageUnits', 'dosageUnits.index');
     route::view('explorationTypes', 'explorationTypes.index');
     route::view('genericNames', 'genericNames.index');
+    route::view('goodReceives', 'goodReceives.index');
     route::view('items', 'items.index');
     route::view('itemTypes', 'itemTypes.index');
     Route::view('patients', 'patients.index', ['userType' => UserTypes::PATIENT]);

@@ -2,10 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Appointment;
-use App\Models\ExplorationType;
-use App\Models\GenericName;
-use App\Models\PurchaseOrder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,7 +24,6 @@ class DatabaseSeeder extends Seeder
                 SupplierSeeder::class,
                 ItemSeeder::class,
                 ExplorationTypeSeeder::class,
-                BatchSeeder::class,
                 UserSeeder::class,
                 DoctorSeeder::class,
                 PatientSeeder::class,
@@ -38,7 +33,9 @@ class DatabaseSeeder extends Seeder
                 PrescriptionSeeder::class,
                 DefaultAppointmentSeeder::class,
                 DirectionSeeder::class,
-                PurchaseOrderSeeder::class
+                PurchaseOrderSeeder::class,
+                GoodReceiveSeeder::class,
+                BatchSeeder::class
             ]);
         } else {
             $this->call([

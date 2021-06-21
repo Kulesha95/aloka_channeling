@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemResource;
+use App\Http\Resources\ItemSuppliersResource;
 use App\Models\Item;
 use App\Models\supplier;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class SupplierItemController extends Controller
     public function store(Request $request, supplier $supplier)
     {
         $supplier->items()->syncWithoutDetaching($request->get('item_id'));
-        return ResponseHelper::success('Item has been added successfully',[] );
+        return ResponseHelper::success('Item has been added successfully', []);
     }
 
     /**

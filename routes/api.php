@@ -61,7 +61,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('prescriptions/{prescription}/items', 'PrescriptionController@items')->name('prescriptions.items');
 
 
-	Route::get('suppliers/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
+	Route::get('supplier/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
@@ -70,13 +70,14 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('directions', DirectionController::class)->only(['index']);
 	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('dosageUnits', DosageUnitController::class);
-	Route::apiResource('patient.explorations', ExplorationController::class);
+	Route::apiResource('goodReceives', GoodReceiveController::class);
 	Route::apiResource('explorationTypes', ExplorationTypeController::class);
 	Route::apiResource('genericNames', GenericNameController::class);
 	Route::apiResource('items', ItemController::class);
 	Route::apiResource('itemTypes', ItemTypeController::class);
 	Route::apiResource('prescription.incomes', PrescriptionIncomeController::class)->except(['destroy', 'update']);
 	Route::apiResource('patients', PatientController::class);
+	Route::apiResource('patient.explorations', ExplorationController::class);
 	Route::apiResource('prescriptions', PrescriptionController::class);
 	Route::apiResource('purchaseOrders', PurchaseOrderController::class);
 	Route::apiResource('suppliers', SupplierController::class);

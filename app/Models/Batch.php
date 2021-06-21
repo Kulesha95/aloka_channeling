@@ -12,14 +12,16 @@ class Batch extends Model
 
     protected $fillable = [
         'item_id',
-        'grn_id',
-        'grn_quantity',
+        'good_receive_id',
+        'good_receive_quantity',
         'stock_quantity',
         'sold_quantity',
         'damaged_quantity',
         'returned_quantity',
         'expired_quantity',
         'dispose_quantity',
+        'purchase_quantity',
+        'purchase_price',
         'price',
         'expire_date'
     ];

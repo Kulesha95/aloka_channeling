@@ -37,4 +37,9 @@ class PurchaseOrder extends Model
     {
         return $this->belongsTo(Supplier::class);
     }
+
+    public function goodReceives()
+    {
+        return $this->morphMany(GoodReceive::class, 'supplierable');
+    }
 }

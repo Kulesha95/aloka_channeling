@@ -345,6 +345,12 @@ return [
             'icon' => 'fas fa-fw fa-shopping-cart',
             'can' => 'manage-purchase-orders'
         ],
+        [
+            'text' => 'goodReceives',
+            'url'  => 'goodReceives',
+            'icon' => 'fas fa-fw fa-truck-loading',
+            'can' => 'manage-goods-receives'
+        ],
 
     ],
 
