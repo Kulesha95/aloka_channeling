@@ -31,6 +31,7 @@
                                 <th>{{ __('app.fields.purchasePrice') }}</th>
                                 <th>{{ __('app.fields.sellingPrice') }}</th>
                                 <th>{{ __('app.fields.expireDate') }}</th>
+                                <th>{{ __('app.fields.actions') }}</th>
                             </tr>
                         </thead>
                     </table>
@@ -56,32 +57,32 @@
         const columnOptions = {
             received_quantity: {
                 data: "id",
-                render: (data) => {
-                    return `<input type="number" class="form-control" name="received_quantity[${data}]" placeholder="{{ __('app.fields.receivedQuantity') }}" value="0">`;
+                render: (data, type, row, meta) => {
+                    return `<input type="hidden" name="item_id[${meta.row}]" value="${data}"></input><input type="number" class="form-control" name="received_quantity[${meta.row}]" placeholder="{{ __('app.fields.receivedQuantity') }}" value="0">`;
                 }
             },
             free_quantity: {
                 data: "id",
-                render: (data) => {
-                    return `<input type="number" class="form-control" name="free_quantity[${data}]" placeholder="{{ __('app.fields.freeQuantity') }}" value="0">`;
+                render: (data, type, row, meta) => {
+                    return `<input type="number" class="form-control" name="free_quantity[${meta.row}]" placeholder="{{ __('app.fields.freeQuantity') }}" value="0">`;
                 }
             },
             purchase_price: {
                 data: "id",
-                render: (data) => {
-                    return `<input type="number" step="0.01" class="form-control" name="purchase_price[${data}]" placeholder="{{ __('app.fields.purchasePrice') }}" value="0.00">`;
+                render: (data, type, row, meta) => {
+                    return `<input type="number" step="0.01" class="form-control" name="purchase_price[${meta.row}]" placeholder="{{ __('app.fields.purchasePrice') }}" value="0.00">`;
                 }
             },
             selling_price: {
                 data: "id",
-                render: (data) => {
-                    return `<input type="number" step="0.01" class="form-control" name="selling_price[${data}]" placeholder="{{ __('app.fields.sellingPrice') }}" value="0.00">`;
+                render: (data, type, row, meta) => {
+                    return `<input type="number" step="0.01" class="form-control" name="selling_price[${meta.row}]" placeholder="{{ __('app.fields.sellingPrice') }}" value="0.00">`;
                 }
             },
             expire_date: {
                 data: "id",
-                render: (data) => {
-                    return `<input type="date" class="form-control" name="expire_date[${data}]" placeholder="{{ __('app.fields.expireDate') }}">`;
+                render: (data, type, row, meta) => {
+                    return `<input type="date" class="form-control" name="expire_date[${meta.row}]" placeholder="{{ __('app.fields.expireDate') }}">`;
                 }
             }
         }
@@ -89,7 +90,7 @@
             dataTableNameGoodReceives,
             dataTableColumnsGoodReceives,
             undefined,
-            undefined,
+            "<button type='button' class='btn btn-sm btn-outline-success mr-1 copy-button'><i class='fas fa-copy fa-fw' ></i></button>",
             columnOptions
         );
         const openCreateGoodsReceiveModal = () => {
@@ -105,6 +106,11 @@
             dataTableHandler.fillData(tableGoodReceives, []);
             $(`#createGoodsReceiveModal`).modal("show");
         }
+        const cloneItem=(data)=>{
+            tableGoodReceives.row.add(data).draw();
+        }
+        dataTableHandler.handleCustomTableData(tableGoodReceives,
+            cloneItem, 'copy-button');
         $('#supplier_id_create').on('change', (e) => {
             const supplier = $('#supplier_id_create').val();
             if (supplier) {

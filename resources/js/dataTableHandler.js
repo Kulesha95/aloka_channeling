@@ -187,3 +187,18 @@ exports.handleCustom = (
         });
     });
 };
+
+// Handle Custom Action With Table Data
+exports.handleCustomTableData = (
+    table,
+    handleCallback,
+    activator
+) => {
+    // Add Listener To The Button
+    table.on("click", `.${activator}`, function () {
+        // Get Selected Row Data
+        const data = table.row($(this).parents("tr")).data();
+        // Pass Data To The Call Back Functions
+        handleCallback(data);
+    });
+};

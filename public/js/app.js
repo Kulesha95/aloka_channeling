@@ -2067,6 +2067,17 @@ exports.handleCustom = function (table, url) {
       handleCallback(response.data);
     });
   });
+}; // Handle Custom Action With Table Data
+
+
+exports.handleCustomTableData = function (table, handleCallback, activator) {
+  // Add Listener To The Button
+  table.on("click", ".".concat(activator), function () {
+    // Get Selected Row Data
+    var data = table.row($(this).parents("tr")).data(); // Pass Data To The Call Back Functions
+
+    handleCallback(data);
+  });
 };
 
 /***/ }),

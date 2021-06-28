@@ -37,27 +37,28 @@ class GoodReceiveController extends Controller
                 "date" => $date, "time" => $time
             ]);
         }
+        $items = $request->input('item_id', []);
         $purchaseQuantities = $request->input('received_quantity', []);
         $freeQuantities = $request->input('free_quantity', []);
         $purchasePrices = $request->input('purchase_price', []);
         $sellingPrices = $request->input('selling_price', []);
         $expireDates = $request->input('expire_date', []);
-        foreach ($purchaseQuantities as $itemId => $purchaseQuantity) {
+        foreach ($purchaseQuantities as $rowId => $purchaseQuantity) {
             if ($purchaseQuantity == 0) continue;
             Batch::create([
-                "item_id" => $itemId,
+                "item_id" => $items[$rowId],
                 "good_receive_id" => $goodReceive->id,
-                "good_receive_quantity" => $purchaseQuantity + $freeQuantities[$itemId],
-                "stock_quantity" => $purchaseQuantity + $freeQuantities[$itemId],
+                "good_receive_quantity" => $purchaseQuantity + $freeQuantities[$rowId],
+                "stock_quantity" => $purchaseQuantity + $freeQuantities[$rowId],
                 "sold_quantity" => 0,
                 "damaged_quantity" => 0,
                 "returned_quantity" => 0,
                 "expired_quantity" => 0,
                 "dispose_quantity" => 0,
                 "purchase_quantity" => $purchaseQuantity,
-                "purchase_price" => $purchasePrices[$itemId],
-                "price" => $sellingPrices[$itemId],
-                "expire_date" => $expireDates[$itemId],
+                "purchase_price" => $purchasePrices[$rowId],
+                "price" => $sellingPrices[$rowId],
+                "expire_date" => $expireDates[$rowId],
             ]);
         }
         return ResponseHelper::createSuccess("Goods Receive", $goodReceive);
