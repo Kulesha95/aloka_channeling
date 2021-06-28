@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
     route::view('purchaseReturns', 'purchaseReturns.index');
     route::view('salesReturns', 'salesReturns.index');
     route::view('schedules', 'schedules.index');
+    route::view('supplierPayments', 'expenses.index');
     route::view('suppliers', 'suppliers.index');
     Route::view('users', 'users.index');
     Route::view('userTypes', 'userTypes.index')->name('userTypes.index.view');

@@ -48,6 +48,9 @@ class DocumentController extends Controller
             case 'purchaseReturn':
                 $pdf = $this->getPurchaseReturn($id);
                 break;
+            case 'supplierPayments':
+                $pdf = $this->getSupplierPayments($id);
+                break;
             default:
                 return;
                 break;
@@ -162,5 +165,16 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $purchaseReturn->purchase_return_number . "_Purchase_Return.pdf"];
+    }
+
+    public function getSupplierPayments($id)
+    {
+        $goodReceive = GoodReceive::findOrFail($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.supplierPayments', ['goodReceive' => $goodReceive])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $goodReceive->good_receive_number . "_Supplier_Payments.pdf"];
     }
 }

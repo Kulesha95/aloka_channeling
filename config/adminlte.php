@@ -363,6 +363,12 @@ return [
             'icon' => 'fas fa-fw fa-undo-alt',
             'can' => 'manage-purchase-returns'
         ],
+        [
+            'text' => 'supplierPayments',
+            'url'  => 'supplierPayments',
+            'icon' => 'fas fa-fw fa-truck-loading',
+            'can' => 'manage-supplier-payments'
+        ],
 
     ],
 

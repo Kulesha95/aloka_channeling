@@ -23,6 +23,7 @@ return [
     "salesReturns" => "Sales Returns",
     "schedules" => "Schedules",
     "suppliers" => "Suppliers",
+    "supplierPayments" => "Supplier Payments",
     "users" => "Users",
     "userTypes" => "User Types",
 ];

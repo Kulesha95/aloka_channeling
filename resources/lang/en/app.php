@@ -81,7 +81,9 @@ return [
 		"freeQuantity" => "Free Quantity",
 		"gender" => "Gender",
 		"genericName" => "Generic Name",
+		"goodReceiveDate" => "Good Receive Date",
 		"goodReceiveNote" => "Good Receive Note",
+		"goodReceiveTime" => "Good Receive Time",
 		"goodReceiveNoteNumber" => "Good Receive Note Number",
 		"height" => "Height",
 		"id" => "Id",
@@ -144,6 +146,7 @@ return [
 		"username" => "Username",
 		"userType" => "User Type",
 		"value" => "Value",
+		"voucherNumber" => "Voucher Number",
 		"weight" => "Weight",
 		"worksAt" => "Works At",
 	],
@@ -221,6 +224,8 @@ return [
 		"purchaseReturnsManagement" => "Purchase Return Management",
 		"createPurchaseReturn" => "Create Purchase Return",
 
+		"supplierPaymentsManagement" => "Supplier Payments Management",
+
 		"suppliersManagement" => "Supplier Management",
 		"createSupplier" => "Create Supplier",
 		"editSupplier" => "Edit Supplier",
@@ -237,6 +242,7 @@ return [
 		"purchaseReturn" => "Purchase Return",
 		"medicalPrescription" => "Medical Prescription",
 		"salesReturn" => "Sales Return",
+		"supplierPayments" => "Supplier Payments",
 		"testPrescription" => "Test Prescription",
 
 		"channelingCalendar" => "Channeling Calendar",

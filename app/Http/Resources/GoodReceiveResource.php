@@ -22,6 +22,10 @@ class GoodReceiveResource extends JsonResource
             "time" => $this->time,
             "total" => $this->total,
             "total_text" => $this->total_text,
+            "paid" => $this->paid,
+            "paid_text" => $this->paid_text,
+            "balance" => $this->balance,
+            "balance_text" => $this->balance_text,
         ];
     }
 }

@@ -29,6 +29,32 @@ class GoodReceive extends Model
         return "Rs. " . number_format($this->total, 2);
     }
 
+    public function getPaidAttribute()
+    {
+        return $this->expenses->sum('amount');
+    }
+
+    public function getBalanceAttribute()
+    {
+        return $this->total - $this->paid;
+    }
+
+    public function getFeeTextAttribute()
+    {
+        return "Rs. " . number_format($this->fee, 2);
+    }
+
+    public function getPaidTextAttribute()
+    {
+        return "Rs. " . number_format($this->paid, 2);
+    }
+
+    public function getBalanceTextAttribute()
+    {
+        return "Rs. " . number_format($this->balance, 2);
+    }
+
+
     public function getSupplierAttribute()
     {
         return $this->supplierable_type == GoodReceives::PURCHASE_ORDER
@@ -70,5 +96,10 @@ class GoodReceive extends Model
             'price',
             'expire_date'
         ]);
+    }
+
+    public function expenses()
+    {
+        return $this->morphMany(Expense::class, 'expensable');
     }
 }
