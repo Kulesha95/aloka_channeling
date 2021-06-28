@@ -351,6 +351,12 @@ return [
             'icon' => 'fas fa-fw fa-truck-loading',
             'can' => 'manage-goods-receives'
         ],
+        [
+            'text' => 'salesReturns',
+            'url'  => 'salesReturns',
+            'icon' => 'fas fa-fw fa-undo-alt',
+            'can' => 'manage-sales-returns'
+        ],
 
     ],
 

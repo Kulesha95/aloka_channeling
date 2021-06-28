@@ -59,6 +59,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::put('prescriptions/{prescription}/updateStatus', 'PrescriptionController@updateStatus')->name('prescriptions.updateStatus');
 	Route::get('prescriptions/{prescription}/batches', 'PrescriptionController@batches')->name('prescriptions.batches');
 	Route::get('prescriptions/{prescription}/items', 'PrescriptionController@items')->name('prescriptions.items');
+	Route::get('prescriptions/returnable', 'PrescriptionController@returnable')->name('prescriptions.returnable');
 
 
 	Route::get('supplier/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
@@ -80,6 +81,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('patient.explorations', ExplorationController::class);
 	Route::apiResource('prescriptions', PrescriptionController::class);
 	Route::apiResource('purchaseOrders', PurchaseOrderController::class);
+	Route::apiResource('salesReturns', SalesReturnController::class);
 	Route::apiResource('suppliers', SupplierController::class);
 	Route::apiResource('supplier.items', SupplierItemController::class)->except(['update', 'show']);
 	Route::apiResource('schedules', ScheduleController::class);

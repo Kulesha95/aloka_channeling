@@ -330,4 +330,17 @@ class PrescriptionController extends Controller
         ];
         return ResponseHelper::findSuccess('Prescription', $data);
     }
+
+    /**
+     * Get all returnable prescription details
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function returnable()
+    {
+        $data = Prescription::where('status', Prescriptions::ISSUED_PRESCRIPTION)
+            ->where('date', '>=', Carbon::now()->subWeek()->toDateString())
+            ->get();
+        return ResponseHelper::findSuccess('Prescription', PrescriptionResource::collection($data));
+    }
 }

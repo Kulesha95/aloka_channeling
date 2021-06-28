@@ -15,8 +15,11 @@ class PrescriptionBatchResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->pivot->batch->id,
             'generic_name' => $this->pivot->batch->item->generic_name_text,
             'brand_name' => $this->pivot->batch->item->brand_name,
+            'price' => $this->pivot->batch->price,
+            'quantity' => $this->pivot->quantity,
             'price_text' => $this->pivot->batch->price_text,
             'quantity_text' => $this->pivot->quantity_text,
             'total_text' => $this->pivot->total_text,
