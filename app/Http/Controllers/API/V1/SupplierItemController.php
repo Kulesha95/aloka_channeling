@@ -20,7 +20,7 @@ class SupplierItemController extends Controller
      */
     public function index(supplier $supplier)
     {
-        return ResponseHelper::findSuccess('Items', ItemResource::collection($supplier->items));
+        return ResponseHelper::findSuccess('Items', ItemSuppliersResource::collection($supplier->items));
     }
 
     /**

@@ -10,6 +10,15 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div class="row">
+                    <label for="supplier_id">{{ __('app.fields.supplier') }}</label>
+                    <select name="supplier_id" id="supplier_id_create" class="form-control"
+                        placeholder="{{ __('app.fields.supplier') }}">
+                        <option disabled selected>{{ __('app.texts.selectSupplier') }}</option>
+                    </select>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <hr>
                 <form action="{{ route('purchaseOrders.store') }}" method="POST" id="createPurchaseOrderForm">
                     <table id="deficit_items_list_table" class="table table-sm table-striped table-bordered table-hover"
                         style="width:100%">
@@ -19,7 +28,6 @@
                                 <th>{{ __('app.fields.genericName') }}</th>
                                 <th>{{ __('app.fields.reorderLevel') }}</th>
                                 <th>{{ __('app.fields.stockQuantity') }}</th>
-                                <th>{{ __('app.fields.supplier') }}</th>
                                 <th>{{ __('app.fields.orderQuantity') }}</th>
                             </tr>
                         </thead>
@@ -39,31 +47,17 @@
         // Datatable ID
         const dataTableNameDeficitItems = 'deficit_items_list_table';
         // Table Columns List
-        const dataTableColumnsDeficitItems = ["brand_name", "generic_name", "reorder_level_text", "stock_text", "suppliers",
+        const dataTableColumnsDeficitItems = ["brand_name", "generic_name", "reorder_level_text", "stock_text",
             "reorder_quantity"
         ];
         const columnOptions = {
-            suppliers: {
-                data: {
-                    id: "id",
-                    suppliers: "suppliers"
-                },
-                render: (data) => {
-                    const supplierOptions = data.suppliers.map(supplier => {
-                        return `<option value="${supplier.id}">${supplier.name}</option>`;
-                    });
-                    supplierOptions.unshift(
-                        "<option selected value='0'>{{ __('app.texts.selectSupplier') }}</option>");
-                    return `<select class="form-control" name="supplier_id[${data.id}]">${supplierOptions}</select>`
-                }
-            },
             reorder_quantity: {
                 data: {
                     id: "id",
                     reorder_quantity: "reorder_quantity"
                 },
-                render: (data) => {
-                    return `<input type="number" class="form-control" name="quantity[${data.id}]" placeholder="{{ __('app.fields.quantity') }}" value="${data.reorder_quantity}">`;
+                render: (data,type,row,meta) => {
+                    return `<input type="number" class="form-control" name="quantity[${data.id}]" placeholder="{{ __('app.fields.quantity') }}" value="${data.stock > data.reorder_level ? 0 : data.reorder_quantity}">`;
                 }
             },
             stock_text: {
@@ -77,7 +71,7 @@
                 }
             }
         }
-        const tableDeficitItems = dataTableHandler.initializeTable(
+        const tableSupplierItems = dataTableHandler.initializeTable(
             dataTableNameDeficitItems,
             dataTableColumnsDeficitItems,
             undefined,
@@ -85,20 +79,40 @@
             columnOptions
         );
         const openCreatePurchaseOrderModal = () => {
-            httpService.get("{{ route('items.getPurchasingItems') }}").then(response => {
-                dataTableHandler.fillData(tableDeficitItems, response.data);
-            });
+            $('#supplier_id_create').empty();
+            $('#supplier_id_create').append(
+                `<option disabled selected>{{ __('app.texts.selectSupplier') }}</option>`)
+            httpService.get("{{ route('suppliers.index') }}").then(response => {
+                response.data.forEach(element => {
+                    $('#supplier_id_create').append(new Option(element.name, element.id),
+                        false, false)
+                });
+            })
+            dataTableHandler.fillData(tableSupplierItems, []);
             $(`#createPurchaseOrderModal`).modal("show");
         }
+        $('#supplier_id_create').on('change', (e) => {
+            const supplier = $('#supplier_id_create').val();
+            if (supplier) {
+                httpService.get("{{ route('supplier.items.index', ':supplier') }}".replace(':supplier',
+                        supplier))
+                    .then(response => {
+                        dataTableHandler.fillData(tableSupplierItems, response.data);
+                    });
+            } else {
+                dataTableHandler.fillData(tableSupplierItems, []);
+            }
+        });
         $('#createPurchaseOrderForm').on('submit', e => {
             e.preventDefault();
             formData = new FormData();
-            var params = tableDeficitItems.$('input,select').serializeArray();
+            var params = tableSupplierItems.$('input,select').serializeArray();
             $.each(params, function() {
                 if (!$.contains(document, '#createPurchaseOrderForm')) {
                     formData.append(this.name, this.value);
                 }
             });
+            formData.append('supplier_id', $('#supplier_id_create').val());
             httpService.post($(`#createPurchaseOrderForm`).attr("action"), formData)
                 .then((response) => {
                     $('#createPurchaseOrderForm').trigger("reset");

@@ -46,22 +46,16 @@ class PurchaseOrderController extends Controller
      */
     public function store(Request $request)
     {
-        $suppliers = $request->input('supplier_id', []);
         $quantities = $request->input('quantity', []);
-        $purchaseOrders = [];
-        foreach ($quantities as $itemId => $quantity) {
-            if ($suppliers[$itemId] == 0) continue;
-            $purchaseOrders = Arr::prepend(
-                $purchaseOrders,
-                Arr::prepend($purchaseOrders[$suppliers[$itemId]] ?? [], ["quantity" => $quantity], $itemId),
-                $suppliers[$itemId]
-            );
-        }
         $date = now()->toDateString();
         $time = now()->toTimeString();
-        foreach ($purchaseOrders as $supplierId => $items) {
-            $purchaseOrder = PurchaseOrder::create(['supplier_id' => $supplierId, "date" => $date, "time" => $time]);
-            $purchaseOrder->items()->sync($items);
+        $purchaseOrder = PurchaseOrder::create([
+            'supplier_id' => $request->get('supplier_id'),
+            "date" => $date,
+            "time" => $time
+        ]);
+        foreach ($quantities as $itemId => $quantity) {
+            $purchaseOrder->items()->attach([$itemId => ["quantity" => $quantity]]);
         }
         return ResponseHelper::createSuccess("Purchase Orders", []);
     }

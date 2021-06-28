@@ -49,7 +49,7 @@
         // Datatable ID
         const dataTableNameGoodReceives = 'good_receives_list_table';
         // Table Columns List
-        const dataTableColumnsGoodReceives = ["brand_name", "generic_name_text", "received_quantity", "free_quantity",
+        const dataTableColumnsGoodReceives = ["brand_name", "generic_name", "received_quantity", "free_quantity",
             "purchase_price",
             "selling_price", "expire_date"
         ];

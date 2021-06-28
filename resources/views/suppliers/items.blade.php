@@ -53,7 +53,7 @@
         // Datatable ID
         const dataTableNameItems = 'supplier_items_table';
         // Table Columns List
-        const dataTableColumnsItems = ["id", "generic_name_text", "brand_name"];
+        const dataTableColumnsItems = ["id", "generic_name", "brand_name"];
         // Column Indexes For URL Parameters
         const parameterIndexesItems = {
             "id": 0
@@ -76,6 +76,7 @@
         formHandler.handleSave("supplierItemsForm", inputsItems, loadDataItems, null);
         const openItemsManagement = (data) => {
             currentSupplier = data.id;
+            dataTableHandler.fillData(tableItems, []);
             loadDataItems();
             // Delete Item
             dataTableHandler.handleDelete(
@@ -83,7 +84,7 @@
                 deleteUrlItems.replace(':supplier', currentSupplier),
                 parameterIndexesItems,
                 indexUrlItems.replace(':supplier', currentSupplier),
-				loadItemsList
+                loadItemsList
             );
             let itemsAddUrl = $(`#supplierItemsForm`).data("action");
             itemsAddUrl = itemsAddUrl.replace(`:id`, currentSupplier);
