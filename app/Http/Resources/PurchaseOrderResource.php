@@ -20,7 +20,9 @@ class PurchaseOrderResource extends JsonResource
             "time" => $this->time,
             "supplier_id" => $this->supplier_id,
             "supplier_text" => $this->supplier_text,
-            "purchase_order_number" => $this->purchase_order_number
+            "purchase_order_number" => $this->purchase_order_number,
+            "status" => $this->status,
+            "status_text" => $this->status_text
         ];
     }
 }

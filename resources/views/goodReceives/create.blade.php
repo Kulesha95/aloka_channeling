@@ -11,11 +11,17 @@
             </div>
             <div class="modal-body">
                 <form action="{{ route('goodReceives.store') }}" method="POST" id="createGoodsReceiveForm">
-                    <div class="row">
+                    <div class="row m-1 d-block">
                         <label for="supplier_id">{{ __('app.fields.supplier') }}</label>
-                        <select name="supplier_id" id="supplier_id_create" class="form-control"
-                            placeholder="{{ __('app.fields.supplier') }}">
-                            <option disabled selected>{{ __('app.texts.selectSupplier') }}</option>
+                        <select name="supplier_id" id="supplier_id_create" class="form-control col-12">
+                            <option></option>
+                        </select>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="row m-1 d-block">
+                        <label for="purchase_order_id">{{ __('app.fields.purchaseOrder') }}</label>
+                        <select name="purchase_order_id" id="purchase_order_id_create" class="form-control col-12">
+                            <option></option>
                         </select>
                         <div class="invalid-feedback"></div>
                     </div>
@@ -35,8 +41,11 @@
                             </tr>
                         </thead>
                     </table>
-                    <div class="row m-1">
-                        <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-save mr-1"
+                    <div class="row m-1 justify-content-end">
+                        <a id="viewPurchaseOrder" type="submit" class="btn btn-success text-white"><i
+                                class="fa fa-eye mr-1"
+                                aria-hidden="true"></i>{{ __('app.buttons.openPOVsGRN') }}</a>
+                        <button type="submit" class="btn btn-primary ml-1"><i class="fa fa-save mr-1"
                                 aria-hidden="true"></i>{{ __('app.buttons.save') }}</button>
                     </div>
                 </form>
@@ -93,10 +102,19 @@
             "<button type='button' class='btn btn-sm btn-outline-success mr-1 copy-button'><i class='fas fa-copy fa-fw' ></i></button>",
             columnOptions
         );
+        const select2OptionsSupplier = {
+            placeholder: "{{ __('app.texts.selectSupplier') }}"
+        }
+        const select2OptionsPurchaseOrder = {
+            placeholder: "{{ __('app.texts.selectPurchaseOrder') }}"
+        }
+        $('#supplier_id_create').select2(select2OptionsSupplier);
+        $('#purchase_order_id_create').select2(select2OptionsPurchaseOrder);
         const openCreateGoodsReceiveModal = () => {
+            $('#viewPurchaseOrder').removeClass('d-block');
+            $('#viewPurchaseOrder').addClass('d-none');
             $('#supplier_id_create').empty();
-            $('#supplier_id_create').append(
-                `<option disabled selected>{{ __('app.texts.selectSupplier') }}</option>`)
+            $('#supplier_id_create').append(new Option("", undefined), false, false)
             httpService.get("{{ route('suppliers.index') }}").then(response => {
                 response.data.forEach(element => {
                     $('#supplier_id_create').append(new Option(element.name, element.id),
@@ -106,20 +124,59 @@
             dataTableHandler.fillData(tableGoodReceives, []);
             $(`#createGoodsReceiveModal`).modal("show");
         }
-        const cloneItem=(data)=>{
+        const cloneItem = (data) => {
             tableGoodReceives.row.add(data).draw();
         }
         dataTableHandler.handleCustomTableData(tableGoodReceives,
             cloneItem, 'copy-button');
         $('#supplier_id_create').on('change', (e) => {
             const supplier = $('#supplier_id_create').val();
+            $('#viewPurchaseOrder').removeClass('d-block');
+            $('#viewPurchaseOrder').addClass('d-none');
+            $('#purchase_order_id_create').empty();
+            $('#purchase_order_id_create').append(new Option("", undefined), false, false)
+            $('#purchase_order_id_create').append(new Option("{{ __('app.texts.directPurchases') }}", 0), false,
+                false)
             if (supplier) {
+                httpService.get("{{ route('supplier.purchaseOrders', ':supplier') }}".replace(':supplier',
+                        supplier))
+                    .then(response => {
+                        response.data.forEach(element => {
+                            $('#purchase_order_id_create').append(new Option(element
+                                    .purchase_order_number,
+                                    element.id),
+                                false, false)
+                        });
+                    });
+                httpService.get("{{ route('supplier.items.index', ':supplier') }}".replace(':supplier',
+                        supplier))
+                    .then(response => {
+                        dataTableHandler.fillData(tableGoodReceives, response.data);
+                    });
+            }
+        });
+        $('#purchase_order_id_create').on('change', (e) => {
+            const supplier = $('#supplier_id_create').val();
+            const purchaseOrder = $('#purchase_order_id_create').val();
+            if (purchaseOrder > 0) {
+                $('#viewPurchaseOrder').removeClass('d-none');
+                $('#viewPurchaseOrder').addClass('d-block');
+                httpService.get("{{ route('purchaseOrders.items', ':purchaseOrder') }}".replace(':purchaseOrder',
+                        purchaseOrder))
+                    .then(response => {
+                        dataTableHandler.fillData(tableGoodReceives, response.data);
+                    });
+            } else if (supplier) {
+                $('#viewPurchaseOrder').removeClass('d-block');
+                $('#viewPurchaseOrder').addClass('d-none');
                 httpService.get("{{ route('supplier.items.index', ':supplier') }}".replace(':supplier',
                         supplier))
                     .then(response => {
                         dataTableHandler.fillData(tableGoodReceives, response.data);
                     });
             } else {
+                $('#viewPurchaseOrder').removeClass('d-block');
+                $('#viewPurchaseOrder').addClass('d-none');
                 dataTableHandler.fillData(tableGoodReceives, []);
             }
         });
@@ -133,6 +190,7 @@
                 }
             });
             formData.append('supplier_id', $('#supplier_id_create').val());
+            formData.append('purchase_order_id', $('#purchase_order_id_create').val());
             httpService.post($(`#createGoodsReceiveForm`).attr("action"), formData)
                 .then((response) => {
                     $('#createGoodsReceiveForm').trigger("reset");
@@ -140,6 +198,11 @@
                     messageHandler.successMessage(response.message);
                     loadData();
                 });
+        })
+        $('#viewPurchaseOrder').on('click', () => {
+            const documentUrl =
+                "{{ route('documents.getPdf', ['type' => 'purchaseOrderVsGoodReceives', 'id' => ':id', 'action' => 'view']) }}";
+            window.open(documentUrl.replace(':id', $('#purchase_order_id_create').val()));
         })
     </script>
 @endpush

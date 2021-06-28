@@ -4,15 +4,15 @@
 
 @section('content')
     <div class="row">
-        <div class="col-8">
+        <div class="col-7">
             <div class="row">
-                <div class="col-10 border border-dark p-3">
+                <div class="col-10">
                     <div class="row">
-                        <div class="col-3">
-                            {{ __('app.fields.supplier') }} :-
+                        <div class="col-3 d-flex justify-content-end">
+                            {{ __('app.fields.supplier') }} :
                         </div>
                         <div class="col-9">
-                            <div class="row">{{ $goodReceive->supplier_text }}</div>
+                            <div class="row">{{ $goodReceive->supplier->name }}</div>
                             <div class="row">{{ $goodReceive->supplier->address }}</div>
                             <div class="row">0{{ $goodReceive->supplier->telephone }}</div>
                             <div class="row">{{ $goodReceive->supplier->email }}</div>
@@ -22,19 +22,25 @@
                 </div>
             </div>
         </div>
-        <div class="col-4 align-items-center d-flex">
+        <div class="col-5 align-items-center">
             <div class="w-100">
+                @if ($goodReceive->supplierable_type == app\constants\GoodReceives::PURCHASE_ORDER)
+                    <div class="row">
+                        <div class="col-5">{{ __('app.fields.purchaseOrder') }}</div>
+                        <div class="col-7">: {{ $goodReceive->supplierable->purchase_order_number }}</div>
+                    </div>
+                @endif
                 <div class="row">
-                    <div class="col-3">{{ __('app.fields.number') }}</div>
-                    <div class="col-9">: {{ $goodReceive->good_receive_number }}</div>
+                    <div class="col-5">{{ __('app.fields.goodReceiveNote') }}</div>
+                    <div class="col-7">: {{ $goodReceive->good_receive_number }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-3">{{ __('app.fields.date') }}</div>
-                    <div class="col-9">: {{ $goodReceive->date }}</div>
+                    <div class="col-5">{{ __('app.fields.date') }}</div>
+                    <div class="col-7">: {{ $goodReceive->date }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-3">{{ __('app.fields.time') }}</div>
-                    <div class="col-9">: {{ $goodReceive->time_text }}</div>
+                    <div class="col-5">{{ __('app.fields.time') }}</div>
+                    <div class="col-7">: {{ $goodReceive->time_text }}</div>
                 </div>
             </div>
         </div>

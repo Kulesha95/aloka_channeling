@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Constants\PurchaseOrders;
 use App\Models\PurchaseOrder;
 use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -34,6 +35,7 @@ class PurchaseOrderFactory extends Factory
             })->random()->id,
             'date' => $date,
             'time' => $time,
+            "status" => PurchaseOrders::PENDING
         ];
     }
 }

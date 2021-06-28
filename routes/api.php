@@ -61,8 +61,10 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('prescriptions/{prescription}/items', 'PrescriptionController@items')->name('prescriptions.items');
 	Route::get('prescriptions/returnable', 'PrescriptionController@returnable')->name('prescriptions.returnable');
 
+	Route::get('purchaseOrder/{purchaseOrder}/items', 'PurchaseOrderController@items')->name('purchaseOrders.items');
 
 	Route::get('supplier/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
+	Route::get('supplier/{supplier}/purchaseOrders', 'SupplierController@purchaseOrders')->name('supplier.purchaseOrders');
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);

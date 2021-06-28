@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\View;
 class DocumentController extends Controller
 {
 
-    private $marginTop = 65;
+    private $marginTop = 50;
     private $marginBottom = 20;
 
     public function getDocument($type, $id, $action)
@@ -40,6 +40,9 @@ class DocumentController extends Controller
                 break;
             case 'salesReturn':
                 $pdf = $this->getSalesReturn($id);
+                break;
+            case 'purchaseOrderVsGoodReceives':
+                $pdf = $this->getPurchaseOrderVsGoodReceives($id);
                 break;
             default:
                 return;
@@ -127,5 +130,22 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $salesReturn->sales_return_number . "_Sales_Return.pdf"];
+    }
+
+    public function getPurchaseOrderVsGoodReceives($id)
+    {
+        $purchaseOrder = PurchaseOrder::find($id);
+        $goodReceiveItems = $purchaseOrder->batches->groupBy('item_id')->mapWithKeys(function ($goodReceiveItemCollection) {
+            return [$goodReceiveItemCollection->first()->item_id => $goodReceiveItemCollection->sum('purchase_quantity')];
+        });
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.purchaseOrderVsGoodReceives', [
+            'purchaseOrder' => $purchaseOrder,
+            'goodReceiveItems' => $goodReceiveItems
+        ])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $purchaseOrder->purchase_order_number . "_Purchase_Order_Vs_Good_Receives.pdf"];
     }
 }

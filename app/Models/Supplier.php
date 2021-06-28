@@ -17,6 +17,11 @@ class Supplier extends Model
         return $this->belongsToMany(Item::class);
     }
 
+    public function purchaseOrders()
+    {
+        return $this->hasMany(PurchaseOrder::class);
+    }
+
     public function goodReceives()
     {
         return $this->morphMany(GoodReceive::class, 'supplierable');

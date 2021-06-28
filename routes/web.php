@@ -4,6 +4,7 @@ use App\Constants\Appointments;
 use App\Constants\Prescriptions;
 use App\Constants\ReturnReasons;
 use App\Constants\UserTypes;
+use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test', function () {
+    $purchaseOrder = PurchaseOrder::with(['batches', 'items'])->find(4);
+    $itemQuanities = $purchaseOrder->items->map(function ($item) {
+        return [$item->id => $item->pivot->quantity];
+    })->values();
+    $batchQuanities = $purchaseOrder->batches->map(function ($batch) {
+        return [$batch->item_id => $batch->purchase_quantity];
+    })->values();
+    dd($batchQuanities);
+});
 
 Route::view('/', 'frontend.index')->name('frontend.index');
 Route::view('about', 'frontend.about')->name('frontend.about');

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Constants\PurchaseOrders;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ItemSuppliersResource;
 use App\Http\Resources\PurchaseOrderResource;
 use App\Models\PurchaseOrder;
 use Illuminate\Http\Request;
@@ -52,7 +54,8 @@ class PurchaseOrderController extends Controller
         $purchaseOrder = PurchaseOrder::create([
             'supplier_id' => $request->get('supplier_id'),
             "date" => $date,
-            "time" => $time
+            "time" => $time,
+            "status" => PurchaseOrders::PENDING
         ]);
         foreach ($quantities as $itemId => $quantity) {
             if ($quantity > 0) {
@@ -72,5 +75,16 @@ class PurchaseOrderController extends Controller
     {
         $purchaseOrder->delete();
         return ResponseHelper::deleteSuccess('Purchase Order');
+    }
+
+    /**
+     * Get the items list of the purchase order.
+     *
+     * @param  \App\Models\PurchaseOrder  $purchaseOrder
+     * @return \Illuminate\Http\Response
+     */
+    public function items(PurchaseOrder $purchaseOrder)
+    {
+        return ResponseHelper::findSuccess('Items', ItemSuppliersResource::collection($purchaseOrder->items));
     }
 }

@@ -28,6 +28,7 @@
                         <th>{{ __('app.fields.supplier') }}</th>
                         <th>{{ __('app.fields.date') }}</th>
                         <th>{{ __('app.fields.time') }}</th>
+                        <th>{{ __('app.fields.status') }}</th>
                         <th>{{ __('app.fields.actions') }}</th>
                     </tr>
                 </thead>
@@ -49,7 +50,7 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ["id", "purchase_order_number", "supplier_text", "date", "time"];
+        const dataTableColumns = ["id", "purchase_order_number", "supplier_text", "date", "time","status_text"];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
@@ -59,6 +60,7 @@
             dataTableName,
             dataTableColumns,
             indexUrl,
+            "<button class='btn btn-sm btn-outline-success mr-1 po-vs-grn-button'><i class='fas fa-truck-loading fa-fw' ></i></button>" +
             "<button class='btn btn-sm btn-outline-info mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>" +
             deleteActionContent
         );
@@ -79,9 +81,18 @@
                 "{{ route('documents.getPdf', ['type' => 'purchaseOrder', 'id' => ':id', 'action' => 'view']) }}";
             window.open(documentUrl.replace(':id', data.id));
         }
-        // Handle Exploration Button Click Event In Data Table
+        // Open Purchase Order Vs Good Receive Notes
+        const openPOVsGRN = (data) => {
+            const documentUrl =
+                "{{ route('documents.getPdf', ['type' => 'purchaseOrderVsGoodReceives', 'id' => ':id', 'action' => 'view']) }}";
+            window.open(documentUrl.replace(':id', data.id));
+        }
+        // Handle Print Button Click Event In Data Table
         dataTableHandler.handleCustom(table, viewUrl, parameterIndexes,
             openPurchaseOrder, 'print-button');
+        // Handle POVsGRN Button Click Event In Data Table
+        dataTableHandler.handleCustom(table, viewUrl, parameterIndexes,
+            openPOVsGRN, 'po-vs-grn-button');
     </script>
     @stack('js-stack')
 @endsection

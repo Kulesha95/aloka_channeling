@@ -18,6 +18,7 @@ class CreatePurchaseOrdersTable extends Migration
             $table->date('date');
             $table->time('time');
             $table->bigInteger('supplier_id');
+            $table->tinyInteger('status');
             $table->timestamps();
             $table->softDeletes();
         });

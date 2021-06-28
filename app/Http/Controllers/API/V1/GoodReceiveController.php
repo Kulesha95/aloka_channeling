@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Constants\PurchaseOrders;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GoodReceiveResource;
 use App\Models\Batch;
 use App\Models\GoodReceive;
+use App\Models\PurchaseOrder;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class GoodReceiveController extends Controller
 {
@@ -32,7 +35,11 @@ class GoodReceiveController extends Controller
     {
         $date = now()->toDateString();
         $time = now()->toTimeString();
-        if ($request->has('supplier_id')) {
+        if ($request->get('purchase_order_id') > 0) {
+            $goodReceive = PurchaseOrder::find($request->get('purchase_order_id'))->goodReceives()->create([
+                "date" => $date, "time" => $time
+            ]);
+        } else {
             $goodReceive = Supplier::find($request->get('supplier_id'))->goodReceives()->create([
                 "date" => $date, "time" => $time
             ]);
@@ -60,6 +67,22 @@ class GoodReceiveController extends Controller
                 "price" => $sellingPrices[$rowId],
                 "expire_date" => $expireDates[$rowId],
             ]);
+        }
+        if ($request->get('purchase_order_id') > 0) {
+            $status = PurchaseOrders::COMPLETED;
+            $purchaseOrderItems = $goodReceive->supplierable->items->mapWithKeys(function ($purchaseOrderItem) {
+                return [$purchaseOrderItem->id => $purchaseOrderItem->pivot->quantity];
+            });
+            $goodReceiveItems = $goodReceive->supplierable->batches->groupBy('item_id')->mapWithKeys(function ($goodReceiveItemCollection) {
+                return [$goodReceiveItemCollection->first()->item_id => $goodReceiveItemCollection->sum('purchase_quantity')];
+            });
+            foreach ($purchaseOrderItems as $itemId => $quantity) {
+                if (!(Arr::exists($goodReceiveItems, $itemId) && $goodReceiveItems[$itemId] >= $purchaseOrderItems[$itemId])) {
+                    $status = PurchaseOrders::PARTIAL_COMPLETED;
+                    break;
+                }
+            }
+            $goodReceive->supplierable->update(['status' => $status]);
         }
         return ResponseHelper::createSuccess("Goods Receive", $goodReceive);
     }

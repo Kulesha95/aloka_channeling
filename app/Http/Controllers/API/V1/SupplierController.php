@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Constants\PurchaseOrders;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PurchaseOrderResource;
 use App\Http\Resources\SupplierResource;
 use App\Models\Supplier;
 use App\Rules\PhoneNumber;
@@ -118,5 +120,24 @@ class SupplierController extends Controller
     {
         $supplier->delete();
         return ResponseHelper::deleteSuccess('Supplier');
+    }
+
+    /**
+     * Get supplier purchase orders.
+     *
+     * @param  \App\Models\Supplier  $supplier
+     * @return \Illuminate\Http\Response
+     */
+    public function purchaseOrders(Supplier $supplier)
+    {
+        return ResponseHelper::findSuccess(
+            'Purchase Orders',
+            PurchaseOrderResource::collection(
+                $supplier->purchaseOrders->whereIn('status', [
+                    PurchaseOrders::PENDING,
+                    PurchaseOrders::PARTIAL_COMPLETED
+                ])
+            )
+        );
     }
 }
