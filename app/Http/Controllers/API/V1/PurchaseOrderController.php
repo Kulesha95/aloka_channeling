@@ -5,9 +5,13 @@ namespace App\Http\Controllers\API\V1;
 use App\Constants\PurchaseOrders;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DocumentController;
 use App\Http\Resources\ItemSuppliersResource;
 use App\Http\Resources\PurchaseOrderResource;
+use App\Jobs\SendPurchaseOrder;
 use App\Models\PurchaseOrder;
+use App\Models\Supplier;
+use App\Notifications\PurchaseOrderCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
@@ -62,6 +66,7 @@ class PurchaseOrderController extends Controller
                 $purchaseOrder->items()->attach([$itemId => ["quantity" => $quantity]]);
             }
         }
+        $this->dispatch(new SendPurchaseOrder($purchaseOrder->id));
         return ResponseHelper::createSuccess("Purchase Orders", []);
     }
 

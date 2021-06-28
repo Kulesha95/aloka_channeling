@@ -23,16 +23,16 @@
         <div class="col-5">
             <div class="w-100">
                 <div class="row">
-                    <div class="col-5">{{ __('app.fields.purchaseOrder') }}</div>
-                    <div class="col-7">: {{ $purchaseOrder->purchase_order_number }}</div>
+                    <div class="col-7">{{ __('app.fields.purchaseOrderNumber') }}</div>
+                    <div class="col-5">: {{ $purchaseOrder->purchase_order_number }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-5">{{ __('app.fields.date') }}</div>
-                    <div class="col-7">: {{ $purchaseOrder->date }}</div>
+                    <div class="col-7">{{ __('app.fields.date') }}</div>
+                    <div class="col-5">: {{ $purchaseOrder->date }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-5">{{ __('app.fields.time') }}</div>
-                    <div class="col-7">: {{ $purchaseOrder->time_text }}</div>
+                    <div class="col-7">{{ __('app.fields.time') }}</div>
+                    <div class="col-5">: {{ $purchaseOrder->time_text }}</div>
                 </div>
             </div>
         </div>
@@ -44,7 +44,6 @@
                 <th>{{ __('app.fields.genericName') }}</th>
                 <th class="text-right">{{ __('app.fields.orderQuantity') }}</th>
                 <th class="text-right">{{ __('app.fields.receivedQuantity') }}</th>
-                <th class="text-right">{{ __('app.fields.pendingQuantity') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -54,9 +53,6 @@
                     <td>{{ $item->generic_name_text }}</td>
                     <td class="text-right">{{ $item->pivot->quantity }} {{ $item->unit }}</td>
                     <td class="text-right">{{ $goodReceiveItems[$item->id] ?? 0 }} {{ $item->unit }}</td>
-                    <td class="text-right">{{ $item->pivot->quantity - ($goodReceiveItems[$item->id] ?? 0) }}
-                        {{ $item->unit }}</td>
-            
                 </tr>
             @endforeach
         </tbody>

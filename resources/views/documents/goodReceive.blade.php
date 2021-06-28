@@ -26,21 +26,21 @@
             <div class="w-100">
                 @if ($goodReceive->supplierable_type == app\constants\GoodReceives::PURCHASE_ORDER)
                     <div class="row">
-                        <div class="col-5">{{ __('app.fields.purchaseOrder') }}</div>
-                        <div class="col-7">: {{ $goodReceive->supplierable->purchase_order_number }}</div>
+                        <div class="col-7">{{ __('app.fields.purchaseOrderNumber') }}</div>
+                        <div class="col-5">: {{ $goodReceive->supplierable->purchase_order_number }}</div>
                     </div>
                 @endif
                 <div class="row">
-                    <div class="col-5">{{ __('app.fields.goodReceiveNote') }}</div>
-                    <div class="col-7">: {{ $goodReceive->good_receive_number }}</div>
+                    <div class="col-7">{{ __('app.fields.goodReceiveNote') }}</div>
+                    <div class="col-5">: {{ $goodReceive->good_receive_number }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-5">{{ __('app.fields.date') }}</div>
-                    <div class="col-7">: {{ $goodReceive->date }}</div>
+                    <div class="col-7">{{ __('app.fields.date') }}</div>
+                    <div class="col-5">: {{ $goodReceive->date }}</div>
                 </div>
                 <div class="row">
-                    <div class="col-5">{{ __('app.fields.time') }}</div>
-                    <div class="col-7">: {{ $goodReceive->time_text }}</div>
+                    <div class="col-7">{{ __('app.fields.time') }}</div>
+                    <div class="col-5">: {{ $goodReceive->time_text }}</div>
                 </div>
             </div>
         </div>
