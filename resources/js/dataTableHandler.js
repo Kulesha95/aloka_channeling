@@ -80,6 +80,8 @@ exports.initializeTable = (
     }
     // Initialize Datatable
     const dataTable = $(`#${tableId}`).DataTable({
+        dom: "Bfrtip",
+        buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
         responsive: true,
         columns: tableColumns,
     });
@@ -189,11 +191,7 @@ exports.handleCustom = (
 };
 
 // Handle Custom Action With Table Data
-exports.handleCustomTableData = (
-    table,
-    handleCallback,
-    activator
-) => {
+exports.handleCustomTableData = (table, handleCallback, activator) => {
     // Add Listener To The Button
     table.on("click", `.${activator}`, function () {
         // Get Selected Row Data

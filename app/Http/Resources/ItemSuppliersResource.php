@@ -23,6 +23,10 @@ class ItemSuppliersResource extends JsonResource
             'reorder_level_text' => $this->reorder_level_text,
             'stock' => $this->stock,
             'stock_text' => $this->stock_text,
+            'returnable_stock' => $this->returnable_stock,
+            'returnable_stock_text' => $this->returnable_stock_text,
+            'expired_stock' => $this->expired_stock,
+            'expired_stock_text' => $this->expired_stock_text,
             'reorder_quantity' => $this->reorder_quantity,
             'suppliers' => SupplierResource::collection($this->suppliers)
         ];

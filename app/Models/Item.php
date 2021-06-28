@@ -45,6 +45,24 @@ class Item extends Model
     {
         return number_format($this->stock) . " " . $this->unit;
     }
+    public function getExpiredStockAttribute()
+    {
+        return $this->batches->where('expire_date', '<=', now()->toDateString())->sum('returnable_quantity');
+    }
+
+    public function getExpiredStockTextAttribute()
+    {
+        return number_format($this->expired_stock) . " " . $this->unit;
+    }
+    public function getReturnableStockAttribute()
+    {
+        return $this->batches->sum('returnable_quantity');
+    }
+
+    public function getReturnableStockTextAttribute()
+    {
+        return number_format($this->returnable_stock) . " " . $this->unit;
+    }
 
     public function itemType()
     {

@@ -36,18 +36,18 @@
 </div>
 
 @push('js-stack')
-<script>
-httpService.get("{{ route('dashboard.itemsSummaryData') }}").then(response => {
-    const deficitItemsList = response.data.deficitItems.map(item =>
-        `<li class="list-group-item d-flex justify-content-between align-items-center">${item.brand_name}<span class="badge badge-warning badge-pill">${item.stock_text}</span></li>`
-    );
-    const expiredItemsList = response.data.expiredItems.map(item =>
-        `<li class="list-group-item d-flex justify-content-between align-items-center">${item.item_brand_name}<span class="badge badge-danger badge-pill">${item.stock_quantity} ${item.item_unit}</span></li>`
-    );
-    $('#deficitItemsCount').html(response.data.deficitItemsCount);
-    $('#deficitItemsList').html(deficitItemsList);
-    $('#expiredItemsCount').html(response.data.expiredItemsCount);
-    $('#expiredItemsList').html(expiredItemsList);
-});
-</script>
+    <script>
+        httpService.get("{{ route('dashboard.itemsSummaryData') }}").then(response => {
+            const deficitItemsList = response.data.deficitItems.map(item =>
+                `<li class="list-group-item d-flex justify-content-between align-items-center">${item.brand_name}<span class="badge badge-warning badge-pill">${item.stock_text}</span></li>`
+            );
+            const expiredItemsList = response.data.expiredItems.map(item =>
+                `<li class="list-group-item d-flex justify-content-between align-items-center">${item.item_brand_name}<span class="badge badge-danger badge-pill">${item.returnable_quantity} ${item.item_unit}</span></li>`
+            );
+            $('#deficitItemsCount').html(response.data.deficitItemsCount);
+            $('#deficitItemsList').html(deficitItemsList);
+            $('#expiredItemsCount').html(response.data.expiredItemsCount);
+            $('#expiredItemsList').html(expiredItemsList);
+        });
+    </script>
 @endpush

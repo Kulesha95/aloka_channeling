@@ -1972,6 +1972,8 @@ exports.initializeTable = function (tableId, columns) {
 
 
   var dataTable = $("#".concat(tableId)).DataTable({
+    dom: "Bfrtip",
+    buttons: ['copy', 'csv', 'excel', 'pdf', 'print'],
     responsive: true,
     columns: tableColumns
   }); // If Data Loading URL Is Provided Load Data From The API

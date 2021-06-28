@@ -76,6 +76,7 @@ return [
 		"email" => "E-mail",
 		"estimatedTime" => "Estimated Time",
 		"expireDate" => "Expire Date",
+		"expiredQuantity" => "Expired Quantity",
 		"explorationType" => "Exploration Type",
 		"fee" => "Fee",
 		"freeQuantity" => "Free Quantity",
