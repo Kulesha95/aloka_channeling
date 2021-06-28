@@ -56,7 +56,7 @@
                     reorder_quantity: "reorder_quantity"
                 },
                 render: (data) => {
-                    return `<input type="number" class="form-control" name="quantity[${data.id}]" placeholder="{{ __('app.fields.quantity') }}" value="${data.reorder_quantity}">`;
+                    return `<input type="number" class="form-control" name="quantity[${data.id}]" placeholder="{{ __('app.fields.quantity') }}" value="${data.stock > data.reorder_level ? 0 : data.reorder_quantity}">`;
                 }
             },
             stock_text: {
