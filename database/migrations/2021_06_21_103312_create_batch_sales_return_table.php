@@ -17,7 +17,8 @@ class CreateBatchSalesReturnTable extends Migration
             $table->bigInteger('batch_id');
             $table->bigInteger('sales_return_id');
             $table->double('quantity', 10, 2);
-            $table->tinyInteger('reason');
+            $table->double('price', 10, 2);
+            $table->text('reason');
         });
     }
 

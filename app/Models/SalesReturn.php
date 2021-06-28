@@ -16,7 +16,7 @@ class SalesReturn extends Model
     public function getTotalAttribute()
     {
         return $this->batches->sum(function ($batch) {
-            return $batch->pivot->quantity * $batch->price;
+            return $batch->pivot->quantity * $batch->pivot->price;
         });
     }
 
@@ -40,6 +40,7 @@ class SalesReturn extends Model
         return $this->belongsToMany(Batch::class)->withPivot([
             'quantity',
             'reason',
+            'price',
         ]);
     }
 

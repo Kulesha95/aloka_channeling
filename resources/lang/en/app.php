@@ -123,6 +123,7 @@ return [
 		"reorderLevel" => "Reorder Level",
 		"reorderQuantity" => "Reorder Quantity",
 		"repeat" => "Repeat",
+		"returnPrice" => "Return Price",
 		"returnQuantity" => "Return Quantity",
 		"returnReason" => "Return Reason",
 		"schedule" => "Schedule",

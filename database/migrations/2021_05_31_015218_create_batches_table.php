@@ -20,9 +20,8 @@ class CreateBatchesTable extends Migration
             $table->double('good_receive_quantity', 10, 2);
             $table->double('stock_quantity', 10, 2);
             $table->double('sold_quantity', 10, 2);
-            $table->double('damaged_quantity', 10, 2);
-            $table->double('returned_quantity', 10, 2);
-            $table->double('expired_quantity', 10, 2);
+            $table->double('sales_returned_quantity', 10, 2);
+            $table->double('purchase_returned_quantity', 10, 2);
             $table->double('dispose_quantity', 10, 2);
             $table->double('purchase_quantity', 10, 2);
             $table->double('purchase_price', 10, 2);

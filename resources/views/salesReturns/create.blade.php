@@ -30,6 +30,8 @@
                                 <th>{{ __('app.fields.price') }}</th>
                                 <th>{{ __('app.fields.returnQuantity') }}</th>
                                 <th>{{ __('app.fields.returnReason') }}</th>
+                                <th>{{ __('app.fields.returnPrice') }}</th>
+                                <th>{{ __('app.fields.actions') }}</th>
                             </tr>
                         </thead>
                     </table>
@@ -49,23 +51,25 @@
         const dataTableNameSalesReturns = 'sales_returns_list_table';
         // Table Columns List
         const dataTableColumnsSalesReturns = ["brand_name", "generic_name", "quantity_text", "price_text",
-            "return_quantity", "return_reason"
+            "return_quantity", "return_reason", "return_price"
         ];
         const columnOptions = {
             return_quantity: {
                 data: "id",
-                render: (data) => {
-                    return `<input type="number" class="form-control" name="return_quantity[${data}]" placeholder="{{ __('app.fields.returnQuantity') }}" value="0">`;
+                render: (data, type, row, meta) => {
+                    return `<input type="hidden" name="batch_id[${meta.row}]" value="${data}"><input type="number" step="0.01" class="form-control" name="return_quantity[${meta.row}]" placeholder="{{ __('app.fields.returnQuantity') }}" value="0">`;
                 }
             },
             return_reason: {
                 data: "id",
-                render: (data) => {
-                    return `<select class="form-control" name="return_reason[${data}]">
-                                <option selected diabled>{{__('app.texts.selectReturnReason')}}</option>
-                                <option value="{{ $damaged }}">{{__('app.texts.damaged')}}</option>
-                                <option value="{{ $expired }}">{{__('app.texts.expired')}}</option>
-                            </select>`
+                render: (data, type, row, meta) => {
+                    return `<input class="form-control" name="return_reason[${meta.row}]" placeholder="{{ __('app.fields.returnReason') }}" value="Damaged">`;
+                }
+            },
+            return_price: {
+                data: "id",
+                render: (data, type, row, meta) => {
+                    return `<input type="number" step="0.01" class="form-control" name="return_price[${meta.row}]" placeholder="{{ __('app.fields.returnPrice') }}" value="${row.price}">`;
                 }
             },
         }
@@ -73,7 +77,7 @@
             dataTableNameSalesReturns,
             dataTableColumnsSalesReturns,
             undefined,
-            undefined,
+            "<button type='button' class='btn btn-sm btn-outline-success mr-1 copy-button'><i class='fas fa-copy fa-fw' ></i></button>",
             columnOptions
         );
         const openCreateSalesReturnModal = () => {
@@ -90,6 +94,11 @@
             dataTableHandler.fillData(tableSalesReturns, []);
             $(`#createSalesReturnModal`).modal("show");
         }
+        const cloneItem = (data) => {
+            tableSalesReturns.row.add(data).draw();
+        }
+        dataTableHandler.handleCustomTableData(tableSalesReturns,
+            cloneItem, 'copy-button');
         $('#prescription_id_create').on('change', (e) => {
             const prescription = $('#prescription_id_create').val();
             if (prescription) {

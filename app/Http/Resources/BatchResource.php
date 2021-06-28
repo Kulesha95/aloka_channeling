@@ -24,9 +24,8 @@ class BatchResource extends JsonResource
             'good_receive_quantity' => $this->good_receive_quantity,
             'stock_quantity' => $this->stock_quantity,
             'sold_quantity' => $this->sold_quantity,
-            'damaged_quantity' => $this->damaged_quantity,
-            'returned_quantity' => $this->returned_quantity,
-            'expired_quantity' => $this->expired_quantity,
+            'sales_returned_quantity' => $this->sales_returned_quantity,
+            'purchase_returned_quantity' => $this->purchase_returned_quantity,
             'dispose_quantity' => $this->dispose_quantity,
             'price' => $this->price,
             'expire_date' => $this->expire_date

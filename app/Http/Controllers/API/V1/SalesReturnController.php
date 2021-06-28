@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Constants\ReturnReasons;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SalesReturnResource;
@@ -30,6 +29,8 @@ class SalesReturnController extends Controller
      */
     public function store(Request $request)
     {
+        $batches = $request->input('batch_id', []);
+        $prices = $request->input('return_price', []);
         $reasons = $request->input('return_reason', []);
         $quantities = $request->input('return_quantity', []);
         $date = now()->toDateString();
@@ -39,12 +40,11 @@ class SalesReturnController extends Controller
             "date" => $date,
             "time" => $time
         ]);
-        foreach ($quantities as $batchId => $quantity) {
+        foreach ($quantities as $rowId => $quantity) {
             if ($quantity == 0) continue;
-            $batch = Batch::find($batchId);
-            $reasonColumn = $reasons[$batchId] == ReturnReasons::DAMAGED ? 'damaged_quantity' : 'expired_quantity';
-            $batch->update([$reasonColumn => $batch[$reasonColumn] + $quantity]);
-            $salesReturn->batches()->attach([$batchId => ['quantity' => $quantity, 'reason' => $reasons[$batchId]]]);
+            $batch = Batch::find($batches[$rowId]);
+            $batch->update(['sales_returned_quantity' => $batch->sales_returned_quantity + $quantity]);
+            $salesReturn->batches()->attach([$batch->id => ['quantity' => $quantity, 'reason' => $reasons[$rowId], 'price' => $prices[$rowId]]]);
         }
         return ResponseHelper::createSuccess("Sales Return", $salesReturn);
     }

@@ -2,7 +2,6 @@
 
 use App\Constants\Appointments;
 use App\Constants\Prescriptions;
-use App\Constants\ReturnReasons;
 use App\Constants\UserTypes;
 use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\Route;
@@ -77,10 +76,7 @@ Route::middleware('auth')->group(function () {
         "issued" => Prescriptions::ISSUED_PRESCRIPTION
     ]);
     route::view('purchaseOrders', 'purchaseOrders.index');
-    route::view('salesReturns', 'salesReturns.index', [
-        "damaged" => ReturnReasons::DAMAGED,
-        "expired" => ReturnReasons::EXPIRED
-    ]);
+    route::view('salesReturns', 'salesReturns.index');
     route::view('schedules', 'schedules.index');
     route::view('suppliers', 'suppliers.index');
     Route::view('users', 'users.index');
