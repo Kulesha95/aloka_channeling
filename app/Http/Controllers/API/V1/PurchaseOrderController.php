@@ -55,7 +55,9 @@ class PurchaseOrderController extends Controller
             "time" => $time
         ]);
         foreach ($quantities as $itemId => $quantity) {
-            $purchaseOrder->items()->attach([$itemId => ["quantity" => $quantity]]);
+            if ($quantity > 0) {
+                $purchaseOrder->items()->attach([$itemId => ["quantity" => $quantity]]);
+            }
         }
         return ResponseHelper::createSuccess("Purchase Orders", []);
     }
