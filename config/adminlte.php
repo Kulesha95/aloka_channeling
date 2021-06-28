@@ -357,6 +357,12 @@ return [
             'icon' => 'fas fa-fw fa-undo-alt',
             'can' => 'manage-sales-returns'
         ],
+        [
+            'text' => 'purchaseReturns',
+            'url'  => 'purchaseReturns',
+            'icon' => 'fas fa-fw fa-undo-alt',
+            'can' => 'manage-purchase-returns'
+        ],
 
     ],
 

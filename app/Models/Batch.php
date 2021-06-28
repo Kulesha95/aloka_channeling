@@ -16,8 +16,8 @@ class Batch extends Model
         'good_receive_quantity',
         'stock_quantity',
         'sold_quantity',
-        'sales_returned_quantity',
-        'purchase_returned_quantity',
+        'returnable_quantity',
+        'returned_quantity',
         'dispose_quantity',
         'purchase_quantity',
         'purchase_price',
@@ -28,6 +28,16 @@ class Batch extends Model
     public function getPriceTextAttribute()
     {
         return  "Rs. " . number_format($this->price, 2);
+    }
+
+    public function getPurchasePriceTextAttribute()
+    {
+        return  "Rs. " . number_format($this->purchase_price, 2);
+    }
+
+    public function goodReceive()
+    {
+        return $this->belongsTo(GoodReceive::class)->withTrashed();
     }
 
     public function item()

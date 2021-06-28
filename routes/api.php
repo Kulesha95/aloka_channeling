@@ -65,6 +65,7 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::get('supplier/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
 	Route::get('supplier/{supplier}/purchaseOrders', 'SupplierController@purchaseOrders')->name('supplier.purchaseOrders');
+	Route::get('supplier/{supplier}/returnable', 'SupplierController@returnable')->name('supplier.returnable');
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
@@ -83,6 +84,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('patient.explorations', ExplorationController::class);
 	Route::apiResource('prescriptions', PrescriptionController::class);
 	Route::apiResource('purchaseOrders', PurchaseOrderController::class);
+	Route::apiResource('purchaseReturns', PurchaseReturnController::class);
 	Route::apiResource('salesReturns', SalesReturnController::class);
 	Route::apiResource('suppliers', SupplierController::class);
 	Route::apiResource('supplier.items', SupplierItemController::class)->except(['update', 'show']);

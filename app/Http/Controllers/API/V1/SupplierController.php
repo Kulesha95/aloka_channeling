@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Constants\GoodReceives;
 use App\Constants\PurchaseOrders;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BatchResource;
 use App\Http\Resources\PurchaseOrderResource;
 use App\Http\Resources\SupplierResource;
+use App\Models\Batch;
+use App\Models\GoodReceive;
 use App\Models\Supplier;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
@@ -139,5 +143,22 @@ class SupplierController extends Controller
                 ])
             )
         );
+    }
+
+    /**
+     * Get supplier returnable batches.
+     *
+     * @param  \App\Models\Supplier  $supplier
+     * @return \Illuminate\Http\Response
+     */
+    public function returnable(Supplier $supplier)
+    {
+        $supplierGrns = $supplier->goodReceives->concat(
+            GoodReceive::where('supplierable_type', GoodReceives::PURCHASE_ORDER)
+                ->whereIn('supplierable_id', $supplier->purchaseOrders->pluck('id'))->get()
+        );
+        $batches = Batch::whereIn('good_receive_id', $supplierGrns->pluck('id'))
+            ->get();
+        return ResponseHelper::findSuccess('Batches', BatchResource::collection($batches));
     }
 }

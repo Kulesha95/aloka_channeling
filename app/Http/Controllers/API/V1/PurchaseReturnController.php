@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\SalesReturnResource;
+use App\Http\Resources\PurchaseReturnResource;
 use App\Models\Batch;
-use App\Models\SalesReturn;
+use App\Models\PurchaseReturn;
 use Illuminate\Http\Request;
 
-class SalesReturnController extends Controller
+class PurchaseReturnController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class SalesReturnController extends Controller
      */
     public function index()
     {
-        return ResponseHelper::findSuccess("Sales Returns", SalesReturnResource::collection(SalesReturn::all()));
+        return ResponseHelper::findSuccess("Purchase Returns", PurchaseReturnResource::collection(PurchaseReturn::all()));
     }
 
     /**
@@ -35,40 +35,43 @@ class SalesReturnController extends Controller
         $quantities = $request->input('return_quantity', []);
         $date = now()->toDateString();
         $time = now()->toTimeString();
-        $salesReturn = SalesReturn::create([
-            'prescription_id' => $request->get('prescription_id'),
+        $purchaseReturn = PurchaseReturn::create([
+            'supplier_id' => $request->get('supplier_id'),
             "date" => $date,
             "time" => $time
         ]);
         foreach ($quantities as $rowId => $quantity) {
             if ($quantity == 0) continue;
             $batch = Batch::find($batches[$rowId]);
-            $batch->update(['returnable_quantity' => $batch->returnable_quantity + $quantity]);
-            $salesReturn->batches()->attach([$batch->id => ['quantity' => $quantity, 'reason' => $reasons[$rowId], 'price' => $prices[$rowId]]]);
+            $batch->update([
+                'returnable_quantity' => $batch->returnable_quantity - $quantity,
+                'returned_quantity' => $batch->returned_quantity + $quantity
+            ]);
+            $purchaseReturn->batches()->attach([$batch->id => ['quantity' => $quantity, 'reason' => $reasons[$rowId], 'price' => $prices[$rowId]]]);
         }
-        return ResponseHelper::createSuccess("Sales Return", $salesReturn);
+        return ResponseHelper::createSuccess("Purchase Return", $purchaseReturn);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\SalesReturn  $salesReturn
+     * @param  \App\Models\PurchaseReturn  $purchaseReturn
      * @return \Illuminate\Http\Response
      */
-    public function show(SalesReturn $salesReturn)
+    public function show(PurchaseReturn $purchaseReturn)
     {
-        return ResponseHelper::findSuccess("Sales Return", $salesReturn);
+        return ResponseHelper::findSuccess("Purchase Return", $purchaseReturn);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\SalesReturn  $salesReturn
+     * @param  \App\Models\PurchaseReturn  $purchaseReturn
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SalesReturn $salesReturn)
+    public function destroy(PurchaseReturn $purchaseReturn)
     {
-        $salesReturn->delete();
-        return ResponseHelper::deleteSuccess('Sales Return');
+        $purchaseReturn->delete();
+        return ResponseHelper::deleteSuccess('Purchase Return');
     }
 }

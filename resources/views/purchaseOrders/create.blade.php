@@ -10,11 +10,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row d-block">
                     <label for="supplier_id">{{ __('app.fields.supplier') }}</label>
-                    <select name="supplier_id" id="supplier_id_create" class="form-control"
-                        placeholder="{{ __('app.fields.supplier') }}">
-                        <option disabled selected>{{ __('app.texts.selectSupplier') }}</option>
+                    <select name="supplier_id" id="supplier_id_create" class="form-control col-12">
+                        <option></option>
                     </select>
                     <div class="invalid-feedback"></div>
                 </div>
@@ -56,8 +55,8 @@
                     id: "id",
                     reorder_quantity: "reorder_quantity"
                 },
-                render: (data,type,row,meta) => {
-                    return `<input type="number" class="form-control" name="quantity[${data.id}]" placeholder="{{ __('app.fields.quantity') }}" value="${data.stock > data.reorder_level ? 0 : data.reorder_quantity}">`;
+                render: (data) => {
+                    return `<input type="number" class="form-control" name="quantity[${data.id}]" placeholder="{{ __('app.fields.quantity') }}" value="${data.reorder_quantity}">`;
                 }
             },
             stock_text: {
@@ -78,10 +77,13 @@
             undefined,
             columnOptions
         );
+        const select2OptionsSupplier = {
+            placeholder: "{{ __('app.texts.selectSupplier') }}"
+        }
+        $('#supplier_id_create').select2(select2OptionsSupplier);
         const openCreatePurchaseOrderModal = () => {
             $('#supplier_id_create').empty();
-            $('#supplier_id_create').append(
-                `<option disabled selected>{{ __('app.texts.selectSupplier') }}</option>`)
+            $('#supplier_id_create').append(new Option("", undefined), false, false)
             httpService.get("{{ route('suppliers.index') }}").then(response => {
                 response.data.forEach(element => {
                     $('#supplier_id_create').append(new Option(element.name, element.id),

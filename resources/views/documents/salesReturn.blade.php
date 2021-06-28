@@ -20,6 +20,7 @@
         <thead>
             <tr>
                 <th>{{ __('app.fields.name') }}</th>
+                <th>{{ __('app.fields.returnReason') }}</th>
                 <th class="text-right">{{ __('app.fields.returnedQuantity') }}</th>
                 <th class="text-right">{{ __('app.fields.price') }}</th>
                 <th class="text-right">{{ __('app.fields.total') }}</th>
@@ -29,6 +30,7 @@
             @foreach ($salesReturn->batches as $batch)
                 <tr>
                     <td>{{ $batch->item->brand_name }}</td>
+                    <td>{{ $batch->pivot->reason }}</td>
                     <td class="text-right">{{ $batch->pivot->quantity }}
                         {{ $batch->item->unit }}
                     </td>
@@ -39,10 +41,10 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="4"></td>
+                <td colspan="5"></td>
             </tr>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="3"></td>
                 <th>{{ __('app.fields.total') }}</th>
                 <td class="text-right">{{ $salesReturn->total_text }}</td>
             </tr>

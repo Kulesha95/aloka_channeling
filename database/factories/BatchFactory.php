@@ -29,10 +29,10 @@ class BatchFactory extends Factory
             'good_receive_quantity' => 0,
             'stock_quantity' => 0,
             'sold_quantity' => 0,
-            'sales_returned_quantity' => 0,
-            'purchase_returned_quantity' => 0,
+            'returnable_quantity' => 0,
+            'returned_quantity' => 0,
             'dispose_quantity' => 0,
-            'purchase_quantity' =>0,
+            'purchase_quantity' => 0,
             'purchase_price' => $purchasePrice,
             'price' => $purchasePrice + $this->faker->numberBetween(1, $purchasePrice),
             'expire_date' => $this->faker->dateTimeBetween(now()->add('-1 month'), now()->add('+1 year'))

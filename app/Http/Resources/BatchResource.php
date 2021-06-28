@@ -24,10 +24,13 @@ class BatchResource extends JsonResource
             'good_receive_quantity' => $this->good_receive_quantity,
             'stock_quantity' => $this->stock_quantity,
             'sold_quantity' => $this->sold_quantity,
-            'sales_returned_quantity' => $this->sales_returned_quantity,
-            'purchase_returned_quantity' => $this->purchase_returned_quantity,
+            'returnable_quantity' => $this->returnable_quantity,
+            'returned_quantity' => $this->returned_quantity,
             'dispose_quantity' => $this->dispose_quantity,
             'price' => $this->price,
+            'price_text' => $this->price_text,
+            'purchase_price' => $this->purchase_price,
+            'purchase_price_text' => $this->purchase_price_text,
             'expire_date' => $this->expire_date
         ];
     }

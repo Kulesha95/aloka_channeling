@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\GoodReceive;
 use App\Models\Prescription;
 use App\Models\PurchaseOrder;
+use App\Models\PurchaseReturn;
 use App\Models\SalesReturn;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\View;
@@ -44,6 +45,9 @@ class DocumentController extends Controller
             case 'purchaseOrderVsGoodReceives':
                 $pdf = $this->getPurchaseOrderVsGoodReceives($id);
                 break;
+            case 'purchaseReturn':
+                $pdf = $this->getPurchaseReturn($id);
+                break;
             default:
                 return;
                 break;
@@ -57,7 +61,7 @@ class DocumentController extends Controller
 
     public function getChannelingPayments($id)
     {
-        $appointment = Appointment::find($id);
+        $appointment = Appointment::findOrFail($id);
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.channelingPayments', ['appointment' => $appointment])
@@ -68,7 +72,7 @@ class DocumentController extends Controller
 
     public function getChannelingPaymentInvoice($id)
     {
-        $appointment = Appointment::find($id);
+        $appointment = Appointment::findOrFail($id);
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.channelingPaymentInvoice', ['appointment' => $appointment])
@@ -79,7 +83,7 @@ class DocumentController extends Controller
 
     public function getPrescription($id)
     {
-        $prescription = Prescription::find($id);
+        $prescription = Prescription::findOrFail($id);
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.prescription', ['prescription' => $prescription])
@@ -90,7 +94,7 @@ class DocumentController extends Controller
 
     public function getPharmacyPaymentInvoice($id)
     {
-        $prescription = Prescription::find($id);
+        $prescription = Prescription::findOrFail($id);
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.pharmacyPaymentInvoice', ['prescription' => $prescription])
@@ -101,7 +105,7 @@ class DocumentController extends Controller
 
     public function getPurchaseOrder($id)
     {
-        $purchaseOrder = PurchaseOrder::find($id);
+        $purchaseOrder = PurchaseOrder::findOrFail($id);
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.purchaseOrder', ['purchaseOrder' => $purchaseOrder])
@@ -112,7 +116,7 @@ class DocumentController extends Controller
 
     public function getGoodReceive($id)
     {
-        $goodReceive = GoodReceive::find($id);
+        $goodReceive = GoodReceive::findOrFail($id);
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.goodReceive', ['goodReceive' => $goodReceive])
@@ -123,7 +127,7 @@ class DocumentController extends Controller
 
     public function getSalesReturn($id)
     {
-        $salesReturn = SalesReturn::find($id);
+        $salesReturn = SalesReturn::findOrFail($id);
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
         $pdf = SnappyPdf::loadView('documents.salesReturn', ['salesReturn' => $salesReturn])
@@ -131,10 +135,10 @@ class DocumentController extends Controller
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $salesReturn->sales_return_number . "_Sales_Return.pdf"];
     }
-
+    
     public function getPurchaseOrderVsGoodReceives($id)
     {
-        $purchaseOrder = PurchaseOrder::find($id);
+        $purchaseOrder = PurchaseOrder::findOrFail($id);
         $goodReceiveItems = $purchaseOrder->batches->groupBy('item_id')->mapWithKeys(function ($goodReceiveItemCollection) {
             return [$goodReceiveItemCollection->first()->item_id => $goodReceiveItemCollection->sum('purchase_quantity')];
         });
@@ -144,8 +148,19 @@ class DocumentController extends Controller
             'purchaseOrder' => $purchaseOrder,
             'goodReceiveItems' => $goodReceiveItems
         ])
+        ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+        ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $purchaseOrder->purchase_order_number . "_Purchase_Order_Vs_Good_Receives.pdf"];
+    }
+
+    public function getPurchaseReturn($id)
+    {
+        $purchaseReturn = PurchaseReturn::findOrFail($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.purchaseReturn', ['purchaseReturn' => $purchaseReturn])
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
-        return ["document" => $pdf, "name" => $purchaseOrder->purchase_order_number . "_Purchase_Order_Vs_Good_Receives.pdf"];
+        return ["document" => $pdf, "name" => $purchaseReturn->purchase_return_number . "_Purchase_Return.pdf"];
     }
 }

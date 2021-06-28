@@ -19,6 +19,8 @@ return [
     "payments" => "Payments",
     "prescriptions" => "Prescriptions",
     "purchaseOrders" => "Purchase Orders",
+    "purchaseReturns" => "Purchase Returns",
+    "salesReturns" => "Sales Returns",
     "schedules" => "Schedules",
     "suppliers" => "Suppliers",
     "users" => "Users",

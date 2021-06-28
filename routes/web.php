@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function () {
         "issued" => Prescriptions::ISSUED_PRESCRIPTION
     ]);
     route::view('purchaseOrders', 'purchaseOrders.index');
+    route::view('purchaseReturns', 'purchaseReturns.index');
     route::view('salesReturns', 'salesReturns.index');
     route::view('schedules', 'schedules.index');
     route::view('suppliers', 'suppliers.index');
