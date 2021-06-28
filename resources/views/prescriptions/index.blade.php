@@ -77,7 +77,7 @@
             }
             element = JSON.parse(item.text);
             return $(
-                `<div class="row"><h6 class="font-weight-bold">${element.item_brand_name}</h6></div><div class="row">${element.item_generic_name}</div><div class="row font-weight-light">${element.stock_quantity} ${element.item_unit} Available</div><div class="row font-weight-light">Expires on ${element.expire_date}</div>`
+                `<div class="row"><h6 class="font-weight-bold">${element.item_brand_name}</h6><h6 class="font-weight-bold ml-auto">${element.price_text}</h6></div><div class="row">${element.item_generic_name}</div><div class="row font-weight-light">${element.stock_quantity} ${element.item_unit} Available</div><div class="row font-weight-light">Expires on ${element.expire_date}</div>`
             );
         };
         const select2Options = {
