@@ -213,4 +213,17 @@ class ScheduleController extends Controller
             "channeling_reasons" => ChannelReasonResource::collection($schedule->doctor->channelType->channelReasons)
         ]);
     }
+
+    /**
+     * Display a listing of the all schedules.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        return ResponseHelper::findSuccess(
+            'Schedules',
+            ScheduleResource::collection(Schedule::all())
+        );
+    }
 }

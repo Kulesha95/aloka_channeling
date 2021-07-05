@@ -63,6 +63,8 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::get('purchaseOrder/{purchaseOrder}/items', 'PurchaseOrderController@items')->name('purchaseOrders.items');
 
+	Route::get('schedules/all', 'ScheduleController@all')->name('schedules.all');
+
 	Route::get('supplier/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
 	Route::get('supplier/{supplier}/purchaseOrders', 'SupplierController@purchaseOrders')->name('supplier.purchaseOrders');
 	Route::get('supplier/{supplier}/returnable', 'SupplierController@returnable')->name('supplier.returnable');
@@ -90,6 +92,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('suppliers', SupplierController::class);
 	Route::apiResource('supplier.items', SupplierItemController::class)->except(['update', 'show']);
 	Route::apiResource('schedules', ScheduleController::class);
+	Route::apiResource('schedule.expenses', DoctorExpenseController::class)->except(['destroy', 'update']);
 	Route::apiResource('users', UserController::class);
 	Route::apiResource('userTypes', UserTypeController::class);
 });

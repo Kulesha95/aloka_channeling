@@ -22,6 +22,7 @@ class ExpenseResource extends JsonResource
             "amount" => $this->amount,
             "amount_text" => $this->amount_text,
             "voucher_number" => $this->voucher_number,
+            "expensable_id" => $this->expensable_id,
         ];            
     }
 }

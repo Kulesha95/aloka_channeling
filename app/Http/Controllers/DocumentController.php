@@ -4,18 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Expense;
 use App\Models\GoodReceive;
 use App\Models\Prescription;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseReturn;
 use App\Models\SalesReturn;
+use App\Models\Schedule;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Illuminate\Support\Facades\View;
 
 class DocumentController extends Controller
 {
 
-    private $marginTop = 50;
+    private $marginTop = 65;
     private $marginBottom = 20;
 
     public function getDocument($type, $id, $action)
@@ -50,6 +52,12 @@ class DocumentController extends Controller
                 break;
             case 'supplierPayments':
                 $pdf = $this->getSupplierPayments($id);
+                break;
+            case 'doctorPaymentsHistory':
+                $pdf = $this->getDoctorPaymentsHistory($id);
+                break;
+            case 'doctorPaymentVoucher':
+                $pdf = $this->getDoctorPaymentVoucher($id);
                 break;
             default:
                 return;
@@ -176,5 +184,27 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $goodReceive->good_receive_number . "_Supplier_Payments.pdf"];
+    }
+
+    public function getDoctorPaymentsHistory($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.doctorPaymentsHistory', ['schedule' => $schedule])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $schedule->schedule_number . "_Doctor_Payments_History.pdf"];
+    }
+
+    public function getDoctorPaymentVoucher($id)
+    {
+        $expense = Expense::findOrFail($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.doctorPaymentVoucher', ['expense' => $expense])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $expense->expense_number . "_Doctor_Payment_Voucher.pdf"];
     }
 }

@@ -14,11 +14,6 @@ class DoctorResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($this->commission_type == "Fixed") {
-            $commission = "Rs. " . number_format($this->commission_amount, 2);
-        } else {
-            $commission = $this->commission_amount . "%";
-        }
         return [
             "id" => $this->id,
             "username" => $this->user->username,
@@ -32,7 +27,7 @@ class DoctorResource extends JsonResource
             "works_at" => $this->works_at,
             "commission_type" => $this->commission_type,
             "commission_amount" => $this->commission_amount,
-            "commission" => $commission,
+            "commission" => $this->commission_text,
             "channel_type_id" => $this->channel_type_id,
             "channel_type" =>  $this->channelType->channel_type,
         ];

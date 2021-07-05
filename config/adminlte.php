@@ -369,6 +369,12 @@ return [
             'icon' => 'fas fa-fw fa-truck-loading',
             'can' => 'manage-supplier-payments'
         ],
+        [
+            'text' => 'doctorPayments',
+            'url'  => 'doctorPayments',
+            'icon' => 'fas fa-fw fa-user-md',
+            'can' => 'manage-doctor-payments'
+        ],
 
     ],
 

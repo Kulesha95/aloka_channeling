@@ -20,6 +20,15 @@ class Doctor extends Model
         'channel_type_id'
     ];
 
+    public function getCommissionTextAttribute()
+    {
+        if ($this->commission_type == "Fixed") {
+            return "Rs. " . number_format($this->commission_amount, 2);
+        } else {
+            return $this->commission_amount . "%";
+        }
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class)->withTrashed();
