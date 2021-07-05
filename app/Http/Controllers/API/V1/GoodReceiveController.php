@@ -52,7 +52,7 @@ class GoodReceiveController extends Controller
         $expireDates = $request->input('expire_date', []);
         foreach ($purchaseQuantities as $rowId => $purchaseQuantity) {
             if ($purchaseQuantity == 0) continue;
-            Batch::create([
+            $batch = Batch::create([
                 "item_id" => $items[$rowId],
                 "good_receive_id" => $goodReceive->id,
                 "good_receive_quantity" => $purchaseQuantity + $freeQuantities[$rowId],
@@ -65,6 +65,17 @@ class GoodReceiveController extends Controller
                 "purchase_price" => $purchasePrices[$rowId],
                 "price" => $sellingPrices[$rowId],
                 "expire_date" => $expireDates[$rowId],
+            ]);
+            $goodReceive->batchMovements()->create([
+                'from' => "Supplier",
+                'from_batch' => $batch->id,
+                'from_quantity' => $purchaseQuantity + $freeQuantities[$rowId],
+                'to' => "Main Stock",
+                'to_batch' => $batch->id,
+                'to_quantity' => $purchaseQuantity + $freeQuantities[$rowId],
+                'date' => $date,
+                'time' => $time,
+                'reason' => 'Good Receive'
             ]);
         }
         if ($request->get('purchase_order_id') > 0) {

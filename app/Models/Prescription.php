@@ -137,4 +137,9 @@ class Prescription extends Model
     {
         return $this->belongsToMany(ExplorationType::class);
     }
+
+    public function batchMovements()
+    {
+        return $this->morphMany(BatchMovements::class, 'batch_moveable');
+    }
 }

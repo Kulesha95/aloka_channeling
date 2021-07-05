@@ -48,4 +48,9 @@ class SalesReturn extends Model
     {
         return $this->belongsTo(Prescription::class);
     }
+
+    public function batchMovements()
+    {
+        return $this->morphMany(BatchMovements::class, 'batch_moveable');
+    }
 }

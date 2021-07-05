@@ -28,6 +28,7 @@ class BatchFactory extends Factory
             'good_receive_id' => 0,
             'good_receive_quantity' => 0,
             'stock_quantity' => 0,
+            'reserved_quantity' => 0,
             'sold_quantity' => 0,
             'returnable_quantity' => 0,
             'returned_quantity' => 0,

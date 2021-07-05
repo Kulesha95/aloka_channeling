@@ -43,8 +43,22 @@ class SalesReturnController extends Controller
         foreach ($quantities as $rowId => $quantity) {
             if ($quantity == 0) continue;
             $batch = Batch::find($batches[$rowId]);
-            $batch->update(['returnable_quantity' => $batch->returnable_quantity + $quantity]);
+            $batch->update([
+                'returnable_quantity' => $batch->returnable_quantity + $quantity,
+                'sold_quantity' => $batch->sold_quantity - $quantity
+            ]);
             $salesReturn->batches()->attach([$batch->id => ['quantity' => $quantity, 'reason' => $reasons[$rowId], 'price' => $prices[$rowId]]]);
+            $salesReturn->batchMovements()->create([
+                'from' => "Sold Stock",
+                'from_batch' => $batch->id,
+                'from_quantity' => $quantity,
+                'to' => "Returnable Stock",
+                'to_batch' => $batch->id,
+                'to_quantity' => $quantity,
+                'date' => $date,
+                'time' => $time,
+                'reason' => 'Sales Return'
+            ]);
         }
         return ResponseHelper::createSuccess("Sales Return", $salesReturn);
     }

@@ -102,4 +102,9 @@ class GoodReceive extends Model
     {
         return $this->morphMany(Expense::class, 'expensable');
     }
+
+    public function batchMovements()
+    {
+        return $this->morphMany(BatchMovements::class, 'batch_moveable');
+    }
 }

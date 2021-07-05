@@ -48,6 +48,17 @@ class PurchaseReturnController extends Controller
                 'returned_quantity' => $batch->returned_quantity + $quantity
             ]);
             $purchaseReturn->batches()->attach([$batch->id => ['quantity' => $quantity, 'reason' => $reasons[$rowId], 'price' => $prices[$rowId]]]);
+            $purchaseReturn->batchMovements()->create([
+                'from' => "Returnable Stock",
+                'from_batch' => $batch->id,
+                'from_quantity' => $quantity,
+                'to' => "Returned Stock",
+                'to_batch' => $batch->id,
+                'to_quantity' => $quantity,
+                'date' => $date,
+                'time' => $time,
+                'reason' => 'Purchase Return'
+            ]);
         }
         return ResponseHelper::createSuccess("Purchase Return", $purchaseReturn);
     }

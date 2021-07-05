@@ -9,6 +9,7 @@ use App\Http\Resources\PrescriptionBatchResource;
 use App\Http\Resources\PrescriptionGenericNameResource;
 use App\Http\Resources\PrescriptionResource;
 use App\Models\Appointment;
+use App\Models\Batch;
 use App\Models\Prescription;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -128,6 +129,8 @@ class PrescriptionController extends Controller
             );
         }
         // Find related prescription or assign prescription if a new one
+        $date = now()->toDateString();
+        $time = now()->toTimeString();
         if ($request->get('prescription_id')) {
             $prescription = Prescription::find($request->get('prescription_id'));
         } else {
@@ -136,8 +139,8 @@ class PrescriptionController extends Controller
                 ['status' => Prescriptions::CANCELED_PRESCRIPTION],
                 [
                     'prescription_type' => Prescriptions::EXTERNAL_MEDICAL_PRESCRIPTION,
-                    'date' => now()->toDateString(),
-                    'time' => now()->toTimeString()
+                    'date' => $date,
+                    'time' => $time
                 ]
             );
             // If a Cancelled prescription make it empty
@@ -151,10 +154,64 @@ class PrescriptionController extends Controller
         if ($prescription->status != Prescriptions::PENDING_PRESCRIPTION) {
             return ResponseHelper::error("Can not modified items list of this prescription", []);
         }
-        // If quantity is 0 remove the existing items or else add the item
-        $request->get('quantity') == "0"
-            ? $prescription->batches()->detach($request->get('batch_id'))
-            : $prescription->batches()->syncWithoutDetaching([$request->get('batch_id') => ['quantity' => $request->get('quantity')]]);
+        // Check if the item exists on the prescription or else add item to the prescription
+        $prescriptionItem = $prescription->batches->find($request->get('batch_id'));
+        if ($prescriptionItem) {
+            $prescriptionItemQuantity = $prescriptionItem->pivot->quantity;
+            $requestedItemQuantity = $request->get('quantity');
+            $difference = $requestedItemQuantity - $prescriptionItemQuantity;
+            // If the requested quantity is 0 remove the item from the prescription
+            if ($requestedItemQuantity == "0") {
+                $quantity = $prescriptionItemQuantity;
+                $fromStock = "Reserved Stock";
+                $fromColumn = "reserved_quantity";
+                $toStock = "Main Stock";
+                $toColumn = "stock_quantity";
+                $reason = "Remove Reserved Item From The Prescription";
+                $prescription->batches()->detach($request->get('batch_id'));
+            } else {
+                // Check the quantity difference and adjust the inventory accordingly
+                if ($difference > 0) {
+                    $quantity = $difference;
+                    $fromStock = "Main Stock";
+                    $fromColumn = "stock_quantity";
+                    $toStock = "Reserved Stock";
+                    $toColumn = "reserved_quantity";
+                    $reason = "Reserve Item For The Prescription";
+                } else {
+                    $quantity = $difference * -1;
+                    $fromStock = "Reserved Stock";
+                    $fromColumn = "reserved_quantity";
+                    $toStock = "Main Stock";
+                    $toColumn = "stock_quantity";
+                    $reason = "Remove Reserved Item From The Prescription";
+                }
+                $prescription->batches()->syncWithoutDetaching([$request->get('batch_id') => ['quantity' => $request->get('quantity')]]);
+            }
+        } else {
+            $quantity = $request->get('quantity');
+            $fromStock = "Main Stock";
+            $fromColumn = "stock_quantity";
+            $toStock = "Reserved Stock";
+            $toColumn = "reserved_quantity";
+            $reason = "Reserve Item For The Prescription";
+            $prescription->batches()->syncWithoutDetaching([$request->get('batch_id') => ['quantity' => $request->get('quantity')]]);
+        }
+        // Update stocks
+        $batch = Batch::find($request->get('batch_id'));
+        $batch->update([$fromColumn => $batch[$fromColumn] - $quantity, $toColumn => $batch[$toColumn] + $quantity]);
+        // Insert items movement record
+        $prescription->batchMovements()->create([
+            'from' => $fromStock,
+            'from_batch' => $request->get('batch_id'),
+            'from_quantity' => $quantity,
+            'to' => $toStock,
+            'to_batch' => $request->get('batch_id'),
+            'to_quantity' => $quantity,
+            'date' => $date,
+            'time' => $time,
+            'reason' => $reason
+        ]);
         return ResponseHelper::success(
             'Item has been added successfully',
             new PrescriptionResource($prescription)
@@ -246,6 +303,43 @@ class PrescriptionController extends Controller
      */
     public function updateStatus(Request $request, Prescription $prescription)
     {
+        $date = now()->toDateString();
+        $time = now()->toTimeString();
+        if (
+            $request->get('status') == Prescriptions::CANCELED_PRESCRIPTION ||
+            $request->get('status') == Prescriptions::ISSUED_PRESCRIPTION
+        ) {
+            if ($request->get('status') == Prescriptions::CANCELED_PRESCRIPTION) {
+                $fromStock = "Reserved Stock";
+                $fromColumn = "reserved_quantity";
+                $toStock = "Main Stock";
+                $toColumn = "stock_quantity";
+                $reason = "Remove Reserved Item From The Prescription";
+            } else {
+                $fromStock = "Reserved Stock";
+                $fromColumn = "reserved_quantity";
+                $toStock = "Sold Stock";
+                $toColumn = "sold_quantity";
+                $reason = "Issue Prescription Items";
+            }
+            foreach ($prescription->batches as $batch) {
+                $batch->update([
+                    $fromColumn => $batch[$fromColumn] - $batch->pivot->quantity,
+                    $toColumn => $batch[$toColumn] + $batch->pivot->quantity
+                ]);
+                $prescription->batchMovements()->create([
+                    'from' => $fromStock,
+                    'from_batch' => $batch->id,
+                    'from_quantity' => $batch->pivot->quantity,
+                    'to' => $toStock,
+                    'to_batch' => $batch->id,
+                    'to_quantity' => $batch->pivot->quantity,
+                    'date' => $date,
+                    'time' => $time,
+                    'reason' => $reason
+                ]);
+            }
+        }
         $prescription->update(["status" => $request->get('status')]);
         return ResponseHelper::updateSuccess('Prescription', new PrescriptionResource($prescription));
     }

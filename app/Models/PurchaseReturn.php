@@ -53,4 +53,9 @@ class PurchaseReturn extends Model
             'reason',
         ]);
     }
+
+    public function batchMovements()
+    {
+        return $this->morphMany(BatchMovements::class, 'batch_moveable');
+    }
 }

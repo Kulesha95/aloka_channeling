@@ -19,6 +19,7 @@ class CreateBatchesTable extends Migration
             $table->bigInteger('good_receive_id');
             $table->double('good_receive_quantity', 10, 2);
             $table->double('stock_quantity', 10, 2);
+            $table->double('reserved_quantity', 10, 2);
             $table->double('sold_quantity', 10, 2);
             $table->double('returnable_quantity', 10, 2);
             $table->double('returned_quantity', 10, 2);

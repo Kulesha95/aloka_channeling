@@ -15,6 +15,7 @@ class Batch extends Model
         'good_receive_id',
         'good_receive_quantity',
         'stock_quantity',
+        'reserved_quantity',
         'sold_quantity',
         'returnable_quantity',
         'returned_quantity',
