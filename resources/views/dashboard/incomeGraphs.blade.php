@@ -37,7 +37,10 @@
             },
             series: [],
             xaxis: {
-                type: 'datetime'
+                type: 'datetime',
+                labels: {
+                    format: 'MMM dd',
+                }
             },
             yaxis: {
                 labels: {

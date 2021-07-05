@@ -1,24 +1,24 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 col-12">
+        <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h5><i class="fas fa-fw fa-heart mr-2"></i>{{ __('app.dashboard.dailyChannelingIncome') }}
+                    <h5><i class="fas fa-fw fa-user-md mr-2"></i>{{ __('app.dashboard.doctorPayments') }}
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div id="channelingIncome" class="w-100"></div>
+                    <div id="doctorPayments" class="w-100"></div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-12">
+        <div class="col-6">
             <div class="card">
                 <div class="card-header">
-                    <h5><i class="fas fa-fw fa-dollar-sign mr-2"></i>{{ __('app.dashboard.paymentsReceived') }}
+                    <h5><i class="fas fa-fw fa-truck-loading mr-2"></i>{{ __('app.dashboard.supplierPayments') }}
                     </h5>
                 </div>
                 <div class="card-body">
-                    <div id="receivedPayments" class="w-100"></div>
+                    <div id="supplierPayments" class="w-100"></div>
                 </div>
             </div>
         </div>
@@ -50,25 +50,25 @@
                 },
             },
         }
-        var channelingIncomeChart = new ApexCharts(
-            document.querySelector("#channelingIncome"),
+        var doctorPaymentsChart = new ApexCharts(
+            document.querySelector("#doctorPayments"),
             options
         );
-        var receivedPaymentsChart = new ApexCharts(
-            document.querySelector("#receivedPayments"),
+        var supplierPaymentsChart = new ApexCharts(
+            document.querySelector("#supplierPayments"),
             options
         );
-        channelingIncomeChart.render();
-        receivedPaymentsChart.render();
-        httpService.get("{{ route('dashboard.doctorIncomeGraphData') }}").then(response => {
-            channelingIncomeChart.updateSeries([{
-                name: "Channeling Income",
-                data: response.data.channelingIncomeGraphData
-            },]);
-            receivedPaymentsChart.updateSeries([{
-                name: "Payments Received",
-                data: response.data.receivedPaymentsGraphData
-            },]);
+        doctorPaymentsChart.render();
+        supplierPaymentsChart.render();
+        httpService.get("{{ route('dashboard.expenseGraphData') }}").then(response => {
+            doctorPaymentsChart.updateSeries([{
+                name: "Doctor Payments",
+                data: response.data.doctorPaymentsGraphData
+            }]);
+            supplierPaymentsChart.updateSeries([{
+                name: "Supplier Payments",
+                data: response.data.supplierPaymentsGraphData
+            }]);
         });
     </script>
 @endpush

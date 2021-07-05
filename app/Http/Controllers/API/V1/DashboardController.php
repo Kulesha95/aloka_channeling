@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Constants\Appointments;
+use App\Constants\Expenses;
 use App\Constants\Incomes;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
@@ -54,7 +55,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Get General Data Summary
+     * Get Income Data Summary
      */
     public function incomeGraphData()
     {
@@ -158,6 +159,33 @@ class DashboardController extends Controller
         return ResponseHelper::findSuccess('Items Summary Data', [
             'channelingIncomeGraphData' => $channelingIncomeGraphData,
             'receivedPaymentsGraphData' => $receivedPaymentsGraphData,
+        ]);
+    }
+
+    /**
+     * Get General Data Summary
+     */
+    public function expenseGraphData()
+    {
+        $expenses = Expense::all();
+        $supplierPayments =  $expenses->where('expensable_type', Expenses::GOOD_RECEIVE)
+            ->sortBy('date')->groupBy('date')->map(function ($row) {
+                return [
+                    'x' => $row->first()['date'],
+                    'y' => $row->sum('amount')
+                ];
+            })->values()->all();
+        $doctorPayments =  $expenses->where('expensable_type', Expenses::SCHEDULE_PAYMENT)
+            ->sortBy('date')->groupBy('date')->map(function ($row) {
+                return [
+                    'x' => $row->first()['date'],
+                    'y' => $row->sum('amount')
+                ];
+            })->values()->all();
+
+        return ResponseHelper::findSuccess('Expense Graph Data', [
+            'supplierPaymentsGraphData' => $supplierPayments,
+            'doctorPaymentsGraphData' => $doctorPayments,
         ]);
     }
 }

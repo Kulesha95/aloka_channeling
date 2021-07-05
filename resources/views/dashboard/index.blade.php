@@ -10,6 +10,7 @@
     @if (Auth::user()->is_admin || Auth::user()->is_super_admin)
         @include('dashboard.generalSummary')
         @include('dashboard.incomeGraphs')
+        @include('dashboard.expenseGraphs')
     @endif
     @if (Auth::user()->is_receptionist)
         @include('dashboard.appointmentsSummary')
