@@ -27,6 +27,7 @@
                         <th>{{ __('app.fields.explorationType') }}</th>
                         <th>{{ __('app.fields.unit') }}</th>
                         <th>{{ __('app.fields.isTest') }}</th>
+                        <th>{{ __('app.fields.isNumericValue') }}</th>
                         <th>{{ __('app.fields.actions') }}</th>
                     </tr>
                 </thead>
@@ -41,7 +42,7 @@
     @parent
     <script>
         // Create And Edit Forms Inputs
-        const inputs = ['exploration_type', 'unit', 'is_test'];
+        const inputs = ['exploration_type', 'unit', 'is_test', 'is_numeric_value'];
         // Load Data URL
         const indexUrl = "{{ route('explorationTypes.index') }}";
         // View Selected Data URL
@@ -53,7 +54,7 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ["id", "exploration_type", 'unit','is_test_text'];
+        const dataTableColumns = ["id", "exploration_type", 'unit', 'is_test_text', 'is_numeric_value_text'];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0

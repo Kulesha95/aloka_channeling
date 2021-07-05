@@ -24,7 +24,8 @@ class ExplorationTypeFactory extends Factory
         return [
             'exploration_type' => $this->faker->sentence(3),
             'unit' => $this->faker->word(),
-            'is_test' => $this->faker->boolean()
+            'is_test' => $this->faker->boolean(),
+            'is_numeric_value' => $this->faker->boolean()
         ];
     }
 }

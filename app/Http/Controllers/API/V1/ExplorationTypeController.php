@@ -45,7 +45,7 @@ class ExplorationTypeController extends Controller
                 $validator->errors()
             );
         }
-        $explorationType = ExplorationType::create($request->only(['exploration_type', 'unit', 'is_test']));
+        $explorationType = ExplorationType::create($request->only(['exploration_type', 'unit', 'is_test', 'is_numeric_value']));
         return ResponseHelper::createSuccess(
             'Exploration Type',
             new ExplorationTypeResource($explorationType)
@@ -89,7 +89,10 @@ class ExplorationTypeController extends Controller
             );
         }
         $explorationType->update($request->only(['exploration_type', 'unit']) +
-            ["is_test" => $request->has('is_test')]);
+            [
+                "is_test" => $request->has('is_test'),
+                "is_numeric_value" => $request->has('is_numeric_value')
+            ]);
         return ResponseHelper::updateSuccess(
             'Exploration Type',
             new ExplorationTypeResource($explorationType)

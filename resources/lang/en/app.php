@@ -101,6 +101,7 @@ return [
 		"idType" => "Id Type",
 		"image" => "Image",
 		"invoiceNumber" => "Invoice Number",
+		"isNumericValue"=>"Is Numeric Value",
 		"isPurchaseItem" => "Is Purchase Item",
 		"isSalesItem" => "Is Sales Item",
 		"issuedQuantity" => "Issued Quantity",
