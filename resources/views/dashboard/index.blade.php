@@ -19,6 +19,10 @@
         @include('dashboard.itemsSummary')
         @include('dashboard.stockDataSummary')
     @endif
+    @if (Auth::user()->is_doctor)
+        @include('dashboard.doctorChannelingsSummary')
+        @include('dashboard.doctorIncomeGraph')
+    @endif
 @endsection
 
 @section('js')

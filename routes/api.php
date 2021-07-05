@@ -31,6 +31,8 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
 
 	Route::get('dashboard/appointmentsDataSummary', 'DashboardController@appointmentsDataSummary')->name('dashboard.appointmentsDataSummary');
+	Route::get('dashboard/doctorChannelingsSummary', 'DashboardController@doctorChannelingsSummary')->name('dashboard.doctorChannelingsSummary');
+	Route::get('dashboard/doctorIncomeGraphData', 'DashboardController@doctorIncomeGraphData')->name('dashboard.doctorIncomeGraphData');
 	Route::get('dashboard/generalDataSummary', 'DashboardController@generalDataSummary')->name('dashboard.generalDataSummary');
 	Route::get('dashboard/incomeGraphData', 'DashboardController@incomeGraphData')->name('dashboard.incomeGraphData');
 	Route::get('dashboard/itemsSummaryData', 'DashboardController@itemsSummaryData')->name('dashboard.itemsSummaryData');

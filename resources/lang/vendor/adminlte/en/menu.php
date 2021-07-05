@@ -7,6 +7,7 @@ return [
     "channelTypes" => "Channel Types",
     "dashboard" => "Dashboard",
     "doctors" => "Doctors",
+    "doctorPayments" => "Doctor Payments",
     "dosageUnits" => "Dosage Units",
     "explorationTypes" => "Exploration Types",
     "general" => "GENERAL",
@@ -22,8 +23,8 @@ return [
     "purchaseReturns" => "Purchase Returns",
     "salesReturns" => "Sales Returns",
     "schedules" => "Schedules",
-    "suppliers" => "Suppliers",
     "supplierPayments" => "Supplier Payments",
+    "suppliers" => "Suppliers",
     "users" => "Users",
     "userTypes" => "User Types",
 ];

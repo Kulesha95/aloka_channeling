@@ -11,12 +11,14 @@ use App\Http\Resources\ItemSuppliersResource;
 use App\Models\Appointment;
 use App\Models\Batch;
 use App\Models\Doctor;
+use App\Models\Expense;
 use App\Models\Income;
 use App\Models\Item;
 use App\Models\Patient;
 use Carbon\Carbon;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -108,5 +110,54 @@ class DashboardController extends Controller
     {
         $items = Item::all();
         return ResponseHelper::findSuccess('Items Summary Data',  ItemSuppliersResource::collection($items));
+    }
+
+    /**
+     * Get Doctor Channeling Summary
+     */
+    public function doctorChannelingsSummary()
+    {
+        $schedules = Auth::user()->doctor->schedules;
+        $appointmentsCount = Appointment::whereIn('schedule_id', $schedules->pluck('id'))
+            ->where('date', now()->toDateString())
+            ->whereIn('status', [Appointments::PENDING, Appointments::COMPLETED])
+            ->get()->count();
+        $paymentsPending = "Rs." . number_format($schedules->sum('balance'), 2);
+        return ResponseHelper::findSuccess('Items Summary Data', [
+            'total_shedules_count' => $schedules->count(),
+            'today_appointments_count' => $appointmentsCount,
+            'payments_pending' => $paymentsPending,
+        ]);
+    }
+
+    /**
+     * Get Doctor Daily Income
+     */
+    public function doctorIncomeGraphData()
+    {
+        $schedules = Auth::user()->doctor->schedules;
+        $channelingIncomeGraphData = Appointment::whereIn('schedule_id', $schedules->pluck('id'))
+            ->whereIn('status', [Appointments::PENDING, Appointments::COMPLETED])
+            ->get()
+            ->sortBy('date')->groupBy('date')->map(function ($row) {
+                return [
+                    'x' => $row->first()['date'],
+                    'y' => $row->sum(function ($appointment) {
+                        return $appointment->schedule->doctor_fee;
+                    })
+                ];
+            })->values()->all();
+        $receivedPaymentsGraphData = Expense::whereIn('expensable_id', $schedules->pluck('id'))
+            ->get()
+            ->sortBy('date')->groupBy('date')->map(function ($row) {
+                return [
+                    'x' => $row->first()['date'],
+                    'y' => $row->sum('amount')
+                ];
+            })->values()->all();
+        return ResponseHelper::findSuccess('Items Summary Data', [
+            'channelingIncomeGraphData' => $channelingIncomeGraphData,
+            'receivedPaymentsGraphData' => $receivedPaymentsGraphData,
+        ]);
     }
 }
