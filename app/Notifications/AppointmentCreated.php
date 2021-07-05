@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\NexmoMessage;
 use Illuminate\Notifications\Notification;
 
 class AppointmentCreated extends Notification implements ShouldQueue
@@ -33,7 +34,7 @@ class AppointmentCreated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return env("SEND_SMS", false) ? ['mail', 'nexmo'] : ['mail'];
     }
 
     /**
@@ -71,5 +72,21 @@ class AppointmentCreated extends Notification implements ShouldQueue
         return [
             //
         ];
+    }
+
+    /**
+     * Get the Vonage / SMS representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\NexmoMessage
+     */
+    public function toNexmo($notifiable)
+    {
+        return (new NexmoMessage)
+            ->content("Your appointment is successfully created for "
+                . $this->appointment->schedule->doctor->name . " on "
+                . $this->appointment->date . " at "
+                . $this->appointment->time_text . ". Your channeling number is "
+                . str_pad($this->appointment->number, 2, '0', STR_PAD_LEFT) . ".     ");
     }
 }
