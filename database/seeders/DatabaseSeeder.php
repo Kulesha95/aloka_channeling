@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Exploration;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -35,7 +36,8 @@ class DatabaseSeeder extends Seeder
                 DirectionSeeder::class,
                 PurchaseOrderSeeder::class,
                 GoodReceiveSeeder::class,
-                BatchSeeder::class
+                BatchSeeder::class,
+                ExplorationSeeder::class
             ]);
         } else {
             $this->call([

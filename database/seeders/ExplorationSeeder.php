@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Exploration;
 use Illuminate\Database\Seeder;
 
 class ExplorationSeeder extends Seeder
@@ -13,6 +14,6 @@ class ExplorationSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Exploration::factory(50)->create();
     }
 }

@@ -113,6 +113,21 @@ class Prescription extends Model
         return $this->invoice ? $this->invoice->invoice_number : "N/A";
     }
 
+    public function getTreatmentsEndDateAttribute()
+    {
+        $items = $this->genericNames;
+        if ($items->count() > 0) {
+            $longestMedicine = $items->sortByDesc(function ($item) {
+                return $item->pivot->duration * floor(365 / $item->pivot->duration_type);
+            })->first();
+            return now()
+                ->addDays($longestMedicine->pivot->duration * floor(365 / $longestMedicine->pivot->duration_type))
+                ->toDateString();
+        } else {
+            return $this->date;
+        }
+    }
+
     public function appointment()
     {
         return $this->belongsTo(Appointment::class)->withTrashed();

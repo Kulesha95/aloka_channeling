@@ -24,6 +24,10 @@
         @include('dashboard.doctorChannelingsSummary')
         @include('dashboard.doctorIncomeGraph')
     @endif
+    @if (Auth::user()->is_patient)
+        @include('dashboard.channelingsDataSummary')
+        @include('dashboard.explorationsHistory')
+    @endif
 @endsection
 
 @section('js')

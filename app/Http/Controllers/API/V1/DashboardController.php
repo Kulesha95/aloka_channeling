@@ -16,6 +16,7 @@ use App\Models\Expense;
 use App\Models\Income;
 use App\Models\Item;
 use App\Models\Patient;
+use App\Models\Prescription;
 use Carbon\Carbon;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
@@ -163,7 +164,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Get General Data Summary
+     * Get Expense Data Summary
      */
     public function expenseGraphData()
     {
@@ -186,6 +187,63 @@ class DashboardController extends Controller
         return ResponseHelper::findSuccess('Expense Graph Data', [
             'supplierPaymentsGraphData' => $supplierPayments,
             'doctorPaymentsGraphData' => $doctorPayments,
+        ]);
+    }
+
+    /**
+     * Get Explorations History
+     */
+    public function explorationsData()
+    {
+        $explorations = Auth::user()->patient->explorations->filter(function ($exploration) {
+            return $exploration->explorationType->is_numeric_value;
+        })->groupBy('exploration_type_id')->map(function ($row) {
+            return [
+                'id' => $row->first()->exploration_type_id,
+                'name' => $row->first()->explorationType->exploration_type,
+                'unit' => $row->first()->explorationType->unit,
+                'values' => $row->sortBy('date')->map(function ($row) {
+                    return [
+                        'x' => $row->date,
+                        'y' => $row->value
+                    ];
+                })->values()->all()
+            ];
+        })->values()->all();
+
+        return ResponseHelper::findSuccess('Explorations Data', [
+            'explorations' => $explorations
+        ]);
+    }
+
+    /**
+     * Get Channeling Data Summary
+     */
+    public function channelingDataSummary()
+    {
+        $appointments = Auth::user()->patient->appointments->whereIn('status', [
+            Appointments::COMPLETED,
+            Appointments::PENDING,
+            Appointments::PAID,
+            Appointments::CONFIRMED,
+        ])->sortBy('date');
+        $lastAppointment = $appointments->filter(function ($appointment) {
+            return now()->toDateTimeString() > $appointment->date . " " . $appointment->time;
+        })->last();
+        $nextAppointment = $appointments->filter(function ($appointment) {
+            return now()->toDateTimeString() < $appointment->date . " " . $appointment->time;
+        })->first();
+        $prescription = Prescription::whereIn('appointment_id', $appointments->pluck('id'))->get()
+            ->sortByDesc(function ($prescription) {
+                return $prescription->treatments_end_date;
+            })->first();
+
+        return ResponseHelper::findSuccess('Explorations Data', [
+            'lastAppointment' => $lastAppointment ? $lastAppointment->date : "N/A",
+            'nextAppointment' =>  $nextAppointment ?  $nextAppointment->date : "N/A",
+            'reportsPendingAppointments' => $appointments->where('status', Appointments::PENDING)
+                ->count(),
+            'treatmentsEnd' => $prescription ?  $prescription->treatments_end_date : "N/A"
         ]);
     }
 }
