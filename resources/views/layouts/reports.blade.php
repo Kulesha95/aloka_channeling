@@ -42,6 +42,15 @@
                 </div>
                 <hr>
             @endif
+            @if (trim($__env->yieldContent('exports')))
+                <div class="row">
+                    <button type="submit" class="btn btn-success mr-2" onclick="exportCSV()"><i class="fa fa-file-csv mr-1"
+                            aria-hidden="true"></i>{{ __('app.buttons.downloadCSV') }}</button>
+                    <button type="submit" class="btn btn-primary" onclick="exportExcel()"><i class="fa fa-file-excel mr-1"
+                            aria-hidden="true"></i>{{ __('app.buttons.downloadExcel') }}</button>
+                </div>
+                <hr>
+            @endif
             <iframe frameborder="0" style="width:100%; height:90vh;" id="report-viewer"></iframe>
         </div>
     </div>
@@ -52,15 +61,29 @@
     <script>
         const type = '@yield("reportType")';
         const id = '@yield("id")' == '' ? 0 : '@yield("id")';
+        const reportUrl =
+            "{{ route('documents.getPdf', ['type' => ':type', 'id' => ':id', 'action' => 'view']) }}";
+        const exportUrl =
+            "{{ route('documents.export', ['type' => ':type', 'id' => ':id', 'format' => ':format']) }}";
         const generateReport = () => {
             const fromDate = $('#date_from').val();
             const toDate = $('#date_to').val();
-            const reportUrl =
-                "{{ route('documents.getPdf', ['type' => ':type', 'id' => ':id', 'action' => 'view']) }}";
             $('#report-viewer').attr(
                 'src',
                 reportUrl.replace(':type', type).replace(':id', id) + `?fromDate=${fromDate}&toDate=${toDate}`
             );
+        }
+        const exportCSV = () => {
+            const fromDate = $('#date_from').val();
+            const toDate = $('#date_to').val();
+            window.location = exportUrl.replace(':type', type).replace(':id', id).replace(':format', "csv") +
+                `?fromDate=${fromDate}&toDate=${toDate}`;
+        }
+        const exportExcel = () => {
+            const fromDate = $('#date_from').val();
+            const toDate = $('#date_to').val();
+            window.location = exportUrl.replace(':type', type).replace(':id', id).replace(':format', "excel") +
+                `?fromDate=${fromDate}&toDate=${toDate}`;
         }
         $(document).ready(() => {
             generateReport();

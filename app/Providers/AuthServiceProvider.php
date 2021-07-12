@@ -51,8 +51,9 @@ class AuthServiceProvider extends ServiceProvider
             "manage-purchase-returns" => [UserTypes::STORE_KEEPER],
             "manage-supplier-payments" => [UserTypes::ADMIN],
             "manage-doctor-payments" => [UserTypes::ADMIN],
-            "generate-reports" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN],
+            "generate-reports" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN, UserTypes::STORE_KEEPER],
             "generate-profit-and-loss-report" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN],
+            "generate-deficit-items-report" => [UserTypes::STORE_KEEPER],
         ];
 
         foreach ($userAccess as $gate => $userTypes) {

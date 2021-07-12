@@ -10,6 +10,7 @@ use App\Models\Appointment;
 use App\Models\Expense;
 use App\Models\GoodReceive;
 use App\Models\Income;
+use App\Models\Item;
 use App\Models\Prescription;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseReturn;
@@ -66,6 +67,9 @@ class DocumentController extends Controller
                 break;
             case 'profitAndLossReport':
                 $pdf = $this->getProfitAndLossReport($request);
+                break;
+            case 'deficitItemsReport':
+                $pdf = $this->getDeficitItemsReport();
                 break;
             default:
                 return;
@@ -253,5 +257,18 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => "Profit_And_Loss_Report.pdf"];
+    }
+
+    public function getDeficitItemsReport()
+    {
+        $deficitItems = Item::all()->filter(function ($item) {
+            return $item->stock <= $item->reorder_level;
+        });
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.deficitItemsReport', ['deficitItems' => $deficitItems])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => "Deficit_Items_Report.pdf"];
     }
 }

@@ -7,6 +7,8 @@ return [
 		"complete" => "Complete",
 		"confirm" => "Confirm",
 		"createNew" => "Create New",
+		"downloadCSV" => "Download CSV",
+		"downloadExcel" => "Download Excel",
 		"edit" => "Edit",
 		"issue" => "Issue",
 		"login" => "Login",
@@ -276,6 +278,7 @@ return [
 		"salesReturn" => "Sales Return",
 		"supplierPayments" => "Supplier Payments",
 		"testPrescription" => "Test Prescription",
+		"deficitItemsReport" => "Deficit Items Report",
 
 		"channelingCalendar" => "Channeling Calendar",
 		"channelingNote" => "Channeling Note",

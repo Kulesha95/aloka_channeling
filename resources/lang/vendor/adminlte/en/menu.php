@@ -6,6 +6,7 @@ return [
     "channelings" => "Channelings",
     "channelTypes" => "Channel Types",
     "dashboard" => "Dashboard",
+    "deficitItemsReport" => "Deficit Items Report",
     "doctors" => "Doctors",
     "doctorPayments" => "Doctor Payments",
     "dosageUnits" => "Dosage Units",

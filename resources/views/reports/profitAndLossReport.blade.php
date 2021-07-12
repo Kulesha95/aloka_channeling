@@ -1,6 +1,6 @@
 @extends('layouts.reports')
 
-@section('reportTitle', 'Profit And Loss Report')
+@section('reportTitle', __('app.headers.profitAndLossReport'))
 @section('icon', 'chart-line')
 @section('reportType', 'profitAndLossReport')
 @section('id', '0')

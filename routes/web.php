@@ -35,6 +35,8 @@ Route::view('contact', 'frontend.contact')->name('frontend.contact');
 
 Route::get('documents/{type}/{id}/{action}', 'DocumentController@getDocument')->name('documents.getPdf');
 
+Route::get('documents/{type}/{id}/{format}/export', 'ExportController@exportDocument')->name('documents.export');
+
 Route::middleware('auth')->group(function () {
     Route::view('appointments', 'appointments.index', [
         "receptionist" => UserTypes::RECEPTIONIST,
@@ -78,7 +80,10 @@ Route::middleware('auth')->group(function () {
     ]);
     route::view('purchaseOrders', 'purchaseOrders.index');
     route::view('purchaseReturns', 'purchaseReturns.index');
+
     route::view('reports/profitAndLossReport', 'reports.profitAndLossReport');
+    route::view('reports/deficitItemsReport', 'reports.deficitItemsReport');
+
     route::view('salesReturns', 'salesReturns.index');
     route::view('schedules', 'schedules.index');
     route::view('supplierPayments', 'expenses.supplierPaymentsIndex');

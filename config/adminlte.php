@@ -385,6 +385,12 @@ return [
             'icon' => 'fas fa-fw fa-chart-line',
             'can' => 'generate-profit-and-loss-report'
         ],  
+        [
+            'text' => 'deficitItemsReport',
+            'url'  => 'reports/deficitItemsReport',
+            'icon' => 'fas fa-fw fa-box-open',
+            'can' => 'generate-deficit-items-report'
+        ],  
 
     ],
 
