@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function () {
     ]);
     route::view('purchaseOrders', 'purchaseOrders.index');
     route::view('purchaseReturns', 'purchaseReturns.index');
+    route::view('reports/profitAndLossReport', 'reports.profitAndLossReport');
     route::view('salesReturns', 'salesReturns.index');
     route::view('schedules', 'schedules.index');
     route::view('supplierPayments', 'expenses.supplierPaymentsIndex');

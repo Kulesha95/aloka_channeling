@@ -374,7 +374,17 @@ return [
             'url'  => 'doctorPayments',
             'icon' => 'fas fa-fw fa-user-md',
             'can' => 'manage-doctor-payments'
+        ],        
+        [
+            'header' => 'reports',
+            'can' => 'generate-reports'
         ],
+        [
+            'text' => 'profitAndLossReport',
+            'url'  => 'reports/profitAndLossReport',
+            'icon' => 'fas fa-fw fa-chart-line',
+            'can' => 'generate-profit-and-loss-report'
+        ],  
 
     ],
 

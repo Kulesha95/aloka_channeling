@@ -2,25 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Expenses;
+use App\Constants\Incomes;
+use App\Constants\Prescriptions;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Expense;
 use App\Models\GoodReceive;
+use App\Models\Income;
 use App\Models\Prescription;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseReturn;
 use App\Models\SalesReturn;
 use App\Models\Schedule;
 use Barryvdh\Snappy\Facades\SnappyPdf;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
 class DocumentController extends Controller
 {
 
-    private $marginTop = 65;
+    private $marginTop = 50;
     private $marginBottom = 20;
 
-    public function getDocument($type, $id, $action)
+    public function getDocument(Request $request, $type, $id, $action)
     {
         switch ($type) {
             case 'channelingPayments':
@@ -58,6 +63,9 @@ class DocumentController extends Controller
                 break;
             case 'doctorPaymentVoucher':
                 $pdf = $this->getDoctorPaymentVoucher($id);
+                break;
+            case 'profitAndLossReport':
+                $pdf = $this->getProfitAndLossReport($request);
                 break;
             default:
                 return;
@@ -146,7 +154,7 @@ class DocumentController extends Controller
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $salesReturn->sales_return_number . "_Sales_Return.pdf"];
     }
-    
+
     public function getPurchaseOrderVsGoodReceives($id)
     {
         $purchaseOrder = PurchaseOrder::findOrFail($id);
@@ -159,8 +167,8 @@ class DocumentController extends Controller
             'purchaseOrder' => $purchaseOrder,
             'goodReceiveItems' => $goodReceiveItems
         ])
-        ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
-        ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $purchaseOrder->purchase_order_number . "_Purchase_Order_Vs_Good_Receives.pdf"];
     }
 
@@ -206,5 +214,44 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $expense->expense_number . "_Doctor_Payment_Voucher.pdf"];
+    }
+
+    public function getProfitAndLossReport($request)
+    {
+        $fromDate = $request->get('fromDate');
+        $toDate = $request->get('toDate');
+        $expenses = Expense::where('date', '>=', $fromDate)->where('date', '<=', $toDate)->get();
+        $incomes = Income::where('date', '>=', $fromDate)->where('date', '<=', $toDate)->get();
+        $channelingIncome = $incomes->where('incomeable_type', Incomes::CHANNELING_PAYMENT)->sum('amount');
+        $externalPrescriptionIncome = $incomes->where('incomeable_type', Incomes::PHARMACY_PAYMENT)
+            ->filter(function ($income) {
+                return $income->incomeable->type == Prescriptions::EXTERNAL_MEDICAL_PRESCRIPTION;
+            })->sum('amount');
+        $internalPrescriptionIncome = $incomes->where('incomeable_type', Incomes::PHARMACY_PAYMENT)
+            ->filter(function ($income) {
+                return $income->incomeable->type == Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION;
+            })->sum('amount');
+        $supplierPayments = $expenses->where('expenseable_type', Expenses::GOOD_RECEIVE)->sum('amount');
+        $doctorPayments = $expenses->where('expenseable_type', Expenses::SCHEDULE_PAYMENT)->sum('amount');
+        $totalIncomes = $incomes->sum('amount');
+        $totalExpenses = $expenses->sum('amount');
+        $totalProfit = $totalIncomes - $totalExpenses;
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.profitAndLossReport', [
+            'channelingIncome' => $channelingIncome,
+            'externalPrescriptionIncome' => $externalPrescriptionIncome,
+            'internalPrescriptionIncome' => $internalPrescriptionIncome,
+            'supplierPayments' => $supplierPayments,
+            'doctorPayments' => $doctorPayments,
+            'totalIncome' => $totalIncomes,
+            'totalExpense' => $totalExpenses,
+            'totalProfit' => $totalProfit,
+            "fromDate" => $fromDate,
+            "toDate" => $toDate
+        ])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => "Profit_And_Loss_Report.pdf"];
     }
 }
