@@ -23,16 +23,16 @@ class GenericNamePrescription extends Pivot
 
     public function dosageUnit()
     {
-        return $this->belongsTo(DosageUnit::class);
+        return $this->belongsTo(DosageUnit::class)->withTrashed();
     }
 
     public function prescription()
     {
-        return $this->belongsTo(Prescription::class);
+        return $this->belongsTo(Prescription::class)->withTrashed();
     }
 
     public function genericName()
     {
-        return $this->belongsTo(GenericName::class);
+        return $this->belongsTo(GenericName::class)->withTrashed();
     }
 }

@@ -23,6 +23,6 @@ class BatchMovements extends Model
 
     public function batchMoveable()
     {
-        return $this->morphTo();
+        return $this->morphTo()->withTrashed();
     }
 }

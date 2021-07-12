@@ -23,11 +23,11 @@ class BatchPrescription extends Pivot
 
     public function batch()
     {
-        return $this->belongsTo(Batch::class);
+        return $this->belongsTo(Batch::class)->withTrashed();
     }
 
     public function prescription()
     {
-        return $this->belongsTo(Prescription::class);
+        return $this->belongsTo(Prescription::class)->withTrashed();
     }
 }
