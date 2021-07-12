@@ -299,6 +299,7 @@ return [
 		"disposal" => "Disposal",
 		"stockReport" => "Stock Report",
 		"incomeReport" => "Income Report",
+		"expenseReport" => "Expense Report",
 
 		"channelingCalendar" => "Channeling Calendar",
 		"channelingNote" => "Channeling Note",

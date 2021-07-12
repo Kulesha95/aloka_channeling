@@ -14,6 +14,7 @@ return [
     "doctorPayments" => "Doctor Payments",
     "dosageUnits" => "Dosage Units",
     "explorationTypes" => "Exploration Types",
+    "expenseReport" => "Expense Report",
     "general" => "GENERAL",
     "genericNames" => "Generic Names",
     "goodReceives" => "Good Receives",

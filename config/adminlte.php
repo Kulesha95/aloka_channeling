@@ -421,6 +421,12 @@ return [
             'icon' => 'fas fa-fw fa-dollar-sign',
             'can' => 'generate-income-report'
         ],  
+        [
+            'text' => 'expenseReport',
+            'url'  => 'reports/expenseReport',
+            'icon' => 'fas fa-fw fa-hand-holding-usd',
+            'can' => 'generate-expense-report'
+        ],  
 
     ],
 

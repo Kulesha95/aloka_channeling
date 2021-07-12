@@ -82,6 +82,9 @@ class DocumentController extends Controller
             case 'incomeReport':
                 $pdf = $this->getIncomeReport($request);
                 break;
+            case 'expenseReport':
+                $pdf = $this->getExpenseReport($request);
+                break;
             default:
                 return;
                 break;
@@ -321,5 +324,22 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => "Income_Report.pdf"];
+    }
+
+    public function getExpenseReport($request)
+    {
+        $fromDate = $request->get('fromDate');
+        $toDate = $request->get('toDate');
+        $expenses = Expense::where('date', '>=', $fromDate)->where('date', '<=', $toDate)->get();
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.expenseReport', [
+            'expenses' => $expenses,
+            "fromDate" => $fromDate,
+            "toDate" => $toDate
+        ])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => "Expense_Report.pdf"];
     }
 }
