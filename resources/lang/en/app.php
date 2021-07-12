@@ -91,6 +91,9 @@ return [
 		"discountAmount" => "Discount Amount",
 		"discountedPrice" => "Discounted Price",
 		"discountType" => "Discount Type",
+		"disposalNumber" => "Disposal Number",
+		"disposedQuantity" => "Disposed Quantity",
+		"disposedReason" => "Disposed Reason",
 		"doctor" => "Doctor",
 		"doctorFee" => "Doctor Fee",
 		"doctorPayments" => "Doctor Payments",
@@ -256,13 +259,15 @@ return [
 		"purchaseReturnsManagement" => "Purchase Return Management",
 		"createPurchaseReturn" => "Create Purchase Return",
 
+		"disposalsManagement" => "Disposals Management",
+		"createDisposal" => "Create Disposal",
+
 		"supplierPaymentsManagement" => "Supplier Payments Management",
 
 		"doctorPayments" => "Doctor Payments",
 		"doctorPaymentsManagement" => "Doctor Payments Management",
-		
-		"batchPriceManagement" => "Batch Price Management",
 
+		"batchPriceManagement" => "Batch Price Management",
 
 		"suppliersManagement" => "Supplier Management",
 		"createSupplier" => "Create Supplier",
@@ -286,6 +291,7 @@ return [
 		"supplierPayments" => "Supplier Payments",
 		"testPrescription" => "Test Prescription",
 		"deficitItemsReport" => "Deficit Items Report",
+		"disposal" => "Disposal",
 
 		"channelingCalendar" => "Channeling Calendar",
 		"channelingNote" => "Channeling Note",

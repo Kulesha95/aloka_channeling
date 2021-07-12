@@ -2,11 +2,13 @@
 
 return [
     "appointments" => "Appointments",
+    "batches" => "Batches",
     "channelingCalendar" => "Channeling Calendar",
     "channelings" => "Channelings",
     "channelTypes" => "Channel Types",
     "dashboard" => "Dashboard",
     "deficitItemsReport" => "Deficit Items Report",
+    "disposals" => "Disposals",
     "doctors" => "Doctors",
     "doctorPayments" => "Doctor Payments",
     "dosageUnits" => "Dosage Units",

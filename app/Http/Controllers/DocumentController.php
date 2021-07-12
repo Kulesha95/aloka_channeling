@@ -7,6 +7,7 @@ use App\Constants\Incomes;
 use App\Constants\Prescriptions;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Disposal;
 use App\Models\Expense;
 use App\Models\GoodReceive;
 use App\Models\Income;
@@ -55,6 +56,9 @@ class DocumentController extends Controller
                 break;
             case 'purchaseReturn':
                 $pdf = $this->getPurchaseReturn($id);
+                break;
+            case 'disposal':
+                $pdf = $this->getDisposal($id);
                 break;
             case 'supplierPayments':
                 $pdf = $this->getSupplierPayments($id);
@@ -185,6 +189,17 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $purchaseReturn->purchase_return_number . "_Purchase_Return.pdf"];
+    }
+
+    public function getDisposal($id)
+    {
+        $disposal = Disposal::findOrFail($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.disposal', ['disposal' => $disposal])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $disposal->disposal_number . "_Disposal.pdf"];
     }
 
     public function getSupplierPayments($id)

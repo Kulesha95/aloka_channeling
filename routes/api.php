@@ -30,6 +30,8 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('appointments/{schedule}/{currentNumber}/next', 'AppointmentController@next')->name('appointments.next');
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
 
+	Route::get('batches/returnable', 'BatchController@returnable')->name('batches.returnable');
+
 	Route::get('dashboard/appointmentsDataSummary', 'DashboardController@appointmentsDataSummary')->name('dashboard.appointmentsDataSummary');
 	Route::get('dashboard/channelingDataSummary', 'DashboardController@channelingDataSummary')->name('dashboard.channelingDataSummary');
 	Route::get('dashboard/doctorChannelingsSummary', 'DashboardController@doctorChannelingsSummary')->name('dashboard.doctorChannelingsSummary');
@@ -80,6 +82,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('channelTypes', ChannelTypeController::class)->except(['index']);
 	Route::apiResource('channelType.channelReasons', ChannelReasonController::class)->except(['update', 'show']);
 	Route::apiResource('directions', DirectionController::class)->only(['index']);
+	Route::apiResource('disposals', DisposalController::class);
 	Route::apiResource('doctors', DoctorController::class);
 	Route::apiResource('dosageUnits', DosageUnitController::class);
 	Route::apiResource('goodReceives', GoodReceiveController::class);

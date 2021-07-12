@@ -382,6 +382,12 @@ return [
             'can' => 'manage-batch-prices'
         ],        
         [
+            'text' => 'disposals',
+            'url'  => 'disposals',
+            'icon' => 'fas fa-fw fa-recycle',
+            'can' => 'manage-disposals'
+        ],        
+        [
             'header' => 'reports',
             'can' => 'generate-reports'
         ],

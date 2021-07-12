@@ -71,4 +71,15 @@ class BatchController extends Controller
         $batches = Batch::where('stock_quantity', '>', '0')->get();
         return ResponseHelper::findSuccess('Batches', BatchResource::collection($batches));
     }
+
+    /**
+     * Get returnable batches.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function returnable()
+    {
+        $batches = Batch::where('returnable_quantity', '>' , '0')->get();
+        return ResponseHelper::findSuccess('Batches', BatchResource::collection($batches));
+    }
 }
