@@ -2,13 +2,14 @@
 
 namespace App\Notifications;
 
+use App\Channels\SmsChannel;
 use App\Models\Appointment;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\NexmoMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Notifications\Messages\NexmoMessage;
 
 class AppointmentCreated extends Notification implements ShouldQueue
 {
@@ -34,7 +35,7 @@ class AppointmentCreated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return env("SEND_SMS", false) ? ['mail', 'nexmo'] : ['mail'];
+        return env("SEND_SMS", false) ? ['mail', SmsChannel::class] : ['mail'];
     }
 
     /**
@@ -80,13 +81,12 @@ class AppointmentCreated extends Notification implements ShouldQueue
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\NexmoMessage
      */
-    public function toNexmo($notifiable)
+    public function toSms($notifiable)
     {
-        return (new NexmoMessage)
-            ->content("Your appointment is successfully created for "
-                . $this->appointment->schedule->doctor->name . " on "
-                . $this->appointment->date . " at "
-                . $this->appointment->time_text . ". Your channeling number is "
-                . str_pad($this->appointment->number, 2, '0', STR_PAD_LEFT) . ".     ");
+        return "Your appointment is successfully created for "
+            . $this->appointment->schedule->doctor->name . " on "
+            . $this->appointment->date . " at "
+            . $this->appointment->time_text . ". Your channeling number is "
+            . str_pad($this->appointment->number, 2, '0', STR_PAD_LEFT) . ".\n\n" . env('APP_NAME');
     }
 }
