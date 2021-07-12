@@ -21,6 +21,7 @@ class CreatePrescriptionsTable extends Migration
             $table->tinyInteger('prescription_type');
             $table->longText('comment')->nullable();
             $table->tinyInteger('status');
+            $table->double('discount', 10, 2)->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

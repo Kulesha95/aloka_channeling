@@ -21,9 +21,11 @@ class PrescriptionBatchResource extends JsonResource
             'price' => $this->pivot->batch->price,
             'quantity' => $this->pivot->quantity,
             'price_text' => $this->pivot->batch->price_text,
+            'discount_text' => $this->pivot->batch->discount_text,
+            'discounted_price_text' => $this->pivot->discounted_price_text,
             'quantity_text' => $this->pivot->quantity_text,
             'total_text' => $this->pivot->total_text,
-            'total' => $this->pivot->total,
+            'total' => $this->pivot->total
         ];
     }
 }

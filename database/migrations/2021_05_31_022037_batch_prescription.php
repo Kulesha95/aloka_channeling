@@ -16,6 +16,7 @@ class BatchPrescription extends Migration
         Schema::create('batch_prescription', function (Blueprint $table) {
             $table->bigInteger('batch_id');
             $table->bigInteger('prescription_id');
+            $table->boolean('discount');
             $table->double('quantity', 10, 2);
         });
     }

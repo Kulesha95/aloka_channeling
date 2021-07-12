@@ -13,26 +13,36 @@ class Prescription extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['date', 'time', 'appointment_id', 'prescription_type', 'comment', 'status'];
+    protected $fillable = ['date', 'time', 'appointment_id', 'prescription_type', 'comment', 'status', 'discount'];
 
     public function getPrescriptionNumberAttribute()
     {
         return "PRCP/" . str_pad($this->id, 5, 0, STR_PAD_LEFT);
     }
 
+    public function getSubTotalAttribute()
+    {
+        return $this->batches->sum('pivot.total');
+    }
+
+    public function getSubTotalTextAttribute()
+    {
+        return "Rs. " . number_format($this->sub_total, 2);
+    }
+
+    public function getDiscountTextAttribute()
+    {
+        return "Rs. " . number_format($this->discount, 2);
+    }
+
     public function getTotalAttribute()
     {
-        return $this->batches->sum(function ($batchItem) {
-            return $batchItem->pivot->quantity * $batchItem->pivot->batch->price;
-        });
+        return $this->sub_total - $this->discount;
     }
 
     public function getTotalTextAttribute()
     {
-        $total = $this->batches->sum(function ($batchItem) {
-            return $batchItem->pivot->quantity * $batchItem->pivot->batch->price;
-        });
-        return "Rs. " . number_format($total, 2);
+        return "Rs. " . number_format($this->total, 2);
     }
 
     public function getPrescriptionTypeTextAttribute()
@@ -140,7 +150,7 @@ class Prescription extends Model
 
     public function batches()
     {
-        return $this->belongsToMany(Batch::class)->using(BatchPrescription::class)->withPivot(['quantity']);
+        return $this->belongsToMany(Batch::class)->using(BatchPrescription::class)->withPivot(['quantity', 'discount']);
     }
 
     public function genericNames()

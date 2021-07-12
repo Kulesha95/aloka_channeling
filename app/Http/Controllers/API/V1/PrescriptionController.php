@@ -136,15 +136,19 @@ class PrescriptionController extends Controller
         } else {
             // If new prescription replace with canceled prescription to avoid unwanted data collection or assign new one
             $prescription = Prescription::firstOrCreate(
-                ['status' => Prescriptions::CANCELED_PRESCRIPTION],
+                [
+                    'status' => Prescriptions::CANCELED_PRESCRIPTION,
+                    'prescription_type' => Prescriptions::EXTERNAL_MEDICAL_PRESCRIPTION
+                ],
                 [
                     'prescription_type' => Prescriptions::EXTERNAL_MEDICAL_PRESCRIPTION,
                     'date' => $date,
                     'time' => $time
                 ]
             );
-            // If a Cancelled prescription make it empty
+            // If a Cancelled prescription make it empty and set discount to 0
             $prescription->batches()->detach();
+            $prescription->update(['discount' => 0]);
         }
         // If a new prescription or canceled update the status to pending
         if ($prescription->status == Prescriptions::NEW_PRESCRIPTION || $prescription->status == Prescriptions::CANCELED_PRESCRIPTION) {
@@ -186,7 +190,10 @@ class PrescriptionController extends Controller
                     $toColumn = "stock_quantity";
                     $reason = "Remove Reserved Item From The Prescription";
                 }
-                $prescription->batches()->syncWithoutDetaching([$request->get('batch_id') => ['quantity' => $request->get('quantity')]]);
+                $prescription->batches()->syncWithoutDetaching([$request->get('batch_id') => [
+                    'quantity' => $request->get('quantity'),
+                    'discount' => $request->has('discount')
+                ]]);
             }
         } else {
             $quantity = $request->get('quantity');
@@ -195,7 +202,10 @@ class PrescriptionController extends Controller
             $toStock = "Reserved Stock";
             $toColumn = "reserved_quantity";
             $reason = "Reserve Item For The Prescription";
-            $prescription->batches()->syncWithoutDetaching([$request->get('batch_id') => ['quantity' => $request->get('quantity')]]);
+            $prescription->batches()->syncWithoutDetaching([$request->get('batch_id') => [
+                'quantity' => $request->get('quantity'),
+                'discount' => $request->has('discount')
+            ]]);
         }
         // Update stocks
         $batch = Batch::find($request->get('batch_id'));
@@ -340,7 +350,9 @@ class PrescriptionController extends Controller
                 ]);
             }
         }
-        $prescription->update(["status" => $request->get('status')]);
+        $prescription->update(["status" => $request->get('status')]
+            + ($request->has('discount') && $request->get('status') == Prescriptions::CONFIRMED_PRESCRIPTION
+                ? ['discount' => $request->get('discount')] : []));
         return ResponseHelper::updateSuccess('Prescription', new PrescriptionResource($prescription));
     }
 
