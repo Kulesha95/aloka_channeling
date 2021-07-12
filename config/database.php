@@ -44,6 +44,11 @@ return [
         ],
 
         'mysql' => [
+            'dump' => [
+                'dump_binary_path' => 'C:\Program Files (x86)\MySQL\MySQL Server 5.5\bin',
+                'use_single_transaction',
+                'timeout' => 60 * 5,
+            ],
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -123,7 +128,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [

@@ -3,6 +3,7 @@
 return [
     "appointments" => "Appointments",
     "batches" => "Batches",
+    "backups" => "Backups",
     "channelingCalendar" => "Channeling Calendar",
     "channelings" => "Channelings",
     "channelTypes" => "Channel Types",

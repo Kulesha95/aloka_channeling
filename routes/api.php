@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\API\V1\PaymentIncomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +31,8 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
 
 	Route::get('batches/returnable', 'BatchController@returnable')->name('batches.returnable');
+
+	Route::post('backups/destroy', 'BackupController@destroy')->name('backups.destroy');
 
 	Route::get('dashboard/appointmentsDataSummary', 'DashboardController@appointmentsDataSummary')->name('dashboard.appointmentsDataSummary');
 	Route::get('dashboard/channelingDataSummary', 'DashboardController@channelingDataSummary')->name('dashboard.channelingDataSummary');
@@ -79,6 +80,7 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
+	Route::apiResource('backups', BackupController::class)->only(['index', 'store']);
 	Route::apiResource('batches', BatchController::class)->except(['destroy', 'store']);
 	Route::apiResource('channelTypes', ChannelTypeController::class)->except(['index']);
 	Route::apiResource('channelType.channelReasons', ChannelReasonController::class)->except(['update', 'show']);

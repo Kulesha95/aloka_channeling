@@ -388,6 +388,12 @@ return [
             'can' => 'manage-disposals'
         ],        
         [
+            'text' => 'backups',
+            'url'  => 'backups',
+            'icon' => 'fas fa-fw fa-database',
+            'can' => 'manage-backups'
+        ],        
+        [
             'header' => 'reports',
             'can' => 'generate-reports'
         ],

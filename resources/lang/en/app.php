@@ -61,6 +61,7 @@ return [
 		"appointmentTime" => "Appointment Time",
 		"address" => "Address",
 		"balance" => "Balance",
+		"backups" => "Backups",
 		"birthDate" => "Birth Date",
 		"bmi" => "BMI",
 		"brandName" => "Brand Name",
@@ -269,6 +270,8 @@ return [
 		"doctorPaymentsManagement" => "Doctor Payments Management",
 
 		"batchPriceManagement" => "Batch Price Management",
+		
+		"backupsManagement" => "Backup Management",
 
 		"suppliersManagement" => "Supplier Management",
 		"createSupplier" => "Create Supplier",
