@@ -37,6 +37,8 @@ Route::get('documents/{type}/{id}/{action}', 'DocumentController@getDocument')->
 
 Route::get('documents/{type}/{id}/{format}/export', 'ExportController@exportDocument')->name('documents.export');
 
+route::view('forgetPassword', 'auth.forgetPassword')->name('auth.forgetPassword');
+
 Route::middleware('auth')->group(function () {
     Route::view('appointments', 'appointments.index', [
         "receptionist" => UserTypes::RECEPTIONIST,

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('channelTypes', ChannelTypeController::class)->only(['index']);
 Route::post('doctors/search', "DoctorController@search")->name('doctors.search');
 Route::get('doctors/todayDoctorsList', "DoctorController@todayDoctorsList")->name('doctors.todayDoctorsList');
+Route::post('user/resetPassword', "UserController@resetPassword")->name('user.resetPassword');
 Route::get('schedules/search', "ScheduleController@search")->name('schedules.search');
 Route::get('schedules/summary/{schedule}/{date}', 'ScheduleController@scheduleSummary')->name('schedules.summary');
 

@@ -24,6 +24,7 @@ return [
 		"save" => "Save",
 		"search" => "Search",
 		"signUp" => "Sign Up",
+		"submit" => "Submit",
 	],
 
 	"dashboard" => [
@@ -306,7 +307,9 @@ return [
 
 		"addExplorations" => "Add Explorations",
 
-		"channelReasonsManagement" => "Channel Reasons Management"
+		"channelReasonsManagement" => "Channel Reasons Management",
+
+		"forgetPassword" => "Forget Password"
 	],
 
 	"texts" => [
@@ -321,6 +324,7 @@ return [
 		"prescriptions" => "Prescriptions",
 		"prescriptionsList" => "Prescriptions List",
 		"forgotPassword" => "Forgot Password ?",
+		"login" => "Already have a account?",
 		"internalPrescriptions" => "Internal Prescriptions",
 		"medicalPrescriptionBills" => "Medical Prescription Bills",
 		"none" => "None",

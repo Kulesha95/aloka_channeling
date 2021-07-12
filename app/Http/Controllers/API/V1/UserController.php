@@ -7,6 +7,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Notifications\PasswordReset;
 use App\Notifications\UserAccountCreated;
 use App\Rules\PhoneNumber;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class UserController extends Controller
         $validator = Validator::make(
             $request->only(['email', 'password', 'image', 'username', 'user_type_id', 'mobile', 'name']),
             [
+                'name' => "required",
                 'email' => "required|email",
                 'username' => "required|unique:App\Models\User,username,null,id,deleted_at,NULL",
                 'mobile' => ["required", new PhoneNumber()],
@@ -140,5 +142,23 @@ class UserController extends Controller
     {
         $user->delete();
         return ResponseHelper::deleteSuccess('User');
+    }
+
+    /**
+     * Reset Password
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function resetPassword(Request $request)
+    {
+        $user = User::where('username', $request->get('username'))->first();
+        if (!$user) {
+            return ResponseHelper::findFail("User account");
+        }
+        $password = Str::random(8);
+        $user->update(['password' => Hash::make($password)]);
+        $user->notify(new PasswordReset($password));
+        return ResponseHelper::success('Your new password has been sent to your email.', []);
     }
 }

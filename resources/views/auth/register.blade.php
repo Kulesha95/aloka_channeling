@@ -1,6 +1,5 @@
 @extends('layouts.auth')
 
-
 @section('content')
     <div class="container-fluid bg-dark d-flex">
         <div class="card bg-white shadow mx-auto col-10 col-sm-8 col-md-6 my-5">
@@ -121,8 +120,10 @@
                     </div>
                     <div class="row">
                     </div>
-                    <div class="row m-1">
-                        <button type="submit" class="btn btn-primary ml-auto"><i class="fa fa-sign-in-alt mr-1"
+                    <div class="row m-3">
+                        <a href="/" class="mr-auto"><i class="fas fa-globe-asia"></i></a>
+                        <a href="{{ route('login') }}" class="mr-2">{{ __('app.texts.login') }}</a>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-sign-in-alt mr-1"
                                 aria-hidden="true"></i>{{ __('app.buttons.signUp') }}</button>
                     </div>
                 </form>
