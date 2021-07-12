@@ -28,10 +28,13 @@ class PrescriptionResource extends JsonResource
             "total" => $this->total,
             "paid" => $this->paid,
             "balance" => $this->balance,
-            "total_text" => $this->fee_text,
             "paid_text" => $this->paid_text,
             "balance_text" => $this->balance_text,
             "total_text" => $this->total_text,
+            "sub_total" => $this->sub_total,
+            "sub_total_text" => $this->sub_total_text,
+            "discount" => $this->discount,
+            "discount_text" => $this->discount_text,
             "exploration_types" => $this->explorationTypes->pluck('id'),
         ];
     }

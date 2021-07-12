@@ -34,8 +34,8 @@
                     <td>{{ $batch->item->brand_name }}</td>
                     <td>{{ $batch->pivot->quantity_text }}</td>
                     <td class="text-right">{{ $batch->price_text }}</td>
-                    <td class="text-right">{{ $batch->discount_text }}</td>
-                    <td class="text-right">{{ $batch->discounted_price_text }}</td>
+                    <td class="text-right">{{ $batch->pivot->discount_text}}</td>
+                    <td class="text-right">{{ $batch->pivot->discounted_price_text }}</td>
                     <td class="text-right">{{ $batch->pivot->total_text }}</td>
                 </tr>
             @endforeach

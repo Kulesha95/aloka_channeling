@@ -21,6 +21,11 @@ class BatchPrescription extends Pivot
         return "Rs. " . number_format($this->total, 2);
     }
 
+    public function getDiscountTextAttribute()
+    {
+        return $this->discount ? $this->batch->discount_text : '-';
+    }
+
     public function getDiscountedPriceAttribute()
     {
         return $this->discount ? $this->batch->discounted_price : $this->batch->price;
