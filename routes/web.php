@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function () {
 
     route::view('reports/profitAndLossReport', 'reports.profitAndLossReport');
     route::view('reports/deficitItemsReport', 'reports.deficitItemsReport');
+    route::view('reports/stockReport', 'reports.stockReport');
 
     route::view('salesReturns', 'salesReturns.index');
     route::view('schedules', 'schedules.index');

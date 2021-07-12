@@ -161,6 +161,7 @@ return [
 		"reorderLevel" => "Reorder Level",
 		"reorderQuantity" => "Reorder Quantity",
 		"repeat" => "Repeat",
+		"reservedQuantity" => "Reserved Quantity",
 		"returnPrice" => "Return Price",
 		"returnableQuantity" => "Returnable Quantity",
 		"returnQuantity" => "Return Quantity",
@@ -270,7 +271,7 @@ return [
 		"doctorPaymentsManagement" => "Doctor Payments Management",
 
 		"batchPriceManagement" => "Batch Price Management",
-		
+
 		"backupsManagement" => "Backup Management",
 
 		"suppliersManagement" => "Supplier Management",
@@ -296,6 +297,7 @@ return [
 		"testPrescription" => "Test Prescription",
 		"deficitItemsReport" => "Deficit Items Report",
 		"disposal" => "Disposal",
+		"stockReport" => "Stock Report",
 
 		"channelingCalendar" => "Channeling Calendar",
 		"channelingNote" => "Channeling Note",

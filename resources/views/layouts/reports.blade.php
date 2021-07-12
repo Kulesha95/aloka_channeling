@@ -43,7 +43,7 @@
                 <hr>
             @endif
             @if (trim($__env->yieldContent('exports')))
-                <div class="row">
+                <div class="row justify-content-end">
                     <button type="submit" class="btn btn-success mr-2" onclick="exportCSV()"><i class="fa fa-file-csv mr-1"
                             aria-hidden="true"></i>{{ __('app.buttons.downloadCSV') }}</button>
                     <button type="submit" class="btn btn-primary" onclick="exportExcel()"><i class="fa fa-file-excel mr-1"

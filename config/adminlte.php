@@ -409,6 +409,12 @@ return [
             'icon' => 'fas fa-fw fa-box-open',
             'can' => 'generate-deficit-items-report'
         ],  
+        [
+            'text' => 'stockReport',
+            'url'  => 'reports/stockReport',
+            'icon' => 'fas fa-fw fa-cubes',
+            'can' => 'generate-stock-report'
+        ],  
 
     ],
 

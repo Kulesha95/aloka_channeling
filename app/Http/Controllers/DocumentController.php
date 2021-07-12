@@ -7,6 +7,7 @@ use App\Constants\Incomes;
 use App\Constants\Prescriptions;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\Batch;
 use App\Models\Disposal;
 use App\Models\Expense;
 use App\Models\GoodReceive;
@@ -74,6 +75,9 @@ class DocumentController extends Controller
                 break;
             case 'deficitItemsReport':
                 $pdf = $this->getDeficitItemsReport();
+                break;
+            case 'stockReport':
+                $pdf = $this->getStockReport();
                 break;
             default:
                 return;
@@ -285,5 +289,17 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => "Deficit_Items_Report.pdf"];
+    }
+
+    public function getStockReport()
+    {
+        $stock = Batch::all();
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.stockReport', ['stock' => $stock])
+            ->setOption('orientation', "landscape")
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => "Stock_Report.pdf"];
     }
 }

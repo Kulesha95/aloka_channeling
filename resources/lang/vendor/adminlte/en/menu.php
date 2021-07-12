@@ -29,6 +29,7 @@ return [
     "reports" => "Reports",
     "salesReturns" => "Sales Returns",
     "schedules" => "Schedules",
+    "stockReport" => "Stock Report",
     "supplierPayments" => "Supplier Payments",
     "suppliers" => "Suppliers",
     "users" => "Users",

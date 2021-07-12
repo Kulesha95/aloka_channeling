@@ -8,8 +8,8 @@
             <tr>
                 <th>{{ __('app.fields.brandName') }}</th>
                 <th>{{ __('app.fields.genericName') }}</th>
-                <th>{{ __('app.fields.reorderLevel') }}</th>
-                <th>{{ __('app.fields.stockQuantity') }}</th>
+                <th class="text-right">{{ __('app.fields.reorderLevel') }}</th>
+                <th class="text-right">{{ __('app.fields.stockQuantity') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -17,8 +17,8 @@
                 <tr>
                     <td>{{ $item->brand_name }}</td>
                     <td>{{ $item->generic_name_text }}</td>
-                    <td>{{ $item->reorder_level }} {{ $item->unit }}</td>
-                    <td>{{ $item->stock }} {{ $item->unit }}</td>
+                    <td class="text-right">{{ $item->reorder_level }} {{ $item->unit }}</td>
+                    <td class="text-right">{{ $item->stock }} {{ $item->unit }}</td>
                 </tr>
             @endforeach
         </tbody>
