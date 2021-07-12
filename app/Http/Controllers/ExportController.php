@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DeficitItemsExport;
+use App\Exports\IncomeExport;
 use App\Exports\StockExport;
+use Illuminate\Http\Request;
 
 class ExportController extends Controller
 {
 
-    public function exportDocument($type, $id, $format)
+    public function exportDocument(Request $request, $type, $id, $format)
     {
         switch ($type) {
             case 'deficitItemsReport':
@@ -23,6 +25,13 @@ class ExportController extends Controller
                 return Excel::download(
                     new StockExport,
                     'Stock_Report_' . str_replace(" ", "_", now()->toDateTimeString())
+                        . ($format == 'csv' ? '.csv' : '.xlsx'),
+                );
+                break;
+            case 'incomeReport':
+                return Excel::download(
+                    new IncomeExport($request->get('fromDate'), $request->get('toDate')),
+                    'Income_Report_' . str_replace(" ", "_", now()->toDateTimeString())
                         . ($format == 'csv' ? '.csv' : '.xlsx'),
                 );
                 break;

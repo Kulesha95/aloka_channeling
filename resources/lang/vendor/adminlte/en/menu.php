@@ -17,6 +17,7 @@ return [
     "general" => "GENERAL",
     "genericNames" => "Generic Names",
     "goodReceives" => "Good Receives",
+    "incomeReport" => "Income Report",
     "items" => "Items",
     "itemTypes" => "Item Types",
     "logout" => "Logout",

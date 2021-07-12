@@ -79,6 +79,9 @@ class DocumentController extends Controller
             case 'stockReport':
                 $pdf = $this->getStockReport();
                 break;
+            case 'incomeReport':
+                $pdf = $this->getIncomeReport($request);
+                break;
             default:
                 return;
                 break;
@@ -254,8 +257,8 @@ class DocumentController extends Controller
             ->filter(function ($income) {
                 return $income->incomeable->type == Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION;
             })->sum('amount');
-        $supplierPayments = $expenses->where('expenseable_type', Expenses::GOOD_RECEIVE)->sum('amount');
-        $doctorPayments = $expenses->where('expenseable_type', Expenses::SCHEDULE_PAYMENT)->sum('amount');
+        $supplierPayments = $expenses->where('expensable_type', Expenses::GOOD_RECEIVE)->sum('amount');
+        $doctorPayments = $expenses->where('expensable_type', Expenses::SCHEDULE_PAYMENT)->sum('amount');
         $totalIncomes = $incomes->sum('amount');
         $totalExpenses = $expenses->sum('amount');
         $totalProfit = $totalIncomes - $totalExpenses;
@@ -301,5 +304,22 @@ class DocumentController extends Controller
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => "Stock_Report.pdf"];
+    }
+
+    public function getIncomeReport($request)
+    {
+        $fromDate = $request->get('fromDate');
+        $toDate = $request->get('toDate');
+        $incomes = Income::where('date', '>=', $fromDate)->where('date', '<=', $toDate)->get();
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.incomeReport', [
+            'incomes' => $incomes,
+            "fromDate" => $fromDate,
+            "toDate" => $toDate
+        ])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => "Income_Report.pdf"];
     }
 }

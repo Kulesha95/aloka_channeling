@@ -415,6 +415,12 @@ return [
             'icon' => 'fas fa-fw fa-cubes',
             'can' => 'generate-stock-report'
         ],  
+        [
+            'text' => 'incomeReport',
+            'url'  => 'reports/incomeReport',
+            'icon' => 'fas fa-fw fa-dollar-sign',
+            'can' => 'generate-income-report'
+        ],  
 
     ],
 

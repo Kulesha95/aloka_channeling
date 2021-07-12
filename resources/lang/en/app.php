@@ -298,6 +298,7 @@ return [
 		"deficitItemsReport" => "Deficit Items Report",
 		"disposal" => "Disposal",
 		"stockReport" => "Stock Report",
+		"incomeReport" => "Income Report",
 
 		"channelingCalendar" => "Channeling Calendar",
 		"channelingNote" => "Channeling Note",

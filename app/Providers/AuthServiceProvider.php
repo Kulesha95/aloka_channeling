@@ -58,6 +58,7 @@ class AuthServiceProvider extends ServiceProvider
             "generate-profit-and-loss-report" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN],
             "generate-deficit-items-report" => [UserTypes::STORE_KEEPER],
             "generate-stock-report" => [UserTypes::STORE_KEEPER],
+            "generate-income-report" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN],
         ];
 
         foreach ($userAccess as $gate => $userTypes) {
