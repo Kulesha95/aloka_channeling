@@ -31,6 +31,12 @@ class BatchResource extends JsonResource
             'price_text' => $this->price_text,
             'purchase_price' => $this->purchase_price,
             'purchase_price_text' => $this->purchase_price_text,
+            'discount' => $this->discount,
+            'discount_text' => $this->discount_text,
+            'discounted_price' => $this->discounted_price,
+            'discounted_price_text' => $this->discounted_price_text,
+            'discount_amount' => $this->discount_amount,
+            'discount_type' => $this->discount_type,
             'expire_date' => $this->expire_date
         ];
     }

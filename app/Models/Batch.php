@@ -23,7 +23,9 @@ class Batch extends Model
         'purchase_quantity',
         'purchase_price',
         'price',
-        'expire_date'
+        'expire_date',
+        'discount_amount',
+        'discount_type',
     ];
 
     public function getPriceTextAttribute()
@@ -34,6 +36,34 @@ class Batch extends Model
     public function getPurchasePriceTextAttribute()
     {
         return  "Rs. " . number_format($this->purchase_price, 2);
+    }
+
+    public function getDiscountAttribute()
+    {
+        if ($this->discount_type == "Fixed") {
+            return $this->discount_amount;
+        } else {
+            return ($this->discount_amount / 100) * $this->price;
+        }
+    }
+
+    public function getDiscountedPriceAttribute()
+    {
+        return $this->price - $this->discount;
+    }
+
+    public function getDiscountedPriceTextAttribute()
+    {
+        return "Rs. " . number_format($this->discounted_price, 2);
+    }
+
+    public function getDiscountTextAttribute()
+    {
+        if ($this->discount_type == "Fixed") {
+            return "Rs. " . number_format($this->discount_amount, 2);
+        } else {
+            return $this->discount_amount . "%";
+        }
     }
 
     public function goodReceive()

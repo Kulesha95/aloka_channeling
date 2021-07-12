@@ -87,6 +87,10 @@ return [
 		"debit" => "Debit",
 		"description" => "Description",
 		"directions" => "Directions",
+		"discount" => "Discount",
+		"discountAmount" => "Discount Amount",
+		"discountedPrice" => "Discounted Price",
+		"discountType" => "Discount Type",
 		"doctor" => "Doctor",
 		"doctorFee" => "Doctor Fee",
 		"doctorPayments" => "Doctor Payments",
@@ -256,6 +260,9 @@ return [
 
 		"doctorPayments" => "Doctor Payments",
 		"doctorPaymentsManagement" => "Doctor Payments Management",
+		
+		"batchPriceManagement" => "Batch Price Management",
+
 
 		"suppliersManagement" => "Supplier Management",
 		"createSupplier" => "Create Supplier",

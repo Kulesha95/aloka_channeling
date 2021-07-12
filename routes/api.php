@@ -76,6 +76,7 @@ Route::middleware('auth:api')->group(function () {
 
 	Route::apiResource('appointments', AppointmentController::class);
 	Route::apiResource('appointment.incomes', AppointmentIncomeController::class)->except(['destroy', 'update']);
+	Route::apiResource('batches', BatchController::class)->except(['destroy', 'store']);
 	Route::apiResource('channelTypes', ChannelTypeController::class)->except(['index']);
 	Route::apiResource('channelType.channelReasons', ChannelReasonController::class)->except(['update', 'show']);
 	Route::apiResource('directions', DirectionController::class)->only(['index']);

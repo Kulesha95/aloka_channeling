@@ -376,6 +376,12 @@ return [
             'can' => 'manage-doctor-payments'
         ],        
         [
+            'text' => 'batches',
+            'url'  => 'batches',
+            'icon' => 'fas fa-fw fa-boxes',
+            'can' => 'manage-batch-prices'
+        ],        
+        [
             'header' => 'reports',
             'can' => 'generate-reports'
         ],

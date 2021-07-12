@@ -27,6 +27,8 @@ class CreateBatchesTable extends Migration
             $table->double('purchase_quantity', 10, 2);
             $table->double('purchase_price', 10, 2);
             $table->double('price', 10, 2);
+            $table->double('discount_amount', 10, 2)->nullable()->default(0);
+            $table->string('discount_type', 10, 2)->nullable()->default('Fixed');
             $table->date('expire_date')->nullable();
             $table->timestamps();
             $table->softDeletes();

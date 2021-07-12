@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BatchResource;
 use App\Models\Batch;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BatchController extends Controller
 {
@@ -18,6 +19,46 @@ class BatchController extends Controller
     public function index()
     {
         return ResponseHelper::findSuccess('Batches', BatchResource::collection(Batch::all()));
+    }
+
+    /**
+     * Display the specified resource in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Batch $batch)
+    {
+        return ResponseHelper::findSuccess('Batches', new BatchResource($batch));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Batch  $batch
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Batch $batch)
+    {
+        $validator = Validator::make(
+            $request->only(['price', 'discount_type', 'discount_amount']),
+            [
+                'price' => 'required',
+                'discount_type' => 'required',
+                'discount_amount' => 'required'
+            ]
+        );
+        if ($validator->fails()) {
+            return ResponseHelper::validationFail(
+                'Batch',
+                $validator->errors()
+            );
+        }
+        $batch->update($request->only(['price', 'discount_type', 'discount_amount']));
+        return ResponseHelper::updateSuccess(
+            'Batch',
+            new BatchResource($batch)
+        );
     }
 
     /**

@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
         "onHold" => Appointments::PENDING,
         "rejected" => Appointments::REJECTED
     ]);
+    Route::view('batches', 'batches.index')->name('batches.index');
     Route::view('calendar', 'pages.calendar');
     Route::view('channelings', 'channelings.channeling', [
         "confirmed" => Appointments::CONFIRMED,
