@@ -18,7 +18,9 @@ class BatchMovements extends Model
         'to_quantity',
         'date',
         'time',
-        'reason'
+        'reason',
+        'batch_moveable_id',
+        'batch_moveable_type'
     ];
 
     public function batchMoveable()

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Batch;
+use App\Models\BatchMovements;
 use Illuminate\Console\Command;
 
 class ClearExpiredItems extends Command
@@ -44,6 +45,19 @@ class ClearExpiredItems extends Command
             $batch->update([
                 'returnable_quantity' => $batch->returnable_quantity + $batch->stock_quantity,
                 'stock_quantity' => 0
+            ]);
+            BatchMovements::create([
+                'from' => "Main Stock",
+                'from_batch' => $batch->id,
+                'from_quantity' => $batch->stock_quantity,
+                'to' => "Returnable Stock",
+                'to_batch' => $batch->id,
+                'to_quantity' => $batch->stock_quantity,
+                'date' => now()->toDateString(),
+                'time' => now()->toTimeString(),
+                'reason' => 'Clear Expired Items',
+                'batch_moveable_id' => 0,
+                'batch_moveable_type' => 'Expirations'
             ]);
         }
     }
