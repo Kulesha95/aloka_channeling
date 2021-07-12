@@ -394,6 +394,12 @@ return [
             'can' => 'manage-backups'
         ],        
         [
+            'text' => 'cms',
+            'url'  => 'cms',
+            'icon' => 'fas fa-fw fa-tools',
+            'can' => 'manage-cms'
+        ],        
+        [
             'header' => 'reports',
             'can' => 'generate-reports'
         ],

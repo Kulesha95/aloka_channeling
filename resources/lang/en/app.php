@@ -193,6 +193,9 @@ return [
 		"home" => "Home",
 		"login" => "Login",
 		"welcomeTo" => "Welcome To",
+		"about" => "About",
+		"contact" => "Contact",
+		"general" => "General",
 
 		"doctorsManagement" => "Doctor Management",
 		"createDoctor" => "Create Doctor",
@@ -316,7 +319,9 @@ return [
 
 		"channelReasonsManagement" => "Channel Reasons Management",
 
-		"forgetPassword" => "Forget Password"
+		"forgetPassword" => "Forget Password",
+
+		"contentManagementSystem" => "Content Management System",
 	],
 
 	"texts" => [

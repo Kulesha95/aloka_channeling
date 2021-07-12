@@ -7,6 +7,7 @@ return [
     "channelingCalendar" => "Channeling Calendar",
     "channelings" => "Channelings",
     "channelTypes" => "Channel Types",
+    "cms" => "CMS",
     "dashboard" => "Dashboard",
     "deficitItemsReport" => "Deficit Items Report",
     "disposals" => "Disposals",

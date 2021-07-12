@@ -54,6 +54,7 @@ class AuthServiceProvider extends ServiceProvider
             "manage-batch-prices" => [UserTypes::SUPER_ADMIN],
             "manage-disposals" => [UserTypes::STORE_KEEPER],
             "manage-backups" => [UserTypes::SUPER_ADMIN],
+            "manage-cms" => [UserTypes::ADMIN],
             "generate-reports" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN, UserTypes::STORE_KEEPER],
             "generate-profit-and-loss-report" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN],
             "generate-deficit-items-report" => [UserTypes::STORE_KEEPER],

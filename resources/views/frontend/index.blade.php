@@ -14,22 +14,30 @@
                         <div class="col-lg-6 mb-3">
                             <div class="row">
                                 <div class="col-3 text-danger d-flex">
-                                    <i class="fas fa-ambulance fa-2x ml-auto"></i>
+                                    <i
+                                        class="fas fa-{{ $webContent->where('key', 'home_service_icon_1')->first()->value ?? 'ambulance' }} fa-2x ml-auto"></i>
                                 </div>
                                 <div class="col-9 text-left">
-                                    <h5 class="font-weight-bold text-danger">Channelling Services</h5>
-                                    <p>All kind of consultant channeling services</p>
+                                    <h5 class="font-weight-bold text-danger">
+                                        {{ $webContent->where('key', 'home_service_title_1')->first()->value ?? 'Channelling Services' }}
+                                    </h5>
+                                    <p>{{ $webContent->where('key', 'home_service_description_1')->first()->value ?? 'All kind of consultant channeling services' }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div class="row">
                                 <div class="col-3 text-danger d-flex">
-                                    <i class="fas fa-stethoscope fa-2x ml-auto"></i>
+                                    <i
+                                        class="fas fa-{{ $webContent->where('key', 'home_service_icon_2')->first()->value ?? 'stethoscope' }} fa-2x ml-auto"></i>
                                 </div>
                                 <div class="col-9 text-left">
-                                    <h5 class="font-weight-bold text-danger">Qualified Doctors</h5>
-                                    <p>Qualified and well experienced docotors</p>
+                                    <h5 class="font-weight-bold text-danger">
+                                        {{ $webContent->where('key', 'home_service_title_2')->first()->value ?? 'Qualified Doctors' }}
+                                    </h5>
+                                    <p>{{ $webContent->where('key', 'home_service_description_2')->first()->value ?? 'Qualified and well experienced docotors' }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -38,22 +46,30 @@
                         <div class="col-lg-6 mb-3">
                             <div class="row">
                                 <div class="col-3 text-danger d-flex">
-                                    <i class="fas fa-tablet fa-2x ml-auto"></i>
+                                    <i
+                                        class="fas fa-{{ $webContent->where('key', 'home_service_icon_1')->first()->value ?? 'tablet' }} fa-2x ml-auto"></i>
                                 </div>
                                 <div class="col-9 text-left">
-                                    <h5 class="font-weight-bold text-danger">e-Channelling</h5>
-                                    <p>24 hours accessible e-channeling facility</p>
+                                    <h5 class="font-weight-bold text-danger">
+                                        {{ $webContent->where('key', 'home_service_title_1')->first()->value ?? 'e-Channelling' }}
+                                    </h5>
+                                    <p>{{ $webContent->where('key', 'home_service_description_1')->first()->value ?? '24 hours accessible e-channeling facility' }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6 mb-3">
                             <div class="row">
                                 <div class="col-3 text-danger d-flex">
-                                    <i class="fas fa-briefcase-medical fa-2x ml-auto"></i>
+                                    <i
+                                        class="fas fa-{{ $webContent->where('key', 'home_service_icon_2')->first()->value ?? 'briefcase-medical' }} fa-2x ml-auto"></i>
                                 </div>
                                 <div class="col-9 text-left">
-                                    <h5 class="font-weight-bold text-danger">Pharmacy Services</h5>
-                                    <p>All kind of medicines and medical equipment</p>
+                                    <h5 class="font-weight-bold text-danger">
+                                        {{ $webContent->where('key', 'home_service_title_2')->first()->value ?? 'Pharmacy Services' }}
+                                    </h5>
+                                    <p>{{ $webContent->where('key', 'home_service_description_2')->first()->value ?? 'All kind of medicines and medical equipment' }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -170,7 +186,7 @@
                         $('#searchDoctorSection').removeClass('d-block');
                         $('#searchDoctorSection').addClass('d-none');
                     }
-                    
+                    messageHandler.successMessage(response.message);
                 })
         });
     </script>
