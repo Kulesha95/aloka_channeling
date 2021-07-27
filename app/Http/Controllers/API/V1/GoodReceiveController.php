@@ -58,6 +58,7 @@ class GoodReceiveController extends Controller
                 "good_receive_quantity" => $purchaseQuantity + $freeQuantities[$rowId],
                 "stock_quantity" => $purchaseQuantity + $freeQuantities[$rowId],
                 "sold_quantity" => 0,
+                "reserved_quantity" => 0,
                 "returnable_quantity" => 0,
                 "returned_quantity" => 0,
                 "dispose_quantity" => 0,
