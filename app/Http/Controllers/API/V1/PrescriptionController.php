@@ -287,6 +287,10 @@ class PrescriptionController extends Controller
                 "items" => PrescriptionBatchResource::collection($prescription->batches),
                 "total" => $prescription->total,
                 "total_text" => $prescription->total_text,
+                "sub_total" => $prescription->sub_total,
+                "sub_total_text" => $prescription->sub_total_text,
+                "discount" => $prescription->discount,
+                "discount_text" => $prescription->discount_text,
             ]
         );
     }

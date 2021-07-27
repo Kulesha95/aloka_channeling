@@ -149,10 +149,10 @@
             })
             httpService.get(indexUrlInternalPrescription.replace(':id', internalPrescriptionId)).then(response => {
                 dataTableHandler.fillData(tableInternalPrescription, response.data.items);
-                $('#total_price_text_internal_prescription').val(data.sub_total_text);
-                $('#total_price_internal_prescription').val(data.sub_total);
-                $('#payable_internal_prescription').val(data.total_text);
-                $('#discount_internal_prescription').val(data.discount).trigger('change');
+                $('#total_price_text_internal_prescription').val(response.data.sub_total_text);
+                $('#total_price_internal_prescription').val(response.data.sub_total);
+                $('#payable_internal_prescription').val(response.data.total_text);
+                $('#discount_internal_prescription').val(response.data.discount).trigger('change');
             })
             refreshData();
         }

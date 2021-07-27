@@ -44,6 +44,8 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('dashboard/incomeGraphData', 'DashboardController@incomeGraphData')->name('dashboard.incomeGraphData');
 	Route::get('dashboard/itemsSummaryData', 'DashboardController@itemsSummaryData')->name('dashboard.itemsSummaryData');
 	Route::get('dashboard/stockSummaryData', 'DashboardController@stockSummaryData')->name('dashboard.stockSummaryData');
+	Route::get('dashboard/prescriptionsDataSummary', 'DashboardController@prescriptionsDataSummary')->name('dashboard.prescriptionsDataSummary');
+	Route::get('dashboard/pharmacySalesGraphData', 'DashboardController@pharmacySalesGraphData')->name('dashboard.pharmacySalesGraphData');
 
 	Route::get('explorationTypes/tests', 'ExplorationTypeController@tests')->name('explorationTypes.tests');
 

@@ -28,6 +28,10 @@
         @include('dashboard.channelingsDataSummary')
         @include('dashboard.explorationsHistory')
     @endif
+    @if (Auth::user()->is_pharmacist)
+        @include('dashboard.prescriptionSummary')
+        @include('dashboard.pharmacySalesGraphs')
+    @endif
 @endsection
 
 @section('js')

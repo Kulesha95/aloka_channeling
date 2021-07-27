@@ -49,8 +49,14 @@ return [
 		"supplierPayments" => "Supplier Payments",
 		"todayAppointments" => "Today Appointments",
 		"totalAppointments" => "Total Appointments",
+		"totalPrescriptions" => "Total Prescriptions",
 		"totalSchedules" => "Total Schedules",
 		"treatmentsEnd" => "Treatments End",
+		"prescriptionBills" => "Prescription Bills",
+		"internalPrescriptions" => "Internal Prescriptions",
+		"paidPrescriptions" => "Paid Prescriptions",
+		"internalPrescriptionsSales" => "Internal Prescriptions Sales",
+		"externalPrescriptionsSales" => "External Prescriptions Sales",
 	],
 
 	"fields" => [

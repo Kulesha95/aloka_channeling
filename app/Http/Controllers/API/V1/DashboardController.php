@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Constants\Appointments;
 use App\Constants\Expenses;
 use App\Constants\Incomes;
+use App\Constants\Prescriptions;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BatchResource;
@@ -18,8 +19,6 @@ use App\Models\Item;
 use App\Models\Patient;
 use App\Models\Prescription;
 use Carbon\Carbon;
-use GrahamCampbell\ResultType\Success;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -244,6 +243,49 @@ class DashboardController extends Controller
             'reportsPendingAppointments' => $appointments->where('status', Appointments::PENDING)
                 ->count(),
             'treatmentsEnd' => $prescription ?  $prescription->treatments_end_date : "N/A"
+        ]);
+    }
+
+    /**
+     * Get Prescriptions Data Summary
+     */
+    public function prescriptionsDataSummary()
+    {
+        $prescriptions = Prescription::where('date', 'like', Carbon::now()->format('Y-m-') . "%")->get();
+        $prescriptionBills = $prescriptions->whereIn('status', [Prescriptions::PENDING_PRESCRIPTION, Prescriptions::CONFIRMED_PRESCRIPTION])->count();
+        $internalPrescriptions = $prescriptions->where('status', Prescriptions::NEW_PRESCRIPTION)->count();
+        $paidPrescriptions = $prescriptions->where('status', Prescriptions::PAID_PRESCRIPTION)->count();
+        return ResponseHelper::findSuccess('Explorations Data', [
+            'total_prescriptions' => $prescriptions->count(),
+            'prescription_bills' =>  $prescriptionBills,
+            'internal_prescriptions' => $internalPrescriptions,
+            'paid_prescriptions' => $paidPrescriptions
+        ]);
+    }
+
+    /**
+     * Get Prescriptions Graph Data Summary
+     */
+    public function pharmacySalesGraphData()
+    {
+        $prescriptions = Prescription::whereIn('status',[Prescriptions::PAID_PRESCRIPTION,Prescriptions::ISSUED_PRESCRIPTION])->get();
+        $internalPrescriptions =  $prescriptions->where('prescription_type', Prescriptions::INTERNAL_MEDICAL_PRESCRIPTION)
+            ->sortBy('date')->groupBy('date')->map(function ($row) {
+                return [
+                    'x' => $row->first()['date'],
+                    'y' => $row->sum('total')
+                ];
+            })->values()->all();
+        $externalPrescriptions =  $prescriptions->where('prescription_type', Prescriptions::EXTERNAL_MEDICAL_PRESCRIPTION)
+            ->sortBy('date')->groupBy('date')->map(function ($row) {
+                return [
+                    'x' => $row->first()['date'],
+                    'y' => $row->sum('total')
+                ];
+            })->values()->all();
+        return ResponseHelper::findSuccess('Explorations Data', [
+            'internalPrescriptionsSales' => $internalPrescriptions,
+            'externalPrescriptionsSales' =>  $externalPrescriptions,
         ]);
     }
 }
