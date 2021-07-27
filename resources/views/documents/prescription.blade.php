@@ -41,7 +41,11 @@
     @else
         <ul>
             @foreach ($prescription->genericNames as $item)
-                <li>{{ $item->pivot->generic_name_text }} - {{ $item->pivot->dosage_text }} - {{ $item->pivot->duration_text }} - {{ $item->pivot->directions }}
+                <li>{{ $item->pivot->generic_name_text }} - {{ $item->pivot->dosage_text }} -
+                    {{ $item->pivot->duration_text }} - {{ $item->pivot->directions }}
+                    @if ($issuedItems != [] && !$issuedItems->contains($item->pivot->generic_name_id))
+                    - <span class="text-danger">{{ __('app.texts.notIssued') }}</span>
+                    @endif
                 </li>
             @endforeach
         </ul>

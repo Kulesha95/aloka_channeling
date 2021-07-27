@@ -360,6 +360,7 @@ return [
 		"internalPrescriptions" => "Internal Prescriptions",
 		"medicalPrescriptionBills" => "Medical Prescription Bills",
 		"none" => "None",
+		"notIssued"=>"Not Issued",
 		"noRepeat" => "No Repeat",
 		"paidPrescriptionBills" => "Paid Prescription Bills",
 		"patientDetails" => "Patient Details",

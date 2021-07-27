@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\View;
 class DocumentController extends Controller
 {
 
-    private $marginTop = 50;
+    private $marginTop = 67;
     private $marginBottom = 20;
 
     public function getDocument(Request $request, $type, $id, $action)
@@ -135,9 +135,10 @@ class DocumentController extends Controller
     public function getPrescription($id)
     {
         $prescription = Prescription::findOrFail($id);
+        $issuedItems = $prescription->batches->pluck('item.generic_name_id');
         $header = View::make('documents.header');
         $footer = View::make('documents.footer');
-        $pdf = SnappyPdf::loadView('documents.prescription', ['prescription' => $prescription])
+        $pdf = SnappyPdf::loadView('documents.prescription', ['prescription' => $prescription, 'issuedItems' => $issuedItems])
             ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
             ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
         return ["document" => $pdf, "name" => $prescription->prescription_number . "_Prescription.pdf"];

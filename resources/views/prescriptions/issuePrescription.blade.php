@@ -32,7 +32,10 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <button type="submit" class="btn btn-success ml-auto mr-2"
+                    <button href="button" class="btn btn-primary ml-auto mr-2 text-light"
+                        onclick="openPrescriptionDocumentView()"><i class="fa fa-print mr-1"
+                            aria-hidden="true"></i>{{ __('app.buttons.print') }}</button>
+                    <button type="submit" class="btn btn-success mr-2"
                         onclick="handleStatusUpdatePaidPrescription({{ $issued }})"><i class="fa fa-gift mr-1"
                             aria-hidden="true"></i>{{ __('app.buttons.issue') }}</button>
                 </div>
@@ -68,6 +71,11 @@
             null,
             columnOptionsIssue
         );
+        const openPrescriptionDocumentView = () => {
+            const documentUrl =
+                "{{ route('documents.getPdf', ['type' => 'prescription', 'id' => ':id', 'action' => 'view']) }}";
+            window.open(documentUrl.replace(':id', currentPaidPrescriptionId));
+        }
         const loadpaidPrescriptionItems = (data) => {
             currentPaidPrescriptionId = data.id;
             httpService.get(indexUrlPrescriptionItems.replace(':id', currentPaidPrescriptionId)).then(response => {
