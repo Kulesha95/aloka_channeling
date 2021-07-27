@@ -132,10 +132,24 @@
         const dataTableColumnsInternalPrescription = ["brand_name", "price_text", "discount_text",
             "discounted_price_text", "quantity_text", "total_text"
         ];
+        const columnOptions = {
+            price_text: {
+                className: "text-right"
+            },
+            discounted_price_text: {
+                className: "text-right"
+            },
+            total_text: {
+                className: "text-right"
+            },
+        }
         // Initialize Data Table
         const tableInternalPrescription = dataTableHandler.initializeTable(
             dataTableNameInternalPrescription,
             dataTableColumnsInternalPrescription,
+            null,
+            null,
+            columnOptions
         );
         const handleAddSuccessInternalPrescription = (data) => {
             $('#prescription_id_internal').val(data.id);
@@ -160,8 +174,8 @@
             internalPrescriptionId = 0;
             dataTableHandler.fillData(tableInternalPrescription, []);
             $('#prescription_id_internal').val("");
-            $('#total_price_text_internal_prescription').val("Rs. 0.00");
-            $('#payable_internal_prescription').val("Rs. 0.00");
+            $('#total_price_text_internal_prescription').val("0.00");
+            $('#payable_internal_prescription').val("0.00");
             $('#total_price_internal_prescription').val(0);
             $('#discount_internal_prescription').val('').trigger('change');
             $('#prescription_comment').html();
@@ -190,7 +204,7 @@
             const total = $('#total_price_internal_prescription').val();
             const discount = $('#discount_internal_prescription').val();
             $('#payable_internal_prescription').val(
-                "Rs." + Number((isNaN(total) || isNaN(discount) ? total : total - discount).toFixed(2))
+                Number((isNaN(total) || isNaN(discount) ? total : total - discount).toFixed(2))
                 .toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2

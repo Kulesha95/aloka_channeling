@@ -82,7 +82,11 @@
             "expenses_list_table",
             ["id", "voucher_number", "reason", "date", "time", "amount_text"],
             null,
-            null
+            null, {
+                amount_text: {
+                    className: "text-right"
+                }
+            }
         );
         formHandler.handleSave(`expenseSupplierForm`, ["reason", "amount"], loadSupplierExpenseTableData, null,
             "_expense");

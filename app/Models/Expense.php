@@ -20,7 +20,7 @@ class Expense extends Model
 
     public function getAmountTextAttribute()
     {
-        return  "Rs. " . number_format($this->amount, 2);
+        return  number_format($this->amount, 2);
     }
 
     public function getVoucherNumberAttribute()

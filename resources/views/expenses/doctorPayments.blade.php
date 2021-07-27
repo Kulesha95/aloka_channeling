@@ -76,8 +76,14 @@
             "expenses_list_table",
             ["id", "expensable_id", "voucher_number", "reason", "date", "time", "amount_text"],
             undefined,
-            "<button type='button' class='btn btn-sm btn-outline-success mr-1 print-invoice-button'><i class='fas fa-print fa-fw' ></i></button>",
-            {expensable_id:{visible:false}}
+            "<button type='button' class='btn btn-sm btn-outline-success mr-1 print-invoice-button'><i class='fas fa-print fa-fw' ></i></button>", {
+                expensable_id: {
+                    visible: false
+                },
+                amount_text: {
+                    className: "text-right"
+                }
+            }
         );
         formHandler.handleSave(`expenseDoctorForm`, ["reason", "amount"], loadDoctorExpenseTableData, null,
             "_expense");

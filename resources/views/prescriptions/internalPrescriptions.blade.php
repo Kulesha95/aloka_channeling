@@ -42,7 +42,8 @@
             dataTableNameInternalPrescriptions,
             dataTableColumnsInternalPrescriptions,
             undefined,
-            viewActionContent
+            viewActionContent,
+            {total_text:{className:"text-right"}}
         );
         const displayInternalPendingCount = (data) => {
             const pendingCount = data.length;

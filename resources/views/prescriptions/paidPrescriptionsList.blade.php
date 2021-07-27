@@ -35,7 +35,8 @@
             dataTableNamePaidPrescriptions,
             dataTableColumnsPaidPrescriptions,
             undefined,
-            viewActionContent
+            viewActionContent,
+            {total_text:{className:"text-right"}}
         );
         const displayPaidCount = (data) => {
             const paidCount = data.length;

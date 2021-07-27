@@ -27,12 +27,12 @@ class Prescription extends Model
 
     public function getSubTotalTextAttribute()
     {
-        return "Rs. " . number_format($this->sub_total, 2);
+        return number_format($this->sub_total, 2);
     }
 
     public function getDiscountTextAttribute()
     {
-        return "Rs. " . number_format($this->discount, 2);
+        return number_format($this->discount, 2);
     }
 
     public function getTotalAttribute()
@@ -42,7 +42,7 @@ class Prescription extends Model
 
     public function getTotalTextAttribute()
     {
-        return "Rs. " . number_format($this->total, 2);
+        return number_format($this->total, 2);
     }
 
     public function getPrescriptionTypeTextAttribute()
@@ -90,17 +90,17 @@ class Prescription extends Model
 
     public function getFeeTextAttribute()
     {
-        return "Rs. " . number_format($this->total, 2);
+        return number_format($this->total, 2);
     }
 
     public function getPaidTextAttribute()
     {
-        return "Rs. " . number_format($this->paid, 2);
+        return number_format($this->paid, 2);
     }
 
     public function getBalanceTextAttribute()
     {
-        return "Rs. " . number_format($this->balance, 2);
+        return number_format($this->balance, 2);
     }
 
     public function getInvoiceAttribute()

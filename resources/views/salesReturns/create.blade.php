@@ -54,6 +54,9 @@
             "return_quantity", "return_reason", "return_price"
         ];
         const columnOptions = {
+            price_text: {
+                className: "text-right"
+            },
             return_quantity: {
                 data: "id",
                 render: (data, type, row, meta) => {

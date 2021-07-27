@@ -51,7 +51,8 @@
         const dataTableName = 'items_list_table';
         // Table Columns List
         const dataTableColumns = ['id', 'appointment_number', 'doctor', 'date', 'time', 'status_text',
-            'fee_text'];
+            'fee_text'
+        ];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
@@ -60,12 +61,18 @@
             viewActionContent +
             "<button class='btn btn-sm btn-outline-success mr-1 payment-button'><i class='fas fa-dollar-sign fa-fw' ></i></button>" +
             "<button class='btn btn-sm btn-outline-danger mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>";
+        const columnOptions = {
+            fee_text: {
+                className: "text-right"
+            }
+        };
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            actionContents
+            actionContents,
+            columnOptions
         );
         // Load Data To The Table
         const loadData = () => {

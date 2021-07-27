@@ -57,11 +57,6 @@
                     </thead>
                 </table>
                 <hr>
-                <div class="row mt-2 mr-2">
-                    <h5 class="font-weight-bold ml-auto mr-2">{{ __('app.fields.total') }} :</h5>
-                    <h5 id="total_price_external_prescription"></h5>
-                </div>
-                <hr>
                 <div class="row mt-2">
                     <div class="col-2 ml-auto">
                         <h5 class="font-weight-bold text-right mr-2">{{ __('app.fields.total') }} :</h5>
@@ -123,10 +118,24 @@
         const dataTableColumnsExternalPrescription = ["brand_name", "price_text", "discount_text",
             "discounted_price_text", "quantity_text", "total_text"
         ];
+        const columnOptionsExternal = {
+            price_text: {
+                className: "text-right"
+            },
+            discounted_price_text: {
+                className: "text-right"
+            },
+            total_text: {
+                className: "text-right"
+            },
+        }
         // Initialize Data Table
         const tableExternalPrescription = dataTableHandler.initializeTable(
             dataTableNameExternalPrescription,
             dataTableColumnsExternalPrescription,
+            null,
+            null,
+            columnOptionsExternal
         );
         const handleAddSuccessExternalPrescription = (data) => {
             $('#prescription_id_external').val(data.id);
@@ -144,8 +153,8 @@
             externalPrescriptionId = 0;
             dataTableHandler.fillData(tableExternalPrescription, []);
             $('#prescription_id_external').val("");
-            $('#total_price_text_external_prescription').val("Rs. 0.00");
-            $('#payable_external_prescription').val("Rs. 0.00");
+            $('#total_price_text_external_prescription').val("0.00");
+            $('#payable_external_prescription').val("0.00");
             $('#total_price_external_prescription').val(0);
             $('#discount_external_prescription').val('').trigger('change');
             $('#prescription_comment').html();
@@ -174,7 +183,7 @@
             const total = $('#total_price_external_prescription').val();
             const discount = $('#discount_external_prescription').val();
             $('#payable_external_prescription').val(
-                "Rs." + Number((isNaN(total) || isNaN(discount) ? total : total - discount).toFixed(2))
+                Number((isNaN(total) || isNaN(discount) ? total : total - discount).toFixed(2))
                 .toLocaleString('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2

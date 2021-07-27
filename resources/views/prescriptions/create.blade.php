@@ -130,7 +130,7 @@
             externalPrescriptionId = 0;
             dataTableHandler.fillData(tableMedicalPrescription, []);
             $('#prescription_id_medical').val("");
-            $('#total_price_medical_prescription').html("Rs. 0.00");
+            $('#total_price_medical_prescription').html("0.00");
             refreshData();
         }
         const handleStatusUpdateMedicalPrescription = (status) => {
@@ -149,5 +149,4 @@
         formHandler.handleSave(`createMedicalPrescriptionForm`, inputsMedicalPrescription,
             handleAddSuccessMedicalPrescription,
             undefined, '_medical');
-    </script>
-@endpush
+    </script

@@ -60,7 +60,10 @@
                 render: (data, type, row, meta) => {
                     return `<input class="form-control" name="return_reason[${meta.row}]" placeholder="{{ __('app.fields.returnReason') }}" value="Expired">`;
                 }
-            }
+            },
+            purchase_price_text: {
+                className: "text-right",
+            },
         }
         const tableDisposals = dataTableHandler.initializeTable(
             dataTableNameDisposals,

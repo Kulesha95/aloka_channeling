@@ -18,7 +18,7 @@ class BatchPrescription extends Pivot
 
     public function getTotalTextAttribute()
     {
-        return "Rs. " . number_format($this->total, 2);
+        return number_format($this->total, 2);
     }
 
     public function getDiscountTextAttribute()
@@ -33,7 +33,7 @@ class BatchPrescription extends Pivot
 
     public function getDiscountedPriceTextAttribute()
     {
-        return "Rs. " . number_format($this->discounted_price, 2);
+        return number_format($this->discounted_price, 2);
     }
 
     public function batch()

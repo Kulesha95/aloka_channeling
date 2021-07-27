@@ -76,12 +76,24 @@
         };
         const actionContents =
             "<button class='btn btn-sm btn-outline-primary mr-1 payment-button'><i class='fas fa-dollar-sign fa-fw' ></i></button>";
+        const columnOptions = {
+            fee_text: {
+                className: "text-right"
+            },
+            paid_text: {
+                className: "text-right"
+            },
+            balance_text: {
+                className: "text-right"
+            },
+        }
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            actionContents
+            actionContents,
+            columnOptions
         );
         // Load Data To The Table
         const loadData = () => {

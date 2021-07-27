@@ -65,9 +65,9 @@
                     <td class="text-right">{{ $item->pivot->good_receive_quantity - $item->pivot->purchase_quantity }}
                         {{ $item->unit }}
                     </td>
-                    <td class="text-right">Rs.{{ number_format($item->pivot->purchase_price, 2) }}</td>
+                    <td class="text-right">{{ number_format($item->pivot->purchase_price, 2) }}</td>
                     <td class="text-right">
-                        Rs.{{ number_format($item->pivot->purchase_price * $item->pivot->purchase_quantity, 2) }}
+                        {{ number_format($item->pivot->purchase_price * $item->pivot->purchase_quantity, 2) }}
                     </td>
                 </tr>
             @endforeach

@@ -39,8 +39,8 @@
                             </div>
                             <div class="form-group col-6">
                                 <label for="amount">{{ __('app.fields.amount') }}</label>
-                                <input id="amount_pharmacy_payment" class="form-control" type="number" step="0.01" name="amount"
-                                    placeholder="{{ __('app.fields.amount') }}">
+                                <input id="amount_pharmacy_payment" class="form-control" type="number" step="0.01"
+                                    name="amount" placeholder="{{ __('app.fields.amount') }}">
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -65,8 +65,8 @@
                     </thead>
                 </table>
                 <div class="row m-1">
-                    <button type="button" class="btn btn-success ml-auto" id="print-button-pharmacy-payment"><i class="fas fa-print mr-1"
-                            aria-hidden="true"></i>{{ __('app.buttons.print') }}</button>
+                    <button type="button" class="btn btn-success ml-auto" id="print-button-pharmacy-payment"><i
+                            class="fas fa-print mr-1" aria-hidden="true"></i>{{ __('app.buttons.print') }}</button>
                 </div>
             </div>
         </div>
@@ -84,9 +84,14 @@
             "pharmacy_payments_list_table",
             ["id", "invoice_number", "reason", "date", "time", "amount_text"],
             null,
-            null
+            null, {
+                amount_text: {
+                    className: "text-right"
+                }
+            }
         );
-        formHandler.handleSave(`paymentPrescriptionForm`, ["reason", "amount"], loadPharmacyPaymentTableData, null,
+        formHandler.handleSave(`paymentPrescriptionForm`, ["reason", "amount"], loadPharmacyPaymentTableData,
+            null,
             "_pharmacy_payment");
         $('#print-button-pharmacy-payment').click(() => {
             window.open(pharmacyPaymentDocumentUrl.replace(':id', prescriptionId));
@@ -96,7 +101,8 @@
         pharmacyPaymentUrl = $(`#paymentPrescriptionForm`).data("action");
         pharmacyPaymentUrl = pharmacyPaymentUrl.replace(`:id`, data.prescription.id);
         $(`#paymentPrescriptionForm`).attr("action", pharmacyPaymentUrl);
-        $(`#amount_pharmacy_payment`).val(data.prescription.status === parseInt("{{ $rejected }}") ? data.prescription
+        $(`#amount_pharmacy_payment`).val(data.prescription.status === parseInt("{{ $rejected }}") ? data
+            .prescription
             .paid * -1 : data.prescription
             .balance);
         $(`#total_pharmacy_payment`).val(data.prescription.total_text);

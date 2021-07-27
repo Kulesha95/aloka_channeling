@@ -79,12 +79,24 @@
             "<button class='btn btn-sm btn-outline-warning mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>" +
             "<button class='btn btn-sm btn-outline-dark mr-1 exploration-button'><i class='fas fa-weight fa-fw' ></i></button>" +
             defaultActionContent;
+        const columnOptions = {
+            fee_text: {
+                className: "text-right"
+            },
+            paid_text: {
+                className: "text-right"
+            },
+            balance_text: {
+                className: "text-right"
+            },
+        }
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            actionContents
+            actionContents,
+            columnOptions
         );
         // Delete Item
         dataTableHandler.handleDelete(

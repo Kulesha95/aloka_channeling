@@ -41,7 +41,8 @@
             dataTableNamePrescriptions,
             dataTableColumnsPrescriptions,
             undefined,
-            viewActionContent
+            viewActionContent,
+            {total_text:{className:"text-right"}}
         );
         const pharmacyPaymentDocumentUrl =
             "{{ route('documents.getPdf', ['type' => 'pharmacyPaymentInvoice', 'id' => ':id', 'action' => 'view']) }}";

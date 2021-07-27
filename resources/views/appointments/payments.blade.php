@@ -84,7 +84,11 @@
             "payments_list_table",
             ["id", "invoice_number", "reason", "date", "time", "amount_text"],
             null,
-            null
+            null, {
+                amount_text: {
+                    className: "text-right"
+                }
+            }
         );
         formHandler.handleSave(`paymentAppointmentForm`, ["reason", "amount"], loadPaymentTableData, null,
             "_payment");

@@ -52,10 +52,21 @@
             "total_text"
         ];
         let currentPaidPrescriptionId = 0;
+        const columnOptionsIssue = {
+            price_text: {
+                className: "text-right"
+            },
+            total_text: {
+                className: "text-right"
+            }
+        }
         // Initialize Data Table
         const tablePaidPrescriptionItemss = dataTableHandler.initializeTable(
             dataTableNamePaidPrescriptionItemss,
-            dataTableColumnsPaidPrescriptionItemss
+            dataTableColumnsPaidPrescriptionItemss,
+            null,
+            null,
+            columnOptionsIssue
         );
         const loadpaidPrescriptionItems = (data) => {
             currentPaidPrescriptionId = data.id;
@@ -67,7 +78,7 @@
         const clearPaidPrescriptionData = () => {
             currentPaidPrescriptionId = 0;
             dataTableHandler.fillData(tablePaidPrescriptionItemss, []);
-            $('#total_price_paid_prescription').html("Rs. 0.00");			
+            $('#total_price_paid_prescription').html("0.00");
             $('#issuePrescriptionModel').modal('hide');
             refreshData();
         }

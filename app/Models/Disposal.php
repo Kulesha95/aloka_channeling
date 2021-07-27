@@ -22,7 +22,7 @@ class Disposal extends Model
 
     public function getTotalTextAttribute()
     {
-        return "Rs. " . number_format($this->total, 2);
+        return number_format($this->total, 2);
     }
 
     public function getDisposalNumberAttribute()

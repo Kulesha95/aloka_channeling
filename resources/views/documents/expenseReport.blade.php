@@ -35,7 +35,7 @@
                 <th colspan="3"></th>
                 <th>{{ __('app.fields.total') }}</th>
                 <th class="text-right">
-                    {{ 'Rs.' . number_format($expenses->sum('amount'), 2) }}
+                    {{ number_format($expenses->sum('amount'), 2) }}
                 </th>
         </tfoot>
     </table>

@@ -90,3 +90,7 @@ tr {
 .always-before-page-break {
     page-break-before: always;
 }
+
+.table-striped th {
+    text-align: center !important;
+}

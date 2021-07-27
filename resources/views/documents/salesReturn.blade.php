@@ -34,9 +34,9 @@
                     <td class="text-right">{{ $batch->pivot->quantity }}
                         {{ $batch->item->unit }}
                     </td>
-                    <td class="text-right">Rs.{{ number_format($batch->pivot->price, 2) }}</td>
+                    <td class="text-right">{{ number_format($batch->pivot->price, 2) }}</td>
                     <td class="text-right">
-                        Rs.{{ number_format($batch->pivot->price * $batch->pivot->quantity, 2) }}
+                        {{ number_format($batch->pivot->price * $batch->pivot->quantity, 2) }}
                     </td>
                 </tr>
             @endforeach

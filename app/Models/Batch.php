@@ -30,12 +30,12 @@ class Batch extends Model
 
     public function getPriceTextAttribute()
     {
-        return  "Rs. " . number_format($this->price, 2);
+        return  number_format($this->price, 2);
     }
 
     public function getPurchasePriceTextAttribute()
     {
-        return  "Rs. " . number_format($this->purchase_price, 2);
+        return  number_format($this->purchase_price, 2);
     }
 
     public function getDiscountAttribute()
@@ -54,13 +54,13 @@ class Batch extends Model
 
     public function getDiscountedPriceTextAttribute()
     {
-        return "Rs. " . number_format($this->discounted_price, 2);
+        return number_format($this->discounted_price, 2);
     }
 
     public function getDiscountTextAttribute()
     {
         if ($this->discount_type == "Fixed") {
-            return "Rs. " . number_format($this->discount_amount, 2);
+            return number_format($this->discount_amount, 2);
         } else {
             return $this->discount_amount . "%";
         }

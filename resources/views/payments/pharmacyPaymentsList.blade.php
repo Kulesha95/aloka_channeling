@@ -34,12 +34,24 @@
         };
         const actionContentsPharmacyPayment =
             "<button class='btn btn-sm btn-outline-primary mr-1 payment-button'><i class='fas fa-dollar-sign fa-fw' ></i></button>";
+        const columnOptionsPharmacyPayments = {
+            total_text: {
+                className: "text-right"
+            },
+            paid_text: {
+                className: "text-right"
+            },
+            balance_text: {
+                className: "text-right"
+            }
+        }
         // Initialize Data Table
         const tablePharmacyPayment = dataTableHandler.initializeTable(
             dataTableNamePharmacyPayment,
             dataTableColumnsPharmacyPayment,
             indexUrlPharmacyPayment,
-            actionContentsPharmacyPayment
+            actionContentsPharmacyPayment,
+            columnOptionsPharmacyPayments
         );
         // Load Data To The Table
         const loadDataPharmacyPayment = () => {

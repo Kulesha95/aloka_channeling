@@ -19,8 +19,8 @@
                         <div class="invalid-feedback"></div>
                     </div>
                     <hr>
-                    <table id="purchase_returns_list_table" class="table table-sm table-striped table-bordered table-hover"
-                        style="width:100%">
+                    <table id="purchase_returns_list_table"
+                        class="table table-sm table-striped table-bordered table-hover" style="width:100%">
                         <thead class="thead-dark">
                             <tr>
                                 <th>{{ __('app.fields.brandName') }}</th>
@@ -49,7 +49,8 @@
         // Datatable ID
         const dataTableNamePurchaseReturns = 'purchase_returns_list_table';
         // Table Columns List
-        const dataTableColumnsPurchaseReturns = ["item_brand_name", "item_generic_name", "returnable_quantity", "purchase_price_text",
+        const dataTableColumnsPurchaseReturns = ["item_brand_name", "item_generic_name", "returnable_quantity",
+            "purchase_price_text",
             "return_quantity", "return_reason", "return_price"
         ];
         const columnOptions = {
@@ -75,6 +76,9 @@
                 render: (data, type, row, meta) => {
                     return `<input type="number" step="0.01" class="form-control" name="return_price[${meta.row}]" placeholder="{{ __('app.fields.returnPrice') }}" value="${row.purchase_price}">`;
                 }
+            },
+            purchase_price_text: {
+                className: "text-right",
             },
         }
         const tablePurchaseReturns = dataTableHandler.initializeTable(

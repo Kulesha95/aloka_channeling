@@ -26,7 +26,7 @@ class GoodReceive extends Model
 
     public function getTotalTextAttribute()
     {
-        return "Rs. " . number_format($this->total, 2);
+        return number_format($this->total, 2);
     }
 
     public function getPaidAttribute()
@@ -41,17 +41,17 @@ class GoodReceive extends Model
 
     public function getFeeTextAttribute()
     {
-        return "Rs. " . number_format($this->fee, 2);
+        return number_format($this->fee, 2);
     }
 
     public function getPaidTextAttribute()
     {
-        return "Rs. " . number_format($this->paid, 2);
+        return number_format($this->paid, 2);
     }
 
     public function getBalanceTextAttribute()
     {
-        return "Rs. " . number_format($this->balance, 2);
+        return number_format($this->balance, 2);
     }
 
 

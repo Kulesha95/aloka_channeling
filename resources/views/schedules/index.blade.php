@@ -68,12 +68,18 @@
         };
         const exceptionsActionContent =
             "<button class='btn btn-sm btn-outline-primary mr-1 exceptions-button'><i class='fas fa-calendar-times fa-fw'></i></button>";
+        const columnOptions = {
+            channeling_fee_text: {
+                className: "text-right"
+            }
+        };
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            exceptionsActionContent + defaultActionContent
+            exceptionsActionContent + defaultActionContent,
+            columnOptions
         );
         // Delete Item
         dataTableHandler.handleDelete(

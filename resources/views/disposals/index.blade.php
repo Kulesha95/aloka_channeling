@@ -59,7 +59,11 @@
             dataTableColumns,
             indexUrl,
             "<button class='btn btn-sm btn-outline-info mr-1 print-button'><i class='fas fa-print fa-fw' ></i></button>" +
-            deleteActionContent
+            deleteActionContent, {
+                total_text: {
+                    className: "text-right",
+                },
+            }
         );
         // Delete Item
         dataTableHandler.handleDelete(

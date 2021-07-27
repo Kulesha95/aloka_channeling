@@ -22,15 +22,15 @@
                     <div class="container">
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ __('app.fields.channelingIncome') }}</div>
-                            <div>{{ 'Rs.' . number_format($channelingIncome, 2) }}</div>
+                            <div>{{ number_format($channelingIncome, 2) }}</div>
                         </div>
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ __('app.fields.internalPrescriptionsIncome') }}</div>
-                            <div>{{ 'Rs.' . number_format($internalPrescriptionIncome, 2) }}</div>
+                            <div>{{ number_format($internalPrescriptionIncome, 2) }}</div>
                         </div>
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ __('app.fields.externalPrescriptionsIncome') }}</div>
-                            <div>{{ 'Rs.' . number_format($externalPrescriptionIncome, 2) }}</div>
+                            <div>{{ number_format($externalPrescriptionIncome, 2) }}</div>
                         </div>
                     </div>
                 </td>
@@ -38,11 +38,11 @@
                     <div class="container">
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ __('app.fields.doctorPayments') }}</div>
-                            <div>{{ 'Rs.' . number_format($doctorPayments, 2) }}</div>
+                            <div>{{ number_format($doctorPayments, 2) }}</div>
                         </div>
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ __('app.fields.supplierPayments') }}</div>
-                            <div>{{ 'Rs.' . number_format($supplierPayments, 2) }}</div>
+                            <div>{{ number_format($supplierPayments, 2) }}</div>
                         </div>
                     </div>
                 </td>
@@ -53,7 +53,7 @@
                     <div class="container">
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ __('app.fields.total') }}</div>
-                            <div>{{ 'Rs.' . number_format($totalIncome, 2) }}</div>
+                            <div>{{ number_format($totalIncome, 2) }}</div>
                         </div>
                     </div>
                 </th>
@@ -61,7 +61,7 @@
                     <div class="container">
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ __('app.fields.total') }}</div>
-                            <div>{{ 'Rs.' . number_format($totalExpense, 2) }}</div>
+                            <div>{{ number_format($totalExpense, 2) }}</div>
                         </div>
                     </div>
                 </th>
@@ -71,7 +71,7 @@
                     <div class="container">
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ $totalProfit >= 0 ? __('app.fields.profit') : '' }}</div>
-                            <div>{{ $totalProfit >= 0 ? 'Rs.' . number_format($totalProfit, 2) : '' }}</div>
+                            <div>{{ $totalProfit >= 0 ? number_format($totalProfit, 2) : '' }}</div>
                         </div>
                     </div>
                 </th>
@@ -79,7 +79,7 @@
                     <div class="container">
                         <div class="row d-flex justify-content-between px-2">
                             <div>{{ $totalProfit < 0 ? __('app.fields.loss') : '' }}</div>
-                            <div>{{ $totalProfit < 0 ? 'Rs.' . number_format($totalProfit * -1, 2) : '' }}</div>
+                            <div>{{ $totalProfit < 0 ? number_format($totalProfit * -1, 2) : '' }}</div>
                         </div>
                     </div>
                 </th>

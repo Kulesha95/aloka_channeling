@@ -16,7 +16,8 @@
         </div>
 
         <div class="card-body">
-            <table id="batches_list_table" class="table table-sm table-striped table-bordered table-hover" style="width:100%">
+            <table id="batches_list_table" class="table table-sm table-striped table-bordered table-hover"
+                style="width:100%">
                 <thead class="thead-dark">
                     <tr>
                         <th>{{ __('app.fields.id') }}</th>
@@ -56,12 +57,27 @@
         const parameterIndexes = {
             "id": 0
         };
+        const columnOptions = {
+            purchase_price_text: {
+                className: "text-right"
+            },
+            price_text: {
+                className: "text-right"
+            },
+            discounted_price_text: {
+                className: "text-right"
+            },
+            discount_text: {
+                className: "text-right"
+            }
+        }
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            editActionContent
+            editActionContent,
+            columnOptions
         );
         // Load Data To The Table
         const loadData = () => {
@@ -81,6 +97,6 @@
         // Handle Create Form Submit
         formHandler.handleSave(`create${model}Form`, inputs, loadData, `create${model}Modal`);
         // Handle Edit Form Submit
-        formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`); 
+        formHandler.handleEdit(`edit${model}Form`, inputs, loadData, `edit${model}Modal`);
     </script>
 @endsection

@@ -38,7 +38,7 @@ class Schedule extends Model
 
     public function getBalanceTextAttribute()
     {
-        return "Rs. " . number_format($this->balance, 2);
+        return number_format($this->balance, 2);
     }
 
     public function getDoctorFeeAttribute()
@@ -54,7 +54,7 @@ class Schedule extends Model
 
     public function getDoctorFeeTextAttribute()
     {
-        return  "Rs. " . number_format($this->doctor_fee, 2);
+        return  number_format($this->doctor_fee, 2);
     }
 
     public function getChannelingCenterFeeAttribute()
@@ -70,12 +70,12 @@ class Schedule extends Model
 
     public function getChannelingCenterFeeTextAttribute()
     {
-        return  "Rs. " . number_format($this->channeling_center_fee, 2);
+        return  number_format($this->channeling_center_fee, 2);
     }
 
     public function getchannelingFeeTextAttribute()
     {
-        return  "Rs. " . number_format($this->channeling_fee, 2);
+        return  number_format($this->channeling_fee, 2);
     }
 
     public function getTimeAttribute()
@@ -110,7 +110,7 @@ class Schedule extends Model
 
     public function getBalanceOnTimeText($date, $time)
     {
-        return "Rs. " . number_format($this->getBalanceOnTime($date, $time), 2);
+        return number_format($this->getBalanceOnTime($date, $time), 2);
     }
 
     public function getBalanceAfterPayment($date, $time, $expenseId)
@@ -120,7 +120,7 @@ class Schedule extends Model
 
     public function getBalanceAfterPaymentText($date, $time, $expenseId)
     {
-        return "Rs. " . number_format($this->getBalanceAfterPayment($date, $time, $expenseId), 2);
+        return number_format($this->getBalanceAfterPayment($date, $time, $expenseId), 2);
     }
 
     public function doctor()

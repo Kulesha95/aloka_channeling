@@ -23,7 +23,7 @@ class Doctor extends Model
     public function getCommissionTextAttribute()
     {
         if ($this->commission_type == "Fixed") {
-            return "Rs. " . number_format($this->commission_amount, 2);
+            return number_format($this->commission_amount, 2);
         } else {
             return $this->commission_amount . "%";
         }
