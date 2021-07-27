@@ -85,13 +85,14 @@ Route::middleware('auth')->group(function () {
     ]);
     route::view('purchaseOrders', 'purchaseOrders.index');
     route::view('purchaseReturns', 'purchaseReturns.index');
-
+    
     route::get('reports/{type}', function ($type) {
         return view('reports.' . $type);
     });
 
     route::view('salesReturns', 'salesReturns.index');
     route::view('schedules', 'schedules.index');
+    route::view('sendMessage', 'pages.sendMessages');
     route::view('supplierPayments', 'expenses.supplierPaymentsIndex');
     route::view('suppliers', 'suppliers.index');
     Route::view('users', 'users.index');

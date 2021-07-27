@@ -23,6 +23,7 @@ return [
 		"reset" => "Reset",
 		"save" => "Save",
 		"search" => "Search",
+		"send" => "Send",
 		"signUp" => "Sign Up",
 		"submit" => "Submit",
 		"viewChannelingDetails" => "View Channeling Details",
@@ -138,6 +139,7 @@ return [
 		"itemBatch" => "Item Batch",
 		"itemType" => "Item Type",
 		"loss" => "Loss",
+		"message" => "Message",
 		"mobile" => "Mobile",
 		"name" => "Name",
 		"number" => "Number",
@@ -147,6 +149,7 @@ return [
 		"parent" => "Parent",
 		"password" => "Password",
 		"patient" => "Patient",
+		"patients" => "Patients",
 		"payable" => "Payable",
 		"pending" => "Pending",
 		"pendingQuantity"=> "Pending Quantity",
@@ -289,6 +292,8 @@ return [
 
 		"appointmentsHistory" => "Appointments History",
 
+		"sendMessage" => "Send Message",
+
 		"suppliersManagement" => "Supplier Management",
 		"createSupplier" => "Create Supplier",
 		"editSupplier" => "Edit Supplier",
@@ -362,6 +367,7 @@ return [
 		"patientHistory" => "Patient History",
 		"pharmacyPayments" => "Pharmacy Payments",
 		"prescriptionBills" => "Prescription Bills ",
+		"selectDate" => "Select Date",
 		"selectDoctor" => "Select Doctor",
 		"selectDosageUnit" => "Select Dosage Unit",
 		"selectDirections" => "Select Directions",
@@ -374,6 +380,7 @@ return [
 		"selectItemType" => "Select Item Type",
 		"selectParent" => "Select Parent",
 		"selectPatient" => "Select Patient",
+		"selectPatients" => "Select Patients",
 		"selectPrescription" => "Select Prescription",
 		"selectPrescriptionType" => "Select Prescription Type",
 		"selectPurchaseOrder" => "Select Purchase Order",

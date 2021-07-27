@@ -6,12 +6,16 @@ use App\Constants\Appointments;
 use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ChannelReasonResource;
+use App\Http\Resources\PatientResource;
 use App\Http\Resources\ScheduleResource;
 use App\Models\Appointment;
 use App\Models\ChannelReason;
 use App\Models\Schedule;
+use App\Models\User;
+use App\Notifications\MessageSent;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 
 class ScheduleController extends Controller
@@ -225,5 +229,71 @@ class ScheduleController extends Controller
             'Schedules',
             ScheduleResource::collection(Schedule::all())
         );
+    }
+
+    /**
+     * Display active dates of the schedules.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDates(Schedule $schedule)
+    {
+
+        return ResponseHelper::findSuccess(
+            'Schedule Dates',
+            $schedule->appointments
+                ->where('date', '>=', now()->toDateString())
+                ->whereNotIn('status', [
+                    Appointments::COMPLETED,
+                    Appointments::REJECTED,
+                    Appointments::PENDING
+                ])->unique('date')->pluck('date')
+        );
+    }
+
+    /**
+     * Display patients of the schedules.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function patients(Schedule $schedule, $date)
+    {
+        return ResponseHelper::findSuccess(
+            'Patients',
+            PatientResource::collection($schedule->appointments
+                ->where('date', '=', $date)
+                ->whereNotIn('status', [
+                    Appointments::COMPLETED,
+                    Appointments::REJECTED,
+                    Appointments::PENDING
+                ])->pluck('patient'))
+        );
+    }
+
+    /**
+     * Send message to patients.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendMessage(Request $request)
+    {
+        $validator = Validator::make(
+            $request->only(['date', 'schedule_id', 'patient_id', 'message']),
+            [
+                'date' => 'required',
+                'schedule_id' => 'required',
+                'patient_id' => 'required',
+                'message' => 'required',
+            ]
+        );
+        if ($validator->fails()) {
+            return ResponseHelper::validationFail(
+                'Message',
+                $validator->errors()
+            );
+        }
+        $users = User::whereIn('id', $request->get('patient_id'))->get();
+        Notification::send($users, new MessageSent($request->get('message')));
+        return ResponseHelper::success('Message Has Been Sent Successfully', []);
     }
 }

@@ -24,6 +24,7 @@ return [
     "items" => "Items",
     "itemTypes" => "Item Types",
     "logout" => "Logout",
+    "sendMessage" => "Send Message",
     "patients" => "Patients",
     "payments" => "Payments",
     "prescriptions" => "Prescriptions",

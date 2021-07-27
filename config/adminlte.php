@@ -406,6 +406,12 @@ return [
             'can' => 'manage-appointments-history'
         ],        
         [
+            'text' => 'sendMessage',
+            'url'  => 'sendMessage',
+            'icon' => 'fas fa-fw fa-comment-dots',
+            'can' => 'send-messages'
+        ],        
+        [
             'header' => 'reports',
             'can' => 'generate-reports'
         ],

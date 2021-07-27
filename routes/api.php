@@ -76,6 +76,9 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('purchaseOrder/{purchaseOrder}/items', 'PurchaseOrderController@items')->name('purchaseOrders.items');
 
 	Route::get('schedules/all', 'ScheduleController@all')->name('schedules.all');
+	Route::get('schedule/{schedule}/getDates', 'ScheduleController@getDates')->name('schedules.getDates');
+	Route::get('schedule/{schedule}/{date}/patients', 'ScheduleController@patients')->name('schedules.patients');
+	Route::post('schedule/sendMessage', 'ScheduleController@sendMessage')->name('schedules.sendMessage');
 
 	Route::get('supplier/{supplier}/nonSupplyingItems', 'SupplierItemController@nonSupplyingItems')->name('suppliers.nonSupplyingItems');
 	Route::get('supplier/{supplier}/purchaseOrders', 'SupplierController@purchaseOrders')->name('supplier.purchaseOrders');

@@ -56,6 +56,7 @@ class AuthServiceProvider extends ServiceProvider
             "manage-backups" => [UserTypes::SUPER_ADMIN],
             "manage-cms" => [UserTypes::ADMIN],
             "manage-appointments-history" => [UserTypes::PATIENT],
+            "send-messages" => [UserTypes::RECEPTIONIST],
             "generate-reports" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN, UserTypes::STORE_KEEPER],
             "generate-profit-and-loss-report" => [UserTypes::ADMIN, UserTypes::SUPER_ADMIN],
             "generate-deficit-items-report" => [UserTypes::STORE_KEEPER],
