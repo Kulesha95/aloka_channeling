@@ -108,6 +108,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::apiResource('suppliers', SupplierController::class);
 	Route::apiResource('supplier.items', SupplierItemController::class)->except(['update', 'show']);
 	Route::apiResource('schedules', ScheduleController::class);
+	Route::apiResource('schedule.exceptions', ExceptionController::class);
 	Route::apiResource('schedule.expenses', DoctorExpenseController::class)->except(['destroy', 'update']);
 	Route::apiResource('users', UserController::class);
 	Route::apiResource('userTypes', UserTypeController::class);

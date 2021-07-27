@@ -37,6 +37,7 @@
             </table>
             @include('schedules.create')
             @include('schedules.edit')
+            @include('schedules.exceptions')
         </div>
     </div>
 @stop
@@ -57,19 +58,22 @@
         // Datatable ID
         const dataTableName = 'items_list_table';
         // Table Columns List
-        const dataTableColumns = ['id', 'channel_type', 'doctor', 'channeling_fee_text', 'date_from', 'date_to', 'time_text',
+        const dataTableColumns = ['id', 'channel_type', 'doctor', 'channeling_fee_text', 'date_from', 'date_to',
+            'time_text',
             'repeat_text'
         ];
         // Column Indexes For URL Parameters
         const parameterIndexes = {
             "id": 0
         };
+        const exceptionsActionContent =
+            "<button class='btn btn-sm btn-outline-primary mr-1 exceptions-button'><i class='fas fa-calendar-times fa-fw'></i></button>";
         // Initialize Data Table
         const table = dataTableHandler.initializeTable(
             dataTableName,
             dataTableColumns,
             indexUrl,
-            defaultActionContent
+            exceptionsActionContent + defaultActionContent
         );
         // Delete Item
         dataTableHandler.handleDelete(
@@ -129,5 +133,11 @@
                 $('#doctor_id_edit').append(new Option(JSON.stringify(element), element.id), false, false)
             });
         })
+        $(document).ready(() => {
+            // Handle Schedule Exceptions Management
+            dataTableHandler.handleCustom(table, viewUrl, parameterIndexes, openExceptionsManagement,
+                'exceptions-button');
+        });
     </script>
+    @stack('js-stack')
 @endsection

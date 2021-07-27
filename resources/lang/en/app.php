@@ -82,7 +82,7 @@ return [
 		"channelType" => "Channel Type",
 		"classification" => "Classification",
 		"colour" => "Colour",
-		"consultant" => "Consultant",
+		"consultant"=> "Consultant",
 		"comment" => "Comment",
 		"commission" => "Commission",
 		"commissionAmount" => "Commission Amount",
@@ -149,7 +149,7 @@ return [
 		"patient" => "Patient",
 		"payable" => "Payable",
 		"pending" => "Pending",
-		"pendingQuantity" => "Pending Quantity",
+		"pendingQuantity"=> "Pending Quantity",
 		"price" => "Price",
 		"prescription" => "Prescription",
 		"prescriptionNumber" => "Prescription Number",
@@ -203,6 +203,7 @@ return [
 		"about" => "About",
 		"contact" => "Contact",
 		"general" => "General",
+		"createExploration" => "Create Exploration",
 
 		"doctorsManagement" => "Doctor Management",
 		"createDoctor" => "Create Doctor",
@@ -284,7 +285,9 @@ return [
 
 		"backupsManagement" => "Backup Management",
 
-		"appointmentsHistory"=>"Appointments History",
+		"exceptionsManagement" => "Exceptions Management",
+
+		"appointmentsHistory" => "Appointments History",
 
 		"suppliersManagement" => "Supplier Management",
 		"createSupplier" => "Create Supplier",

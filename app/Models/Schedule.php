@@ -137,4 +137,9 @@ class Schedule extends Model
     {
         return $this->morphMany(Expense::class, 'expensable');
     }
+
+    public function exceptions()
+    {
+        return $this->hasMany(Exception::class);
+    }
 }

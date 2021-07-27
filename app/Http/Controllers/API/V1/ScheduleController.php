@@ -144,7 +144,7 @@ class ScheduleController extends Controller
                         "dtstart" => $schedule->date_from,
                         "until" => $schedule->date_to
                     ],
-                    // "exdate" => ['2021-05-03']
+                    "exdate" => $schedule->exceptions->pluck('date')
                 ];
             } else {
                 $event = [
