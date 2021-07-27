@@ -125,8 +125,8 @@
                     <div class="row m-1" id="button-row">
                     </div>
                 @endif
-                @if (Auth::user()->doctor)
-                    <div class="row m-1" id="status-row">
+                @if (Auth::user()->doctor || Auth::user()->patient)
+                    <div class="row m-1 justify-content-end" id="status-row">
                     </div>
                 @endif
             </div>
@@ -135,6 +135,8 @@
 </div>
 
 <script>
+    const channelingDetailsUrl =
+        "{{ route('documents.getPdf', ['type' => 'channelingNote', 'id' => ':id', 'action' => 'view']) }}";
     const loadChannelingInfo = (data) => {
         $(`#doctorImage`).attr('src', data.doctor.image);
         $(`#doctorName`).html(data.doctor.name);
@@ -168,13 +170,18 @@
         } else {
             $('#button-row').html("");
         }
+        $('#status-row').html("")
         if ((data.doctor.id == "{{ Auth::user()->doctor ? Auth::user()->doctor->id : 0 }}") && data.appointment
             .status == "{{ $onHold }}") {
-            $('#status-row').html(
-                `<button type="submit" class="btn btn-success ml-auto" onclick="handleStatusUpdate(${data.appointment.id},{{ $completed }})"><i class="fa fa-check-circle mr-1"
+            $('#status-row').append(
+                `<button type="submit" class="btn btn-success" onclick="handleStatusUpdate(${data.appointment.id},{{ $completed }})"><i class="fa fa-check-circle mr-1"
                 aria-hidden="true"></i>{{ __('app.buttons.complete') }}</button>`
             );
         }
+        $('#status-row').append(
+            `<a href="${channelingDetailsUrl.replace(':id',data.appointment.id)}" target="_blank" class="btn btn-primary ml-1"><i class="fa fa-eye mr-1"
+                aria-hidden="true"></i>{{ __('app.buttons.viewChannelingDetails') }}</>`
+        );
     }
     const handleStatusUpdate = (id, status) => {
         httpService.put("{{ route('appointments.updateStatus', ':id') }}".replace(':id', id), {
@@ -182,7 +189,7 @@
             _method: "PUT"
         }).then((response) => {
             if (window.loadData) {
-                loadData();                
+                loadData();
             }
             messageHandler.successMessage(response.message);
             $(`#viewAppointmentModal`).modal("hide");

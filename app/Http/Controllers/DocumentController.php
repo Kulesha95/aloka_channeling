@@ -31,6 +31,9 @@ class DocumentController extends Controller
     public function getDocument(Request $request, $type, $id, $action)
     {
         switch ($type) {
+            case 'channelingNote':
+                $pdf = $this->getChannelingNote($id);
+                break;
             case 'channelingPayments':
                 $pdf = $this->getChannelingPayments($id);
                 break;
@@ -94,6 +97,17 @@ class DocumentController extends Controller
         } else {
             return $pdf['document']->stream();
         }
+    }
+
+    public function getChannelingNote($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $header = View::make('documents.header');
+        $footer = View::make('documents.footer');
+        $pdf = SnappyPdf::loadView('documents.channelingNote', ['appointment' => $appointment])
+            ->setOption('header-html', $header)->setOption('margin-top', $this->marginTop)
+            ->setOption('footer-html', $footer)->setOption('margin-bottom',  $this->marginBottom);
+        return ["document" => $pdf, "name" => $appointment->appointment_number . "_Channeling_Note.pdf"];
     }
 
     public function getChannelingPayments($id)

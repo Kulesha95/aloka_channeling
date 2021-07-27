@@ -25,6 +25,7 @@ return [
 		"search" => "Search",
 		"signUp" => "Sign Up",
 		"submit" => "Submit",
+		"viewChannelingDetails" => "View Channeling Details",
 	],
 
 	"dashboard" => [
@@ -283,6 +284,8 @@ return [
 
 		"backupsManagement" => "Backup Management",
 
+		"appointmentsHistory"=>"Appointments History",
+
 		"suppliersManagement" => "Supplier Management",
 		"createSupplier" => "Create Supplier",
 		"editSupplier" => "Edit Supplier",
@@ -309,6 +312,9 @@ return [
 		"stockReport" => "Stock Report",
 		"incomeReport" => "Income Report",
 		"expenseReport" => "Expense Report",
+		"explorations" => "Explorations",
+		"medicalPrescriptions" => "Medical Prescriptions",
+		"testPrescriptions" => "Test Prescriptions",
 
 		"channelingCalendar" => "Channeling Calendar",
 		"channelingNote" => "Channeling Note",

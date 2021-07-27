@@ -243,4 +243,15 @@ class AppointmentController extends Controller
         });
         return ResponseHelper::findSuccess('Appointments', AppointmentResource::collection($appointments));
     }
+
+    /**
+     * Get Past Appointments List
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function history()
+    {
+        $appointments = Auth::user()->patient->appointments->where('date', '<', now()->toDateString());
+        return ResponseHelper::findSuccess('Appointments', AppointmentResource::collection($appointments));
+    }
 }

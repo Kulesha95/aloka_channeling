@@ -86,4 +86,12 @@ tfoot {
 tr {
   page-break-inside: avoid;
 }
+
+.avoid-page-break {
+  page-break-inside: avoid;
+}
+
+.always-before-page-break {
+  page-break-before: always;
+}
 /*# sourceMappingURL=app.css.map */

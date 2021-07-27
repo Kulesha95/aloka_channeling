@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
 	Route::get('appointments/{schedule}/{currentNumber}/back', 'AppointmentController@back')->name('appointments.back');
 	Route::get('appointments/{schedule}/{currentNumber}/next', 'AppointmentController@next')->name('appointments.next');
 	Route::get('appointments/{schedule}/{number}/search', 'AppointmentController@search')->name('appointments.search');
+	Route::get('appointments/history', 'AppointmentController@history')->name('appointments.history');
 
 	Route::get('batches/returnable', 'BatchController@returnable')->name('batches.returnable');
 

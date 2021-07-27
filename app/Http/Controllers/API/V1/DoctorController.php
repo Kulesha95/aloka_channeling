@@ -198,8 +198,8 @@ class DoctorController extends Controller
         $schedule = Auth::user()->doctor->schedules
             ->where('date_from', '<=', now()->toDateString())
             ->where('date_to', '>=', now()->toDateString())
-            ->where('time_from', '<=', now()->toTimeString())
-            ->where('time_to', '>=',  now()->toTimeString())
+            ->where('time_from', '<=', now()->addHour()->toTimeString())
+            ->where('time_to', '>=',  now()->subHour()->toTimeString())
             ->filter(function ($schedule) {
                 if ($schedule->repeat == 7) {
                     return Carbon::createFromDate($schedule->date_from)->dayOfWeek == Carbon::now()->dayOfWeek;

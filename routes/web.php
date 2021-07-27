@@ -39,6 +39,13 @@ Route::middleware('auth')->group(function () {
         "onHold" => Appointments::PENDING,
         "rejected" => Appointments::REJECTED
     ]);
+    Route::view('appointmentsHistory', 'appointments.appointmentsHistory', [
+        "receptionist" => UserTypes::RECEPTIONIST,
+        "confirmed" => Appointments::CONFIRMED,
+        "completed" => Appointments::COMPLETED,
+        "onHold" => Appointments::PENDING,
+        "rejected" => Appointments::REJECTED
+    ]);
     Route::view('backups', 'backups.index');
     Route::view('batches', 'batches.index')->name('batches.index');
     Route::view('calendar', 'pages.calendar');

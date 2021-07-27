@@ -400,6 +400,12 @@ return [
             'can' => 'manage-cms'
         ],        
         [
+            'text' => 'appointmentsHistory',
+            'url'  => 'appointmentsHistory',
+            'icon' => 'fas fa-fw fa-history',
+            'can' => 'manage-appointments-history'
+        ],        
+        [
             'header' => 'reports',
             'can' => 'generate-reports'
         ],
